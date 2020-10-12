@@ -1,0 +1,68 @@
+version: '3'
+
+volumes:
+  grapes-cache:
+    external: true
+  influxdb-app-data:
+
+services:
+  mockserver:
+    image: "jamesdbloom/mockserver"
+    container_name: mockserver-app
+    ports:
+      - 1080:1080
+    volumes:
+      - .:/tmp
+    command: ["-serverPort", "1080", "-logLevel", "WARN", "-jvmOptions", "-Dmockserver.initializationJsonPath=/tmp/books.json"]
+
+  testserver:
+    image: "groovy:2.5.9-jdk8"
+    container_name: testserver-app
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    links:
+      - mockserver:mockserver-app
+      - influxdb:influxdb-app
+    command: ["groovy", "script.groovy"]
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./jmeter-dashboard.json:/var/lib/grafana/dashboards/jmeter-dashboard.json:ro
+      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro
+      - ./grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
+    links:
+      - influxdb:influxdb-app
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+
+  influxdb:
+    image: influxdb:1.5.4
+    container_name: influxdb-app
+    ports:
+      - 8083:8083
+      - 8086:8086
+    volumes:
+      - influxdb-app-data:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    environment:
+      INFLUXDB_DB: "jmeter"
+      INFLUXDB_ADMIN_USER: "jmeter"
+      INFLUXDB_ADMIN_PASSWORD: "jmeter"
+
+  telegraf:
+    image: telegraf:1.8.3
+    container_name: telegraf-app
+    links:
+      - influxdb:influxdb-app
+    ports:
+      - "8125:8125/udp"
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+

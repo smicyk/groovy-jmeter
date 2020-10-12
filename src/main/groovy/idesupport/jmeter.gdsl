@@ -1,0 +1,234 @@
+/*
+ * Copyright 2019 Szymon Micyk
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package idesupport
+
+commonArgs = [name: 'java.lang.String', comment: 'java.lang.String', enabled: 'java.lang.Boolean']
+
+def ctx = context(scope: scriptScope())
+
+contributor(ctx) {
+    method(name: 'start', params: [plan: {}], doc: 'Start JMeter script')
+    method(name: 'start', params: [config: 'java.util.Map', plan: {}], doc: 'Start JMeter script')
+}
+
+def closureBodyCtx = context(scope: closureScope())
+
+contributor(closureBodyCtx) {
+    if (enclosingCall('start')) {
+        contributePlan(delegate)
+    }
+}
+
+private void contributePlan(delegate) {
+    final args = [ serialized: 'java.lang.Boolean', functionalMode: 'java.lang.Boolean', tearDownOnShutdown: 'java.lang.Boolean' ]
+
+    delegate.method(name: 'plan', params: [body: {}])
+    delegate.method(name: 'plan', params: [config: commonArgs + args, body: {}])
+
+    if(delegate.enclosingCall('plan')) {
+        contributeArguments(delegate)
+        contributeGroup(delegate)
+        contributeDefaults(delegate)
+        contributeCookies(delegate)
+        contributeSummary(delegate)
+        contributeBacked(delegate)
+    }
+}
+
+private void contributeArgument(delegate) {
+    final args = [ name: 'java.lang.String', value: 'java.lang.Object' ]
+
+    delegate.method(name: 'argument', params: [config: args])
+}
+
+private void contributeArguments(delegate) {
+    delegate.method(name: 'arguments', params: [body: {}])
+    delegate.method(name: 'arguments', params: [values: [:]])
+
+    if(delegate.enclosingCall('arguments')) {
+        contributeArgument(delegate)
+    }
+}
+
+private void contributeCookie(delegate) {
+    final args = [
+            name: 'java.lang.String',
+            value: 'java.lang.String',
+            domain: 'java.lang.String',
+            path: 'java.lang.String',
+            secure: 'java.lang.Boolean',
+            expries: 'java.lang.Integer'
+    ]
+
+    delegate.method(name: 'cookie', params: [config: args])
+}
+
+private void contributeCookies(delegate) {
+    final args = [ clearEachIteration: 'java.lang.Boolean', policy: 'org.apache.http.client.config.CookieSpecs']
+
+    delegate.method(name: 'cookies', params: [body: {}])
+    delegate.method(name: 'cookies', params: [config: commonArgs + args])
+    delegate.method(name: 'cookies', params: [config: commonArgs + args, body: {}])
+
+    if(delegate.enclosingCall('cookies')) {
+        contributeCookie(delegate)
+    }
+}
+
+private void contributeGroup(delegate) {
+    final args = [
+            users: 'java.lang.Integer',
+            rampUp: 'java.lang.String',
+            delayedStart: 'java.lang.Boolean',
+            scheduler: 'java.lang.Boolean',
+            delay: 'java.lang.Integer',
+            duration: 'java.lang.Integer',
+            loops: 'java.lang.Integer',
+            forever: 'java.lang.Boolean'
+    ]
+
+    delegate.method(name: 'group', params: [name: 'java.lang.String'])
+    delegate.method(name: 'group', params: [name: 'java.lang.String', body: {}])
+    delegate.method(name: 'group', params: [users: 'java.lang.Integer', rampUp: 'java.lang.Integer', body: {}])
+    delegate.method(name: 'group', params: [body: {}])
+    delegate.method(name: 'group', params: [config: commonArgs + args, body: {}])
+
+    if(delegate.enclosingCall('group')) {
+        contributeHttp(delegate)
+        contributeConditional(delegate)
+        contributeExecution(delegate)
+        contributeLoop(delegate)
+        contributeSimple(delegate)
+    }
+}
+
+private void contributeDefaults(delegate) {
+    final args = [
+            protocol: 'java.lang.String',
+            domain: 'java.lang.String',
+            port: 'java.lang.Integer',
+            method: 'java.lang.String',
+            path: 'java.lang.String',
+            encoding: 'java.lang.String'
+    ]
+
+    delegate.method(name: 'defaults',  params: [config: commonArgs + args])
+    delegate.method(name: 'defaults',  params: [config: commonArgs + args, body: {}])
+}
+
+private void contributeSummary(delegate) {
+    final args = [ path: 'java.lang.String' ]
+
+    delegate.method(name: 'summary',  params: [config: commonArgs + args])
+}
+
+private void contributeHttp(delegate) {
+    final args = [
+            protocol: 'java.lang.String',
+            domain: 'java.lang.String',
+            port: 'java.lang.Integer',
+            method: 'java.lang.String',
+            path: 'java.lang.String',
+            encoding: 'java.lang.String',
+            autoRedirects: 'java.lang.Boolean',
+            followRedirects: 'java.lang.Boolean',
+            keepAlive: 'java.lang.Boolean',
+            multipart: 'java.lang.Boolean',
+            browserCompatibleMultipart: 'java.lang.Boolean'
+    ]
+
+    delegate.method(name: 'http', params: [value: 'java.lang.String'])
+    delegate.method(name: 'http', params: [value: 'java.lang.String', body: {}])
+    delegate.method(name: 'http', params: [config: commonArgs + args])
+    delegate.method(name: 'http', params: [config: commonArgs + args, body: {}])
+
+    if(delegate.enclosingCall('http')) {
+        contributeParam(delegate)
+        contributeParams(delegate)
+    }
+}
+
+private void contributeParam(delegate) {
+    final args = [
+            name: 'java.lang.String',
+            value: 'java.lang.String',
+            encoded: 'java.lang.Boolean',
+            encoding: 'java.lang.String'
+    ]
+
+    delegate.method(name: 'param', params: [config: args])
+}
+
+private void contributeParams(delegate) {
+    delegate.method(name: 'params', params: [body: {}])
+    delegate.method(name: 'params', params: [values: [:]])
+
+    if(delegate.enclosingCall('params')) {
+        contributeParam(delegate)
+    }
+}
+
+private void contributeConditional(delegate) {
+    final args = [
+            'if': 'java.lang.String',
+            'while': 'java.lang.String'
+    ]
+
+    delegate.method(name: 'conditional', params: [config: commonArgs + args, body: {}])
+}
+
+private void contributeExecution(delegate) {
+    final args = [
+            type: 'java.lang.String',
+            ignore: 'java.lang.Boolean',
+            style: 'java.lang.Integer',
+            accrossUsers: 'java.lang.Boolean',
+            perUser: 'java.lang.Boolean',
+            percent: 'java.lang.Integer',
+            total: 'java.lang.Integer',
+            runtime: 'java.lang.Integer',
+            value: 'java.lang.Object'
+    ]
+
+    delegate.method(name: 'execution', params: [config: commonArgs + args, body: {}])
+}
+
+private void contributeLoop(delegate) {
+    final args = [
+            count: 'java.lang.Integer',
+            forever: 'java.lang.Boolean',
+    ]
+
+    delegate.method(name: 'loop', params: [config: commonArgs + args, body: {}])
+}
+
+private void contributeSimple(delegate) {
+    delegate.method(name: 'simple', params: [config: commonArgs, body: {}])
+}
+
+private void contributeBacked(delegate) {
+    final args = [
+            classname: 'java.lang.String',
+            queueSize: 'java.lang.String'
+    ]
+    delegate.method(name: 'backend', params: [body: {}])
+    delegate.method(name: 'backend', params: [config: commonArgs + args, body: {}])
+
+    if(delegate.enclosingCall('backend')) {
+        contributeArguments(delegate)
+    }
+}
+

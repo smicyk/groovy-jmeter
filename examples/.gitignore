@@ -1,0 +1,8 @@
+build/
+.gradle/
+.java/
+hsperfdata_*/
+jmeter.properties
+saveservice.properties
+*.log
+*.jtl

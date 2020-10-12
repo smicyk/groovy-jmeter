@@ -1,0 +1,16 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: network-books
+
+services:
+  mockserver:
+    image: "jamesdbloom/mockserver"
+    container_name: mockserver-books
+    ports:
+      - 1080:1080
+    volumes:
+      - ./books.json:/tmp/books.json:ro
+    command: ["-serverPort", "1080", "-logLevel", "WARN", "-jvmOptions", "-Dmockserver.initializationJsonPath=/tmp/books.json"]

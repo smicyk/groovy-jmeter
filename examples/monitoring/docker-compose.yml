@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  influxdb-books-data:
+
+networks:
+  default:
+    external:
+      name: network-books
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-books
+    ports:
+      - 3000:3000
+    volumes:
+      - ./jmeter-dashboard.json:/var/lib/grafana/dashboards/jmeter-dashboard.json:ro
+      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro
+      - ./grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
+    links:
+      - influxdb:influxdb-books
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+
+  influxdb:
+    image: influxdb:1.8.0
+    container_name: influxdb-books
+    ports:
+      - 8083:8083
+      - 8086:8086
+    volumes:
+      - influxdb-books-data:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    environment:
+      INFLUXDB_DB: "jmeter"
+      INFLUXDB_ADMIN_USER: "jmeter"
+      INFLUXDB_ADMIN_PASSWORD: "jmeter"
+
+  telegraf:
+    image: telegraf:1.14.4
+    container_name: telegraf-books
+    links:
+      - influxdb:influxdb-books
+    ports:
+      - "8125:8125/udp"
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock

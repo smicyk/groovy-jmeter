@@ -1,0 +1,33 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+    ivy {
+        artifactPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/jars/[artifact]-[revision](.[ext])"
+        ivyPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/ivy-[revision].xml"
+    }
+}
+
+dependencies {
+    implementation('org.codehaus.groovy:groovy-all:2.5.9')
+
+    implementation('net.simonix.scripts:groovy-jmeter:+')
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = [ 'scripts' ]
+        }
+    }
+}
+
+task runScript(type: JavaExec) {
+    description 'Run JMeter script'
+
+    main = 'script'
+
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+defaultTasks 'runScript'

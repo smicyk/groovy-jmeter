@@ -1,0 +1,121 @@
+[
+  {
+    "httpRequest" : {
+      "method": "POST",
+      "path" : "/login",
+      "headers": {
+        "Content-Type": ["application/x-www-form-urlencoded; charset=UTF-8"]
+      },
+      "body": {
+        "type": "STRING",
+        "string": "username=john&password=john",
+        "contentType" : "application/x-www-form-urlencoded; charset=UTF-8"
+      }
+    },
+    "httpResponse" : {
+      "body": "<html><head><meta name=\"trackId\" content=\"19293921933\"></head><body></body</html>",
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "times": {
+      "unlimited": true 
+    },
+    "timeToLive": {
+      "unlimited": true
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/books",
+      "queryStringParameters": {
+        "limit": [ "[0-9]+" ]
+      },
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "httpResponse": {
+      "body": "[{\"id\": 234, \"title\": \"Book number 234\"},{\"id\": 432, \"title\": \"Book number 432\"}]",
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 750
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/books/234",
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "httpResponse": {
+      "body": "{\"id\": 234, \"title\": \"Book number 234\", \"author\": {\"id\": 523, \"name\": \"Author Name\"}}",
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 550
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/books",
+      "queryStringParameters": {
+        "limit": [ "[0-9]+" ],
+        "search": [ "[A-Za-z0-9 ]+"],
+        "trackId": [ "[0-9+"]
+      },
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 800
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/authors/523",
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "httpResponse": {
+      "body": "{\"id\": 523, \"name\": \"Author Name\", \"bio\": \"Author bio\"}",
+      "delay": {
+        "timeUnit": "MILLISECONDS",
+        "value": 500
+      }
+    }
+  },
+  {
+    "httpRequest" : {
+      "method": "POST",
+      "path" : "/api/books/234/comments",
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "cookies": {
+        "sessionId" : "055CA455-1DF7-45BB-8535-4F83E7266092"
+      }
+    },
+    "httpResponse" : {
+      "statusCode": 200
+    },
+    "times": {
+      "unlimited": true
+    },
+    "timeToLive": {
+      "unlimited": true
+    }
+  }
+]

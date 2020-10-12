@@ -1,0 +1,15 @@
+bin/
+build/
+out/
+.idea
+.gradle
+.settings
+.classpath
+.project
+.vscode
+.groovy
+*.jtl
+*.iml
+*.ipr
+*.iws
+*.log
