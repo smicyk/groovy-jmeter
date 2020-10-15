@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * <pre>
  * // element structure
- * cssex (
+ * extract_css (
  *     applyTo: string [<strong>parent</strong>, all, children, variable]
  *     variable: string
  *     expression: string

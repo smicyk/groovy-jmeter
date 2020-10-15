@@ -26,7 +26,7 @@ import org.apache.jmeter.testelement.TestElement
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
- * Builds several parameters for test element. It is used with conjunction with <code>http</code> or <code>defaults</code> elements.
+ * Builds parameters for test element. It is used with conjunction with <code>http</code> or <code>defaults</code> elements.
  * <p>
  * It is shortcut for {@link ParamFactory param}.
  *

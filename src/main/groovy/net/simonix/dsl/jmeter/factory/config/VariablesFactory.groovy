@@ -27,7 +27,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 /**
  * The factory class responsible for building <code>variables</code> element in the test.
  * <p>
- * It can define user variables in two ways. The short one with version property, and normal with nested {@link VariableFactory}.
+ * It can define user variables in two ways. The short one with values property, and the normal with nested {@link VariableFactory variable} element.
  *
  * <pre>
  * // structure with nested argument

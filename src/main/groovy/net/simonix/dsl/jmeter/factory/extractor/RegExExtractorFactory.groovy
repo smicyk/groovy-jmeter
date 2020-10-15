@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * <pre>
  * // element structure
- * regex (
+ * extract_regex (
  *     applyTo: string [<strong>parent</strong>, all, children, variable]
  *     field: string [<strong>response_body</strong>, response_unescaped, response_document, response_headers, response_code, response_message, request_headers, url]
  *     variable: string

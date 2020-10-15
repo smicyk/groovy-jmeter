@@ -7,64 +7,92 @@
 <body>
 <h3>Plan elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/plan/PlanFactory.html">plan</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ArgumentsFactory.html">arguments</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ArgumentFactory.html">argument</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/plan/PlanFactory.html">plan</a> - defines test plan</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ArgumentsFactory.html">arguments</a> - defines user variables element inside a test plan</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ArgumentFactory.html">argument</a> - defines single user variable</li>
 </ul>
 <h3>Group elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/group/GroupFactory.html">group</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/GroupFactory.html">group</a> - defines users group ('Thread Group')</li>
 </ul>
 <h3>Config elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CsvDataFactory.html">csv</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/AuthorizationsFactory.html">authorizations</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/AuthorizationFactory.html">authorization</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/VariablesFactory.html">variables</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/VariableFactory.html">variable</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CacheFactory.html">cache</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CookiesFactory.html">cookies</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CookieFactory.html">cookie</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/HeadersFactory.html">headers</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/HeaderFactory.html">header</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/DefaultsFactory.html">defaults</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ParamsFactory.html">params</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ParamFactory.html">param</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/BodyFactory.html">body</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CounterFactory.html">counter</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/LoginFactory.html">login</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/CounterFactory.html">counter</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/config/RandomFactory.html">random</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationsFactory.html">authorizations</a> - defines 'Authorization' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationFactory.html">authorization</a> - defines single authorization entry</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CacheFactory.html">cache</a> - defines 'HTTP Cache Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CookiesFactory.html">cookies</a> - defines 'HTTP Cookie Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CookieFactory.html">cookie</a> - defines single cookie</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CounterFactory.html">counter</a> - defines 'Counter' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CsvDataFactory.html">csv</a> - defines 'CSV Data Set Config' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/DefaultsFactory.html">defaults</a> - defines 'HTTP Request Defaults' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/HeadersFactory.html">headers</a> - defines 'HTTP Header Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/HeaderFactory.html">header</a> - defines single header</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/LoginFactory.html">login</a> - defines 'Login Config Element' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/RandomVariableFactory.html">random</a> - defines 'Random Variable' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/VariablesFactory.html">variables</a> - defines 'User Defined Variables' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/VariableFactory.html">variable</a> - defines single user variable</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/BodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/InsertFactory.html">insert</a> - defines insert point for external script</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
 </ul>
 <h3>Controller elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/SimpleFactory.html">simple</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/LoopFactory.html">loop</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/ExecuteFactory.html">execute</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/ForEachFactory.html">for_each</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/IncludeFactory.html">include</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/controller/TransactionFactory.html">transaction</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/CriticalSectionFactory.html">loop</a> - defines 'Critical Section' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/ExecuteFactory.html">execute</a> - defines generic execution controller (includes 'If', 'While', 'Once Only' and others)</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/ForEachFactory.html">for_each</a> - defines 'ForEach' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/IncludeFactory.html">include</a> - defines 'Include' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/LoopFactory.html">loop</a> - defines 'Loop' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/SimpleFactory.html">simple</a> - defines 'Simple' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/TransactionFactory.html">transaction</a> - defines 'Transaction' controller</li>
 </ul>
 <h3>Sampler elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/sampler/HttpFactory.html">http</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ParamsFactory.html">params</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/ParamFactory.html">param</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/common/BodyFactory.html">body</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/sampler/AjpFactory.html">ajp</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/AjpFactory.html">ajp</a> - defines 'AJP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/DebugFactory.html">debug</a> - defines 'Debug' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/FlowControlActionFactory.html">flow</a> - defines 'Flow Control Action' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/HttpFactory.html">http</a> - defines 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/BodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/JSR223SamplerFactory.html">jsrsampler</a> - defines body for 'HTTP Request' sampler</li>
 </ul>
 <h3>Assertion elements</h3>
 <ul>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/ResponseAssertionFactory.html">assert_response</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/SizeAssertionFactory.html">assert_size</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/DurationAssertionFactory.html">assert_duration</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/XPathAssertionFactory.html">assert_xpath</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/JsonAssertionFactory.html">assert_json</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/MD5HexAssertionFactory.html">assert_md5hex</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/JSR223AssertionFactory.html">jsrassertion</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/CheckFactory.html">check_response</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/CheckAssertionFactory.html">check_request</a></li>
-    <li><a href="net/simonix/scripts/jmeter/factory/assertion/CheckAssertionFactory.html">check_size</a></li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/DurationAssertionFactory.html">assert_duration</a> - defines 'Duration Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/JsonAssertionFactory.html">assert_json</a> - defines 'JSON Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/JSR223AssertionFactory.html">jsrassertion</a> - defines 'JSR223 Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/MD5HexAssertionFactory.html">assert_md5hex</a> - defines 'MD5Hex Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/ResponseAssertionFactory.html">assert_response</a> - defines 'Response Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/SizeAssertionFactory.html">assert_size</a> - defines 'Size Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/XPathAssertionFactory.html">assert_xpath</a> - defines 'XPath Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_response</a> - defines simplified version of response assertions</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_request</a> - defines simplified version of request assertions</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_size</a> - defines simplified version of 'Size Assertion' element</li>
+</ul>
+<h3>Post-Processor elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/CssSelectorExtractorFactory.html">extract_css</a> - defines 'CSS Selector Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/JsonPathExtractorFactory.html">extract_json</a> - defines 'JSON Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/RegExExtractorFactory.html">extract_regex</a> - defines 'Regular Expression Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/JSR223PostProcessorFactory.html">jsrpostprocessor</a> - defines 'JSR223 PostProcessor' element</li>
+</ul>
+<h3>Pre-Processor elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/preprocessor/JSR223PreProcessorFactory.html">jsrpreprocessor</a> - defines 'JSR223 PreProcessor' element</li>
+</ul>
+<h3>Listener elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/AggregateFactory.html">aggregate</a> - defines 'Aggregate Report' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/BackendListenerFactory.html">backend</a> - defines 'Backend Listener' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/JSR223ListenerFactory.html">jsrlistener</a> - defines 'JSR223 Listener' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/SummaryFactory.html">summary</a> - defines 'Summary Report' element</li>
+</ul>
+<h3>Timer elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantTimerFactory.html">timer</a> - defines 'Constant Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/JSR223TimerFactory.html">jsrtimer</a> - defines 'JSR223 Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformRandomTimeFactory.html">uniform</a> - defines 'Uniform Timer' element</li>
 </ul>
 </body>
 </html>
