@@ -25,7 +25,7 @@ import org.apache.jmeter.visualizers.backend.BackendListener
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
- * Builds several arguments for test element. It is used with conjunction with <code>plan</code> or <code>backend</code> listener.
+ * Builds arguments for test element. It is used with conjunction with <code>plan</code> or <code>backend</code> listener.
  * <p>
  * In <code>plan</code> it works as user define variables. In <code>backend</code> listener as arguments.
  *

@@ -29,7 +29,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
  *
  * <pre>
  * // element structure
- * regex (
+ * extract_json (
  *     applyTo: string [<strong>parent</strong>, all, children, variable]
  *     variables: string | list
  *     expressions: string | list
