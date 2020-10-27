@@ -78,6 +78,7 @@
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+        <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
         <stringProp name="HTTPSampler.implementation"></stringProp>
         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         <stringProp name="HTTPSampler.proxyScheme"></stringProp>

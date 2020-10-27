@@ -15,8 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory
 
-import groovy.transform.CompileStatic
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
+import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -24,8 +25,8 @@ import org.slf4j.LoggerFactory
 /**
  * Factory base class for building {@link TestElementNode}.
  */
-@CompileStatic
-abstract class AbstractTestElementNodeFactory extends AbstractFactory {
+@CompileDynamic
+abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTestElementNodeFactory)
 

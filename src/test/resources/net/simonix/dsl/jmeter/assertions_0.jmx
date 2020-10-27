@@ -48,7 +48,7 @@
             <stringProp name="-968454971">any string</stringProp>
           </collectionProp>
           <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
-          <intProp name="Assertion.test_type">5</intProp>
+          <intProp name="Assertion.test_type">37</intProp>
           <stringProp name="Assertion.custom_message"></stringProp>
           <boolProp name="Assertion.assume_success">true</boolProp>
         </ResponseAssertion>

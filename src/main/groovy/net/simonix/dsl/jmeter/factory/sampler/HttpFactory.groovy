@@ -15,7 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
@@ -76,10 +78,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class HttpFactory extends BaseHttpFactory {
 
     HttpFactory(String testElementName) {
-        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false)
+        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

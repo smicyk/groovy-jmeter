@@ -15,7 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory.listener
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.reporters.Summariser
 import org.apache.jmeter.samplers.SampleSaveConfiguration
@@ -24,10 +26,11 @@ import org.apache.jmeter.visualizers.SummaryReport
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+@CompileDynamic
 final class SummaryFactory extends TestElementNodeFactory {
     
     SummaryFactory(String testElementName) {
-        super(testElementName, ResultCollector, SummaryReport, true)
+        super(testElementName, ResultCollector, SummaryReport, true, DslDefinition.SUMMARY_PROPERTIES)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

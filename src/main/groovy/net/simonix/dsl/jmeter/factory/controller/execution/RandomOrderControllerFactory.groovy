@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.RandomOrderController
 import org.apache.jmeter.control.gui.RandomOrderControllerGui
 
@@ -37,6 +38,6 @@ import org.apache.jmeter.control.gui.RandomOrderControllerGui
 final class RandomOrderControllerFactory extends TestElementNodeFactory {
 
     RandomOrderControllerFactory() {
-        super('Random Order Controller', RandomOrderController, RandomOrderControllerGui, false)
+        super('Random Order Controller', RandomOrderController, RandomOrderControllerGui, false, DslDefinition.EXECUTE_ORDER_PROPERTIES)
     }
 }

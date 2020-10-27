@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.common
 
 import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPArgument
@@ -67,7 +68,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class BodyFactory extends TestElementFactory {
 
     BodyFactory() {
-        super(HTTPArgument)
+        super(HTTPArgument, DslDefinition.BODY_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.CriticalSectionController
 import org.apache.jmeter.control.gui.CriticalSectionControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -40,7 +41,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CriticalSectionFactory extends TestElementNodeFactory {
 
     CriticalSectionFactory(String testElementName) {
-        super(testElementName, CriticalSectionController, CriticalSectionControllerGui, false)
+        super(testElementName, CriticalSectionController, CriticalSectionControllerGui, false, DslDefinition.SECTION_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

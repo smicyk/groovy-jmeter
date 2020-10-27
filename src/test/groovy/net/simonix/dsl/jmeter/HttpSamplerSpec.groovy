@@ -33,8 +33,8 @@ class HttpSamplerSpec extends MockServerSpec {
         def testPlan = configure {
             plan {
                 group {
-                    http(protocal: 'http', domain: 'localhost', path: '/simple', port: 8899, method: 'GET')
-                    http(protocal: 'https', domain: 'localhost', path: '/secured', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/simple', port: 8899, method: 'GET')
+                    http(protocol: 'https', domain: 'localhost', path: '/secured', port: 8899, method: 'GET')
                 }
             }
         }
@@ -53,7 +53,7 @@ class HttpSamplerSpec extends MockServerSpec {
         def testPlan = configure {
             plan {
                 group {
-                    http(protocal: 'http', domain: 'localhost', path: '/params', port: 8899, method: 'GET') {
+                    http(protocol: 'http', domain: 'localhost', path: '/params', port: 8899, method: 'GET') {
                         params {
                             param(name: 'param1', value: 'value1')
                             param(name: 'param2', value: '3')
@@ -128,7 +128,7 @@ class HttpSamplerSpec extends MockServerSpec {
                         authorization(url: 'http://localhost:8899', username: 'username', password: 'password', mechanism: 'BASIC')
                     }
 
-                    http(protocal: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
                 }
             }
         }
@@ -163,8 +163,8 @@ class HttpSamplerSpec extends MockServerSpec {
                 group {
                     cache()
                     
-                    http(protocal: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
-                    http(protocal: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
                 }
             }
         }
@@ -203,8 +203,8 @@ class HttpSamplerSpec extends MockServerSpec {
                         cookie(name: 'HARDCODED', value: 'value', domain: 'localhost', path: '/resource')
                     }
                     
-                    http(protocal: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
-                    http(protocal: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
                 }
             }
         }
@@ -233,12 +233,12 @@ class HttpSamplerSpec extends MockServerSpec {
                         header(name: 'X-GLOBAL-VALUE', value: 'global')
                     }
                     
-                    http(protocal: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET') {
+                    http(protocol: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET') {
                         headers {
                             header(name: 'X-LOCAL-VALUE', value: 'local')
                         }
                     }
-                    http(protocal: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/resource', port: 8899, method: 'GET')
                 }
             }
         }
@@ -290,7 +290,7 @@ class HttpSamplerSpec extends MockServerSpec {
 
                         http('GET /path') {
                             params values: [
-                                'param1': 'value1'
+                                    'param1': 'value1'
                             ]
                         }
                     }

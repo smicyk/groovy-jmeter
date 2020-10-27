@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.DurationAssertion
 import org.apache.jmeter.assertions.gui.DurationAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -39,7 +40,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DurationAssertionFactory extends TestElementNodeFactory {
 
     DurationAssertionFactory(String testElementName) {
-        super(testElementName, DurationAssertion, DurationAssertionGui, true)
+        super(testElementName, DurationAssertion, DurationAssertionGui, true, DslDefinition.ASSERT_DURATION_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

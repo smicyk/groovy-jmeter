@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.extractor
 
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor
 import org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui
 import org.apache.jmeter.testelement.TestElement
@@ -45,7 +46,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 final class JsonPathExtractorFactory extends TestElementNodeFactory {
 
     JsonPathExtractorFactory(String testElementName) {
-        super(testElementName, JSONPostProcessor, JSONPostProcessorGui, true)
+        super(testElementName, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

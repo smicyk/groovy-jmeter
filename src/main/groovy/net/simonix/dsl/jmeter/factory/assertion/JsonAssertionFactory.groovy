@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.JSONPathAssertion
 import org.apache.jmeter.assertions.gui.JSONPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -43,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class JsonAssertionFactory extends TestElementNodeFactory {
 
     JsonAssertionFactory(String testElementName) {
-        super(testElementName, JSONPathAssertion, JSONPathAssertionGui, true)
+        super(testElementName, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

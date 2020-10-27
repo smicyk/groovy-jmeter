@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.postprocessor
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
 import org.apache.jmeter.extractor.JSR223PostProcessor
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
@@ -27,6 +28,7 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  * @see AbstractJSR223Factory AbstractJSR223Factory
  */
+@CompileDynamic
 final class JSR223PostProcessorFactory extends AbstractJSR223Factory {
     JSR223PostProcessorFactory(String testElementName) {
         super(testElementName, JSR223PostProcessor, TestBeanGUI, true)

@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.config
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.Header
 import org.apache.jmeter.protocol.http.control.HeaderManager
 import org.apache.jmeter.protocol.http.gui.HeaderPanel
@@ -59,7 +60,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class HeadersFactory extends TestElementNodeFactory {
 
     HeadersFactory(String testElementName) {
-        super(testElementName, HeaderManager, HeaderPanel, false)
+        super(testElementName, HeaderManager, HeaderPanel, false, DslDefinition.HEADERS_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

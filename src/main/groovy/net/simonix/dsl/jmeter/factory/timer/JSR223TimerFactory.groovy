@@ -15,7 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory.timer
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.timers.JSR223Timer
 
@@ -27,6 +29,7 @@ import org.apache.jmeter.timers.JSR223Timer
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  * @see AbstractJSR223Factory AbstractJSR223Factory
  */
+@CompileDynamic
 final class JSR223TimerFactory extends AbstractJSR223Factory {
     JSR223TimerFactory(String testElementName) {
         super(testElementName, JSR223Timer, TestBeanGUI, true)

@@ -15,7 +15,8 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler
 
-
+import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.gui.AjpSamplerGui
 import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.testelement.TestElement
@@ -56,10 +57,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see BaseHttpFactory BaseHttpFactory
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class AjpFactory extends BaseHttpFactory {
 
     AjpFactory(String testElementName) {
-        super(testElementName, AjpSampler, AjpSamplerGui, false)
+        super(testElementName, AjpSampler, AjpSamplerGui, false, DslDefinition.AJP_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

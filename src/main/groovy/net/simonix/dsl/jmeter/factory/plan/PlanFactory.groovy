@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.plan
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.gui.ArgumentsPanel
 import org.apache.jmeter.control.gui.TestPlanGui
@@ -63,7 +64,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class PlanFactory extends TestElementNodeFactory {
     
     PlanFactory(String testElementName) {
-        super(testElementName, TestPlan, TestPlanGui, false)
+        super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.config
 
 import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.AuthManager
 import org.apache.jmeter.protocol.http.control.AuthManager.Mechanism
 import org.apache.jmeter.protocol.http.control.Authorization
@@ -57,7 +58,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class AuthorizationFactory extends TestElementFactory {
 
     AuthorizationFactory() {
-        super(Authorization)
+        super(Authorization, DslDefinition.AUTHORIZATION_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

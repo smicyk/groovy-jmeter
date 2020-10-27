@@ -15,15 +15,18 @@
  */
 package net.simonix.dsl.jmeter.factory.timer
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.timers.UniformRandomTimer
 import org.apache.jmeter.timers.gui.UniformRandomTimerGui
 
-final class UniformRandomTimeFactory extends TestElementNodeFactory{
+@CompileDynamic
+final class UniformRandomTimeFactory extends TestElementNodeFactory {
 
     UniformRandomTimeFactory(String testElementName) {
-        super(testElementName, UniformRandomTimer, UniformRandomTimerGui, true)
+        super(testElementName, UniformRandomTimer, UniformRandomTimerGui, true, DslDefinition.UNIFORM_TIMER_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -15,6 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory
 
+import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.validation.PropertyValidator
 import org.apache.jmeter.testelement.TestElement
 
 /**
@@ -22,18 +25,31 @@ import org.apache.jmeter.testelement.TestElement
  * It is used for test elements which are leaves and usually belong to some grouping element.
  * They don't have GUI class.
  */
+@CompileDynamic
 class TestElementFactory extends AbstractTestElementFactory {
 
     final Class testElementClass
     final boolean leaf
 
-    protected TestElementFactory(Class testElementClass) {
+    final PropertyValidator validator
+
+    protected TestElementFactory(Class testElementClass, Set<PropertyDefinition> properties) {
         this(testElementClass, true)
+
+        this.validator.addProperties(properties)
+    }
+
+    protected TestElementFactory(Class testElementClass, boolean leaf, Set<PropertyDefinition> properties) {
+        this(testElementClass, leaf)
+
+        this.validator.addProperties(properties)
     }
 
     protected TestElementFactory(Class testElementClass, boolean leaf) {
         this.testElementClass = testElementClass
         this.leaf = leaf
+
+        this.validator = new PropertyValidator([] as Set<PropertyDefinition>)
     }
 
     boolean isLeaf() {

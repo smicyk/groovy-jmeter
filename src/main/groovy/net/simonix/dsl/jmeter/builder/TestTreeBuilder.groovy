@@ -15,7 +15,7 @@
  */
 package net.simonix.dsl.jmeter.builder
 
-
+import groovy.transform.CompileStatic
 import net.simonix.dsl.jmeter.model.TestElementNode
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jorphan.collections.HashTree
@@ -25,6 +25,7 @@ import org.apache.jorphan.collections.ListedHashTree
  * Builds {@link HashTree} structure from {@link TestElementNode} tree.
  *
  */
+@CompileStatic
 final class TestTreeBuilder {
     static HashTree build(TestElementNode rootTestElementNode) {
         def root = new ListedHashTree()

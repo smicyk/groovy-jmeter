@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 
 import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.util.HTTPArgument
@@ -54,7 +55,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamFactory extends TestElementFactory {
 
     ParamFactory() {
-        super(HTTPArgument)
+        super(HTTPArgument, DslDefinition.PARAM_PROPERTIES)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

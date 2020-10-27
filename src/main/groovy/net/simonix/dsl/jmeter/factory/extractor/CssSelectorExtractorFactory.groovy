@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.extractor
 
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.extractor.HtmlExtractor
 import org.apache.jmeter.extractor.gui.HtmlExtractorGui
 import org.apache.jmeter.testelement.TestElement
@@ -47,7 +48,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CssSelectorExtractorFactory extends TestElementNodeFactory {
     
     CssSelectorExtractorFactory(String testElementName) {
-        super(testElementName, HtmlExtractor, HtmlExtractorGui, true)
+        super(testElementName, HtmlExtractor, HtmlExtractorGui, true, DslDefinition.CSS_EXTRACTOR_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

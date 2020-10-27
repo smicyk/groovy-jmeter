@@ -350,7 +350,7 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 http(name: 'Factory Http', comments: "Factory Comment", enabled: false)
-                http(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompativleMultipart: true) {
+                http(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompatibleMultipart: true) {
                     params {
                         param(name: 'param1', value: 'value1')
                         param(name: 'param2', value: 'value2')
@@ -575,7 +575,7 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 group {
-                    assert_response(applyTo: 'parent', field: 'response_headers', rule: 'matches', ignoreStatus: true, anyMatch: true, negate: true) {
+                    assert_response(applyTo: 'parent', field: 'response_headers', rule: 'matches', ignoreStatus: true, any: true, negate: true) {
                         pattern 'pattern \\d+'
                         pattern 'any string'
                     }

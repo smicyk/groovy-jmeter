@@ -35,6 +35,10 @@ import net.simonix.dsl.jmeter.factory.sampler.*
 import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
 import net.simonix.dsl.jmeter.factory.timer.UniformRandomTimeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.validation.ValidationResult
+import net.simonix.dsl.jmeter.validation.Validator
+import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -49,108 +53,120 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         super(init)
     }
 
+    protected void preInstantiate(Object name, Map attributes, Object value) {
+        super.preInstantiate(name, attributes, value)
+
+        ValidatorProvider provider = getCurrentFactory() as ValidatorProvider
+
+        Validator validator = provider.getValidator()
+        ValidationResult result = validator.validate(name, value, attributes)
+
+        if(!result.valid) {
+            throw new IllegalArgumentException(result.message)
+        }
+    }
+
     void registerObjectFactories() {
         // plan and group
-        registerFactory('plan', new PlanFactory('Test Plan'))
-        registerFactory('group', new GroupFactory('User Group'))
+        registerFactory(DslDefinition.PLAN, new PlanFactory('Test Plan'))
+        registerFactory(DslDefinition.GROUP, new GroupFactory('User Group'))
 
         // controllers
-        registerFactory('loop', new LoopFactory('Loop Controller'))
-        registerFactory('simple', new SimpleFactory('Simple Controller'))
-        registerFactory('transaction', new TransactionFactory('Transaction Controller'))
-        registerFactory('section', new CriticalSectionFactory('Critical Section Controller'))
-        registerFactory('include', new IncludeFactory('Include Controller'))
-        registerFactory('for_each', new ForEachFactory('ForEach Controller'))
+        registerFactory(DslDefinition.LOOP, new LoopFactory('Loop Controller'))
+        registerFactory(DslDefinition.SIMPLE, new SimpleFactory('Simple Controller'))
+        registerFactory(DslDefinition.TRANSACTION, new TransactionFactory('Transaction Controller'))
+        registerFactory(DslDefinition.SECTION, new CriticalSectionFactory('Critical Section Controller'))
+        registerFactory(DslDefinition.INCLUDE, new IncludeFactory('Include Controller'))
+        registerFactory(DslDefinition.FOR_EACH, new ForEachFactory('ForEach Controller'))
 
-        registerFactory('execute', new ExecuteFactory())
+        registerFactory(DslDefinition.EXECUTE, new ExecuteFactory())
 
-        registerFactory('execute_if', new IfControllerFactory())
-        registerFactory('execute_while', new WhileControllerFactory())
-        registerFactory('execute_once', new OnceControllerFactory())
-        registerFactory('execute_interleave', new InterleaveControllerFactory())
-        registerFactory('execute_random', new RandomControllerFactory())
-        registerFactory('execute_order', new RandomOrderControllerFactory())
-        registerFactory('execute_percent', new PercentControllerFactory())
-        registerFactory('execute_total', new TotalControllerFactory())
-        registerFactory('execute_runtime', new RuntimeControllerFactory())
-        registerFactory('execute_switch', new SwitchControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_IF, new IfControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_WHILE, new WhileControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_ONCE, new OnceControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_INTERLEAVE, new InterleaveControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_RANDOM, new RandomControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_ORDER, new RandomOrderControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_PERCENT, new PercentControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_TOTAL, new TotalControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_RUNTIME, new RuntimeControllerFactory())
+        registerFactory(DslDefinition.EXECUTE_SWITCH, new SwitchControllerFactory())
 
-        registerFactory('exec_if', new IfControllerFactory())
-        registerFactory('exec_while', new WhileControllerFactory())
-        registerFactory('exec_once', new OnceControllerFactory())
-        registerFactory('exec_interleave', new InterleaveControllerFactory())
-        registerFactory('exec_random', new RandomControllerFactory())
-        registerFactory('exec_order', new RandomOrderControllerFactory())
-        registerFactory('exec_percent', new PercentControllerFactory())
-        registerFactory('exec_total', new TotalControllerFactory())
-        registerFactory('exec_runtime', new RuntimeControllerFactory())
-        registerFactory('exec_switch', new SwitchControllerFactory())
+        registerFactory(DslDefinition.EXEC_IF, new IfControllerFactory())
+        registerFactory(DslDefinition.EXEC_WHILE, new WhileControllerFactory())
+        registerFactory(DslDefinition.EXEC_ONCE, new OnceControllerFactory())
+        registerFactory(DslDefinition.EXEC_INTERLEAVE, new InterleaveControllerFactory())
+        registerFactory(DslDefinition.EXEC_RANDOM, new RandomControllerFactory())
+        registerFactory(DslDefinition.EXEC_ORDER, new RandomOrderControllerFactory())
+        registerFactory(DslDefinition.EXEC_PERCENT, new PercentControllerFactory())
+        registerFactory(DslDefinition.EXEC_TOTAL, new TotalControllerFactory())
+        registerFactory(DslDefinition.EXEC_RUNTIME, new RuntimeControllerFactory())
+        registerFactory(DslDefinition.EXEC_SWITCH, new SwitchControllerFactory())
 
         // samplers
-        registerFactory('http', new HttpFactory('HTTP Sampler'))
-        registerFactory('ajp', new AjpFactory('AJP Sampler'))
-        registerFactory('debug', new DebugFactory('Debug Sampler'))
-        registerFactory('jsrsampler', new JSR223SamplerFactory('JSR223 Sampler'))
-        registerFactory('flow', new FlowControlActionFactory('Flow Control Action'))
+        registerFactory(DslDefinition.HTTP, new HttpFactory('HTTP Sampler'))
+        registerFactory(DslDefinition.AJP, new AjpFactory('AJP Sampler'))
+        registerFactory(DslDefinition.DEBUG, new DebugFactory('Debug Sampler'))
+        registerFactory(DslDefinition.JSR223_SAMPLER, new JSR223SamplerFactory('JSR223 Sampler'))
+        registerFactory(DslDefinition.FLOW, new FlowControlActionFactory('Flow Control Action'))
 
         // others
-        registerFactory('param', new ParamFactory())
-        registerFactory('params', new ParamsFactory())
-        registerFactory('body', new BodyFactory())
-        registerFactory('argument', new ArgumentFactory())
-        registerFactory('arguments', new ArgumentsFactory())
+        registerFactory(DslDefinition.PARAM, new ParamFactory())
+        registerFactory(DslDefinition.PARAMS, new ParamsFactory())
+        registerFactory(DslDefinition.BODY, new BodyFactory())
+        registerFactory(DslDefinition.INSERT, new InsertFactory())
+        registerFactory(DslDefinition.ARGUMENT, new ArgumentFactory())
+        registerFactory(DslDefinition.ARGUMENTS, new ArgumentsFactory())
 
         // timers
-        registerFactory('timer', new ConstantTimerFactory('Constant Timer'))
-        registerFactory('uniform', new UniformRandomTimeFactory('Uniform Random Timer'))
-        registerFactory('jsrtimer', new JSR223TimerFactory('JSR223 Timer'))
+        registerFactory(DslDefinition.CONSTANT_TIMER, new ConstantTimerFactory('Constant Timer'))
+        registerFactory(DslDefinition.UNIFORM_TIMER, new UniformRandomTimeFactory('Uniform Random Timer'))
+        registerFactory(DslDefinition.JSR223_TIMER, new JSR223TimerFactory('JSR223 Timer'))
 
         // extractors
-        registerFactory('extract_regex', new RegExExtractorFactory('Regular Expression Extractor'))
-        registerFactory('extract_css', new CssSelectorExtractorFactory('CSS Selector Extractor'))
-        registerFactory('extract_json', new JsonPathExtractorFactory('Json Path Extractor'))
+        registerFactory(DslDefinition.REGEX_EXTRACTOR, new RegExExtractorFactory('Regular Expression Extractor'))
+        registerFactory(DslDefinition.CSS_EXTRACTOR, new CssSelectorExtractorFactory('CSS Selector Extractor'))
+        registerFactory(DslDefinition.JSON_EXTRACTOR, new JsonPathExtractorFactory('Json Path Extractor'))
 
         // assertions
-        registerFactory('jsrassertion', new JSR223AssertionFactory('JSR223 Assertion'))
-        registerFactory('assert_response', new ResponseAssertionFactory('Response Assertion'))
-        registerFactory('assert_size', new SizeAssertionFactory('Size Assertion'))
-        registerFactory('assert_duration', new DurationAssertionFactory('Duration Assertion'))
-        registerFactory('assert_xpath', new XPathAssertionFactory('XPath Assertion'))
-        registerFactory('assert_json', new JsonAssertionFactory('Json Path Assertion'))
-        registerFactory('assert_md5hex', new MD5HexAssertionFactory('MD5Hex Assertion'))
-        registerFactory('check_response', new CheckFactory('response'))
-        registerFactory('check_request', new CheckFactory('request'))
-        registerFactory('check_size', new CheckFactory('size'))
+        registerFactory(DslDefinition.JSR223_ASSERTION, new JSR223AssertionFactory('JSR223 Assertion'))
+        registerFactory(DslDefinition.ASSERT_RESPONSE, new ResponseAssertionFactory('Response Assertion'))
+        registerFactory(DslDefinition.ASSERT_SIZE, new SizeAssertionFactory('Size Assertion'))
+        registerFactory(DslDefinition.ASSERT_DURATION, new DurationAssertionFactory('Duration Assertion'))
+        registerFactory(DslDefinition.ASSERT_XPATH, new XPathAssertionFactory('XPath Assertion'))
+        registerFactory(DslDefinition.ASSERT_JSON, new JsonAssertionFactory('Json Path Assertion'))
+        registerFactory(DslDefinition.ASSERT_MD5HEX, new MD5HexAssertionFactory('MD5Hex Assertion'))
+        registerFactory(DslDefinition.CHECK_RESPONSE, new CheckFactory('response'))
+        registerFactory(DslDefinition.CHECK_REQUEST, new CheckFactory('request'))
+        registerFactory(DslDefinition.CHECK_SIZE, new CheckFactory('size'))
 
         // postprocessors
-        registerFactory('jsrpostprocessor', new JSR223PostProcessorFactory('JSR223 PostProcessor'))
+        registerFactory(DslDefinition.JSR223_POSTPROCESSOR, new JSR223PostProcessorFactory('JSR223 PostProcessor'))
 
         // preprocessors
-        registerFactory('jsrpreprocessor', new JSR223PreProcessorFactory('JSR223 PreProcessor'))
+        registerFactory(DslDefinition.JSR223_PREPROCESSOR, new JSR223PreProcessorFactory('JSR223 PreProcessor'))
 
         // configs
-        registerFactory('headers', new HeadersFactory('Headers'))
-        registerFactory('header', new HeaderFactory())
-        registerFactory('defaults', new DefaultsFactory('HTTP Request Defaults'))
-        registerFactory('csv', new CsvDataFactory('CSV Data Set Config'))
-        registerFactory('cookies', new CookiesFactory('HTTP Cookie Manager'))
-        registerFactory('cookie', new CookieFactory())
-        registerFactory('cache', new CacheFactory('Cache Manager'))
-        registerFactory('login', new LoginFactory('Login Config Element'))
-        registerFactory('variables', new VariablesFactory('User Defined Variables'))
-        registerFactory('variable', new VariableFactory())
-        registerFactory('authorizations', new AuthorizationsFactory('HTTP Authorization Manager'))
-        registerFactory('authorization', new AuthorizationFactory())
-        registerFactory('counter', new CounterFactory('Counter'))
-        registerFactory('random', new RandomVariableFactory('Random Variable'))
+        registerFactory(DslDefinition.HEADERS, new HeadersFactory('Headers'))
+        registerFactory(DslDefinition.HEADER, new HeaderFactory())
+        registerFactory(DslDefinition.DEFAULTS, new DefaultsFactory('HTTP Request Defaults'))
+        registerFactory(DslDefinition.CSV_DATA, new CsvDataFactory('CSV Data Set Config'))
+        registerFactory(DslDefinition.COOKIES, new CookiesFactory('HTTP Cookie Manager'))
+        registerFactory(DslDefinition.COOKIE, new CookieFactory())
+        registerFactory(DslDefinition.CACHE, new CacheFactory('Cache Manager'))
+        registerFactory(DslDefinition.LOGIN, new LoginFactory('Login Config Element'))
+        registerFactory(DslDefinition.VARIABLES, new VariablesFactory('User Defined Variables'))
+        registerFactory(DslDefinition.VARIABLE, new VariableFactory())
+        registerFactory(DslDefinition.AUTHORIZATIONS, new AuthorizationsFactory('HTTP Authorization Manager'))
+        registerFactory(DslDefinition.AUTHORIZATION, new AuthorizationFactory())
+        registerFactory(DslDefinition.COUNTER, new CounterFactory('Counter'))
+        registerFactory(DslDefinition.RANDOM_VARIABLE, new RandomVariableFactory('Random Variable'))
 
         // listeners
-        registerFactory('summary', new SummaryFactory('Summary Report'))
-        registerFactory('aggregate', new AggregateFactory('Aggregate Report'))
-        registerFactory('backend', new BackendListenerFactory('Backend Listener'))
-        registerFactory('jsrlistener', new JSR223ListenerFactory('JSR223 Listener'))
-
-        registerFactory('insert', new InsertFactory())
+        registerFactory(DslDefinition.SUMMARY, new SummaryFactory('Summary Report'))
+        registerFactory(DslDefinition.AGGREGATE, new AggregateFactory('Aggregate Report'))
+        registerFactory(DslDefinition.BACKEND, new BackendListenerFactory('Backend Listener'))
+        registerFactory(DslDefinition.JSR223_LISTENER, new JSR223ListenerFactory('JSR223 Listener'))
     }
 
     void registerPluginFactory(String type, AbstractFactory factory) {

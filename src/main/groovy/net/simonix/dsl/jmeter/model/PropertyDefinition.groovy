@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.fragments
+package net.simonix.dsl.jmeter.model
 
-fragment {
-    http('GET /books') {
-        params {
-            param(name: 'id', value: '1')
-        }
-    }
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
+@ToString
+@EqualsAndHashCode
+class PropertyDefinition {
+    String name
+    boolean required
 }

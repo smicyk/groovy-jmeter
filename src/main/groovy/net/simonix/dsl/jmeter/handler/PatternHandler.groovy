@@ -15,7 +15,6 @@
  */
 package net.simonix.dsl.jmeter.handler
 
-
 import org.apache.jmeter.assertions.ResponseAssertion
 import org.apache.jmeter.testelement.TestElement
 
