@@ -15,7 +15,9 @@
  */
 package net.simonix.dsl.jmeter.factory.listener
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.testelement.property.TestElementProperty
@@ -24,10 +26,11 @@ import org.apache.jmeter.visualizers.backend.BackendListenerGui
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+@CompileDynamic
 final class BackendListenerFactory extends TestElementNodeFactory {
     
     BackendListenerFactory(String testElementName) {
-        super(testElementName, BackendListener, BackendListenerGui, false)
+        super(testElementName, BackendListener, BackendListenerGui, false, DslDefinition.BACKEND_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

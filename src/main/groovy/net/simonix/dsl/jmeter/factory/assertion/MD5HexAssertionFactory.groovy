@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.MD5HexAssertion
 import org.apache.jmeter.assertions.gui.MD5HexAssertionGUI
 import org.apache.jmeter.testelement.TestElement
@@ -38,7 +39,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class MD5HexAssertionFactory extends TestElementNodeFactory {
 
     MD5HexAssertionFactory(String testElementName) {
-        super(testElementName, MD5HexAssertion, MD5HexAssertionGUI, true)
+        super(testElementName, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

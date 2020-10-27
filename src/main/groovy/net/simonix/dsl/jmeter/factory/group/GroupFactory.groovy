@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.group
 
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
 import org.apache.jmeter.testelement.TestElement
@@ -63,7 +64,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class GroupFactory extends TestElementNodeFactory {
     
     GroupFactory(String testElementName) {
-        super(testElementName, ThreadGroup, ThreadGroupGui, false)
+        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

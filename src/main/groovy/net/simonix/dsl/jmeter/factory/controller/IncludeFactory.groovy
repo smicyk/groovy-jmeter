@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.IncludeController
 import org.apache.jmeter.control.gui.IncludeControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -38,7 +39,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IncludeFactory extends TestElementNodeFactory {
 
     IncludeFactory(String testElementName) {
-        super(testElementName, IncludeController, IncludeControllerGui, true)
+        super(testElementName, IncludeController, IncludeControllerGui, true, DslDefinition.INCLUDE_PROPERTIES)
+
+        this.validator.valueIsProperty = true
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

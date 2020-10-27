@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.handler.PatternHandler
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.ResponseAssertion
 import org.apache.jmeter.assertions.gui.AssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -48,7 +49,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
     ResponseAssertionFactory(String testElementName) {
-        super(testElementName, ResponseAssertion, AssertionGui, false)
+        super(testElementName, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

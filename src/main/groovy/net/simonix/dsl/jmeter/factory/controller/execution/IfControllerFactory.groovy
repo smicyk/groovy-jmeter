@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller.execution
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.IfController
 import org.apache.jmeter.control.gui.IfControllerPanel
 import org.apache.jmeter.testelement.TestElement
@@ -60,7 +61,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IfControllerFactory extends TestElementNodeFactory {
 
     IfControllerFactory() {
-        super('If Controller', IfController, IfControllerPanel, false)
+        super('If Controller', IfController, IfControllerPanel, false, DslDefinition.EXECUTE_IF_PROPERTIES)
+
+        this.validator.valueIsProperty = true
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

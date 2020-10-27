@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.XPathAssertion
 import org.apache.jmeter.assertions.gui.XPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -48,7 +49,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class XPathAssertionFactory extends TestElementNodeFactory {
 
     XPathAssertionFactory(String testElementName) {
-        super(testElementName, XPathAssertion, XPathAssertionGui, true)
+        super(testElementName, XPathAssertion, XPathAssertionGui, true, DslDefinition.ASSERT_XPATH_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

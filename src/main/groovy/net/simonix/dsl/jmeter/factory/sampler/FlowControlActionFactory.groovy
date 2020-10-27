@@ -15,17 +15,20 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.sampler.TestAction
 import org.apache.jmeter.sampler.gui.TestActionGui
 import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+@CompileDynamic
 final class FlowControlActionFactory extends TestElementNodeFactory {
 
     FlowControlActionFactory(String testElementName) {
-        super(testElementName, TestAction, TestActionGui, false)
+        super(testElementName, TestAction, TestActionGui, false, DslDefinition.FLOW_CONTROL_ACTION_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

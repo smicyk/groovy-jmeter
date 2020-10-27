@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller
 
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
 import org.apache.jmeter.testelement.TestElement
@@ -43,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
 final class LoopFactory extends TestElementNodeFactory {
 
     LoopFactory(String testElementName) {
-        super(testElementName, LoopController, LoopControlPanel, false)
+        super(testElementName, LoopController, LoopControlPanel, false, DslDefinition.LOOP_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

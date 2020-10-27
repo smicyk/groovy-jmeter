@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller.execution
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.OnceOnlyController
 import org.apache.jmeter.control.gui.OnceOnlyControllerGui
 
@@ -36,6 +37,6 @@ import org.apache.jmeter.control.gui.OnceOnlyControllerGui
 final class OnceControllerFactory extends TestElementNodeFactory {
 
     OnceControllerFactory() {
-        super('Once Only Controller', OnceOnlyController, OnceOnlyControllerGui, false)
+        super('Once Only Controller', OnceOnlyController, OnceOnlyControllerGui, false, DslDefinition.EXECUTE_ONCE_PROPERTIES)
     }
 }

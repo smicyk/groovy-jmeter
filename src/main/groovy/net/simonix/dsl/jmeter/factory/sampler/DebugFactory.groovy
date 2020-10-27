@@ -15,6 +15,8 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler
 
+import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.sampler.DebugSampler
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.testelement.TestElement
@@ -23,10 +25,11 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+@CompileDynamic
 final class DebugFactory extends TestElementNodeFactory {
     
     DebugFactory(String testElementName) {
-        super(testElementName, DebugSampler, TestBeanGUI, false)
+        super(testElementName, DebugSampler, TestBeanGUI, false, DslDefinition.DEBUG_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

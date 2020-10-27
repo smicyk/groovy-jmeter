@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller.execution
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.SwitchController
 import org.apache.jmeter.control.gui.SwitchControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -41,7 +42,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SwitchControllerFactory extends TestElementNodeFactory {
 
     SwitchControllerFactory() {
-        super('Switch Controller', SwitchController, SwitchControllerGui, false)
+        super('Switch Controller', SwitchController, SwitchControllerGui, false, DslDefinition.EXECUTE_SWITCH_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

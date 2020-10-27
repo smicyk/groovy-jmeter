@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.gui.ArgumentsPanel
@@ -57,7 +58,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class VariablesFactory extends TestElementNodeFactory {
 
     VariablesFactory(String testElementName) {
-        super(testElementName, Arguments, ArgumentsPanel, false)
+        super(testElementName, Arguments, ArgumentsPanel, false, DslDefinition.VARIABLES_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

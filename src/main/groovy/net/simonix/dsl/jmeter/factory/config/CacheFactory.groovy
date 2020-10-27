@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.config
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.CacheManager
 import org.apache.jmeter.protocol.http.gui.CacheManagerGui
 import org.apache.jmeter.testelement.TestElement
@@ -46,7 +47,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CacheFactory extends TestElementNodeFactory {
 
     CacheFactory(String testElementName) {
-        super(testElementName, CacheManager, CacheManagerGui, true)
+        super(testElementName, CacheManager, CacheManagerGui, true, DslDefinition.CACHE_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

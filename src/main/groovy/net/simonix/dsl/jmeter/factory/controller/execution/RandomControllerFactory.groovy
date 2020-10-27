@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.InterleaveControl
 import org.apache.jmeter.control.RandomController
 import org.apache.jmeter.control.gui.RandomControlGui
@@ -43,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomControllerFactory extends TestElementNodeFactory {
 
     RandomControllerFactory() {
-        super('Random Controller', RandomController, RandomControlGui, false)
+        super('Random Controller', RandomController, RandomControlGui, false, DslDefinition.EXECUTE_RANDOM_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

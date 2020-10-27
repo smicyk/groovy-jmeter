@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller.execution
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.ThroughputController
 import org.apache.jmeter.control.gui.ThroughputControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -42,7 +43,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class PercentControllerFactory extends TestElementNodeFactory {
 
     PercentControllerFactory() {
-        super('Percent Execution Controller', ThroughputController, ThroughputControllerGui, false)
+        super('Percent Execution Controller', ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_PERCENT_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

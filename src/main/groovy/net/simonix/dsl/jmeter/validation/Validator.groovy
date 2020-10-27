@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.fragments
+package net.simonix.dsl.jmeter.validation
 
-fragment {
-    http('GET /books') {
-        params {
-            param(name: 'id', value: '1')
-        }
-    }
+interface Validator {
+
+    ValidationResult validate(Object name, Object value, Map config);
 }

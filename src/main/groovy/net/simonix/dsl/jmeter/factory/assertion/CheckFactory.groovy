@@ -15,11 +15,14 @@
  */
 package net.simonix.dsl.jmeter.factory.assertion
 
+import net.simonix.dsl.jmeter.validation.ValidatorProvider
+import net.simonix.dsl.jmeter.model.DslDefinition
 import net.simonix.dsl.jmeter.handler.CheckRequestHandler
 import net.simonix.dsl.jmeter.handler.CheckSizeHandler
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.handler.CheckResponseHandler
+import net.simonix.dsl.jmeter.validation.PropertyValidator
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
@@ -107,11 +110,14 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
-final class CheckFactory extends AbstractFactory {
+final class CheckFactory extends AbstractFactory implements ValidatorProvider {
     final String type
+    final PropertyValidator validator
 
     CheckFactory(String type) {
         this.type = type
+
+        this.validator = new PropertyValidator(DslDefinition.CHECK_PROPERTIES)
     }
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

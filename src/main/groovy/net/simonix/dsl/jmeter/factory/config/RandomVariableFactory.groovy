@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.config
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.RandomVariableConfig
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.testelement.TestElement
@@ -49,7 +50,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomVariableFactory extends TestElementNodeFactory {
     
     RandomVariableFactory(String testElementName) {
-        super(testElementName, RandomVariableConfig, TestBeanGUI, true)
+        super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE_PROPERTIES)
     }
     
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

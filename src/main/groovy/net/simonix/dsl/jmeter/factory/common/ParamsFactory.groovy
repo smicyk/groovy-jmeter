@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.json.JsonSlurper
 import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
@@ -57,7 +58,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamsFactory extends TestElementFactory {
 
     ParamsFactory() {
-        super(Arguments, false)
+        super(Arguments, false, DslDefinition.PARAMS_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

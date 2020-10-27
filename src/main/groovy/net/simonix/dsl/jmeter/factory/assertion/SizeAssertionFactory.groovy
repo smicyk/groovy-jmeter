@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.SizeAssertion
 import org.apache.jmeter.assertions.gui.SizeAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -42,7 +43,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SizeAssertionFactory extends TestElementNodeFactory {
 
     SizeAssertionFactory(String testElementName) {
-        super(testElementName, SizeAssertion, SizeAssertionGui, true)
+        super(testElementName, SizeAssertion, SizeAssertionGui, true, DslDefinition.ASSERT_SIZE_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

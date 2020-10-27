@@ -15,7 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory
 
-
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory
  * <p>
  * The real factory should be provided by implementation of {@link AbstractCompositeTestElementNodeFactory#getChildFactory}.
  */
+@CompileDynamic
 abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCompositeTestElementNodeFactory)

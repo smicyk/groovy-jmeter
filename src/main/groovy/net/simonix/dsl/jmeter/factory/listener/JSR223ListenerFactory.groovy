@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.listener
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.visualizers.JSR223Listener
@@ -27,6 +28,7 @@ import org.apache.jmeter.visualizers.JSR223Listener
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  * @see AbstractJSR223Factory AbstractJSR223Factory
  */
+@CompileDynamic
 final class JSR223ListenerFactory extends AbstractJSR223Factory {
     JSR223ListenerFactory(String testElementName) {
         super(testElementName, JSR223Listener, TestBeanGUI, true)

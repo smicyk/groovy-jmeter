@@ -15,16 +15,19 @@
  */
 package net.simonix.dsl.jmeter.factory.timer
 
+import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.timers.ConstantTimer
 import org.apache.jmeter.timers.gui.ConstantTimerGui
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
+@CompileDynamic
 final class ConstantTimerFactory extends TestElementNodeFactory {
     
     ConstantTimerFactory(String testElementName) {
-        super(testElementName, ConstantTimer, ConstantTimerGui, true)
+        super(testElementName, ConstantTimer, ConstantTimerGui, true, DslDefinition.CONSTANT_TIMER_PROPERTIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
