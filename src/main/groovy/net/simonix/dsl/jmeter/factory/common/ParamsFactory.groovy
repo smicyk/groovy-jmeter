@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory.common
 
 import groovy.json.JsonSlurper
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Arguments
@@ -55,6 +56,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see ParamFactory ParamFactory
  */
+@CompileDynamic
 final class ParamsFactory extends TestElementFactory {
 
     ParamsFactory() {

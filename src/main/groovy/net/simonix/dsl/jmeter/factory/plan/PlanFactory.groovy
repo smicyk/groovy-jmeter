@@ -62,7 +62,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  */
 @CompileDynamic
 final class PlanFactory extends TestElementNodeFactory {
-    
+
     PlanFactory(String testElementName) {
         super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN_PROPERTIES)
     }
@@ -74,7 +74,7 @@ final class PlanFactory extends TestElementNodeFactory {
         testElement.testPlanClasspath = ''
 
         Arguments arguments = new Arguments()
-        arguments.setEnabled(true)
+        arguments.enabled = true
         arguments.setProperty(TestElement.TEST_CLASS, Arguments.name)
         arguments.setProperty(TestElement.GUI_CLASS, ArgumentsPanel.name)
 

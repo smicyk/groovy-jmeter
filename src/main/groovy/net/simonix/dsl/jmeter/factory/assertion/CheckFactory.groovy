@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.assertion
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import net.simonix.dsl.jmeter.model.DslDefinition
 import net.simonix.dsl.jmeter.handler.CheckRequestHandler
@@ -110,7 +111,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class CheckFactory extends AbstractFactory implements ValidatorProvider {
+
     final String type
     final PropertyValidator validator
 
@@ -136,11 +139,11 @@ final class CheckFactory extends AbstractFactory implements ValidatorProvider {
 
     boolean onNodeChildren(FactoryBuilderSupport builder, Object node, Closure c) {
         def handler
-        if(type == 'response') {
+        if (type == 'response') {
             handler = new CheckResponseHandler(node, builder)
-        } else if(type == 'request') {
+        } else if (type == 'request') {
             handler = new CheckRequestHandler(node, builder)
-        } else if(type == 'size') {
+        } else if (type == 'size') {
             handler = new CheckSizeHandler(node, builder)
         }
 

@@ -15,9 +15,11 @@
  */
 package net.simonix.dsl.jmeter.handler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+@CompileDynamic
 final class CheckSizeHandler {
 
     final static boolean not = true
@@ -35,31 +37,31 @@ final class CheckSizeHandler {
     SizeHandler status() {
         String applyTo = testElementContainer.applyTo
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, "response_status")
+        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_status')
     }
 
     SizeHandler headers() {
         String applyTo = testElementContainer.applyTo
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, "response_headers")
+        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_headers')
     }
 
     SizeHandler text() {
         String applyTo = testElementContainer.applyTo
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, "response_data")
+        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_data')
     }
 
     SizeHandler body() {
         String applyTo = testElementContainer.applyTo
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, "response_body")
+        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_body')
     }
 
     SizeHandler message() {
         String applyTo = testElementContainer.applyTo
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, "response_message")
+        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_message')
     }
 
     private SizeHandler sizeBuildImpl(String type, String name, String applyTo, String field) {

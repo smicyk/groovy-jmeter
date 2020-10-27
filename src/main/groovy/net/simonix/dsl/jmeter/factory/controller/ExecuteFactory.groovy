@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractCompositeTestElementNodeFactory
 import net.simonix.dsl.jmeter.factory.AbstractTestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
@@ -39,12 +40,13 @@ import net.simonix.dsl.jmeter.validation.Validator
  * {@link net.simonix.dsl.jmeter.factory.controller.execution.WhileControllerFactory execute_while}
  * </pre>
  */
+@CompileDynamic
 final class ExecuteFactory extends AbstractCompositeTestElementNodeFactory implements ValidatorProvider {
 
     AbstractTestElementNodeFactory getChildFactory(FactoryBuilderSupport builder, Object name, Object value, Map config) {
         String factoryName = "execute_${config.type}"
 
-        return (AbstractTestElementNodeFactory) builder.getFactories().get(factoryName)
+        return (AbstractTestElementNodeFactory) builder.factories.get(factoryName)
     }
 
     @Override

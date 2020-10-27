@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.common
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractTestElementFragmentFactory
 
 /**
@@ -46,6 +47,7 @@ import net.simonix.dsl.jmeter.factory.AbstractTestElementFragmentFactory
  *
  * There is no corresponding JMeter construct. The alternative solution might be {@link net.simonix.dsl.jmeter.factory.controller.IncludeFactory}
  */
+@CompileDynamic
 final class InsertFactory extends AbstractTestElementFragmentFactory {
 
 }

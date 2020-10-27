@@ -15,6 +15,8 @@
  */
 package net.simonix.dsl.jmeter
 
+import groovy.transform.CompileDynamic
+
 /**
  * Fragment implementation of script builder. It should be used to insert scripts from file.
  *
@@ -27,6 +29,7 @@ package net.simonix.dsl.jmeter
  * }
  * </pre>
  */
+@CompileDynamic
 abstract class FragmentTestScript extends Script {
 
     abstract Object executeScript()

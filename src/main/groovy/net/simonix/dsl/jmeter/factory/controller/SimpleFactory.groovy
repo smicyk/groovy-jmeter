@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.GenericController
 import org.apache.jmeter.control.gui.LogicControllerGui
@@ -34,8 +35,9 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class SimpleFactory extends TestElementNodeFactory {
-    
+
     SimpleFactory(String testElementName) {
         super(testElementName, GenericController, LogicControllerGui, false, DslDefinition.SIMPLE_PROPERTIES)
     }

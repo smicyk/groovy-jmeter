@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.config
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.Cookie
@@ -50,6 +51,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  * @see CookiesFactory CookiesFactory
  */
+@CompileDynamic
 final class CookieFactory extends TestElementFactory {
 
     CookieFactory() {

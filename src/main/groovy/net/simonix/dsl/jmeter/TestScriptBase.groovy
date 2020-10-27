@@ -34,6 +34,8 @@ abstract class TestScriptBase extends Script {
     final static String JMETER_PROPERTIES_CLASSPATH = 'org/apache/jmeter/jmeter.properties'
     final static String JMETER_SAVESERVICE_CLASSPATH = 'org/apache/jmeter/saveservice.properties'
 
+    final static String JAVA_CLASSPATH_PROPERTY = 'java.class.path'
+
     void start(Closure c) {
         start([:], c)
     }
@@ -69,7 +71,7 @@ abstract class TestScriptBase extends Script {
     protected void updateJMeterClassPath() {
         // since scripts could be run with Grape, the dependencies don't exist on standard classpath
         // we must add apache jmeter jars so all functions and others classes are visible
-        List<String> jmeterJars = System.getProperty('java.class.path')
+        List<String> jmeterJars = System.getProperty(JAVA_CLASSPATH_PROPERTY)
                 .tokenize(File.pathSeparator)
                 .collect { it =~ JMETER_JARPATHS_MATCHER }
                 .findAll { it.find() }
@@ -84,9 +86,9 @@ abstract class TestScriptBase extends Script {
                     .collect { it.group() }
                     .join(File.pathSeparator)
 
-            String classPath = System.getProperty('java.class.path')
+            String classPath = System.getProperty(JAVA_CLASSPATH_PROPERTY)
 
-            System.setProperty('java.class.path', classPath + File.pathSeparator + classPathPostfix)
+            System.setProperty(JAVA_CLASSPATH_PROPERTY, classPath + File.pathSeparator + classPathPostfix)
         }
     }
 

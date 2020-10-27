@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller.execution
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.OnceOnlyController
@@ -34,6 +35,7 @@ import org.apache.jmeter.control.gui.OnceOnlyControllerGui
  * @see TestElementNodeFactory TestElementNodeFactory
  * @see net.simonix.dsl.jmeter.factory.controller.ExecuteFactory ExecuteFactory
  */
+@CompileDynamic
 final class OnceControllerFactory extends TestElementNodeFactory {
 
     OnceControllerFactory() {

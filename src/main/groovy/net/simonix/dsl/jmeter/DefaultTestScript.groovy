@@ -15,6 +15,8 @@
  */
 package net.simonix.dsl.jmeter
 
+import groovy.transform.CompileDynamic
+
 /**
  * Default implementation of script builder. It should be used when scripts are used inside application.
  * <p>
@@ -22,12 +24,13 @@ package net.simonix.dsl.jmeter
  *
  * @see TestScript
  */
+@CompileDynamic
 abstract class DefaultTestScript extends TestScriptBase {
 
     abstract Object executeScript()
 
     Object run() {
-        def script = [:]
+        Map<String, Object> script = [:]
         script.options_enabled = true
 
         binding.setProperty('script', script)

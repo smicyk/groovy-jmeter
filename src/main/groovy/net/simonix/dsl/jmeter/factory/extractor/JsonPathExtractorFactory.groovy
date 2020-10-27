@@ -15,7 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.extractor
 
-
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor
@@ -43,6 +43,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class JsonPathExtractorFactory extends TestElementNodeFactory {
 
     JsonPathExtractorFactory(String testElementName) {

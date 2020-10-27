@@ -15,9 +15,12 @@
  */
 package net.simonix.dsl.jmeter.validation
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.PropertyDefinition
 
+@CompileDynamic
 class PropertyValidator implements Validator {
+
     Set<PropertyDefinition> properties = []
     boolean valueIsProperty = false
 
@@ -31,18 +34,18 @@ class PropertyValidator implements Validator {
 
     ValidationResult validate(Object name, Object value, Map config) {
         Set<String> configKeys = config.collect { it.key } as Set<String>
-        Set<String> validKeys = properties.collect {it.name } as Set<String>
+        Set<String> validKeys = properties.collect { it.name } as Set<String>
         configKeys.removeAll(validKeys)
 
-        if(!configKeys.isEmpty()) {
+        if (!configKeys.isEmpty()) {
             return ValidationResult.notValidProperties(name, configKeys, validKeys)
         }
 
         configKeys = config.collect { it.key } as Set<String>
-        Set<String> requiredKeys = properties.findAll {it.required }.collect { it.name } as Set<String>
+        Set<String> requiredKeys = properties.findAll { it.required }.collect { it.name } as Set<String>
 
-        if(!configKeys.containsAll(requiredKeys)) {
-            if(!valueIsProperty || value == null) {
+        if (!configKeys.containsAll(requiredKeys)) {
+            if (!valueIsProperty || value == null) {
                 return ValidationResult.missingRequiredProperties(name, requiredKeys)
             }
         }

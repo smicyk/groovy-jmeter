@@ -31,14 +31,8 @@ import groovy.transform.CompileDynamic
  *
  * {@literal @}groovy.transform.BaseScript net.simonix.dsl.jmeter.TestScript script
  *
- * start {
- *    plan {
- *        group {
- *
- *        }
- *    }
- * }
- * </pre>
+ * start {*    plan {*        group {*
+ *}*}*}* </pre>
  */
 @CompileDynamic
 abstract class TestScript extends TestScriptBase {
@@ -68,9 +62,9 @@ abstract class TestScript extends TestScriptBase {
             System.exit(0)
         }
 
-        def script = [:]
+        Map<String, Object> script = [:]
         script.options_enabled = true
-        if(options.'jmx-out') {
+        if (options.'jmx-out') {
             script.jmx_output = options.'jmx-out'
         } else {
             script.jmx_output = null

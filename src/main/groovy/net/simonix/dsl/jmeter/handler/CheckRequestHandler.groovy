@@ -15,9 +15,11 @@
  */
 package net.simonix.dsl.jmeter.handler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+@CompileDynamic
 final class CheckRequestHandler {
 
     final static boolean not = true
@@ -35,17 +37,17 @@ final class CheckRequestHandler {
     ResponseHandler headers(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Headers', applyTo, "request_headers", negate)
+        return responseBuildImpl('assert_response', 'Check Headers', applyTo, 'request_headers', negate)
     }
 
     ResponseHandler text(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Text', applyTo, "request_data", negate)
+        return responseBuildImpl('assert_response', 'Check Text', applyTo, 'request_data', negate)
     }
 
     private ResponseHandler responseBuildImpl(String type, String name, String applyTo, String field, boolean negate) {
-        Factory factory = builderSupport.getFactories().get(type)
+        Factory factory = builderSupport.factories.get(type)
 
         Map config = [:]
         config.name = name

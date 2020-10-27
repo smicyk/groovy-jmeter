@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.config
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.RandomVariableConfig
@@ -47,12 +48,13 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Random_Variable">Random Variable</a>
  *
  */
+@CompileDynamic
 final class RandomVariableFactory extends TestElementNodeFactory {
-    
+
     RandomVariableFactory(String testElementName) {
         super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE_PROPERTIES)
     }
-    
+
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         boolean perUser = readValue(config.perUser, true)
 

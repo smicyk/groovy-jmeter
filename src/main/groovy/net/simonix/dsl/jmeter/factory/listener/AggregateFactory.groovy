@@ -27,7 +27,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
 final class AggregateFactory extends TestElementNodeFactory {
-    
+
     AggregateFactory(String testElementName) {
         super(testElementName, ResultCollector, StatVisualizer, true, DslDefinition.AGGREGATE_PROPERTIES)
     }

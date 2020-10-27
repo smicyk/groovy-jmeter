@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.assertion
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.handler.PatternHandler
 import net.simonix.dsl.jmeter.model.DslDefinition
@@ -46,6 +47,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
     ResponseAssertionFactory(String testElementName) {
