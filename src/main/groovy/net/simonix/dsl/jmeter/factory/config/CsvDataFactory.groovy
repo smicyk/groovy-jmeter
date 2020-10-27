@@ -15,7 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.config
 
-
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.CSVDataSet
@@ -54,6 +54,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class CsvDataFactory extends TestElementNodeFactory {
 
     CsvDataFactory(String testElementName) {

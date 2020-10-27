@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.common
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.Argument
@@ -54,6 +55,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see ArgumentFactory ArgumentFactory
  */
+@CompileDynamic
 final class ArgumentsFactory extends TestElementFactory {
 
     ArgumentsFactory() {

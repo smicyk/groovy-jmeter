@@ -25,7 +25,7 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
 @CompileDynamic
 final class ConstantTimerFactory extends TestElementNodeFactory {
-    
+
     ConstantTimerFactory(String testElementName) {
         super(testElementName, ConstantTimer, ConstantTimerGui, true, DslDefinition.CONSTANT_TIMER_PROPERTIES)
     }

@@ -31,6 +31,7 @@ import org.apache.jmeter.timers.JSR223Timer
  */
 @CompileDynamic
 final class JSR223TimerFactory extends AbstractJSR223Factory {
+
     JSR223TimerFactory(String testElementName) {
         super(testElementName, JSR223Timer, TestBeanGUI, true)
     }

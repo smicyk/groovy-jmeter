@@ -70,10 +70,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  *     // Use md5 configuration
  *     saveAsMD5: boolean [<strong>false</strong>]
- * ) {
- *     body | params | headers
- * }
- * </pre>
+ * ) {*     body | params | headers
+ *}* </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Critical_Section_Controller">Critical Section Controller</a>
  *
  * @see TestElementNodeFactory TestElementNodeFactory
@@ -107,14 +105,14 @@ final class HttpFactory extends BaseHttpFactory {
         testElement.ipSource = readValue(String, config.ipSource, '')
         String ipSourceType = readValue(String, config.ipSourceType, null)
 
-        if(ipSourceType != null) {
-            if(ipSourceType == 'hostname') {
+        if (ipSourceType != null) {
+            if (ipSourceType == 'hostname') {
                 testElement.ipSourceType = HTTPSamplerBase.SourceType.HOSTNAME.ordinal()
-            } else if(ipSourceType == 'device') {
+            } else if (ipSourceType == 'device') {
                 testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE.ordinal()
-            } else if(ipSourceType == 'deviceIp4') {
+            } else if (ipSourceType == 'deviceIp4') {
                 testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE_IPV4.ordinal()
-            } else if(ipSourceType == 'deviceIp6') {
+            } else if (ipSourceType == 'deviceIp6') {
                 testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE_IPV6.ordinal()
             }
         }

@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
 final class SummaryFactory extends TestElementNodeFactory {
-    
+
     SummaryFactory(String testElementName) {
         super(testElementName, ResultCollector, SummaryReport, true, DslDefinition.SUMMARY_PROPERTIES)
     }
@@ -46,35 +46,37 @@ final class SummaryFactory extends TestElementNodeFactory {
 
         SampleSaveConfiguration saveConfig = testElement.saveConfig
 
-        saveConfig.assertions = readValue(config.assertions, saveConfig.assertions)
-        saveConfig.bytes = readValue(config.bytes, saveConfig.bytes)
-        saveConfig.code = readValue(config.code, saveConfig.code)
-        saveConfig.connectTime = readValue(config.connectTime, saveConfig.connectTime)
-        saveConfig.dataType = readValue(config.dataType, saveConfig.dataType)
-        saveConfig.encoding = readValue(config.encoding, saveConfig.encoding)
-        saveConfig.fieldNames = readValue(config.fieldNames, saveConfig.fieldNames)
-        saveConfig.fileName = readValue(config.fileName, saveConfig.fileName)
-        saveConfig.hostname = readValue(config.hostname, saveConfig.hostname)
-        saveConfig.idleTime = readValue(config.idleTime, saveConfig.idleTime)
-        saveConfig.label = readValue(config.label, saveConfig.label)
-        saveConfig.latency = readValue(config.latency, saveConfig.latency)
-        saveConfig.message = readValue(config.message, saveConfig.message)
-        //saveConfig.printMilliseconds = readValue(config.printMilliseconds, saveConfig.printMilliseconds)
-        saveConfig.requestHeaders = readValue(config.requestHeaders, saveConfig.requestHeaders)
-        saveConfig.responseData = readValue(config.responseData, saveConfig.responseData)
-        //saveConfig.responseDataOnError = readValue(config.responseDataOnError, saveConfig.responseDataOnError)
-        saveConfig.responseHeaders = readValue(config.responseHeaders, saveConfig.responseHeaders)
-        saveConfig.sampleCount = readValue(config.sampleCount, saveConfig.sampleCount)
-        saveConfig.samplerData = readValue(config.samplerData, saveConfig.samplerData)
-        //saveConfig.saveAssertionResultsFailureMessage = readValue(config.saveAssertionResultsFailureMessage, saveConfig.saveAssertionResultsFailureMessage)
-        saveConfig.sentBytes = readValue(config.sentBytes, saveConfig.sentBytes)
-        saveConfig.subresults = readValue(config.subresults, saveConfig.subresults)
-        saveConfig.success = readValue(config.success, saveConfig.success)
-        saveConfig.threadCounts = readValue(config.threadCounts, saveConfig.threadCounts)
-        saveConfig.threadName = readValue(config.threadName, saveConfig.threadName)
-        saveConfig.time = readValue(config.time, saveConfig.time)
-        saveConfig.timestamp = readValue(config.timestamp, saveConfig.timestamp)
-        saveConfig.url = readValue(config.url, saveConfig.url)
-        saveConfig.asXml = readValue(config.xml, saveConfig.xml)
+        saveConfig.with {
+            assertions = readValue(config.assertions, saveConfig.assertions)
+            bytes = readValue(config.bytes, saveConfig.bytes)
+            code = readValue(config.code, saveConfig.code)
+            connectTime = readValue(config.connectTime, saveConfig.connectTime)
+            dataType = readValue(config.dataType, saveConfig.dataType)
+            encoding = readValue(config.encoding, saveConfig.encoding)
+            fieldNames = readValue(config.fieldNames, saveConfig.fieldNames)
+            fileName = readValue(config.fileName, saveConfig.fileName)
+            hostname = readValue(config.hostname, saveConfig.hostname)
+            idleTime = readValue(config.idleTime, saveConfig.idleTime)
+            label = readValue(config.label, saveConfig.label)
+            latency = readValue(config.latency, saveConfig.latency)
+            message = readValue(config.message, saveConfig.message)
+            //printMilliseconds = readValue(config.printMilliseconds, saveConfig.printMilliseconds)
+            requestHeaders = readValue(config.requestHeaders, saveConfig.requestHeaders)
+            responseData = readValue(config.responseData, saveConfig.responseData)
+            //responseDataOnError = readValue(config.responseDataOnError, saveConfig.responseDataOnError)
+            responseHeaders = readValue(config.responseHeaders, saveConfig.responseHeaders)
+            sampleCount = readValue(config.sampleCount, saveConfig.sampleCount)
+            samplerData = readValue(config.samplerData, saveConfig.samplerData)
+            //saveAssertionResultsFailureMessage = readValue(config.saveAssertionResultsFailureMessage, saveConfig.saveAssertionResultsFailureMessage)
+            sentBytes = readValue(config.sentBytes, saveConfig.sentBytes)
+            subresults = readValue(config.subresults, saveConfig.subresults)
+            success = readValue(config.success, saveConfig.success)
+            threadCounts = readValue(config.threadCounts, saveConfig.threadCounts)
+            threadName = readValue(config.threadName, saveConfig.threadName)
+            time = readValue(config.time, saveConfig.time)
+            timestamp = readValue(config.timestamp, saveConfig.timestamp)
+            url = readValue(config.url, saveConfig.url)
+            asXml = readValue(config.xml, saveConfig.xml)
+        }
     }
 }

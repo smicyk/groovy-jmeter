@@ -38,9 +38,9 @@ final class FlowControlActionFactory extends TestElementNodeFactory {
     }
 
     int translateTarget(String target) {
-        if(target == 'all') {
+        if (target == 'all') {
             return TestAction.TEST
-        } else if(target == 'current') {
+        } else if (target == 'current') {
             return TestAction.THREAD
         }
 
@@ -48,17 +48,17 @@ final class FlowControlActionFactory extends TestElementNodeFactory {
     }
 
     int translateAction(String action) {
-        if(action == 'stop') {
+        if (action == 'stop') {
             return TestAction.STOP
-        } else if(action == 'pause') {
+        } else if (action == 'pause') {
             return TestAction.PAUSE
-        } else if(action == 'stop_now') {
+        } else if (action == 'stop_now') {
             return TestAction.STOP_NOW
-        } else if(action == 'restart_next_loop') {
+        } else if (action == 'restart_next_loop') {
             return TestAction.RESTART_NEXT_LOOP
-        } else if(action == 'start_next') {
+        } else if (action == 'start_next') {
             return TestAction.START_NEXT_ITERATION_CURRENT_LOOP
-        } else if(action == 'break') {
+        } else if (action == 'break') {
             return TestAction.BREAK_CURRENT_LOOP
         }
 

@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.handler
 
+import groovy.transform.CompileDynamic
 import org.apache.jmeter.assertions.ResponseAssertion
 import org.apache.jmeter.testelement.TestElement
 
@@ -31,6 +32,7 @@ import org.apache.jmeter.testelement.TestElement
  * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
  * @see net.simonix.dsl.jmeter.factory.assertion.ResponseAssertionFactory RespnoseAssertionFactory
  */
+@CompileDynamic
 final class PatternHandler {
 
     TestElement testElement

@@ -15,29 +15,33 @@
  */
 package net.simonix.dsl.jmeter.utils
 
+import groovy.transform.CompileDynamic
+
+@CompileDynamic
 final class ConfigUtils {
+
     static Object readValue(Object value, Object defaultValue) {
         if (value != null) {
-            if(String.isAssignableFrom(value.getClass())) {
+            if (String.isAssignableFrom(value.getClass())) {
                 return value ?: defaultValue
             } else {
                 return value
             }
-        } else {
-            return defaultValue
         }
+
+        return defaultValue
     }
 
     static <T> T readValue(Class<T> type, Object value, Object defaultValue) {
         if (value != null) {
-            if(String.isAssignableFrom(value.getClass())) {
+            if (String.isAssignableFrom(value.getClass())) {
                 return value.asType(type) ?: defaultValue.asType(type)
             } else {
                 return value.asType(type)
             }
-        } else {
-            return defaultValue.asType(type)
         }
+
+        return defaultValue.asType(type)
     }
 
     static Object readValues(Object value, String separator, Object defaultValue) {
@@ -48,9 +52,9 @@ final class ConfigUtils {
             } else {
                 return values.toString()
             }
-        } else {
-            return defaultValue
         }
+
+        return defaultValue
     }
 
     static boolean hasValue(Object value) {

@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.config
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.config.ConfigTestElement
@@ -23,6 +24,7 @@ import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+@CompileDynamic
 final class LoginFactory extends TestElementNodeFactory {
 
     LoginFactory(String testElementName) {

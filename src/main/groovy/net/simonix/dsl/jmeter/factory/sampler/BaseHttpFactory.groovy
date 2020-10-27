@@ -21,13 +21,14 @@ import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
+import java.util.regex.Matcher
+
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * Base class for HTTP related factories.
  *
- * @see AjpFactory
- * @see HttpFactory
+ * @see AjpFactory* @see HttpFactory
  */
 @CompileDynamic
 abstract class BaseHttpFactory extends TestElementNodeFactory {
@@ -50,7 +51,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
             HTTPConstants.UNLOCK,
             HTTPConstants.REPORT,
             HTTPConstants.MKCALENDAR,
-            HTTPConstants.SEARCH
+            HTTPConstants.SEARCH,
     ]
 
     static final URL_PROTOCOL = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
@@ -71,19 +72,19 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         String path = readValue(config.path, '')
 
         Integer port = null
-        if(config.containsKey('port')) {
+        if (config.containsKey('port')) {
             port = readValue(Integer, config.port, null)
         }
 
         // override config elements
         if (value != null) {
-            def matches = NAME_PATTERNS.collect { value =~ it }.find { it.find() }
+            Matcher matches = NAME_PATTERNS.collect { value =~ it }.find { it.find() }
 
-            if(matches != null) {
+            if (matches != null) {
                 method = matches.group('method') ?: method
                 protocol = matches.group('protocol') ?: protocol
                 domain = matches.group('domain') ?: domain
-                if(matches.group('port')) {
+                if (matches.group('port')) {
                     port = matches.group('port').toInteger()
                 }
                 path = matches.group('path') ?: path
@@ -96,12 +97,12 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.protocol = protocol
         testElement.domain = domain
 
-        if(port != null) {
+        if (port != null) {
             testElement.port = port
         }
 
         // Request configuration
-        testElement.method  = method
+        testElement.method = method
         testElement.path = path
         testElement.contentEncoding = readValue(config.encoding, '')
         testElement.autoRedirects = readValue(config.autoRedirects, false)
@@ -111,7 +112,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.doBrowserCompatibleMultipart = readValue(config.browserCompatibleMultipart, false)
     }
 
-    private String evaluateElementName(method, protocol, domain, port, path) {
+    private String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
         String elementName = "${method} ${path}"
 
         return elementName.replaceAll(/(\$\{(.*?)\})/) { input, expression, variable -> ":$variable" }

@@ -15,11 +15,13 @@
  */
 package net.simonix.dsl.jmeter.handler
 
-
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
 import org.apache.jmeter.assertions.SizeAssertion
 
+@CompileDynamic
 final class SizeHandler {
+
     TestElementNode testElementCurrent
 
     SizeHandler(TestElementNode testElementCurrent) {

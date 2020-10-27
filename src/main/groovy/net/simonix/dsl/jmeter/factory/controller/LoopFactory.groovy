@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
@@ -41,6 +42,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class LoopFactory extends TestElementNodeFactory {
 
     LoopFactory(String testElementName) {
@@ -54,14 +56,14 @@ final class LoopFactory extends TestElementNodeFactory {
             count = value
         }
 
-        if(hasValue(config.forever)) {
+        if (hasValue(config.forever)) {
             testElement.continueForever = readValue(config.forever, false)
         } else {
             testElement.continueForever = false
         }
 
         // if forever is set to true, we should set count to negative value
-        if(testElement.continueForever) {
+        if (testElement.continueForever) {
             testElement.loops = -1
         } else {
             // if it is missing or false we should set it to true but keep the value of count, otherwise it is not consistent with jmeter behaviour

@@ -19,16 +19,12 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
  * Base class for building {@link TestElement}
  */
 @CompileDynamic
 abstract class AbstractTestElementFactory extends AbstractFactory implements ValidatorProvider {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTestElementFactory)
 
     /**
      * Main method for building new {@link TestElement}. All subclasses should override this method.
@@ -65,7 +61,7 @@ abstract class AbstractTestElementFactory extends AbstractFactory implements Val
         }
     }
 
-    boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map config ) {
+    boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map config) {
         return false
     }
 }

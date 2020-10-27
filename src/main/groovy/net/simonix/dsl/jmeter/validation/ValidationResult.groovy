@@ -15,6 +15,9 @@
  */
 package net.simonix.dsl.jmeter.validation
 
+import groovy.transform.CompileDynamic
+
+@CompileDynamic
 final class ValidationResult {
 
     boolean valid
@@ -25,10 +28,10 @@ final class ValidationResult {
     }
 
     static ValidationResult missingRequiredProperties(Object name, Set<String> requiredProperties) {
-        return new ValidationResult(valid: false, message: "The keyword '${name}' is missing required properties. Did you forgot to add any of the required properties ${requiredProperties}")
+        return new ValidationResult(valid: false, message: "The keyword '${name}' is missing required properties. Did you forgot to add any of the required properties ${requiredProperties}?")
     }
 
     static ValidationResult success() {
-        return new ValidationResult(valid: true, message: "Success")
+        return new ValidationResult(valid: true, message: 'Success')
     }
 }

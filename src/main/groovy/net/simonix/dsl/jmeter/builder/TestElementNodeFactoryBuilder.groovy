@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.builder
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.assertion.*
 import net.simonix.dsl.jmeter.factory.common.*
 import net.simonix.dsl.jmeter.factory.config.*
@@ -39,31 +40,15 @@ import net.simonix.dsl.jmeter.model.DslDefinition
 import net.simonix.dsl.jmeter.validation.ValidationResult
 import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
  * Handles all DSL keywords and builds final {@link net.simonix.dsl.jmeter.model.TestElementNode} tree.
  */
+@CompileDynamic
 class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
-
-    private static final Logger logger = LoggerFactory.getLogger(TestElementNodeFactoryBuilder)
 
     TestElementNodeFactoryBuilder(boolean init = true) {
         super(init)
-    }
-
-    protected void preInstantiate(Object name, Map attributes, Object value) {
-        super.preInstantiate(name, attributes, value)
-
-        ValidatorProvider provider = getCurrentFactory() as ValidatorProvider
-
-        Validator validator = provider.getValidator()
-        ValidationResult result = validator.validate(name, value, attributes)
-
-        if(!result.valid) {
-            throw new IllegalArgumentException(result.message)
-        }
     }
 
     void registerObjectFactories() {
@@ -171,5 +156,18 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
 
     void registerPluginFactory(String type, AbstractFactory factory) {
         registerFactory(type, factory)
+    }
+
+    protected void preInstantiate(Object name, Map attributes, Object value) {
+        super.preInstantiate(name, attributes, value)
+
+        ValidatorProvider provider = getCurrentFactory() as ValidatorProvider
+
+        Validator validator = provider.getValidator()
+        ValidationResult result = validator.validate(name, value, attributes)
+
+        if (!result.valid) {
+            throw new IllegalArgumentException(result.message)
+        }
     }
 }

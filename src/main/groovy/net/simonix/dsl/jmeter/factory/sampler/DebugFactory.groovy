@@ -27,7 +27,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
 final class DebugFactory extends TestElementNodeFactory {
-    
+
     DebugFactory(String testElementName) {
         super(testElementName, DebugSampler, TestBeanGUI, false, DslDefinition.DEBUG_PROPERTIES)
     }

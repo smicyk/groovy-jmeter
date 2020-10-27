@@ -17,8 +17,6 @@ package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
  * Add dynamic creation of {@link TestElementNode}.
@@ -27,8 +25,6 @@ import org.slf4j.LoggerFactory
  */
 @CompileDynamic
 abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCompositeTestElementNodeFactory)
 
     /**
      * Get real {@link net.simonix.dsl.jmeter.model.TestElementNode} factory class instead of this one.

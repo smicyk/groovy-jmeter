@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
 final class BackendListenerFactory extends TestElementNodeFactory {
-    
+
     BackendListenerFactory(String testElementName) {
         super(testElementName, BackendListener, BackendListenerGui, false, DslDefinition.BACKEND_PROPERTIES)
     }

@@ -15,9 +15,12 @@
  */
 package net.simonix.dsl.jmeter.handler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+@CompileDynamic
 final class DurationHandler {
+
     TestElementNode testElementCurrent
 
     DurationHandler(TestElementNode testElementCurrent) {

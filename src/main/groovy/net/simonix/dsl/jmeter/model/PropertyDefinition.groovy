@@ -15,12 +15,15 @@
  */
 package net.simonix.dsl.jmeter.model
 
+import groovy.transform.CompileDynamic
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
+@CompileDynamic
 class PropertyDefinition {
+
     String name
     boolean required
 }

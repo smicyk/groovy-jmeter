@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.extractor
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.extractor.RegexExtractor
 import org.apache.jmeter.extractor.gui.RegexExtractorGui
@@ -45,8 +46,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class RegExExtractorFactory extends TestElementNodeFactory {
-    
+
     RegExExtractorFactory(String testElementName) {
         super(testElementName, RegexExtractor, RegexExtractorGui, true, DslDefinition.REGEX_EXTRACTOR_PROPERTIES)
     }

@@ -264,7 +264,9 @@ ruleset {
     DuplicateImport
     ImportFromSamePackage
     ImportFromSunPackages
-    MisorderedStaticImports
+    MisorderedStaticImports {
+        comesBefore = false
+    }
     NoWildcardImports
     UnnecessaryGroovyImport
     UnusedImport

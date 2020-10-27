@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.group
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
@@ -61,8 +62,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class GroupFactory extends TestElementNodeFactory {
-    
+
     GroupFactory(String testElementName) {
         super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP_PROPERTIES)
     }

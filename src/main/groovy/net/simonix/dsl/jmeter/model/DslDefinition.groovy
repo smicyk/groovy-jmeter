@@ -15,109 +15,112 @@
  */
 package net.simonix.dsl.jmeter.model
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 final class DslDefinition {
-    static String PLAN = 'plan'
-    static String GROUP = 'group'
+    static final String PLAN = 'plan'
+    static final String GROUP = 'group'
 
-    static String LOOP = 'loop'
-    static String SIMPLE = 'simple'
-    static String TRANSACTION = 'transaction'
-    static String SECTION = 'section'
-    static String INCLUDE = 'include'
-    static String FOR_EACH = 'for_each'
+    static final String LOOP = 'loop'
+    static final String SIMPLE = 'simple'
+    static final String TRANSACTION = 'transaction'
+    static final String SECTION = 'section'
+    static final String INCLUDE = 'include'
+    static final String FOR_EACH = 'for_each'
 
-    static String EXECUTE = 'execute'
+    static final String EXECUTE = 'execute'
 
-    static String EXECUTE_IF = 'execute_if'
-    static String EXECUTE_WHILE = 'execute_while'
-    static String EXECUTE_ONCE = 'execute_once'
-    static String EXECUTE_INTERLEAVE = 'execute_interleave'
-    static String EXECUTE_RANDOM = 'execute_random'
-    static String EXECUTE_ORDER = 'execute_order'
-    static String EXECUTE_PERCENT = 'execute_percent'
-    static String EXECUTE_TOTAL = 'execute_total'
-    static String EXECUTE_RUNTIME = 'execute_runtime'
-    static String EXECUTE_SWITCH = 'execute_switch'
+    static final String EXECUTE_IF = 'execute_if'
+    static final String EXECUTE_WHILE = 'execute_while'
+    static final String EXECUTE_ONCE = 'execute_once'
+    static final String EXECUTE_INTERLEAVE = 'execute_interleave'
+    static final String EXECUTE_RANDOM = 'execute_random'
+    static final String EXECUTE_ORDER = 'execute_order'
+    static final String EXECUTE_PERCENT = 'execute_percent'
+    static final String EXECUTE_TOTAL = 'execute_total'
+    static final String EXECUTE_RUNTIME = 'execute_runtime'
+    static final String EXECUTE_SWITCH = 'execute_switch'
 
-    static String EXEC_IF = 'exec_if'
-    static String EXEC_WHILE = 'exec_while'
-    static String EXEC_ONCE = 'exec_once'
-    static String EXEC_INTERLEAVE = 'exec_interleave'
-    static String EXEC_RANDOM = 'exec_random'
-    static String EXEC_ORDER = 'exec_order'
-    static String EXEC_PERCENT = 'exec_percent'
-    static String EXEC_TOTAL = 'exec_total'
-    static String EXEC_RUNTIME = 'exec_runtime'
-    static String EXEC_SWITCH = 'exec_switch'
+    static final String EXEC_IF = 'exec_if'
+    static final String EXEC_WHILE = 'exec_while'
+    static final String EXEC_ONCE = 'exec_once'
+    static final String EXEC_INTERLEAVE = 'exec_interleave'
+    static final String EXEC_RANDOM = 'exec_random'
+    static final String EXEC_ORDER = 'exec_order'
+    static final String EXEC_PERCENT = 'exec_percent'
+    static final String EXEC_TOTAL = 'exec_total'
+    static final String EXEC_RUNTIME = 'exec_runtime'
+    static final String EXEC_SWITCH = 'exec_switch'
 
-    static String HTTP = 'http'
-    static String AJP = 'ajp'
-    static String DEBUG = 'debug'
-    static String JSR223_SAMPLER = 'jsrsampler'
-    static String FLOW = 'flow'
+    static final String HTTP = 'http'
+    static final String AJP = 'ajp'
+    static final String DEBUG = 'debug'
+    static final String JSR223_SAMPLER = 'jsrsampler'
+    static final String FLOW = 'flow'
 
-    static String PARAM = 'param'
-    static String PARAMS = 'params'
-    static String BODY = 'body'
-    static String ARGUMENT = 'argument'
-    static String ARGUMENTS = 'arguments'
-    static String INSERT = 'insert'
+    static final String PARAM = 'param'
+    static final String PARAMS = 'params'
+    static final String BODY = 'body'
+    static final String ARGUMENT = 'argument'
+    static final String ARGUMENTS = 'arguments'
+    static final String INSERT = 'insert'
 
-    static String AUTHORIZATION = 'authorization'
-    static String AUTHORIZATIONS = 'authorizations'
-    static String CACHE = 'cache'
-    static String COOKIE = 'cookie'
-    static String COOKIES = 'cookies'
-    static String COUNTER = 'counter'
-    static String CSV_DATA = 'csv'
-    static String DEFAULTS = 'defaults'
-    static String HEADER = 'header'
-    static String HEADERS = 'headers'
-    static String LOGIN = 'login'
-    static String RANDOM_VARIABLE = 'random'
-    static String VARIABLE = 'variable'
-    static String VARIABLES = 'variables'
+    static final String AUTHORIZATION = 'authorization'
+    static final String AUTHORIZATIONS = 'authorizations'
+    static final String CACHE = 'cache'
+    static final String COOKIE = 'cookie'
+    static final String COOKIES = 'cookies'
+    static final String COUNTER = 'counter'
+    static final String CSV_DATA = 'csv'
+    static final String DEFAULTS = 'defaults'
+    static final String HEADER = 'header'
+    static final String HEADERS = 'headers'
+    static final String LOGIN = 'login'
+    static final String RANDOM_VARIABLE = 'random'
+    static final String VARIABLE = 'variable'
+    static final String VARIABLES = 'variables'
 
-    static String CONSTANT_TIMER = 'timer'
-    static String UNIFORM_TIMER = 'uniform'
-    static String JSR223_TIMER = 'jsrtimer'
+    static final String CONSTANT_TIMER = 'timer'
+    static final String UNIFORM_TIMER = 'uniform'
+    static final String JSR223_TIMER = 'jsrtimer'
 
-    static String AGGREGATE = 'aggregate'
-    static String BACKEND = 'backend'
-    static String SUMMARY = 'summary'
-    static String JSR223_LISTENER = 'jsrlistener'
+    static final String AGGREGATE = 'aggregate'
+    static final String BACKEND = 'backend'
+    static final String SUMMARY = 'summary'
+    static final String JSR223_LISTENER = 'jsrlistener'
 
-    static String CSS_EXTRACTOR = 'extract_css'
-    static String REGEX_EXTRACTOR = 'extract_regex'
-    static String JSON_EXTRACTOR = 'extract_json'
+    static final String CSS_EXTRACTOR = 'extract_css'
+    static final String REGEX_EXTRACTOR = 'extract_regex'
+    static final String JSON_EXTRACTOR = 'extract_json'
 
-    static String JSR223_POSTPROCESSOR = 'jsrpostprocessor'
-    static String JSR223_PREPROCESSOR = 'jsrpreprocessor'
+    static final String JSR223_POSTPROCESSOR = 'jsrpostprocessor'
+    static final String JSR223_PREPROCESSOR = 'jsrpreprocessor'
 
-    static String JSR223_ASSERTION = 'jsrassertion'
-    static String ASSERT_RESPONSE = 'assert_response'
-    static String ASSERT_SIZE = 'assert_size'
-    static String ASSERT_DURATION = 'assert_duration'
-    static String ASSERT_XPATH = 'assert_xpath'
-    static String ASSERT_JSON = 'assert_json'
-    static String ASSERT_MD5HEX = 'assert_md5hex'
-    static String CHECK_RESPONSE = 'check_response'
-    static String CHECK_REQUEST = 'check_request'
-    static String CHECK_SIZE = 'check_size'
+    static final String JSR223_ASSERTION = 'jsrassertion'
+    static final String ASSERT_RESPONSE = 'assert_response'
+    static final String ASSERT_SIZE = 'assert_size'
+    static final String ASSERT_DURATION = 'assert_duration'
+    static final String ASSERT_XPATH = 'assert_xpath'
+    static final String ASSERT_JSON = 'assert_json'
+    static final String ASSERT_MD5HEX = 'assert_md5hex'
+    static final String CHECK_RESPONSE = 'check_response'
+    static final String CHECK_REQUEST = 'check_request'
+    static final String CHECK_SIZE = 'check_size'
 
-    static Set<PropertyDefinition> COMMON_PROPERTIES = [
+    static final Set<PropertyDefinition> COMMON_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'comments', required: false),
-            new PropertyDefinition(name: 'enabled', required: false)
-    ]
+            new PropertyDefinition(name: 'enabled', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> PLAN_PROPERTIES = [
+    static final Set<PropertyDefinition> PLAN_PROPERTIES = [
             new PropertyDefinition(name: 'serialized', required: false),
             new PropertyDefinition(name: 'functionalMode', required: false),
-            new PropertyDefinition(name: 'tearDownOnShutdown', required: false)
-    ]
+            new PropertyDefinition(name: 'tearDownOnShutdown', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> GROUP_PROPERTIES = [
+    static final Set<PropertyDefinition> GROUP_PROPERTIES = [
             new PropertyDefinition(name: 'users', required: false),
             new PropertyDefinition(name: 'rampUp', required: false),
             new PropertyDefinition(name: 'delayedStart', required: false),
@@ -125,86 +128,86 @@ final class DslDefinition {
             new PropertyDefinition(name: 'delay', required: false),
             new PropertyDefinition(name: 'duration', required: false),
             new PropertyDefinition(name: 'loops', required: false),
-            new PropertyDefinition(name: 'forever', required: false)
-    ]
+            new PropertyDefinition(name: 'forever', required: false),
+    ].toSet().asImmutable()
 
     // controllers
-    static Set<PropertyDefinition> LOOP_PROPERTIES = [
+    static final Set<PropertyDefinition> LOOP_PROPERTIES = [
             new PropertyDefinition(name: 'count', required: false),
-            new PropertyDefinition(name: 'forever', required: false)
-    ]
+            new PropertyDefinition(name: 'forever', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> SIMPLE_PROPERTIES = []
+    static final Set<PropertyDefinition> SIMPLE_PROPERTIES = [].toSet().asImmutable()
 
-    static Set<PropertyDefinition> TRANSACTION_PROPERTIES = [
+    static final Set<PropertyDefinition> TRANSACTION_PROPERTIES = [
             new PropertyDefinition(name: 'timers', required: false),
-            new PropertyDefinition(name: 'generate', required: false)
-    ]
+            new PropertyDefinition(name: 'generate', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> SECTION_PROPERTIES = [
-            new PropertyDefinition(name: 'lock', required: false)
-    ]
+    static final Set<PropertyDefinition> SECTION_PROPERTIES = [
+            new PropertyDefinition(name: 'lock', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> INCLUDE_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: true)
-    ]
+    static final Set<PropertyDefinition> INCLUDE_PROPERTIES = [
+            new PropertyDefinition(name: 'path', required: true),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> FOR_EACH_PROPERTIES = [
+    static final Set<PropertyDefinition> FOR_EACH_PROPERTIES = [
             new PropertyDefinition(name: 'in', required: false),
             new PropertyDefinition(name: 'out', required: false),
             new PropertyDefinition(name: 'separator', required: false),
             new PropertyDefinition(name: 'start', required: false),
-            new PropertyDefinition(name: 'end', required: false)
-    ]
+            new PropertyDefinition(name: 'end', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_PROPERTIES = [
-            new PropertyDefinition(name: 'type', required: true)
-    ]
+    static final Set<PropertyDefinition> EXECUTE_PROPERTIES = [
+            new PropertyDefinition(name: 'type', required: true),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_IF_PROPERTIES = [
+    static final Set<PropertyDefinition> EXECUTE_IF_PROPERTIES = [
             new PropertyDefinition(name: 'condition', required: true),
             new PropertyDefinition(name: 'useExpression', required: false),
-            new PropertyDefinition(name: 'evaluateAll', required: false)
-    ]
+            new PropertyDefinition(name: 'evaluateAll', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_WHILE_PROPERTIES = [
-            new PropertyDefinition(name: 'condition', required: true)
-    ]
+    static final Set<PropertyDefinition> EXECUTE_WHILE_PROPERTIES = [
+            new PropertyDefinition(name: 'condition', required: true),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_ONCE_PROPERTIES = []
+    static final Set<PropertyDefinition> EXECUTE_ONCE_PROPERTIES = [].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_INTERLEAVE_PROPERTIES = [
+    static final Set<PropertyDefinition> EXECUTE_INTERLEAVE_PROPERTIES = [
             new PropertyDefinition(name: 'ignore', required: false),
-            new PropertyDefinition(name: 'acrossUsers', required: false)
-    ]
+            new PropertyDefinition(name: 'acrossUsers', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_RANDOM_PROPERTIES = [
-            new PropertyDefinition(name: 'ignore', required: false)
-    ]
+    static final Set<PropertyDefinition> EXECUTE_RANDOM_PROPERTIES = [
+            new PropertyDefinition(name: 'ignore', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_ORDER_PROPERTIES = []
+    static final Set<PropertyDefinition> EXECUTE_ORDER_PROPERTIES = [].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_PERCENT_PROPERTIES = [
+    static final Set<PropertyDefinition> EXECUTE_PERCENT_PROPERTIES = [
             new PropertyDefinition(name: 'percent', required: false),
             new PropertyDefinition(name: 'perUser', required: false),
-            new PropertyDefinition(name: 'maxThroughput', required: false)
-    ]
+            new PropertyDefinition(name: 'maxThroughput', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_TOTAL_PROPERTIES = [
+    static final Set<PropertyDefinition> EXECUTE_TOTAL_PROPERTIES = [
             new PropertyDefinition(name: 'perUser', required: false),
-            new PropertyDefinition(name: 'total', required: false)
-    ]
+            new PropertyDefinition(name: 'total', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_RUNTIME_PROPERTIES = [
-            new PropertyDefinition(name: 'runtime', required: false)
-    ]
+    static final Set<PropertyDefinition> EXECUTE_RUNTIME_PROPERTIES = [
+            new PropertyDefinition(name: 'runtime', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> EXECUTE_SWITCH_PROPERTIES = [
-            new PropertyDefinition(name: 'value', required: false)
-    ]
+    static final Set<PropertyDefinition> EXECUTE_SWITCH_PROPERTIES = [
+            new PropertyDefinition(name: 'value', required: false),
+    ].toSet().asImmutable()
 
     // samplers
-    static Set<PropertyDefinition> HTTP_COMMON_PROPERTIES = [
+    static final Set<PropertyDefinition> HTTP_COMMON_PROPERTIES = [
             new PropertyDefinition(name: 'method', required: false),
             new PropertyDefinition(name: 'protocol', required: false),
             new PropertyDefinition(name: 'domain', required: false),
@@ -215,10 +218,10 @@ final class DslDefinition {
             new PropertyDefinition(name: 'followRedirects', required: false),
             new PropertyDefinition(name: 'keepAlive', required: false),
             new PropertyDefinition(name: 'multipart', required: false),
-            new PropertyDefinition(name: 'browserCompatibleMultipart', required: false)
-    ]
+            new PropertyDefinition(name: 'browserCompatibleMultipart', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> HTTP_PROPERTIES = [
+    static final Set<PropertyDefinition> HTTP_PROPERTIES = [
             new PropertyDefinition(name: 'impl', required: false),
             new PropertyDefinition(name: 'connectTimeout', required: false),
             new PropertyDefinition(name: 'responseTimeout', required: false),
@@ -233,72 +236,72 @@ final class DslDefinition {
             new PropertyDefinition(name: 'proxyPort', required: false),
             new PropertyDefinition(name: 'proxyUser', required: false),
             new PropertyDefinition(name: 'proxyPassword', required: false),
-            new PropertyDefinition(name: 'saveAsMD5', required: false)
-    ]
+            new PropertyDefinition(name: 'saveAsMD5', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> AJP_PROPERTIES = [
+    static final Set<PropertyDefinition> AJP_PROPERTIES = [
             new PropertyDefinition(name: 'downloadEmbeddedResources', required: false),
             new PropertyDefinition(name: 'embeddedConcurrent', required: false),
             new PropertyDefinition(name: 'embeddedConcurrentDownloads', required: false),
             new PropertyDefinition(name: 'embeddedResourceUrl', required: false),
-            new PropertyDefinition(name: 'saveAsMD5', required: false)
-    ]
+            new PropertyDefinition(name: 'saveAsMD5', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> FLOW_CONTROL_ACTION_PROPERTIES = [
+    static final Set<PropertyDefinition> FLOW_CONTROL_ACTION_PROPERTIES = [
             new PropertyDefinition(name: 'action', required: false),
             new PropertyDefinition(name: 'target', required: false),
-            new PropertyDefinition(name: 'duration', required: false)
-    ]
+            new PropertyDefinition(name: 'duration', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> DEBUG_PROPERTIES = [
+    static final Set<PropertyDefinition> DEBUG_PROPERTIES = [
             new PropertyDefinition(name: 'displayJMeterProperties', required: false),
             new PropertyDefinition(name: 'displayJMeterVariables', required: false),
-            new PropertyDefinition(name: 'displaySystemProperties', required: false)
-    ]
+            new PropertyDefinition(name: 'displaySystemProperties', required: false),
+    ].toSet().asImmutable()
 
     // common
-    static Set<PropertyDefinition> ARGUMENT_PROPERTIES = [
+    static final Set<PropertyDefinition> ARGUMENT_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
-            new PropertyDefinition(name: 'value', required: false)
-    ]
+            new PropertyDefinition(name: 'value', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ARGUMENTS_PROPERTIES = [
-            new PropertyDefinition(name: 'values', required: false)
-    ]
+    static final Set<PropertyDefinition> ARGUMENTS_PROPERTIES = [
+            new PropertyDefinition(name: 'values', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> BODY_PROPERTIES = [
+    static final Set<PropertyDefinition> BODY_PROPERTIES = [
             new PropertyDefinition(name: 'path', required: false),
-            new PropertyDefinition(name: 'encoding', required: false)
-    ]
+            new PropertyDefinition(name: 'encoding', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> INSERT_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: false)
-    ]
+    static final Set<PropertyDefinition> INSERT_PROPERTIES = [
+            new PropertyDefinition(name: 'path', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> PARAM_PROPERTIES = [
+    static final Set<PropertyDefinition> PARAM_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'encoded', required: false),
-            new PropertyDefinition(name: 'encoding', required: false)
-    ]
+            new PropertyDefinition(name: 'encoding', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> PARAMS_PROPERTIES = [
-            new PropertyDefinition(name: 'values', required: false)
-    ]
+    static final Set<PropertyDefinition> PARAMS_PROPERTIES = [
+            new PropertyDefinition(name: 'values', required: false),
+    ].toSet().asImmutable()
 
     // configs
-    static Set<PropertyDefinition> AUTHORIZATION_PROPERTIES = [
+    static final Set<PropertyDefinition> AUTHORIZATION_PROPERTIES = [
             new PropertyDefinition(name: 'url', required: false),
             new PropertyDefinition(name: 'username', required: false),
             new PropertyDefinition(name: 'password', required: false),
             new PropertyDefinition(name: 'domain', required: false),
             new PropertyDefinition(name: 'realm', required: false),
-            new PropertyDefinition(name: 'mechanism', required: false)
-    ]
+            new PropertyDefinition(name: 'mechanism', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> AUTHORIZATIONS_PROPERTIES = []
+    static final Set<PropertyDefinition> AUTHORIZATIONS_PROPERTIES = [].toSet().asImmutable()
 
-    static Set<PropertyDefinition> DEFAULTS_PROPERTIES = [
+    static final Set<PropertyDefinition> DEFAULTS_PROPERTIES = [
             new PropertyDefinition(name: 'protocol', required: false),
             new PropertyDefinition(name: 'domain', required: false),
             new PropertyDefinition(name: 'port', required: false),
@@ -319,16 +322,16 @@ final class DslDefinition {
             new PropertyDefinition(name: 'proxyPort', required: false),
             new PropertyDefinition(name: 'proxyUser', required: false),
             new PropertyDefinition(name: 'proxyPassword', required: false),
-            new PropertyDefinition(name: 'saveAsMD5', required: false)
-    ]
+            new PropertyDefinition(name: 'saveAsMD5', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CACHE_PROPERTIES = [
+    static final Set<PropertyDefinition> CACHE_PROPERTIES = [
             new PropertyDefinition(name: 'clearEachIteration', required: false),
             new PropertyDefinition(name: 'useExpires', required: false),
-            new PropertyDefinition(name: 'maxSize', required: false)
-    ]
+            new PropertyDefinition(name: 'maxSize', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> COOKIE_PROPERTIES = [
+    static final Set<PropertyDefinition> COOKIE_PROPERTIES = [
             new PropertyDefinition(name: 'secure', required: false),
             new PropertyDefinition(name: 'path', required: false),
             new PropertyDefinition(name: 'domain', required: false),
@@ -336,25 +339,25 @@ final class DslDefinition {
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'domain', required: false),
             new PropertyDefinition(name: 'path', required: false),
-            new PropertyDefinition(name: 'expires', required: false)
-    ]
+            new PropertyDefinition(name: 'expires', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> COOKIES_PROPERTIES = [
+    static final Set<PropertyDefinition> COOKIES_PROPERTIES = [
             new PropertyDefinition(name: 'clearEachIteration', required: false),
-            new PropertyDefinition(name: 'policy', required: false)
-    ]
+            new PropertyDefinition(name: 'policy', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> COUNTER_PROPERTIES = [
+    static final Set<PropertyDefinition> COUNTER_PROPERTIES = [
             new PropertyDefinition(name: 'perUser', required: false),
             new PropertyDefinition(name: 'reset', required: false),
             new PropertyDefinition(name: 'start', required: false),
             new PropertyDefinition(name: 'end', required: false),
             new PropertyDefinition(name: 'increment', required: false),
             new PropertyDefinition(name: 'variable', required: false),
-            new PropertyDefinition(name: 'format', required: false)
-    ]
+            new PropertyDefinition(name: 'format', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CSV_DATA_PROPERTIES = [
+    static final Set<PropertyDefinition> CSV_DATA_PROPERTIES = [
             new PropertyDefinition(name: 'ignoreFirstLine', required: false),
             new PropertyDefinition(name: 'allowQuotedData', required: false),
             new PropertyDefinition(name: 'recycle', required: false),
@@ -363,71 +366,71 @@ final class DslDefinition {
             new PropertyDefinition(name: 'filename', required: false),
             new PropertyDefinition(name: 'encoding', required: false),
             new PropertyDefinition(name: 'delimiter', required: false),
-            new PropertyDefinition(name: 'shareMode', required: false)
-    ]
+            new PropertyDefinition(name: 'shareMode', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> LOGIN_PROPERTIES = [
+    static final Set<PropertyDefinition> LOGIN_PROPERTIES = [
             new PropertyDefinition(name: 'username', required: false),
-            new PropertyDefinition(name: 'password', required: false)
-    ]
+            new PropertyDefinition(name: 'password', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> RANDOM_VARIABLE_PROPERTIES = [
+    static final Set<PropertyDefinition> RANDOM_VARIABLE_PROPERTIES = [
             new PropertyDefinition(name: 'perUser', required: false),
             new PropertyDefinition(name: 'minimum', required: false),
             new PropertyDefinition(name: 'maximum', required: false),
             new PropertyDefinition(name: 'format', required: false),
             new PropertyDefinition(name: 'variable', required: false),
-            new PropertyDefinition(name: 'seed', required: false)
-    ]
+            new PropertyDefinition(name: 'seed', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> HEADER_PROPERTIES = [
-            new PropertyDefinition(name: 'name', required: false),
-            new PropertyDefinition(name: 'value', required: false)
-    ]
-
-    static Set<PropertyDefinition> HEADERS_PROPERTIES = [
-            new PropertyDefinition(name: 'values', required: false)
-    ]
-
-    static Set<PropertyDefinition> VARIABLE_PROPERTIES = [
+    static final Set<PropertyDefinition> HEADER_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'value', required: false),
-            new PropertyDefinition(name: 'description', required: false)
-    ]
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> VARIABLES_PROPERTIES = [
-            new PropertyDefinition(name: 'values', required: false)
-    ]
+    static final Set<PropertyDefinition> HEADERS_PROPERTIES = [
+            new PropertyDefinition(name: 'values', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> JSR223_PROPERTIES = [
+    static final Set<PropertyDefinition> VARIABLE_PROPERTIES = [
+            new PropertyDefinition(name: 'name', required: false),
+            new PropertyDefinition(name: 'value', required: false),
+            new PropertyDefinition(name: 'description', required: false),
+    ].toSet().asImmutable()
+
+    static final Set<PropertyDefinition> VARIABLES_PROPERTIES = [
+            new PropertyDefinition(name: 'values', required: false),
+    ].toSet().asImmutable()
+
+    static final Set<PropertyDefinition> JSR223_PROPERTIES = [
             new PropertyDefinition(name: 'script', required: false),
             new PropertyDefinition(name: 'cacheKey', required: false),
             new PropertyDefinition(name: 'filename', required: false),
             new PropertyDefinition(name: 'parameters', required: false),
-            new PropertyDefinition(name: 'language', required: false)
-    ]
+            new PropertyDefinition(name: 'language', required: false),
+    ].toSet().asImmutable()
 
     // timers
-    static Set<PropertyDefinition> CONSTANT_TIMER_PROPERTIES = [
-            new PropertyDefinition(name: 'delay', required: false)
-    ]
-
-    static Set<PropertyDefinition> UNIFORM_TIMER_PROPERTIES = [
+    static final Set<PropertyDefinition> CONSTANT_TIMER_PROPERTIES = [
             new PropertyDefinition(name: 'delay', required: false),
-            new PropertyDefinition(name: 'range', required: false)
-    ]
+    ].toSet().asImmutable()
+
+    static final Set<PropertyDefinition> UNIFORM_TIMER_PROPERTIES = [
+            new PropertyDefinition(name: 'delay', required: false),
+            new PropertyDefinition(name: 'range', required: false),
+    ].toSet().asImmutable()
 
     // listeners
-    static Set<PropertyDefinition> AGGREGATE_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: true)
-    ]
+    static final Set<PropertyDefinition> AGGREGATE_PROPERTIES = [
+            new PropertyDefinition(name: 'path', required: true),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> BACKEND_PROPERTIES = [
+    static final Set<PropertyDefinition> BACKEND_PROPERTIES = [
             new PropertyDefinition(name: 'classname', required: false),
-            new PropertyDefinition(name: 'queueSize', required: false)
-    ]
+            new PropertyDefinition(name: 'queueSize', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> SUMMARY_PROPERTIES = [
+    static final Set<PropertyDefinition> SUMMARY_PROPERTIES = [
             new PropertyDefinition(name: 'path', required: true),
             new PropertyDefinition(name: 'errorsOnly', required: false),
             new PropertyDefinition(name: 'successesOnly', required: false),
@@ -457,11 +460,11 @@ final class DslDefinition {
             new PropertyDefinition(name: 'time', required: false),
             new PropertyDefinition(name: 'timestamp', required: false),
             new PropertyDefinition(name: 'url', required: false),
-            new PropertyDefinition(name: 'xml', required: false)
-    ]
+            new PropertyDefinition(name: 'xml', required: false),
+    ].toSet().asImmutable()
 
     // extractors
-    static Set<PropertyDefinition> CSS_EXTRACTOR_PROPERTIES = [
+    static final Set<PropertyDefinition> CSS_EXTRACTOR_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'useEmptyValue', required: false),
             new PropertyDefinition(name: 'defaultValue', required: false),
@@ -469,19 +472,19 @@ final class DslDefinition {
             new PropertyDefinition(name: 'variable', required: true),
             new PropertyDefinition(name: 'expression', required: true),
             new PropertyDefinition(name: 'attribute', required: false),
-            new PropertyDefinition(name: 'engine', required: false)
-    ]
+            new PropertyDefinition(name: 'engine', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> JSON_EXTRACTOR_PROPERTIES = [
+    static final Set<PropertyDefinition> JSON_EXTRACTOR_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'defaultValues', required: false),
             new PropertyDefinition(name: 'matches', required: false),
             new PropertyDefinition(name: 'variables', required: true),
             new PropertyDefinition(name: 'expressions', required: true),
-            new PropertyDefinition(name: 'concatenation', required: false)
-    ]
+            new PropertyDefinition(name: 'concatenation', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> REGEX_EXTRACTOR_PROPERTIES = [
+    static final Set<PropertyDefinition> REGEX_EXTRACTOR_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'field', required: false),
             new PropertyDefinition(name: 'useEmptyValue', required: false),
@@ -489,10 +492,10 @@ final class DslDefinition {
             new PropertyDefinition(name: 'match', required: false),
             new PropertyDefinition(name: 'variable', required: true),
             new PropertyDefinition(name: 'expression', required: true),
-            new PropertyDefinition(name: 'template', required: false)
-    ]
+            new PropertyDefinition(name: 'template', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_RESPONSE_PROPERTIES = [
+    static final Set<PropertyDefinition> ASSERT_RESPONSE_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'variable', required: false),
             new PropertyDefinition(name: 'field', required: false),
@@ -500,23 +503,23 @@ final class DslDefinition {
             new PropertyDefinition(name: 'rule', required: false),
             new PropertyDefinition(name: 'ignoreStatus', required: false),
             new PropertyDefinition(name: 'any', required: false),
-            new PropertyDefinition(name: 'negate', required: false)
-    ]
+            new PropertyDefinition(name: 'negate', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_SIZE_PROPERTIES = [
+    static final Set<PropertyDefinition> ASSERT_SIZE_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'variable', required: false),
             new PropertyDefinition(name: 'field', required: false),
             new PropertyDefinition(name: 'rule', required: false),
-            new PropertyDefinition(name: 'size', required: false)
-    ]
+            new PropertyDefinition(name: 'size', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_DURATION_PROPERTIES = [
+    static final Set<PropertyDefinition> ASSERT_DURATION_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
-            new PropertyDefinition(name: 'duration', required: false)
-    ]
+            new PropertyDefinition(name: 'duration', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_XPATH_PROPERTIES = [
+    static final Set<PropertyDefinition> ASSERT_XPATH_PROPERTIES = [
             new PropertyDefinition(name: 'applyTo', required: false),
             new PropertyDefinition(name: 'variable', required: false),
             new PropertyDefinition(name: 'xpath', required: false),
@@ -528,35 +531,35 @@ final class DslDefinition {
             new PropertyDefinition(name: 'useTolerant', required: false),
             new PropertyDefinition(name: 'reportErrors', required: false),
             new PropertyDefinition(name: 'showWarnings', required: false),
-            new PropertyDefinition(name: 'quiet', required: false)
-    ]
+            new PropertyDefinition(name: 'quiet', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_JSON_PROPERTIES = [
+    static final Set<PropertyDefinition> ASSERT_JSON_PROPERTIES = [
             new PropertyDefinition(name: 'jpath', required: false),
             new PropertyDefinition(name: 'assert_value', required: false),
             new PropertyDefinition(name: 'assert_as_regex', required: false),
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'expectNull', required: false),
-            new PropertyDefinition(name: 'invert', required: false)
-    ]
+            new PropertyDefinition(name: 'invert', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> ASSERT_MD5HEX_PROPERTIES = [
-            new PropertyDefinition(name: 'value', required: false)
-    ]
+    static final Set<PropertyDefinition> ASSERT_MD5HEX_PROPERTIES = [
+            new PropertyDefinition(name: 'value', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CHECK_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false)
-    ]
+    static final Set<PropertyDefinition> CHECK_PROPERTIES = [
+            new PropertyDefinition(name: 'applyTo', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CHECK_RESPONSE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false)
-    ]
+    static final Set<PropertyDefinition> CHECK_RESPONSE_PROPERTIES = [
+            new PropertyDefinition(name: 'applyTo', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CHECK_REQUEST_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false)
-    ]
+    static final Set<PropertyDefinition> CHECK_REQUEST_PROPERTIES = [
+            new PropertyDefinition(name: 'applyTo', required: false),
+    ].toSet().asImmutable()
 
-    static Set<PropertyDefinition> CHECK_SIZE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false)
-    ]
+    static final Set<PropertyDefinition> CHECK_SIZE_PROPERTIES = [
+            new PropertyDefinition(name: 'applyTo', required: false),
+    ].toSet().asImmutable()
 }

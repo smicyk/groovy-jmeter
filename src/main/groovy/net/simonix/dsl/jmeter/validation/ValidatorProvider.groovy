@@ -15,6 +15,9 @@
  */
 package net.simonix.dsl.jmeter.validation
 
+import groovy.transform.CompileDynamic
+
+@CompileDynamic
 interface ValidatorProvider {
 
     Validator getValidator()

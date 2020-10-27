@@ -19,16 +19,12 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
  * Factory base class for building {@link TestElementNode}.
  */
 @CompileDynamic
 abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTestElementNodeFactory)
 
     abstract TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException
 

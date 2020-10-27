@@ -15,9 +15,11 @@
  */
 package net.simonix.dsl.jmeter.handler
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+@CompileDynamic
 final class CheckResponseHandler {
 
     final static boolean not = true
@@ -35,37 +37,37 @@ final class CheckResponseHandler {
     ResponseHandler status(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Status', applyTo, "response_code", negate)
+        return responseBuildImpl('assert_response', 'Check Status', applyTo, 'response_code', negate)
     }
 
     ResponseHandler headers(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Headers', applyTo, "response_headers", negate)
+        return responseBuildImpl('assert_response', 'Check Headers', applyTo, 'response_headers', negate)
     }
 
     ResponseHandler text(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Text', applyTo, "response_text", negate)
+        return responseBuildImpl('assert_response', 'Check Text', applyTo, 'response_text', negate)
     }
 
     ResponseHandler document(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Document', applyTo, "response_document", negate)
+        return responseBuildImpl('assert_response', 'Check Document', applyTo, 'response_document', negate)
     }
 
     ResponseHandler message(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Message', applyTo, "response_message", negate)
+        return responseBuildImpl('assert_response', 'Check Message', applyTo, 'response_message', negate)
     }
 
     ResponseHandler url(boolean negate = false) {
         String applyTo = testElementContainer.applyTo
 
-        return responseBuildImpl('assert_response', 'Check Url', applyTo, "response_url", negate)
+        return responseBuildImpl('assert_response', 'Check Url', applyTo, 'response_url', negate)
     }
 
     DurationHandler duration() {

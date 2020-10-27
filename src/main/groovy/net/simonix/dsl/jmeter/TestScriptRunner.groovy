@@ -37,8 +37,11 @@ final class TestScriptRunner {
 
     final static String JMETER_PROPERITES_FILE = 'jmeter.properties'
     final static String JMETER_SAVESERVICE_FILE = 'saveservice.properties'
+    final static String JMETER_SAVESERVICE_PROPERTY = 'saveservice_properties'
 
     final static String JMETER_SAVESERVICE_CLASSPATH = 'org/apache/jmeter/saveservice.properties'
+
+    final static String JAVA_CLASSPATH_PROPERTY = 'java.class.path'
 
     static HashTree configure(Closure closure) {
         return configure([:], closure)
@@ -67,17 +70,17 @@ final class TestScriptRunner {
                     }
                 }
 
-                JMeterUtils.setProperty('saveservice_properties', JMETER_SAVESERVICE_FILE)
+                JMeterUtils.setProperty(JMETER_SAVESERVICE_PROPERTY, JMETER_SAVESERVICE_FILE)
             } else {
                 // we are not running from junit as a normal library build
-                JMeterUtils.setProperty('saveservice_properties', url.getFile())
+                JMeterUtils.setProperty(JMETER_SAVESERVICE_PROPERTY, url.getFile())
             }
         }
 
         JMeterUtils.initLocale()
 
         // we need to set jmeter libraries to search paths so functions can be picked up
-        List<String> paths = System.properties['java.class.path'].tokenize(File.pathSeparator)
+        List<String> paths = System.properties[JAVA_CLASSPATH_PROPERTY].tokenize(File.pathSeparator)
 
         String searchPaths = paths.collect { it =~ JMETER_JARFILES_MATCHER }
                 .findAll { it.find() }

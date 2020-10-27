@@ -23,12 +23,12 @@ import org.apache.jorphan.collections.ListedHashTree
 
 /**
  * Builds {@link HashTree} structure from {@link TestElementNode} tree.
- *
  */
 @CompileStatic
 final class TestTreeBuilder {
+
     static HashTree build(TestElementNode rootTestElementNode) {
-        def root = new ListedHashTree()
+        HashTree root = new ListedHashTree()
 
         buildTree(root.add(rootTestElementNode.testElement), rootTestElementNode)
 
@@ -37,7 +37,7 @@ final class TestTreeBuilder {
 
     static void buildTree(HashTree parent, TestElementNode parentTestElementNode) {
         parentTestElementNode.testElementNodes.each {
-            def childHashTree = buildChild(parent, it.testElement)
+            HashTree childHashTree = buildChild(parent, it.testElement)
 
             buildTree(childHashTree, it)
         }

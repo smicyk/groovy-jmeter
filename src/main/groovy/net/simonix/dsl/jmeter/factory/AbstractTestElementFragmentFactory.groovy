@@ -29,14 +29,15 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  */
 @CompileDynamic
 abstract class AbstractTestElementFragmentFactory extends AbstractFactory implements ValidatorProvider {
+
     final GroovyShell groovyShell
     final PropertyValidator validator
 
-    AbstractTestElementFragmentFactory() {
+    protected AbstractTestElementFragmentFactory() {
         this.validator = new PropertyValidator(DslDefinition.INSERT_PROPERTIES)
 
         CompilerConfiguration config = new CompilerConfiguration()
-        config.scriptBaseClass = FragmentTestScript.class.name
+        config.scriptBaseClass = FragmentTestScript.name
 
         groovyShell = new GroovyShell(this.class.classLoader, config)
     }

@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.config
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.protocol.http.control.AuthManager
@@ -34,6 +35,7 @@ import org.apache.jmeter.protocol.http.gui.AuthPanel
  * @see TestElementNodeFactory TestElementNodeFactory
  * @see AuthorizationFactory AuthorizationFactory
  */
+@CompileDynamic
 final class AuthorizationsFactory extends TestElementNodeFactory {
 
     AuthorizationsFactory(String testElementName) {

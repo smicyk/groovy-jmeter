@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.extractor
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.extractor.HtmlExtractor
 import org.apache.jmeter.extractor.gui.HtmlExtractorGui
@@ -45,8 +46,9 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class CssSelectorExtractorFactory extends TestElementNodeFactory {
-    
+
     CssSelectorExtractorFactory(String testElementName) {
         super(testElementName, HtmlExtractor, HtmlExtractorGui, true, DslDefinition.CSS_EXTRACTOR_PROPERTIES)
     }

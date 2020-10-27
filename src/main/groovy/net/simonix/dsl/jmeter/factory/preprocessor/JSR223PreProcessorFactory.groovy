@@ -30,6 +30,7 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
  */
 @CompileDynamic
 final class JSR223PreProcessorFactory extends AbstractJSR223Factory {
+
     JSR223PreProcessorFactory(String testElementName) {
         super(testElementName, JSR223PreProcessor, TestBeanGUI, true)
     }

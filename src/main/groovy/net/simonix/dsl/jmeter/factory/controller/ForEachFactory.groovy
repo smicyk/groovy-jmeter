@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.factory.controller
 
+import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.control.ForeachController
@@ -42,6 +43,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
+@CompileDynamic
 final class ForEachFactory extends TestElementNodeFactory {
 
     ForEachFactory(String testElementName) {
