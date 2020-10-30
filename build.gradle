@@ -29,6 +29,7 @@ repositories {
 scmVersion {
     tag {
         prefix = 'v'
+        versionSeparator = ''
         initialVersion = { config, position -> '0.8.0' }
     }
 }
