@@ -19,11 +19,21 @@ plugins {
     id 'eclipse'
     id 'ivy-publish'
     id 'codenarc'
+    id 'pl.allegro.tech.build.axion-release' version '1.12.1'
 }
 
 repositories {
     mavenCentral()
 }
+
+scmVersion {
+    tag {
+        prefix = 'v'
+        initialVersion = { config, position -> '0.8.0' }
+    }
+}
+
+project.version = scmVersion.version
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -111,7 +121,7 @@ publishing {
        ivy(IvyPublication) {
             organisation = 'net.simonix.scripts'
             module = 'groovy-jmeter'
-            revision = '0.8'
+            revision = project.version
 
             descriptor.status = 'release'
 
