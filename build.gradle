@@ -32,6 +32,10 @@ scmVersion {
         versionSeparator = ''
         initialVersion = { config, position -> '0.8.0' }
     }
+
+    hooks {
+        pre 'commit', { version, position -> "Release $version"}
+    }
 }
 
 project.version = scmVersion.version
