@@ -16,19 +16,21 @@
 package net.simonix.dsl.jmeter.validation
 
 import groovy.transform.CompileDynamic
+import groovy.transform.EqualsAndHashCode
 
 @CompileDynamic
+@EqualsAndHashCode
 final class ValidationResult {
 
     boolean valid
     String message
 
     static ValidationResult notValidProperties(Object name, Set<String> configProperties, Set<String> validProperties) {
-        return new ValidationResult(valid: false, message: "The keyword '${name}' has invalid properties ${configProperties}. Did you misspelled any of the valid properties ${validProperties}?")
+        return new ValidationResult(valid: false, message: "The keyword '${name}' has invalid properties ${configProperties}. Did you misspell any of the valid properties ${validProperties}?")
     }
 
     static ValidationResult missingRequiredProperties(Object name, Set<String> requiredProperties) {
-        return new ValidationResult(valid: false, message: "The keyword '${name}' is missing required properties. Did you forgot to add any of the required properties ${requiredProperties}?")
+        return new ValidationResult(valid: false, message: "The keyword '${name}' is missing required properties. Did you forget to add any of the required properties ${requiredProperties}?")
     }
 
     static ValidationResult success() {

@@ -19,94 +19,184 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 final class DslDefinition {
-    static final String PLAN = 'plan'
-    static final String GROUP = 'group'
+    static final KeywordDefinition PLAN = new KeywordDefinition(name: 'plan')
+    static final KeywordDefinition GROUP = new KeywordDefinition(name: 'group')
 
-    static final String LOOP = 'loop'
-    static final String SIMPLE = 'simple'
-    static final String TRANSACTION = 'transaction'
-    static final String SECTION = 'section'
-    static final String INCLUDE = 'include'
-    static final String FOR_EACH = 'for_each'
+    static final KeywordDefinition LOOP = new KeywordDefinition(name: 'loop')
+    static final KeywordDefinition SIMPLE = new KeywordDefinition(name: 'simple')
+    static final KeywordDefinition TRANSACTION = new KeywordDefinition(name: 'transaction')
+    static final KeywordDefinition SECTION = new KeywordDefinition(name: 'section')
+    static final KeywordDefinition INCLUDE = new KeywordDefinition(name: 'include')
+    static final KeywordDefinition FOR_EACH = new KeywordDefinition(name: 'for_each')
 
-    static final String EXECUTE = 'execute'
+    static final KeywordDefinition EXECUTE = new KeywordDefinition(name: 'execute')
 
-    static final String EXECUTE_IF = 'execute_if'
-    static final String EXECUTE_WHILE = 'execute_while'
-    static final String EXECUTE_ONCE = 'execute_once'
-    static final String EXECUTE_INTERLEAVE = 'execute_interleave'
-    static final String EXECUTE_RANDOM = 'execute_random'
-    static final String EXECUTE_ORDER = 'execute_order'
-    static final String EXECUTE_PERCENT = 'execute_percent'
-    static final String EXECUTE_TOTAL = 'execute_total'
-    static final String EXECUTE_RUNTIME = 'execute_runtime'
-    static final String EXECUTE_SWITCH = 'execute_switch'
+    static final KeywordDefinition EXECUTE_IF = new KeywordDefinition(name: 'execute_if')
+    static final KeywordDefinition EXECUTE_WHILE = new KeywordDefinition(name: 'execute_while')
+    static final KeywordDefinition EXECUTE_ONCE = new KeywordDefinition(name: 'execute_once')
+    static final KeywordDefinition EXECUTE_INTERLEAVE = new KeywordDefinition(name: 'execute_interleave')
+    static final KeywordDefinition EXECUTE_RANDOM = new KeywordDefinition(name: 'execute_random')
+    static final KeywordDefinition EXECUTE_ORDER = new KeywordDefinition(name: 'execute_order')
+    static final KeywordDefinition EXECUTE_PERCENT = new KeywordDefinition(name: 'execute_percent')
+    static final KeywordDefinition EXECUTE_TOTAL = new KeywordDefinition(name: 'execute_total')
+    static final KeywordDefinition EXECUTE_RUNTIME = new KeywordDefinition(name: 'execute_runtime')
+    static final KeywordDefinition EXECUTE_SWITCH = new KeywordDefinition(name: 'execute_switch')
 
-    static final String EXEC_IF = 'exec_if'
-    static final String EXEC_WHILE = 'exec_while'
-    static final String EXEC_ONCE = 'exec_once'
-    static final String EXEC_INTERLEAVE = 'exec_interleave'
-    static final String EXEC_RANDOM = 'exec_random'
-    static final String EXEC_ORDER = 'exec_order'
-    static final String EXEC_PERCENT = 'exec_percent'
-    static final String EXEC_TOTAL = 'exec_total'
-    static final String EXEC_RUNTIME = 'exec_runtime'
-    static final String EXEC_SWITCH = 'exec_switch'
+    static final KeywordDefinition EXEC_IF = new KeywordDefinition(name: 'exec_if')
+    static final KeywordDefinition EXEC_WHILE = new KeywordDefinition(name: 'exec_while')
+    static final KeywordDefinition EXEC_ONCE = new KeywordDefinition(name: 'exec_once')
+    static final KeywordDefinition EXEC_INTERLEAVE = new KeywordDefinition(name: 'exec_interleave')
+    static final KeywordDefinition EXEC_RANDOM = new KeywordDefinition(name: 'exec_random')
+    static final KeywordDefinition EXEC_ORDER = new KeywordDefinition(name: 'exec_order')
+    static final KeywordDefinition EXEC_PERCENT = new KeywordDefinition(name: 'exec_percent')
+    static final KeywordDefinition EXEC_TOTAL = new KeywordDefinition(name: 'exec_total')
+    static final KeywordDefinition EXEC_RUNTIME = new KeywordDefinition(name: 'exec_runtime')
+    static final KeywordDefinition EXEC_SWITCH = new KeywordDefinition(name: 'exec_switch')
 
-    static final String HTTP = 'http'
-    static final String AJP = 'ajp'
-    static final String DEBUG = 'debug'
-    static final String JSR223_SAMPLER = 'jsrsampler'
-    static final String FLOW = 'flow'
+    static final KeywordDefinition HTTP = new KeywordDefinition(name: 'http')
+    static final KeywordDefinition AJP = new KeywordDefinition(name: 'ajp')
+    static final KeywordDefinition DEBUG = new KeywordDefinition(name: 'debug')
+    static final KeywordDefinition JSR223_SAMPLER = new KeywordDefinition(name: 'jsrsampler')
+    static final KeywordDefinition FLOW = new KeywordDefinition(name: 'flow')
 
-    static final String PARAM = 'param'
-    static final String PARAMS = 'params'
-    static final String BODY = 'body'
-    static final String ARGUMENT = 'argument'
-    static final String ARGUMENTS = 'arguments'
-    static final String INSERT = 'insert'
+    static final KeywordDefinition PARAM = new KeywordDefinition(name: 'param')
+    static final KeywordDefinition PARAMS = new KeywordDefinition(name: 'params')
+    static final KeywordDefinition BODY = new KeywordDefinition(name: 'body')
+    static final KeywordDefinition ARGUMENT = new KeywordDefinition(name: 'argument')
+    static final KeywordDefinition ARGUMENTS = new KeywordDefinition(name: 'arguments')
+    static final KeywordDefinition INSERT = new KeywordDefinition(name: 'insert')
 
-    static final String AUTHORIZATION = 'authorization'
-    static final String AUTHORIZATIONS = 'authorizations'
-    static final String CACHE = 'cache'
-    static final String COOKIE = 'cookie'
-    static final String COOKIES = 'cookies'
-    static final String COUNTER = 'counter'
-    static final String CSV_DATA = 'csv'
-    static final String DEFAULTS = 'defaults'
-    static final String HEADER = 'header'
-    static final String HEADERS = 'headers'
-    static final String LOGIN = 'login'
-    static final String RANDOM_VARIABLE = 'random'
-    static final String VARIABLE = 'variable'
-    static final String VARIABLES = 'variables'
+    static final KeywordDefinition AUTHORIZATION = new KeywordDefinition(name: 'authorization')
+    static final KeywordDefinition AUTHORIZATIONS = new KeywordDefinition(name: 'authorizations')
+    static final KeywordDefinition CACHE = new KeywordDefinition(name: 'cache')
+    static final KeywordDefinition COOKIE = new KeywordDefinition(name: 'cookie')
+    static final KeywordDefinition COOKIES = new KeywordDefinition(name: 'cookies')
+    static final KeywordDefinition COUNTER = new KeywordDefinition(name: 'counter')
+    static final KeywordDefinition CSV_DATA = new KeywordDefinition(name: 'csv')
+    static final KeywordDefinition DEFAULTS = new KeywordDefinition(name: 'defaults')
+    static final KeywordDefinition HEADER = new KeywordDefinition(name: 'header')
+    static final KeywordDefinition HEADERS = new KeywordDefinition(name: 'headers')
+    static final KeywordDefinition LOGIN = new KeywordDefinition(name: 'login')
+    static final KeywordDefinition RANDOM_VARIABLE = new KeywordDefinition(name: 'random')
+    static final KeywordDefinition VARIABLE = new KeywordDefinition(name: 'variable')
+    static final KeywordDefinition VARIABLES = new KeywordDefinition(name: 'variables')
 
-    static final String CONSTANT_TIMER = 'timer'
-    static final String UNIFORM_TIMER = 'uniform'
-    static final String JSR223_TIMER = 'jsrtimer'
+    static final KeywordDefinition CONSTANT_TIMER = new KeywordDefinition(name: 'timer')
+    static final KeywordDefinition UNIFORM_TIMER = new KeywordDefinition(name: 'uniform')
+    static final KeywordDefinition JSR223_TIMER = new KeywordDefinition(name: 'jsrtimer')
 
-    static final String AGGREGATE = 'aggregate'
-    static final String BACKEND = 'backend'
-    static final String SUMMARY = 'summary'
-    static final String JSR223_LISTENER = 'jsrlistener'
+    static final KeywordDefinition AGGREGATE = new KeywordDefinition(name: 'aggregate')
+    static final KeywordDefinition BACKEND = new KeywordDefinition(name: 'backend')
+    static final KeywordDefinition SUMMARY = new KeywordDefinition(name: 'summary')
+    static final KeywordDefinition JSR223_LISTENER = new KeywordDefinition(name: 'jsrlistener')
 
-    static final String CSS_EXTRACTOR = 'extract_css'
-    static final String REGEX_EXTRACTOR = 'extract_regex'
-    static final String JSON_EXTRACTOR = 'extract_json'
+    static final KeywordDefinition CSS_EXTRACTOR = new KeywordDefinition(name: 'extract_css')
+    static final KeywordDefinition REGEX_EXTRACTOR = new KeywordDefinition(name: 'extract_regex')
+    static final KeywordDefinition JSON_EXTRACTOR = new KeywordDefinition(name: 'extract_json')
 
-    static final String JSR223_POSTPROCESSOR = 'jsrpostprocessor'
-    static final String JSR223_PREPROCESSOR = 'jsrpreprocessor'
+    static final KeywordDefinition JSR223_POSTPROCESSOR = new KeywordDefinition(name: 'jsrpostprocessor')
+    static final KeywordDefinition JSR223_PREPROCESSOR = new KeywordDefinition(name: 'jsrpreprocessor')
 
-    static final String JSR223_ASSERTION = 'jsrassertion'
-    static final String ASSERT_RESPONSE = 'assert_response'
-    static final String ASSERT_SIZE = 'assert_size'
-    static final String ASSERT_DURATION = 'assert_duration'
-    static final String ASSERT_XPATH = 'assert_xpath'
-    static final String ASSERT_JSON = 'assert_json'
-    static final String ASSERT_MD5HEX = 'assert_md5hex'
-    static final String CHECK_RESPONSE = 'check_response'
-    static final String CHECK_REQUEST = 'check_request'
-    static final String CHECK_SIZE = 'check_size'
+    static final KeywordDefinition JSR223_ASSERTION = new KeywordDefinition(name: 'jsrassertion')
+    static final KeywordDefinition ASSERT_RESPONSE = new KeywordDefinition(name: 'assert_response')
+    static final KeywordDefinition ASSERT_SIZE = new KeywordDefinition(name: 'assert_size')
+    static final KeywordDefinition ASSERT_DURATION = new KeywordDefinition(name: 'assert_duration')
+    static final KeywordDefinition ASSERT_XPATH = new KeywordDefinition(name: 'assert_xpath')
+    static final KeywordDefinition ASSERT_JSON = new KeywordDefinition(name: 'assert_json')
+    static final KeywordDefinition ASSERT_MD5HEX = new KeywordDefinition(name: 'assert_md5hex')
+    static final KeywordDefinition CHECK_RESPONSE = new KeywordDefinition(name: 'check_response')
+    static final KeywordDefinition CHECK_REQUEST = new KeywordDefinition(name: 'check_request')
+    static final KeywordDefinition CHECK_SIZE = new KeywordDefinition(name: 'check_size')
+
+    static final Set<String> VALID_KEYWORDS = [
+            PLAN.name,
+            GROUP.name,
+            LOOP.name,
+            SIMPLE.name,
+            TRANSACTION.name,
+            SECTION.name,
+            INCLUDE.name,
+            FOR_EACH.name,
+
+            EXECUTE.name,
+
+            EXECUTE_IF.name,
+            EXECUTE_WHILE.name,
+            EXECUTE_ONCE.name,
+            EXECUTE_INTERLEAVE.name,
+            EXECUTE_RANDOM.name,
+            EXECUTE_ORDER.name,
+            EXECUTE_PERCENT.name,
+            EXECUTE_TOTAL.name,
+            EXECUTE_RUNTIME.name,
+            EXECUTE_SWITCH.name,
+
+            EXEC_IF.name,
+            EXEC_WHILE.name,
+            EXEC_ONCE.name,
+            EXEC_INTERLEAVE.name,
+            EXEC_RANDOM.name,
+            EXEC_ORDER.name,
+            EXEC_PERCENT.name,
+            EXEC_TOTAL.name,
+            EXEC_RUNTIME.name,
+            EXEC_SWITCH.name,
+
+            HTTP.name,
+            AJP.name,
+            DEBUG.name,
+            JSR223_SAMPLER.name,
+            FLOW.name,
+
+            PARAM.name,
+            PARAMS.name,
+            BODY.name,
+            ARGUMENT.name,
+            ARGUMENTS.name,
+            INSERT.name,
+
+            AUTHORIZATION.name,
+            AUTHORIZATIONS.name,
+            CACHE.name,
+            COOKIE.name,
+            COOKIES.name,
+            COUNTER.name,
+            CSV_DATA.name,
+            DEFAULTS.name,
+            HEADER.name,
+            HEADERS.name,
+            LOGIN.name,
+            RANDOM_VARIABLE.name,
+            VARIABLE.name,
+            VARIABLES.name,
+
+            CONSTANT_TIMER.name,
+            UNIFORM_TIMER.name,
+            JSR223_TIMER.name,
+
+            AGGREGATE.name,
+            BACKEND.name,
+            SUMMARY.name,
+            JSR223_LISTENER.name,
+
+            CSS_EXTRACTOR.name,
+            REGEX_EXTRACTOR.name,
+            JSON_EXTRACTOR.name,
+
+            JSR223_POSTPROCESSOR.name,
+            JSR223_PREPROCESSOR.name,
+
+            JSR223_ASSERTION.name,
+            ASSERT_RESPONSE.name,
+            ASSERT_SIZE.name,
+            ASSERT_DURATION.name,
+            ASSERT_XPATH.name,
+            ASSERT_JSON.name,
+            ASSERT_MD5HEX.name,
+            CHECK_RESPONSE.name,
+            CHECK_REQUEST.name,
+            CHECK_SIZE.name,
+    ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> COMMON_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
