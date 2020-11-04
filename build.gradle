@@ -15,15 +15,31 @@
  */
 plugins {
     id 'groovy'
+    id 'java-library'
     id 'idea'
     id 'eclipse'
     id 'ivy-publish'
     id 'codenarc'
+    id 'pl.allegro.tech.build.axion-release' version '1.12.1'
 }
 
 repositories {
     mavenCentral()
 }
+
+scmVersion {
+    tag {
+        prefix = 'v'
+        versionSeparator = ''
+        initialVersion = { config, position -> '0.8.0' }
+    }
+
+    hooks {
+        pre 'commit', { version, position -> "Release $version"}
+    }
+}
+
+project.version = scmVersion.version
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -85,13 +101,14 @@ tasks.withType(Test) {
     }
 }
 
-//sourceSets {
-//    groovydoc {
-//        resources {
-//            srcDir 'src/groovydoc'
-//        }
-//    }
-//}
+tasks.named('jar') {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+}
 
 groovydoc {
     docTitle 'Groovy JMeter DSL Specification'
@@ -111,7 +128,7 @@ publishing {
        ivy(IvyPublication) {
             organisation = 'net.simonix.scripts'
             module = 'groovy-jmeter'
-            revision = '0.8'
+            revision = project.version
 
             descriptor.status = 'release'
 
