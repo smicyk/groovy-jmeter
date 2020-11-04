@@ -45,13 +45,13 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset (ZIP)
+      - name: Upload Release Asset (JAR)
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/distributions/groovy-jmeter-${{ steps.get-version.outputs.release_version }}.zip
-          asset_name: groovy-jmeter-${{ steps.get-version.outputs.release_version }}.zip
-          asset_content_type: application/zip
+          asset_path: build/distributions/groovy-jmeter-${{ steps.get-version.outputs.release_version }}.jar
+          asset_name: groovy-jmeter-${{ steps.get-version.outputs.release_version }}.jar
+          asset_content_type: application/java-archive

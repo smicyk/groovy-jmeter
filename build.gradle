@@ -15,6 +15,7 @@
  */
 plugins {
     id 'groovy'
+    id 'java-library'
     id 'idea'
     id 'eclipse'
     id 'ivy-publish'
@@ -100,13 +101,14 @@ tasks.withType(Test) {
     }
 }
 
-//sourceSets {
-//    groovydoc {
-//        resources {
-//            srcDir 'src/groovydoc'
-//        }
-//    }
-//}
+tasks.named('jar') {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+}
 
 groovydoc {
     docTitle 'Groovy JMeter DSL Specification'
