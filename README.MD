@@ -53,17 +53,19 @@ docker run --rm -u gradle -w "//home/gradle/groovy-jmeter" -v "/$(pwd)":"/home/g
 To run your test script, it is enough to type in your favorite editor the following lines:
 
 ```groovy
-
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
 
-@groovy.transform.BaseScript net.simonix.scripts.jmeter.DefaultTestScript script
+@groovy.transform.BaseScript net.simonix.dsl.jmeter.DefaultTestScript script
 
 start {
     plan {
         group {
             http 'GET http://www.example.com'
         }
+
+        // optional element, shows execution progress
+        summary(path: 'log.jtl')
     }
 }
 ```
@@ -81,24 +83,32 @@ If you want to start the same script inside a docker run the following command o
 docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
 ```
 
+Typical output from the command line should look like below:
+```shell script
++      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%) Active: 1 Started: 1 Finished: 0
+=      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%)
+```
 ### DefaultTestScript vs. TestScript
 
 There are two implementation for the test scripts, the *DefaultTestScript* and *TestScript*. The *DefaultTestScript* is very basic and doesn't have any additional features. The *TestScript* comes with additional command line support.
 
-When you change the line with *@groovy.transform.BaseScript* annotation to *net.simonix.scripts.jmeter.TestScript*, so your file would look like this:
+When you change the line with *@groovy.transform.BaseScript* annotation to *net.simonix.dsl.jmeter.TestScript*, so your file would look like this:
 
 ```groovy
 
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
 
-@groovy.transform.BaseScript net.simonix.scripts.jmeter.TestScript script
+@groovy.transform.BaseScript net.simonix.dsl.jmeter.TestScript script
 
 start {
     plan {
         group {
             http 'GET http://www.example.com'
         }
+
+        // optional element, shows execution progress
+        summary(path: 'log.jtl')
     }
 }
 ```
@@ -119,7 +129,7 @@ Some interesting usage might be to generate .jmx file with additional variables 
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
 
-@groovy.transform.BaseScript net.simonix.scripts.jmeter.TestScript script
+@groovy.transform.BaseScript net.simonix.dsl.jmeter.TestScript script
 
 start {
     plan {
@@ -129,6 +139,9 @@ start {
         group (users: 10) {
             http 'GET /books'
         }
+
+        // optional element, shows execution progress
+        summary(path: 'log.jtl')
     }
 }
 ```
