@@ -54,12 +54,14 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
             HTTPConstants.SEARCH,
     ]
 
-    static final URL_PROTOCOL = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
-    static final URL_HOSTNAME = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
-    static final URL_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>):?(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
+    static final URL_HOSTNAME_WITHOUT_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+    static final URL_PROTOCOL_WITHOUT_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+    static final URL_PROTOCOL = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+    static final URL_HOSTNAME = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+    static final URL_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
     static final URL_PATH = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
 
-    static final NAME_PATTERNS = [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL ]
+    static final NAME_PATTERNS = [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
 
     protected BaseHttpFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, Set<String> properties) {
         super(testElementName, testElementClass, testElementGuiClass, leaf, DslDefinition.HTTP_COMMON_PROPERTIES + properties)
@@ -113,7 +115,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
     }
 
     private String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
-        String elementName = "${method} ${path}"
+        String elementName = "${method} ${path?:'/'}"
 
         return elementName.replaceAll(/(\$\{(.*?)\})/) { input, expression, variable -> ":$variable" }
     }

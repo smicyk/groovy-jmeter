@@ -268,9 +268,21 @@ class HttpSamplerSpec extends MockServerSpec {
                     }
 
                     simple {
+                        defaults(port: 8899)
+
+                        http('GET http://localhost/protocol')
+                    }
+
+                    simple {
                         defaults(protocol: 'http')
 
                         http('GET localhost:8899/hostname')
+                    }
+
+                    simple {
+                        defaults(protocol: 'http', port: 8899)
+
+                        http('GET localhost/hostname')
                     }
 
                     simple {
@@ -294,6 +306,28 @@ class HttpSamplerSpec extends MockServerSpec {
                             ]
                         }
                     }
+
+                    simple {
+                        http('GET http://localhost:8899')
+                    }
+
+                    simple {
+                        defaults(port: 8899)
+
+                        http('GET http://localhost')
+                    }
+
+                    simple {
+                        defaults(protocol: 'http')
+
+                        http('GET localhost:8899')
+                    }
+
+                    simple {
+                        defaults(protocol: 'http', port: 8899)
+
+                        http('GET localhost')
+                    }
                 }
             }
         }
@@ -305,6 +339,10 @@ class HttpSamplerSpec extends MockServerSpec {
         mockServerClient.verify(
                 request('/protocol')
                         .withMethod('GET'),
+                request('/protocol')
+                        .withMethod('GET'),
+                request('/hostname')
+                        .withMethod('GET'),
                 request('/hostname')
                         .withMethod('GET'),
                 request('/port')
@@ -313,7 +351,9 @@ class HttpSamplerSpec extends MockServerSpec {
                         .withMethod('GET'),
                 request('/path')
                         .withMethod('GET')
-                        .withQueryStringParameter('param1', 'value1'))
+                        .withQueryStringParameter('param1', 'value1'),
+                request().withMethod('GET'),
+                request().withMethod('GET'))
     }
 
     def "HTTP request short version (complex paths)"() {
