@@ -30,7 +30,7 @@ Or you can use the [Docker](https://www.docker.com/) approach (check the section
 
 Clone, build and publish jars to your local repository:
 
-``` shell script
+```shell script
 git clone https://github.com/smicyk/groovy-jmeter.git
 
 gradle wrapper
@@ -40,7 +40,7 @@ gradlew clean build publish
 
 You can also try alternative approach and build everything on *Docker* without installing anything on your machine:
 
-```
+```shell script
 git clone https://github.com/smicyk/groovy-jmeter.git
 
 docker volume create --name grapes-cache
@@ -52,7 +52,7 @@ docker run --rm -u gradle -w "//home/gradle/groovy-jmeter" -v "/$(pwd)":"/home/g
 
 To run your test script, it is enough to type in your favorite editor the following lines:
 
-``` groovy
+```groovy
 
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
@@ -72,12 +72,12 @@ This test plan will start one user and make call to *http://www.example.com*
 
 To run it in command line, type:
 
-``` shell script
+```shell script
 groovy yourscriptname.groovy
 ``` 
 If you want to start the same script inside a docker run the following command on command line:
 
-``` shell script
+```shell script
 docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
 ```
 
@@ -87,7 +87,7 @@ There are two implementation for the test scripts, the *DefaultTestScript* and *
 
 When you change the line with *@groovy.transform.BaseScript* annotation to *net.simonix.scripts.jmeter.TestScript*, so your file would look like this:
 
-``` groovy
+```groovy
 
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
@@ -104,7 +104,7 @@ start {
 ```
 
 You can execute your script with *help* parameter to see all available options:
-``` shell script
+```shell script
 groovy yourscriptname.groovy --help
 Usage: groovy [-h] [--no-run] [--jmx-out=<file>] [-V=<variable=value>
               [=<variable=value>]...]...
@@ -115,7 +115,7 @@ Usage: groovy [-h] [--no-run] [--jmx-out=<file>] [-V=<variable=value>
                          Define values for placeholders in the script
 ```
 Some interesting usage might be to generate .jmx file with additional variables which comes from environment:
-``` groovy
+```groovy
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
 
@@ -133,14 +133,14 @@ start {
 }
 ```
 To generate .jmx file from this script you can execute the following in the command line:
-``` shell script
+```shell script
 groovy yourscriptname.groovy --jmx-out yourscriptname.jmx --no-run -Vvar_host=localhost -Vvar_port=8080
 ```
 
 For more examples you should check the [examples](examples) folder and [unit tests](src/test).
 
 To get more information about all available options you should check groovy docs page or generate it from the source.
-``` shell script
+```shell script
 gradlew groovydoc
 
 cd ./build/docs/groovydoc && index.html
@@ -150,7 +150,7 @@ cd ./build/docs/groovydoc && index.html
 
 The example below shows more constructs related to testing simple REST API.
 
-``` groovy
+```groovy
 @GrabConfig(systemClassLoader=true)
 @Grab('net.simonix.scripts:groovy-jmeter')
 
@@ -221,6 +221,219 @@ start {
 
         // output to .jtl file
         summary(path: 'script.jtl', enabled: true)
+    }
+}
+```
+
+### Conventions
+
+There are several conventions used in the design of the DSL.
+
+#### Naming
+
+All names in the DSL should make the script easy to read and concise. Most of the keywords and properties names are single words. The examples of such keywords might be: __plan__, __group__, __loops__. A similar rule applies to properties, e.g. __name__, __comments__, __forever__.
+However, some keywords must have two words like __execute_if__, __extract_regx__, __assert_json__. The longer names for properties are in camel case, e.g. rampUp, perUser.
+
+#### Users vs. Threads
+
+In JMeter world, the users and threads are used interchangeably (both means virtual concurrent users executing test plan). In the script, we use the users as a convention. Check the example below:
+
+```groovy
+start {
+    plan {
+        group users: 10 {
+            // define random variable 'var_random' for each user (in other words each user has its own random generator)
+            random(minimum: 0, maximum: 100, variable: 'var_random', perUser: true)
+        }
+    }
+}
+```
+
+#### Default values
+
+All keywords in the DSL has predefined default values for its properties. For example, each keyword has **name** property with a default value defined. If there is no name property given for the keyword, the script will use the default value. You can check default values in Groovy docs. Below are more examples:
+
+```groovy
+start {
+    // would be same as plan (name: 'Test Plan')
+    plan { 
+    
+    }
+    
+    plan {
+        // would be same as group (users: 1, rampUp: 1) 
+        group {
+        
+        }    
+    }
+}
+```
+
+#### Required properties
+
+Even though each property has a default value, sometimes there is no sense to have a test element without specific property value. Such properties are required and raise an exception if missing. Check the example below:
+
+> Please note that in JMeter documentation there are many properties which are required. Still, in the DSL we make them only required if they vital to execution, otherwise they have some reasonable default value.
+
+```groovy
+start {
+    plan {
+        group {
+            // condition property is required, otherwise using execute_if controller has no sense
+            execute_if (condition: '''__jexl3(vars.get('var_random') mod 2 == 0)''') {
+            
+            }
+        }
+    }
+}
+```
+
+#### Groovy as DSL
+
+There are several things to keep in mind while writing the scripts; most of the stuff relates to Groovy language:
+
+* using different quotes around string, please refer to [Groovy docs](https://groovy-lang.org/syntax.html#all-strings}) about string and quotes and check example below:
+
+```groovy
+
+start {       
+    // using single quotes (for Java plain String)
+    plan (name: 'Test name')
+    // using single quotes is recommended in most situation (should be used when you want use JMeter variable substitution in the script)
+    plan (name: '${var_variable}')
+    // using double quotes (for GString, interpolation available during test build but not execution by JMeter engine)
+    plan (name: "${var_param}")
+}
+```
+* there are several ways to use keywords, check the example below:
+
+```groovy
+start {
+    // keyword without properties, after keyword you can open closure without any properties or parenthesis
+    plan {
+    
+    }
+    // keyword with properties, the properties of the keyword can have properties defined as key/value pair 
+    plan (name: 'test', comments: 'new test plan') {
+    
+    }
+    // keyword with properties but without parenthesis, please note that after all properties you must put comma
+    plan name: 'test', comments: 'new test plan', {
+    
+    }
+    // keyword without properties and child test elements, note that the parenthesis must be used
+    plan()
+}
+```
+#### Shortcuts
+
+There are many places where we can use shortcuts to define the same thing:
+
+* the first argument for the keyword can be simple value. In most cases it is treated as a name for test element:
+```groovy
+start {
+    // long version
+    plan name: 'Test plan', { }
+    // short version
+    plan 'Test plan', { }
+    // short version with properties
+    plan 'Tet plan', enabled: true, { }
+}
+```
+* some keywords treat first value as shortcut
+```groovy
+start {
+    plan {
+        group {
+            // long version
+            loop count: 10, {}
+            // short version
+            loop 10, {}
+
+            // long version
+            execute_if condition: '''__jexl3(vars.get('var_random') mod 2 == 0)''', {}
+            // short version
+            execute_if '''__jexl3(vars.get('var_random') mod 2 == 0)''', {}
+        }
+    }
+}
+```
+* there is special syntax for HTTP sampler regarding first argument
+```groovy
+start {
+    plan {
+        group {
+            // long version for HTTP request
+            http(protocol: 'http', domain: 'localhost', port: 8080, path: '/app/login', method: 'GET') {
+            
+            }
+            // short version for HTTP request
+            http 'GET http://localhost:8080/app/login', {
+            
+            }
+        }
+
+        // if used with defaults keyword, some elements can be ommitted
+        group {
+            defaults(protocol: 'http', domain: 'localhost', port: 8080)
+            
+            http 'GET /app/login' {}
+        }
+    }
+}
+```
+* simplified array like structures for samplers and config elements
+```groovy
+start {
+    // long version to define user variables inside test plan
+    plan {
+        arguments {
+            argument (name: 'var_variable', 'value')
+            argument (name: 'var_other_variable', 'other_value')
+        }
+    }
+    // short version to define user variables inside test plan
+    plan {
+        arguments values: [
+                var_variable: 'value',
+                var_other_veriable: 'other_value'
+        ]
+    }
+    // there are others test elements which has simplified behaviour e.g. params, variables, headers
+    plan {
+        group {
+            // long version for params
+            http 'GET http://www.example.com', {
+                params {
+                    param(name: 'param', 'value')
+                    param(name: 'other', 'other') 
+                }
+            }
+            // short version for params
+            http 'GET http://www.example.com', {
+                params values: [
+                        param: 'value',
+                        other: 'other'
+                ]
+            }
+        }
+    }
+}
+```
+* by default samples have names after its name property, but in case of HTTP request there are some differences: 
+```groovy
+start {
+    plan {
+        arguments values: [ var_bookId: 'value' ]
+
+        group {
+            // the name of the sample will generated as 'GET /app/books/:var_bookId'
+            // currently this is default behaviour only if short version is used
+            http 'GET http://localhost/app/books/${var_bookId}', {}
+            
+            // to define own sample name you must use long version
+            http name: 'Custom Name', protocol: 'http', domain: 'localhost', path: '/app/books/${var_bookId}', method: 'GET', {}
+        }
     }
 }
 ```
