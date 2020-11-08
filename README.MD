@@ -88,6 +88,9 @@ Typical output from the command line should look like below:
 +      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%) Active: 1 Started: 1 Finished: 0
 =      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%)
 ```
+
+There is [*.har converter](https://github.com/smicyk/groovy-harventer) to generate scripts from *.har files. It can greatly speed up scripts generation for your tests. 
+
 ### DefaultTestScript vs. TestScript
 
 There are two implementation for the test scripts, the *DefaultTestScript* and *TestScript*. The *DefaultTestScript* is very basic and doesn't have any additional features. The *TestScript* comes with additional command line support.
