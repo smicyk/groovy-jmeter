@@ -20,6 +20,7 @@ import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 
 /**
  * The factory class responsible for building <code>jsr</code> elements in the test.
@@ -27,10 +28,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * <pre>
  * // common structure of the jsr233 elements
  * element (
- *     script: string
- *     cacheKey: boolean
- *     filename: string
- *     parameters: string
+ *     inline: string
+ *     cacheKey: boolean [<strong>true</strong>]
+ *     file: string
+ *     parameters: string | list
  *     language: string
  * )
  * </pre>
@@ -55,18 +56,18 @@ abstract class AbstractJSR223Factory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String script = readValue(value, readValue(config.script, ''))
+        String script = readValue(config.inline, '')
 
         testElement.cacheKey = readValue(config.cacheKey, true)
         testElement.filename = readValue(config.filename, '')
-        testElement.parameters = readValue(config.parameters, '')
+        testElement.parameters = readValues(config.parameters, ' ', '')
         testElement.script = script
         testElement.scriptLanguage = readValue(config.language, 'groovy')
 
-        testElement.setProperty('scriptLanguage', readValue(config.language, 'groovy').toString())
-        testElement.setProperty('parameters', readValue(config.parameters, '').toString())
-        testElement.setProperty('filename', readValue(config.filename, '').toString())
-        testElement.setProperty('cacheKey', readValue(config.cacheKey, true).toString())
+        testElement.setProperty('scriptLanguage', readValue(config.language, 'groovy') as String)
+        testElement.setProperty('parameters', readValues(config.parameters, ' ', '') as String)
+        testElement.setProperty('filename', readValue(config.file, '') as String)
+        testElement.setProperty('cacheKey', readValue(config.cacheKey, true) as String)
         testElement.setProperty('script', script)
     }
 }

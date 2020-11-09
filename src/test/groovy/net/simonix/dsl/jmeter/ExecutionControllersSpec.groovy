@@ -481,19 +481,19 @@ class ExecutionControllersSpec extends LogSamplerSpec {
 
                 group {
                     execute_while('var_condition1') {
-                        jsrsampler('vars.put("var_condition1", "false")')
+                        jsrsampler(inline: 'vars.put("var_condition1", "false")')
 
                         log('condition 1')
                     }
 
                     execute_while('__jexl3(${var_condition2} == true)') {
-                        jsrsampler('vars.put("var_condition2", "false")')
+                        jsrsampler(inline: 'vars.put("var_condition2", "false")')
 
                         log('condition 2')
                     }
 
                     execute_while('__groovy(vars.get("var_condition3") == "true")') {
-                        jsrsampler('vars.put("var_condition3", "false")')
+                        jsrsampler(inline: 'vars.put("var_condition3", "false")')
 
                         log('condition 3')
                     }
