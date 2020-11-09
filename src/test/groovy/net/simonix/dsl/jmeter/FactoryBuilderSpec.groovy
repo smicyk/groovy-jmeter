@@ -189,10 +189,10 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 csv(name: 'Factory csv', comments: 'Factory Comments', enabled: false, ignoreFirstLine: true, allowQuotedData: true, recycle: false, stopUser: true, filename: 'test.csv', encoding: 'UTF-16', variables: ['header1', 'header2'], delimiter: ';', shareMode: 'all')
-                csv()
-                csv(shareMode: 'all')
-                csv(shareMode: 'group')
-                csv(shareMode: 'thread')
+                csv(filename: 'test.csv', variables: ['header'])
+                csv(shareMode: 'all', filename: 'test.csv', variables: ['header'])
+                csv(shareMode: 'group', filename: 'test.csv', variables: ['header'])
+                csv(shareMode: 'thread', filename: 'test.csv', variables: ['header'])
             }
         }
 
@@ -547,16 +547,16 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 group {
-                    jsrsampler('script': 'vars.put("var_groovy", "123")', cacheKey: false, filename: 'test.groovy', language: 'groovy') {
-                        jsrassertion('script': 'vars.get("var_groovy") == "123"', cacheKey: false, filename: 'test.groovy', language: 'groovy')
+                    jsrsampler('inline': 'vars.put("var_groovy", "123")', cacheKey: false, file: 'test.groovy', language: 'groovy') {
+                        jsrassertion('inline': 'vars.get("var_groovy") == "123"', cacheKey: false, file: 'test.groovy', language: 'groovy')
                     }
-                    jsrtimer('script': '10', cacheKey: false, filename: 'test.groovy', language: 'groovy')
+                    jsrtimer('inline': '10', cacheKey: false, file: 'test.groovy', language: 'groovy')
 
-                    jsrsampler('script': 'vars.put("var_groovy", "123")', cacheKey: false, filename: 'test.groovy', language: 'groovy') {
-                        jsrpostprocessor('script': 'true', cacheKey: false, filename: 'test.groovy', language: 'groovy')
-                        jsrpreprocessor('script': 'false', cacheKey: false, filename: 'test.groovy', language: 'groovy')
+                    jsrsampler('inline': 'vars.put("var_groovy", "123")', cacheKey: false, file: 'test.groovy', language: 'groovy') {
+                        jsrpostprocessor('inline': 'true', cacheKey: false, file: 'test.groovy', language: 'groovy')
+                        jsrpreprocessor('inline': 'false', cacheKey: false, file: 'test.groovy', language: 'groovy')
                     }
-                    jsrlistener('script': 'true', cacheKey: false, filename: 'test.groovy', language: 'groovy')
+                    jsrlistener('inline': 'true', cacheKey: false, file: 'test.groovy', language: 'groovy')
                 }
             }
         }

@@ -452,8 +452,8 @@ final class DslDefinition {
             new PropertyDefinition(name: 'allowQuotedData', required: false),
             new PropertyDefinition(name: 'recycle', required: false),
             new PropertyDefinition(name: 'stopUser', required: false),
-            new PropertyDefinition(name: 'variables', required: false),
-            new PropertyDefinition(name: 'filename', required: false),
+            new PropertyDefinition(name: 'variables', required: true),
+            new PropertyDefinition(name: 'filename', required: true),
             new PropertyDefinition(name: 'encoding', required: false),
             new PropertyDefinition(name: 'delimiter', required: false),
             new PropertyDefinition(name: 'shareMode', required: false),
@@ -493,9 +493,9 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> JSR223_PROPERTIES = [
-            new PropertyDefinition(name: 'script', required: false),
+            new PropertyDefinition(name: 'inline', required: false),
             new PropertyDefinition(name: 'cacheKey', required: false),
-            new PropertyDefinition(name: 'filename', required: false),
+            new PropertyDefinition(name: 'file', required: false),
             new PropertyDefinition(name: 'parameters', required: false),
             new PropertyDefinition(name: 'language', required: false),
     ].toSet().asImmutable()
