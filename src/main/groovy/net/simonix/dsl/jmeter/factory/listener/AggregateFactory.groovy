@@ -39,6 +39,6 @@ final class AggregateFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.filename = readValue(config.path, '')
+        testElement.filename = readValue(config.file, '')
     }
 }

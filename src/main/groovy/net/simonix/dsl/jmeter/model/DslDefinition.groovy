@@ -239,7 +239,7 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> INCLUDE_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: true),
+            new PropertyDefinition(name: 'file', required: true),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> FOR_EACH_PROPERTIES = [
@@ -360,12 +360,13 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> BODY_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: false),
+            new PropertyDefinition(name: 'file', required: false),
+            new PropertyDefinition(name: 'inline', required: false),
             new PropertyDefinition(name: 'encoding', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> INSERT_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: false),
+            new PropertyDefinition(name: 'file', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> PARAM_PROPERTIES = [
@@ -428,7 +429,6 @@ final class DslDefinition {
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'domain', required: false),
-            new PropertyDefinition(name: 'path', required: false),
             new PropertyDefinition(name: 'expires', required: false),
     ].toSet().asImmutable()
 
@@ -453,7 +453,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'recycle', required: false),
             new PropertyDefinition(name: 'stopUser', required: false),
             new PropertyDefinition(name: 'variables', required: true),
-            new PropertyDefinition(name: 'filename', required: true),
+            new PropertyDefinition(name: 'file', required: true),
             new PropertyDefinition(name: 'encoding', required: false),
             new PropertyDefinition(name: 'delimiter', required: false),
             new PropertyDefinition(name: 'shareMode', required: false),
@@ -512,7 +512,7 @@ final class DslDefinition {
 
     // listeners
     static final Set<PropertyDefinition> AGGREGATE_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: true),
+            new PropertyDefinition(name: 'file', required: true),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> BACKEND_PROPERTIES = [
@@ -521,7 +521,7 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> SUMMARY_PROPERTIES = [
-            new PropertyDefinition(name: 'path', required: true),
+            new PropertyDefinition(name: 'file', required: true),
             new PropertyDefinition(name: 'errorsOnly', required: false),
             new PropertyDefinition(name: 'successesOnly', required: false),
             new PropertyDefinition(name: 'assertions', required: false),

@@ -65,7 +65,7 @@ start {
         }
 
         // optional element, shows execution progress
-        summary(path: 'log.jtl')
+        summary(file: 'log.jtl')
     }
 }
 ```
@@ -111,7 +111,7 @@ start {
         }
 
         // optional element, shows execution progress
-        summary(path: 'log.jtl')
+        summary(file: 'log.jtl')
     }
 }
 ```
@@ -144,7 +144,7 @@ start {
         }
 
         // optional element, shows execution progress
-        summary(path: 'log.jtl')
+        summary(file: 'log.jtl')
     }
 }
 ```
@@ -189,7 +189,7 @@ start {
             cookies(name: 'cookies manager')
 
             // load users data from file into variables
-            csv(filename: 'users.csv', variables: ['var_username', 'var_password'], delimiter: ';')
+            csv(file: 'users.csv', variables: ['var_username', 'var_password'], delimiter: ';')
 
             // define POST request with parameters and extract tracking id for later use
             http('POST /login') {
@@ -236,7 +236,7 @@ start {
         }
 
         // output to .jtl file
-        summary(path: 'script.jtl', enabled: true)
+        summary(file: 'script.jtl', enabled: true)
     }
 }
 ```
@@ -257,7 +257,7 @@ In JMeter world, the users and threads are used interchangeably (both means virt
 ```groovy
 start {
     plan {
-        group users: 10 {
+        group users: 10, {
             // define random variable 'var_random' for each user (in other words each user has its own random generator)
             random(minimum: 0, maximum: 100, variable: 'var_random', perUser: true)
         }
@@ -393,7 +393,7 @@ start {
         group {
             defaults(protocol: 'http', domain: 'localhost', port: 8080)
             
-            http 'GET /app/login' {}
+            http 'GET /app/login', {}
         }
     }
 }

@@ -64,7 +64,7 @@ start {
             }
         }
 
-        summary(path: 'script.jtl', enabled: true)
+        summary(file: 'script.jtl', enabled: true)
 
         backend(name: 'InfluxDb Backend', enabled: true) {
             arguments {

@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * <pre>
  * // element structure
  * include (
- *     path: string
+ *     file: string
  * )
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Include_Controller">Include Controller</a>
@@ -47,6 +47,6 @@ final class IncludeFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.includePath = readValue(value, readValue(config.path, ''))
+        testElement.includePath = readValue(value, readValue(config.file, ''))
     }
 }

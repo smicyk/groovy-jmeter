@@ -74,7 +74,7 @@ start {
         }
 
         // output to .jtl file
-        summary(path: 'script.jtl', enabled: true)
+        summary(file: 'script.jtl', enabled: true)
 
         // gather execution information influxdb backend
         backend(name: 'InfluxDb Backend', enabled: true) {

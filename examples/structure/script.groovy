@@ -37,7 +37,7 @@ start {
             insert 'fragments/loop.groovy'
         }
 
-        summary(path: 'script.jtl', enabled: true)
+        summary(file: 'script.jtl', enabled: true)
 
         // insert common configuration for backed listener
         insert 'fragments/backend.groovy'

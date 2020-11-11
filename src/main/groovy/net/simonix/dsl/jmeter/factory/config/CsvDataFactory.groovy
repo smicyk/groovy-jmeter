@@ -35,7 +35,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
  *   allowQuotedData: boolean [<strong>false</strong>]
  *   recycle: boolean [<strong>true</strong>]
  *   stopUser: boolean [<strong>false</strong>]
- *   filename*: string
+ *   file*: string
  *   encoding: string [<strong>UTF-8</strong>]
  *   variables*: string | list
  *   delimiter: string [<strong>,</strong>]
@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
  * start {
  *     plan {
  *         group {
- *             csv(filename: 'data.csv', names: ['id', 'name'])
+ *             csv(file: 'data.csv', names: ['id', 'name'])
  *         }
  *     }
  * }
@@ -68,7 +68,7 @@ final class CsvDataFactory extends TestElementNodeFactory {
         boolean stopUser = readValue(config.stopUser, false)
 
         testElement.variableNames = readValues(config.variables, ',', [])
-        testElement.filename = readValue(config.filename, '')
+        testElement.filename = readValue(config.file, '')
         testElement.fileEncoding = readValue(config.encoding, 'UTF-8')
         testElement.ignoreFirstLine = ignoreFirstLine
         testElement.delimiter = readValue(config.delimiter, ',')

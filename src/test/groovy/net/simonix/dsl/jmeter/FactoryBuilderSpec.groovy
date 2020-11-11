@@ -188,11 +188,11 @@ class FactoryBuilderSpec extends TempFileSpec {
         given: 'Test plan with csv config element'
         def config = configure {
             plan {
-                csv(name: 'Factory csv', comments: 'Factory Comments', enabled: false, ignoreFirstLine: true, allowQuotedData: true, recycle: false, stopUser: true, filename: 'test.csv', encoding: 'UTF-16', variables: ['header1', 'header2'], delimiter: ';', shareMode: 'all')
-                csv(filename: 'test.csv', variables: ['header'])
-                csv(shareMode: 'all', filename: 'test.csv', variables: ['header'])
-                csv(shareMode: 'group', filename: 'test.csv', variables: ['header'])
-                csv(shareMode: 'thread', filename: 'test.csv', variables: ['header'])
+                csv(name: 'Factory csv', comments: 'Factory Comments', enabled: false, ignoreFirstLine: true, allowQuotedData: true, recycle: false, stopUser: true, file: 'test.csv', encoding: 'UTF-16', variables: ['header1', 'header2'], delimiter: ';', shareMode: 'all')
+                csv(file: 'test.csv', variables: ['header'])
+                csv(shareMode: 'all', file: 'test.csv', variables: ['header'])
+                csv(shareMode: 'group', file: 'test.csv', variables: ['header'])
+                csv(shareMode: 'thread', file: 'test.csv', variables: ['header'])
             }
         }
 
@@ -482,8 +482,8 @@ class FactoryBuilderSpec extends TempFileSpec {
         given: 'Test plan with listeners element'
         def config = configure {
             plan {
-                aggregate(name: 'Aggregate', path: 'aggregate.jtl')
-                summary(name: 'My Summary', path: 'example.jtl')
+                aggregate(name: 'Aggregate', file: 'aggregate.jtl')
+                summary(name: 'My Summary', file: 'example.jtl')
 
                 backend(name: 'Backend Listener', enabled: false) {
                     arguments {

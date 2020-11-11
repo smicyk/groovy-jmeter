@@ -25,15 +25,15 @@ import net.simonix.dsl.jmeter.factory.AbstractTestElementFragmentFactory
  *
  * <pre>
  * // element's structure
- * insert(
- *   path: string
+ * insert (
+ *   file: string
  * )
  * // example usage
  * // main.groovy
  * start {
  *     plan {
  *         group {
- *             insert path: 'path/to/code.groovy'
+ *             insert file: 'path/to/code.groovy'
  *             // or just
  *             insert 'path/to/code.groovy'
  *         }
