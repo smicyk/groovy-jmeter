@@ -130,7 +130,7 @@ private void contributeDefaults(delegate) {
 }
 
 private void contributeSummary(delegate) {
-    final args = [ path: 'java.lang.String' ]
+    final args = [ file: 'java.lang.String' ]
 
     delegate.method(name: 'summary',  params: [config: commonArgs + args])
 }

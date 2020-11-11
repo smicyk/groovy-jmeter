@@ -33,7 +33,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * <pre>
  * // structure of the body
  * body (
- *     path: string
+ *     file: string
  *     encoding: string [<strong>UTF-8</strong>]
  * )
  * // or
@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * start {
  *     plan {
  *         http {
- *             body (path: 'payload.json')
+ *             body (file: 'payload.json')
  *         }
  *     }
  * }
@@ -52,9 +52,17 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * start {
  *     plan {
  *         http {
- *             body """
+ *             body inline: """
  *                  {
  *                      "parameter": "value"
+ *                  }
+ *             """
+ *         }
+ *         // or
+ *         http {
+ *             body """
+ *                  {
+ *                      "parameter: "value"
  *                  }
  *             """
  *         }
@@ -74,12 +82,12 @@ final class BodyFactory extends TestElementFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String bodyValue = value
+        String bodyValue = readValue(value, readValue(config.inline, null))
 
-        String path = config.path
-        if (path != null) {
+        String file = config.file
+        if (file != null) {
             String encoding = readValue(config.encoding, 'UTF-8')
-            bodyValue = loadFromFile(path, encoding)
+            bodyValue = loadFromFile(file, encoding)
         }
 
         testElement.name = ''
@@ -100,7 +108,7 @@ final class BodyFactory extends TestElementFactory {
         }
     }
 
-    private String loadFromFile(String path, String encoding) {
-        return new File(path).getText(encoding)
+    private static String loadFromFile(String file, String encoding) {
+        return new File(file).getText(encoding)
     }
 }

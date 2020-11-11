@@ -43,9 +43,9 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
     }
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        String path = readValue(value, readValue(config.path, null))
+        String file = readValue(value, readValue(config.file, null))
 
-        URL url = this.class.classLoader.getResource(path)
+        URL url = this.class.classLoader.getResource(file)
         return groovyShell.evaluate(url.toURI())
     }
 

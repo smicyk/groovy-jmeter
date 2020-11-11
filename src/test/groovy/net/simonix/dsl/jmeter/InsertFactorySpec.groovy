@@ -26,7 +26,7 @@ class InsertFactorySpec extends TempFileSpec {
         def config = configure {
             plan {
                 group {
-                    insert path: 'net/simonix/dsl/jmeter/fragments/fragment.groovy'
+                    insert file: 'net/simonix/dsl/jmeter/fragments/fragment.groovy'
                 }
             }
         }

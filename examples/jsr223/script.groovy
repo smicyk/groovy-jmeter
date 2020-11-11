@@ -64,6 +64,6 @@ start {
             '''.stripIndent()
         }
 
-        summary(path: 'script.jtl', enabled: true)
+        summary(file: 'script.jtl', enabled: true)
     }
 }

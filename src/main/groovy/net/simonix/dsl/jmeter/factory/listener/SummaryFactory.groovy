@@ -40,7 +40,7 @@ final class SummaryFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.filename = readValue(config.path, '')
+        testElement.filename = readValue(config.file, '')
         testElement.errorLogging = readValue(config.errorsOnly, false)
         testElement.successOnlyLogging = readValue(config.successesOnly, false)
 
