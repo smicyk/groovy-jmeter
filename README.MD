@@ -89,9 +89,11 @@ Typical output from the command line should look like below:
 =      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%)
 ```
 
+## Test plan generator
+
 There is [*.har converter](https://github.com/smicyk/groovy-harventer) to generate scripts from *.har files. It can greatly speed up scripts generation for your tests. 
 
-### DefaultTestScript vs. TestScript
+## DefaultTestScript vs. TestScript
 
 There are two implementation for the test scripts, the *DefaultTestScript* and *TestScript*. The *DefaultTestScript* is very basic and doesn't have any additional features. The *TestScript* comes with additional command line support.
 
@@ -162,7 +164,7 @@ gradlew groovydoc
 cd ./build/docs/groovydoc && index.html
 ```
 
-### More advanced example
+## More advanced example
 
 The example below shows more constructs related to testing simple REST API.
 
@@ -241,16 +243,16 @@ start {
 }
 ```
 
-### Conventions
+## Conventions
 
 There are several conventions used in the design of the DSL.
 
-#### Naming
+### Naming
 
 All names in the DSL should make the script easy to read and concise. Most of the keywords and properties names are single words. The examples of such keywords might be: __plan__, __group__, __loops__. A similar rule applies to properties, e.g. __name__, __comments__, __forever__.
 However, some keywords must have two words like __execute_if__, __extract_regx__, __assert_json__. The longer names for properties are in camel case, e.g. rampUp, perUser.
 
-#### Users vs. Threads
+### Users vs. Threads
 
 In JMeter world, the users and threads are used interchangeably (both means virtual concurrent users executing test plan). In the script, we use the users as a convention. Check the example below:
 
@@ -265,7 +267,7 @@ start {
 }
 ```
 
-#### Default values
+### Default values
 
 All keywords in the DSL has predefined default values for its properties. For example, each keyword has **name** property with a default value defined. If there is no name property given for the keyword, the script will use the default value. You can check default values in Groovy docs. Below are more examples:
 
@@ -285,7 +287,7 @@ start {
 }
 ```
 
-#### Required properties
+### Required properties
 
 Even though each property has a default value, sometimes there is no sense to have a test element without specific property value. Such properties are required and raise an exception if missing. Check the example below:
 
@@ -304,7 +306,7 @@ start {
 }
 ```
 
-#### Groovy as DSL
+### Groovy as DSL
 
 There are several things to keep in mind while writing the scripts; most of the stuff relates to Groovy language:
 
@@ -341,7 +343,7 @@ start {
     plan()
 }
 ```
-#### Shortcuts
+### Shortcuts
 
 There are many places where we can use shortcuts to define the same thing:
 
