@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.constraint
 
-import groovy.transform.CompileDynamic
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
-import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
+final class Constraints {
 
-@ToString
-@EqualsAndHashCode
-@CompileDynamic
-class PropertyDefinition {
+    static InListPropertyConstraint inList(List<String> values) {
+        return new InListPropertyConstraint(values)
+    }
 
-    String name
-    boolean required
-    PropertyConstraint constraints
+    static RangePropertyConstraint range(long from, long to) {
+        return new RangePropertyConstraint(from, to)
+    }
+
+    static RangePropertyConstraint range(long from) {
+        return new RangePropertyConstraint(from, Long.MAX_VALUE)
+    }
 }

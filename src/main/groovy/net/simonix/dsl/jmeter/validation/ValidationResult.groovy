@@ -33,6 +33,10 @@ final class ValidationResult {
         return new ValidationResult(valid: false, message: "The keyword '${name}' is missing required properties. Did you forget to add any of the required properties ${requiredProperties}?")
     }
 
+    static ValidationResult notValidValue(Object name, String property, String values) {
+        return new ValidationResult(valid: false, message: "The property '${property}' has invalid value. The value should be from ${values}?")
+    }
+
     static ValidationResult success() {
         return new ValidationResult(valid: true, message: 'Success')
     }

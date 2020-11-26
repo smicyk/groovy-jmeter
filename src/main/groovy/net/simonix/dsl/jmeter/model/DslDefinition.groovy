@@ -17,6 +17,9 @@ package net.simonix.dsl.jmeter.model
 
 import groovy.transform.CompileStatic
 
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
+
 @CompileStatic
 final class DslDefinition {
     static final KeywordDefinition PLAN = new KeywordDefinition(name: 'plan')
@@ -211,19 +214,19 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> GROUP_PROPERTIES = [
-            new PropertyDefinition(name: 'users', required: false),
-            new PropertyDefinition(name: 'rampUp', required: false),
+            new PropertyDefinition(name: 'users', required: false, constraints: range(1)),
+            new PropertyDefinition(name: 'rampUp', required: false, constraints: range(1)),
             new PropertyDefinition(name: 'delayedStart', required: false),
             new PropertyDefinition(name: 'scheduler', required: false),
-            new PropertyDefinition(name: 'delay', required: false),
-            new PropertyDefinition(name: 'duration', required: false),
-            new PropertyDefinition(name: 'loops', required: false),
+            new PropertyDefinition(name: 'delay', required: false, constraints: range(0)),
+            new PropertyDefinition(name: 'duration', required: false, constraints: range(0)),
+            new PropertyDefinition(name: 'loops', required: false, constraints: range(1)),
             new PropertyDefinition(name: 'forever', required: false),
     ].toSet().asImmutable()
 
     // controllers
     static final Set<PropertyDefinition> LOOP_PROPERTIES = [
-            new PropertyDefinition(name: 'count', required: false),
+            new PropertyDefinition(name: 'count', required: false, constraints: range(1)),
             new PropertyDefinition(name: 'forever', required: false),
     ].toSet().asImmutable()
 
@@ -251,7 +254,7 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_PROPERTIES = [
-            new PropertyDefinition(name: 'type', required: true),
+            new PropertyDefinition(name: 'type', required: true, constraints: inList(['if', 'while', 'once', 'interleave', 'random', 'order', 'percent', 'total', 'runtime', 'switch'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_IF_PROPERTIES = [
@@ -278,18 +281,17 @@ final class DslDefinition {
     static final Set<PropertyDefinition> EXECUTE_ORDER_PROPERTIES = [].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_PERCENT_PROPERTIES = [
-            new PropertyDefinition(name: 'percent', required: false),
+            new PropertyDefinition(name: 'percent', required: false, constraints: range(0, 100)),
             new PropertyDefinition(name: 'perUser', required: false),
-            new PropertyDefinition(name: 'maxThroughput', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_TOTAL_PROPERTIES = [
+            new PropertyDefinition(name: 'total', required: false, constraints: range(0)),
             new PropertyDefinition(name: 'perUser', required: false),
-            new PropertyDefinition(name: 'total', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_RUNTIME_PROPERTIES = [
-            new PropertyDefinition(name: 'runtime', required: false),
+            new PropertyDefinition(name: 'runtime', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> EXECUTE_SWITCH_PROPERTIES = [
@@ -301,7 +303,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'method', required: false),
             new PropertyDefinition(name: 'protocol', required: false),
             new PropertyDefinition(name: 'domain', required: false),
-            new PropertyDefinition(name: 'port', required: false),
+            new PropertyDefinition(name: 'port', required: false, constraints: range(1, 65535)),
             new PropertyDefinition(name: 'path', required: false),
             new PropertyDefinition(name: 'encoding', required: false),
             new PropertyDefinition(name: 'autoRedirects', required: false),
@@ -320,7 +322,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'embeddedConcurrentDownloads', required: false),
             new PropertyDefinition(name: 'embeddedResourceUrl', required: false),
             new PropertyDefinition(name: 'ipSource', required: false),
-            new PropertyDefinition(name: 'ipSourceType', required: false),
+            new PropertyDefinition(name: 'ipSourceType', required: false, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6'])),
             new PropertyDefinition(name: 'proxySchema', required: false),
             new PropertyDefinition(name: 'proxyHost', required: false),
             new PropertyDefinition(name: 'proxyPort', required: false),
@@ -338,9 +340,9 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> FLOW_CONTROL_ACTION_PROPERTIES = [
-            new PropertyDefinition(name: 'action', required: false),
-            new PropertyDefinition(name: 'target', required: false),
-            new PropertyDefinition(name: 'duration', required: false),
+            new PropertyDefinition(name: 'action', required: false, constraints: inList(['pause', 'stop', 'stop_now', 'restart_next_loop', 'start_next', 'break'])),
+            new PropertyDefinition(name: 'target', required: false, constraints: inList(['current', 'all'])),
+            new PropertyDefinition(name: 'duration', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> DEBUG_PROPERTIES = [
@@ -387,7 +389,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'password', required: false),
             new PropertyDefinition(name: 'domain', required: false),
             new PropertyDefinition(name: 'realm', required: false),
-            new PropertyDefinition(name: 'mechanism', required: false),
+            new PropertyDefinition(name: 'mechanism', required: false, constraints: inList(['BASIC', 'DIGEST', 'KERBEROS', 'BASIC_DIGEST'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> AUTHORIZATIONS_PROPERTIES = [].toSet().asImmutable()
@@ -407,7 +409,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'embeddedConcurrentDownloads', required: false),
             new PropertyDefinition(name: 'embeddedResourceUrl', required: false),
             new PropertyDefinition(name: 'ipSource', required: false),
-            new PropertyDefinition(name: 'ipSourceType', required: false),
+            new PropertyDefinition(name: 'ipSourceType', required: false, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6'])),
             new PropertyDefinition(name: 'proxySchema', required: false),
             new PropertyDefinition(name: 'proxyHost', required: false),
             new PropertyDefinition(name: 'proxyPort', required: false),
@@ -419,7 +421,7 @@ final class DslDefinition {
     static final Set<PropertyDefinition> CACHE_PROPERTIES = [
             new PropertyDefinition(name: 'clearEachIteration', required: false),
             new PropertyDefinition(name: 'useExpires', required: false),
-            new PropertyDefinition(name: 'maxSize', required: false),
+            new PropertyDefinition(name: 'maxSize', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> COOKIE_PROPERTIES = [
@@ -429,12 +431,12 @@ final class DslDefinition {
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'domain', required: false),
-            new PropertyDefinition(name: 'expires', required: false),
+            new PropertyDefinition(name: 'expires', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> COOKIES_PROPERTIES = [
             new PropertyDefinition(name: 'clearEachIteration', required: false),
-            new PropertyDefinition(name: 'policy', required: false),
+            new PropertyDefinition(name: 'policy', required: false, constraints: inList(['standard', 'compatibility', 'netscape', 'standard-strict', 'best-match', 'default', 'ignoreCookies'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> COUNTER_PROPERTIES = [
@@ -456,7 +458,7 @@ final class DslDefinition {
             new PropertyDefinition(name: 'file', required: true),
             new PropertyDefinition(name: 'encoding', required: false),
             new PropertyDefinition(name: 'delimiter', required: false),
-            new PropertyDefinition(name: 'shareMode', required: false),
+            new PropertyDefinition(name: 'shareMode', required: false, constraints: inList(['all', 'group', 'thread' ])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> LOGIN_PROPERTIES = [
@@ -497,17 +499,17 @@ final class DslDefinition {
             new PropertyDefinition(name: 'cacheKey', required: false),
             new PropertyDefinition(name: 'file', required: false),
             new PropertyDefinition(name: 'parameters', required: false),
-            new PropertyDefinition(name: 'language', required: false),
+            new PropertyDefinition(name: 'language', required: false, constraints: inList(['groovy'])),
     ].toSet().asImmutable()
 
     // timers
     static final Set<PropertyDefinition> CONSTANT_TIMER_PROPERTIES = [
-            new PropertyDefinition(name: 'delay', required: false),
+            new PropertyDefinition(name: 'delay', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> UNIFORM_TIMER_PROPERTIES = [
-            new PropertyDefinition(name: 'delay', required: false),
-            new PropertyDefinition(name: 'range', required: false),
+            new PropertyDefinition(name: 'delay', required: false, constraints: range(0)),
+            new PropertyDefinition(name: 'range', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     // listeners
@@ -517,7 +519,7 @@ final class DslDefinition {
 
     static final Set<PropertyDefinition> BACKEND_PROPERTIES = [
             new PropertyDefinition(name: 'classname', required: false),
-            new PropertyDefinition(name: 'queueSize', required: false),
+            new PropertyDefinition(name: 'queueSize', required: false, constraints: range(1)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> SUMMARY_PROPERTIES = [
@@ -555,62 +557,62 @@ final class DslDefinition {
 
     // extractors
     static final Set<PropertyDefinition> CSS_EXTRACTOR_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['parent', 'all', 'children', 'variable'])),
             new PropertyDefinition(name: 'useEmptyValue', required: false),
             new PropertyDefinition(name: 'defaultValue', required: false),
-            new PropertyDefinition(name: 'match', required: false),
+            new PropertyDefinition(name: 'match', required: false, constraints: range(0)),
             new PropertyDefinition(name: 'variable', required: true),
             new PropertyDefinition(name: 'expression', required: true),
             new PropertyDefinition(name: 'attribute', required: false),
-            new PropertyDefinition(name: 'engine', required: false),
+            new PropertyDefinition(name: 'engine', required: false, constraints: inList(['JSOUP', 'JODD'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> JSON_EXTRACTOR_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['parent', 'all', 'children', 'variable'])),
             new PropertyDefinition(name: 'defaultValues', required: false),
-            new PropertyDefinition(name: 'matches', required: false),
+            new PropertyDefinition(name: 'matches', required: false, constraints: range(1)),
             new PropertyDefinition(name: 'variables', required: true),
             new PropertyDefinition(name: 'expressions', required: true),
             new PropertyDefinition(name: 'concatenation', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> REGEX_EXTRACTOR_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
-            new PropertyDefinition(name: 'field', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['parent', 'all', 'children', 'variable'])),
+            new PropertyDefinition(name: 'field', required: false, constraints: inList(['response_body', 'response_unescaped', 'response_document', 'response_headers', 'response_code', 'response_message', 'request_headers', 'url'])),
             new PropertyDefinition(name: 'useEmptyValue', required: false),
             new PropertyDefinition(name: 'defaultValue', required: false),
-            new PropertyDefinition(name: 'match', required: false),
+            new PropertyDefinition(name: 'match', required: false, constraints: range(1)),
             new PropertyDefinition(name: 'variable', required: true),
             new PropertyDefinition(name: 'expression', required: true),
             new PropertyDefinition(name: 'template', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> ASSERT_RESPONSE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
             new PropertyDefinition(name: 'variable', required: false),
-            new PropertyDefinition(name: 'field', required: false),
+            new PropertyDefinition(name: 'field', required: false, constraints: inList(['response_data', 'response_document', 'response_code', 'response_message', 'response_headers', 'request_data', 'request_headers', 'url'])),
             new PropertyDefinition(name: 'message', required: false),
-            new PropertyDefinition(name: 'rule', required: false),
+            new PropertyDefinition(name: 'rule', required: false, constraints: inList(['contains', 'matches', 'equals', 'substring'])),
             new PropertyDefinition(name: 'ignoreStatus', required: false),
             new PropertyDefinition(name: 'any', required: false),
             new PropertyDefinition(name: 'negate', required: false),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> ASSERT_SIZE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
             new PropertyDefinition(name: 'variable', required: false),
-            new PropertyDefinition(name: 'field', required: false),
-            new PropertyDefinition(name: 'rule', required: false),
-            new PropertyDefinition(name: 'size', required: false),
+            new PropertyDefinition(name: 'field', required: false, constraints: inList(['response_data', 'response_body', 'response_code', 'response_message', 'response_headers'])),
+            new PropertyDefinition(name: 'rule', required: false, constraints: inList(['contains', 'matches', 'equals', 'substring'])),
+            new PropertyDefinition(name: 'size', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> ASSERT_DURATION_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
-            new PropertyDefinition(name: 'duration', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
+            new PropertyDefinition(name: 'duration', required: false, constraints: range(0)),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> ASSERT_XPATH_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
             new PropertyDefinition(name: 'variable', required: false),
             new PropertyDefinition(name: 'xpath', required: false),
             new PropertyDefinition(name: 'ignoreWhitespace', required: false),
@@ -626,8 +628,8 @@ final class DslDefinition {
 
     static final Set<PropertyDefinition> ASSERT_JSON_PROPERTIES = [
             new PropertyDefinition(name: 'jpath', required: false),
-            new PropertyDefinition(name: 'assert_value', required: false),
-            new PropertyDefinition(name: 'assert_as_regex', required: false),
+            new PropertyDefinition(name: 'assertValue', required: false),
+            new PropertyDefinition(name: 'assertAsRegex', required: false),
             new PropertyDefinition(name: 'value', required: false),
             new PropertyDefinition(name: 'expectNull', required: false),
             new PropertyDefinition(name: 'invert', required: false),
@@ -638,18 +640,18 @@ final class DslDefinition {
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> CHECK_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> CHECK_RESPONSE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> CHECK_REQUEST_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
     ].toSet().asImmutable()
 
     static final Set<PropertyDefinition> CHECK_SIZE_PROPERTIES = [
-            new PropertyDefinition(name: 'applyTo', required: false),
+            new PropertyDefinition(name: 'applyTo', required: false, constraints: inList(['all', 'parent', 'children', 'variable'])),
     ].toSet().asImmutable()
 }

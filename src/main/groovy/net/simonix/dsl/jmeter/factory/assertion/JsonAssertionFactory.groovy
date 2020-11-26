@@ -31,10 +31,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * // element structure
  * assert_json (
  *    jpath: string [<strong>$.<strong>]
- *    assert_value: boolean [false]
- *    assert_as_regex: boolean [true]
+ *    assertValue: boolean [false]
+ *    assertAsRegex: boolean [true]
  *    value: string
- *    expect_null: boolean [false]
+ *    expectNull: boolean [false]
  *    invert: boolean [false]
  * )
  * </pre>
@@ -51,8 +51,8 @@ final class JsonAssertionFactory extends TestElementNodeFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         String jpath = readValue(config.jpath, '$.')
-        boolean assertValue = readValue(config.assert_value, false)
-        boolean assertAsRegex = readValue(config.assert_as_regex, true)
+        boolean assertValue = readValue(config.assertValue, false)
+        boolean assertAsRegex = readValue(config.assertAsRegex, true)
         String regexValue = readValue(config.value, '')
         boolean expectNull = readValue(config.expectNull, false)
         boolean invert = readValue(config.invert, false)
