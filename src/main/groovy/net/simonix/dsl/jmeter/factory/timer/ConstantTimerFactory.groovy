@@ -23,6 +23,29 @@ import org.apache.jmeter.timers.gui.ConstantTimerGui
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
+/**
+ * The factory class responsible for building <code>timer</code> element in the test.
+ *
+ * <pre>
+ * // structure of the element
+ * timer (
+ *     delay: integer   [<strong>300</strong>]
+ * )
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             timer delay: 300
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Constant_Timer">Constant Timer</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class ConstantTimerFactory extends TestElementNodeFactory {
 

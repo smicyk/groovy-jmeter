@@ -24,6 +24,21 @@ import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>flow</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * flow (
+ *    action: string [<strong>pause</strong>, stop, stop_now, restart_next_loop, start_next, break]
+ *    target: string [<strong>current</strong>, all]
+ *    duration: int [<strong>0</strong>]
+ * )
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Flow_Control_Action">Flow Control Action</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class FlowControlActionFactory extends TestElementNodeFactory {
 

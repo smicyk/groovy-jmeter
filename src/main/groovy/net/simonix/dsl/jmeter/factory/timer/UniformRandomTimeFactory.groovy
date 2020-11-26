@@ -22,6 +22,30 @@ import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.timers.UniformRandomTimer
 import org.apache.jmeter.timers.gui.UniformRandomTimerGui
 
+/**
+ * The factory class responsible for building <code>uniform</code> element in the test.
+ *
+ * <pre>
+ * // structure of the element
+ * uniform (
+ *     delay: integer   [<strong>1000</strong>]
+ *     range: integer   [<strong>100</strong>]
+ * )
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             uniform delay: 300, range: 1000
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Uniform_Random_Timer">Uniform Random Timer</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class UniformRandomTimeFactory extends TestElementNodeFactory {
 

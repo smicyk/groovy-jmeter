@@ -17,24 +17,36 @@ package net.simonix.dsl.jmeter.validation
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 
 @CompileDynamic
 class PropertyValidator implements Validator {
 
-    Set<PropertyDefinition> properties = []
+    Map<String, PropertyDefinition> properties = [:]
     boolean valueIsProperty = false
 
+    // cache for later use
+    private Set<String> validKeys
+    private Set<String> requiredKeys
+
     PropertyValidator(Set<PropertyDefinition> properties) {
-        this.properties.addAll(properties)
+        properties.each {property ->
+            this.properties[property.name] = property
+        }
+
+        updateCacheValues()
     }
 
     void addProperties(Set<PropertyDefinition> properties) {
-        this.properties.addAll(properties)
+        properties.each {property ->
+            this.properties[property.name] = property
+        }
+
+        updateCacheValues()
     }
 
     ValidationResult validate(Object name, Object value, Map config) {
         Set<String> configKeys = config.collect { it.key } as Set<String>
-        Set<String> validKeys = properties.collect { it.name } as Set<String>
         configKeys.removeAll(validKeys)
 
         if (!configKeys.isEmpty()) {
@@ -42,7 +54,6 @@ class PropertyValidator implements Validator {
         }
 
         configKeys = config.collect { it.key } as Set<String>
-        Set<String> requiredKeys = properties.findAll { it.required }.collect { it.name } as Set<String>
 
         if (!configKeys.containsAll(requiredKeys)) {
             if (!valueIsProperty || value == null) {
@@ -50,6 +61,30 @@ class PropertyValidator implements Validator {
             }
         }
 
+        def propertyNames = config.find {attribute ->
+            PropertyDefinition propertyDefinition = properties[attribute.key]
+
+            if (propertyDefinition?.constraints) {
+                PropertyConstraint constraints = propertyDefinition.constraints
+
+                if(!constraints.matches(attribute.value)) {
+                    return true
+                }
+            }
+
+            return false
+        }.collect { it.key }
+
+        if(propertyNames) {
+            PropertyDefinition property = properties[propertyNames[0]]
+            return ValidationResult.notValidValue(name, property.name, property.constraints.description())
+        }
+
         return ValidationResult.success()
+    }
+
+    private void updateCacheValues() {
+        validKeys = properties.collect { it.key } as Set<String>
+        requiredKeys = properties.findAll { it.value.required }.collect { it.key } as Set<String>
     }
 }

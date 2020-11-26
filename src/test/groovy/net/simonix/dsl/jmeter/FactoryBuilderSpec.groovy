@@ -81,8 +81,8 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 arguments values: [
-                    usr_var1: '1',
-                    usr_var2: 'uservalue'
+                        usr_var1: '1',
+                        usr_var2: 'uservalue'
                 ]
             }
         }
@@ -313,8 +313,8 @@ class FactoryBuilderSpec extends TempFileSpec {
         def config = configure {
             plan {
                 variables values: [
-                    var1: 1,
-                    var2: 'value'
+                        var1: 1,
+                        var2: 'value'
                 ]
             }
         }
@@ -518,15 +518,15 @@ class FactoryBuilderSpec extends TempFileSpec {
                 group {
                     defaults(protocol: 'http', domain: 'localhost', port: 80) {
                         params values: [
-                            usr_var1: '1',
-                            usr_var2: 'uservalue'
+                                usr_var1: '1',
+                                usr_var2: 'uservalue'
                         ]
                     }
 
                     http(name: 'GET /path', path: '/path') {
                         params values: [
-                            http_var1: '2',
-                            http_var2: 'uservalue2'
+                                http_var1: '2',
+                                http_var2: 'uservalue2'
                         ]
                     }
                 }

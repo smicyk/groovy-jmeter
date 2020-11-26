@@ -18,12 +18,17 @@ package net.simonix.dsl.jmeter.validation
 import net.simonix.dsl.jmeter.model.PropertyDefinition
 import spock.lang.Specification
 
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
+
 class PropertyValidatorSpec extends Specification {
 
     static final Set<PropertyDefinition> TEST_PROPERTIES = [
             new PropertyDefinition(name: 'name', required: false),
             new PropertyDefinition(name: 'comments', required: false),
             new PropertyDefinition(name: 'enabled', required: true),
+            new PropertyDefinition(name: 'mode', required: false, constraints: inList(['value1', 'value2'])),
+            new PropertyDefinition(name: 'counter', required: false, constraints: range(10, 20)),
     ].toSet().asImmutable()
 
     def "All fields are correct"() {
@@ -32,7 +37,7 @@ class PropertyValidatorSpec extends Specification {
         PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES);
 
         when:
-        ValidationResult result = validator.validate('test', null, [name: 'test', comments: 'comments', enabled: true])
+        ValidationResult result = validator.validate('test', null, [name: 'test', comments: 'comments', enabled: true, mode: 'value2', counter: 15])
 
         then:
         result == ValidationResult.success()
@@ -73,5 +78,29 @@ class PropertyValidatorSpec extends Specification {
 
         then:
         result == ValidationResult.success()
+    }
+
+    def "Property value not valid (inList)"() {
+        given: 'property validator with test properties'
+
+        PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES);
+
+        when:
+        ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments', enabled: true, mode: 'badValue'])
+
+        then:
+        result == ValidationResult.notValidValue('test', 'mode', ['value1', 'value2'].toString())
+    }
+
+    def "Property value not valid (range)"() {
+        given: 'property validator with test properties'
+
+        PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES);
+
+        when:
+        ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments', enabled: true, counter: 8])
+
+        then:
+        result == ValidationResult.notValidValue('test', 'counter','range 10..20')
     }
 }

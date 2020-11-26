@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.constraint
 
-import groovy.transform.CompileDynamic
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
-import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
+class InListPropertyConstraint implements PropertyConstraint {
+    List<String> values
 
-@ToString
-@EqualsAndHashCode
-@CompileDynamic
-class PropertyDefinition {
+    InListPropertyConstraint(List<String> values) {
+        this.values = values.asImmutable()
+    }
 
-    String name
-    boolean required
-    PropertyConstraint constraints
+    @Override
+    boolean matches(Object value) {
+        return values.contains(value)
+    }
+
+    @Override
+    String description() {
+        return "${values}"
+    }
 }
