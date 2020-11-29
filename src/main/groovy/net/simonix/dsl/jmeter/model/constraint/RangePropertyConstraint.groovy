@@ -57,6 +57,11 @@ class RangePropertyConstraint implements PropertyConstraint {
             return bigint.compareTo(BigInteger.valueOf(from)) >= 0 &&
                     bigint.compareTo(BigInteger.valueOf(to)) <= 0
         }
+        if (value instanceof String) {
+            Long convertedValue = value.asType(Long)
+
+            return convertedValue >= from && convertedValue <= to
+        }
         return false
     }
 }
