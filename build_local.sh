@@ -16,6 +16,4 @@
 # limitations under the License.
 ###
 
-gradle wrapper
-
-./gradlew clean build publish 
+./gradlew clean build publish

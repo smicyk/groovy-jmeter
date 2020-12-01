@@ -6,3 +6,4 @@ jmeter.properties
 saveservice.properties
 *.log
 *.jtl
+*.jmx
