@@ -13,8 +13,6 @@ It has following features:
  Current version uses [Apache JMeter 5.1.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
  
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
- 
- > Note, if you are Windows user, you can copy command from *.sh files and run them on command line (or install some console emulator like [Cmder](https://cmder.net/)).
 
 ## Prerequisites
 
@@ -33,8 +31,10 @@ Clone, build and publish jars to your local repository:
 ```shell script
 git clone https://github.com/smicyk/groovy-jmeter.git
 
-gradle wrapper
+# in Linux
+./gradlew clean build publish
 
+# in Windows
 gradlew clean build publish
 ```
 
@@ -45,7 +45,11 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 
 docker volume create --name grapes-cache
 
-docker run --rm -u gradle -w "//home/gradle/groovy-jmeter" -v "/$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
+# in Linux
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
+
+# in Windows
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
 ```
 
 ## First steps
@@ -80,7 +84,11 @@ groovy yourscriptname.groovy
 If you want to start the same script inside a docker run the following command on command line:
 
 ```shell script
+# in Linux
 docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
+
+# in Windows
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
 ```
 
 Typical output from the command line should look like below:

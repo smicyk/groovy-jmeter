@@ -15,6 +15,6 @@ There are two folders [mockserver](mockserver) and [monitoring](monitoring) whic
 
 After you start monitoring, you can access it with [local link](http://localhost:3000). The user and password is __admin/admin__.
 
-> Note, all examples has __run.sh__ file which should be used to run the example (or you can copy the content to command line and experiment with it)
+> Note, all examples has __run__ file which should be used to run the examples (or you can copy the content to command line and experiment with it)
 
-> It is necessary to run __build_local.sh__ and __build_docker.sh__ in the main folder before running all examples.
+> It is necessary to run __build_local__ and __build_docker__ in the main folder before running all examples.

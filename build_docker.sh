@@ -23,4 +23,4 @@ docker volume create --name grapes-cache
 # create proper ownership on grapes folder
 docker run --rm --name grapes-container -v "grapes-cache":"/home/gradle/.groovy/grapes" alpine /bin/sh -c "chown 1000:1000 /home/gradle/.groovy/grapes"
 
-docker run --rm -u gradle -w "//home/gradle/groovy-jmeter" -v "/$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
