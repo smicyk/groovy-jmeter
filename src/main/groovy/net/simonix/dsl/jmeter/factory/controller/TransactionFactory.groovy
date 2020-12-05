@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TransactionFactory extends TestElementNodeFactory {
 
     TransactionFactory(String testElementName) {
-        super(testElementName, TransactionController, TransactionControllerGui, false, DslDefinition.TRANSACTION_PROPERTIES)
+        super(testElementName, TransactionController, TransactionControllerGui, false, DslDefinition.TRANSACTION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

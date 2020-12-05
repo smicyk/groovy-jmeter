@@ -51,7 +51,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
     ResponseAssertionFactory(String testElementName) {
-        super(testElementName, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE_PROPERTIES)
+        super(testElementName, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

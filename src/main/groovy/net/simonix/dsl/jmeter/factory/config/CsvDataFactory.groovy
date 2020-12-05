@@ -58,7 +58,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 final class CsvDataFactory extends TestElementNodeFactory {
 
     CsvDataFactory(String testElementName) {
-        super(testElementName, CSVDataSet, TestBeanGUI, false, DslDefinition.CSV_DATA_PROPERTIES)
+        super(testElementName, CSVDataSet, TestBeanGUI, false, DslDefinition.CSV_DATA)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -41,16 +41,15 @@ import net.simonix.dsl.jmeter.validation.Validator
  * </pre>
  */
 @CompileDynamic
-final class ExecuteFactory extends AbstractCompositeTestElementNodeFactory implements ValidatorProvider {
+final class ExecuteFactory extends AbstractCompositeTestElementNodeFactory {
+
+    ExecuteFactory() {
+        super(DslDefinition.EXECUTE)
+    }
 
     AbstractTestElementNodeFactory getChildFactory(FactoryBuilderSupport builder, Object name, Object value, Map config) {
         String factoryName = "execute_${config.type}"
 
         return (AbstractTestElementNodeFactory) builder.factories.get(factoryName)
-    }
-
-    @Override
-    Validator getValidator() {
-        return new RequiredOnlyValidator(DslDefinition.EXECUTE_PROPERTIES)
     }
 }

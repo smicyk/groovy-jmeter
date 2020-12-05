@@ -13,18 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.handler
 
-import groovy.transform.CompileDynamic
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
+/**
+ * Marker interface for check handlers
+ */
+interface CheckHandler {
 
-@ToString
-@EqualsAndHashCode
-@CompileDynamic
-class KeywordDefinition {
-
-    String name
-
-    Set<PropertyDefinition> properties
 }

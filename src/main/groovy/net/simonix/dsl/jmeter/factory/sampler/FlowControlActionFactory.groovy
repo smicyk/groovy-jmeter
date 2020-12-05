@@ -43,12 +43,12 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class FlowControlActionFactory extends TestElementNodeFactory {
 
     FlowControlActionFactory(String testElementName) {
-        super(testElementName, TestAction, TestActionGui, false, DslDefinition.FLOW_CONTROL_ACTION_PROPERTIES)
+        super(testElementName, TestAction, TestActionGui, false, DslDefinition.FLOW)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.action = readValue(translateAction(config.action), 1)
-        testElement.target = readValue(translateTarget(config.target), 0)
+        testElement.action = readValue(translateAction((String) config.action), 1)
+        testElement.target = readValue(translateTarget((String) config.target), 0)
         testElement.duration = readValue(config.duration, '0')
     }
 

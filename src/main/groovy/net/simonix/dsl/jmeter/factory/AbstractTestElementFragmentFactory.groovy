@@ -17,7 +17,10 @@ package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.FragmentTestScript
+import net.simonix.dsl.jmeter.model.DefinitionProvider
 import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.KeywordDefinition
+import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import net.simonix.dsl.jmeter.validation.PropertyValidator
 import org.codehaus.groovy.control.CompilerConfiguration
@@ -28,13 +31,17 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * Abstract class for inserting test fragments.
  */
 @CompileDynamic
-abstract class AbstractTestElementFragmentFactory extends AbstractFactory implements ValidatorProvider {
+abstract class AbstractTestElementFragmentFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
     final GroovyShell groovyShell
-    final PropertyValidator validator
 
-    protected AbstractTestElementFragmentFactory() {
-        this.validator = new PropertyValidator(DslDefinition.INSERT_PROPERTIES)
+    final KeywordDefinition definition
+    final Validator validator
+
+    protected AbstractTestElementFragmentFactory(KeywordDefinition definition) {
+        this.definition = definition
+
+        this.validator = new PropertyValidator(definition.properties)
 
         CompilerConfiguration config = new CompilerConfiguration()
         config.scriptBaseClass = FragmentTestScript.name

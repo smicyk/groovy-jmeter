@@ -60,7 +60,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class AuthorizationFactory extends TestElementFactory {
 
     AuthorizationFactory() {
-        super(Authorization, DslDefinition.AUTHORIZATION_PROPERTIES)
+        super(Authorization, DslDefinition.AUTHORIZATION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

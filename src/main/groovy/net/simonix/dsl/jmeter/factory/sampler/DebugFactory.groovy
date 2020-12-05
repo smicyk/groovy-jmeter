@@ -29,7 +29,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DebugFactory extends TestElementNodeFactory {
 
     DebugFactory(String testElementName) {
-        super(testElementName, DebugSampler, TestBeanGUI, false, DslDefinition.DEBUG_PROPERTIES)
+        super(testElementName, DebugSampler, TestBeanGUI, false, DslDefinition.DEBUG)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

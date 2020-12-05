@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class InterleaveControllerFactory extends TestElementNodeFactory {
 
     InterleaveControllerFactory() {
-        super('Interleave Controller', InterleaveControl, InterleaveControlGui, false, DslDefinition.EXECUTE_INTERLEAVE_PROPERTIES)
+        super('Interleave Controller', InterleaveControl, InterleaveControlGui, false, DslDefinition.EXECUTE_INTERLEAVE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

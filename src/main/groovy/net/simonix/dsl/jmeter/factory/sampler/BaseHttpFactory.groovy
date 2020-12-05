@@ -18,6 +18,7 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.KeywordDefinition
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
@@ -63,8 +64,8 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
 
     static final NAME_PATTERNS = [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
 
-    protected BaseHttpFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, Set<String> properties) {
-        super(testElementName, testElementClass, testElementGuiClass, leaf, DslDefinition.HTTP_COMMON_PROPERTIES + properties)
+    protected BaseHttpFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
+        super(testElementName, testElementClass, testElementGuiClass, leaf, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

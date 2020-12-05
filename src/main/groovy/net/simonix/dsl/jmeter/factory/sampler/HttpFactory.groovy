@@ -80,7 +80,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class HttpFactory extends BaseHttpFactory {
 
     HttpFactory(String testElementName) {
-        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP_PROPERTIES)
+        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

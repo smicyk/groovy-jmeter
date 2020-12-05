@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractTestElementFragmentFactory
+import net.simonix.dsl.jmeter.model.DslDefinition
 
 /**
  * Helper factory responsible for <code>insert</code> test element. It is used to insert of files with test code.
@@ -50,4 +51,7 @@ import net.simonix.dsl.jmeter.factory.AbstractTestElementFragmentFactory
 @CompileDynamic
 final class InsertFactory extends AbstractTestElementFragmentFactory {
 
+    InsertFactory() {
+        super(DslDefinition.INSERT)
+    }
 }

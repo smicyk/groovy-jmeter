@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
+import net.simonix.dsl.jmeter.model.DslDefinition
 import org.apache.jmeter.assertions.JSR223Assertion
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
@@ -32,6 +33,6 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 final class JSR223AssertionFactory extends AbstractJSR223Factory {
 
     JSR223AssertionFactory(String testElementName) {
-        super(testElementName, JSR223Assertion, TestBeanGUI, true)
+        super(testElementName, JSR223Assertion, TestBeanGUI, true, DslDefinition.JSR223_ASSERTION)
     }
 }

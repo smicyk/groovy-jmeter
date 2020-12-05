@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DefinitionProvider
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
@@ -24,7 +25,7 @@ import org.apache.jmeter.testelement.TestElement
  * Base class for building {@link TestElement}
  */
 @CompileDynamic
-abstract class AbstractTestElementFactory extends AbstractFactory implements ValidatorProvider {
+abstract class AbstractTestElementFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
     /**
      * Main method for building new {@link TestElement}. All subclasses should override this method.

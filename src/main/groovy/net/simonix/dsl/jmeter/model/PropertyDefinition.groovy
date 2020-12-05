@@ -27,5 +27,6 @@ class PropertyDefinition {
 
     String name
     boolean required
+    Object defaultValue
     PropertyConstraint constraints
 }

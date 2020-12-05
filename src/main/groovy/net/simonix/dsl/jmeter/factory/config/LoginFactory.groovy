@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class LoginFactory extends TestElementNodeFactory {
 
     LoginFactory(String testElementName) {
-        super(testElementName, ConfigTestElement, LoginConfigGui, false, DslDefinition.LOGIN_PROPERTIES)
+        super(testElementName, ConfigTestElement, LoginConfigGui, false, DslDefinition.LOGIN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

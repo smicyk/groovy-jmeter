@@ -61,7 +61,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class AjpFactory extends BaseHttpFactory {
 
     AjpFactory(String testElementName) {
-        super(testElementName, AjpSampler, AjpSamplerGui, false, DslDefinition.AJP_PROPERTIES)
+        super(testElementName, AjpSampler, AjpSamplerGui, false, DslDefinition.AJP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

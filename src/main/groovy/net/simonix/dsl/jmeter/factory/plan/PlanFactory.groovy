@@ -64,7 +64,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class PlanFactory extends TestElementNodeFactory {
 
     PlanFactory(String testElementName) {
-        super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN_PROPERTIES)
+        super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

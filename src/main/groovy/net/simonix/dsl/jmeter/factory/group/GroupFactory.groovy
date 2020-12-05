@@ -66,11 +66,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class GroupFactory extends TestElementNodeFactory {
 
     GroupFactory(String testElementName) {
-        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP_PROPERTIES)
+        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE);
+        testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE)
 
         testElement.numThreads = readValue(Integer, config.users, 1)
         testElement.rampUp = readValue(Integer, config.rampUp, 1)

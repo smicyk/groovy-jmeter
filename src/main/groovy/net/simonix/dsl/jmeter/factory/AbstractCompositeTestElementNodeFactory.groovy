@@ -16,7 +16,13 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DefinitionProvider
+import net.simonix.dsl.jmeter.model.KeywordDefinition
 import net.simonix.dsl.jmeter.model.TestElementNode
+import net.simonix.dsl.jmeter.validation.PropertyValidator
+import net.simonix.dsl.jmeter.validation.RequiredOnlyValidator
+import net.simonix.dsl.jmeter.validation.Validator
+import net.simonix.dsl.jmeter.validation.ValidatorProvider
 
 /**
  * Add dynamic creation of {@link TestElementNode}.
@@ -24,8 +30,16 @@ import net.simonix.dsl.jmeter.model.TestElementNode
  * The real factory should be provided by implementation of {@link AbstractCompositeTestElementNodeFactory#getChildFactory}.
  */
 @CompileDynamic
-abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory {
+abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
+    final KeywordDefinition definition
+    final Validator validator
+
+    AbstractCompositeTestElementNodeFactory(KeywordDefinition definition) {
+        this.definition = definition
+
+        this.validator = new RequiredOnlyValidator(definition.properties)
+    }
     /**
      * Get real {@link net.simonix.dsl.jmeter.model.TestElementNode} factory class instead of this one.
      */

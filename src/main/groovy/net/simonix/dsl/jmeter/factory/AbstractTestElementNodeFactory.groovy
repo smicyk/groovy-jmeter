@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.DefinitionProvider
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
@@ -24,7 +25,7 @@ import org.apache.jmeter.testelement.TestElement
  * Factory base class for building {@link TestElementNode}.
  */
 @CompileDynamic
-abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider {
+abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
     abstract TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException
 

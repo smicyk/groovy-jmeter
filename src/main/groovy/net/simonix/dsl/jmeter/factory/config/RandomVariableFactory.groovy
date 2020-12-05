@@ -52,7 +52,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomVariableFactory extends TestElementNodeFactory {
 
     RandomVariableFactory(String testElementName) {
-        super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE_PROPERTIES)
+        super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

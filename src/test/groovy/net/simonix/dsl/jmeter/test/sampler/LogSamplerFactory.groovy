@@ -16,10 +16,11 @@
 package net.simonix.dsl.jmeter.test.sampler
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.KeywordDefinition
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
 /**
- * Used only in test units.
+ * Used only in tests.
  * 
  * Handles 'log' keyword.
  *
@@ -27,6 +28,6 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 final class LogSamplerFactory extends TestElementNodeFactory {
     
     LogSamplerFactory(String testElementName) {
-        super(testElementName, LogSampler, TestBeanGUI, true)
+        super(testElementName, LogSampler, TestBeanGUI, true, new KeywordDefinition(name: 'log', properties: []))
     }
 }

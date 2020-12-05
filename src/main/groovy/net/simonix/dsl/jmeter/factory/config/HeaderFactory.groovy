@@ -52,7 +52,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class HeaderFactory extends TestElementFactory {
 
     HeaderFactory() {
-        super(Header, DslDefinition.HEADER_PROPERTIES)
+        super(Header, DslDefinition.HEADER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

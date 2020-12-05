@@ -20,21 +20,22 @@ import spock.lang.Specification
 
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
+import static net.simonix.dsl.jmeter.model.DefinitionBuilder.properties
 
 class RequiredValidatorSpec extends Specification {
 
-    static final Set<PropertyDefinition> TEST_PROPERTIES = [
-            new PropertyDefinition(name: 'name', required: false),
-            new PropertyDefinition(name: 'comments', required: false),
-            new PropertyDefinition(name: 'enabled', required: true),
-            new PropertyDefinition(name: 'mode', required: false, constraints: inList(['value1', 'value2'])),
-            new PropertyDefinition(name: 'counter', required: false, constraints: range(10, 20))
-    ].toSet().asImmutable()
+    static final Set<PropertyDefinition> TEST_PROPERTIES = properties {
+        property(name: 'name', required: false)
+        property(name: 'comments', required: false)
+        property(name: 'enabled', required: true)
+        property(name: 'mode', required: false, constraints: inList(['value1', 'value2']))
+        property(name: 'counter', required: false, constraints: range(10, 20))
+    }
 
     def "All fields are correct"() {
         given: 'property validator with test properties'
 
-        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES);
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES)
 
         when:
         ValidationResult result = validator.validate('test', null, [name: 'test', comments: 'comments', enabled: true, mode: 'value2', counter: 15])
@@ -46,7 +47,7 @@ class RequiredValidatorSpec extends Specification {
     def "Required property missing"() {
         given: 'property validator with test properties'
 
-        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES);
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES)
 
         when:
         ValidationResult result = validator.validate('test', null, [name: 'test', comments: 'comments'])
@@ -58,7 +59,7 @@ class RequiredValidatorSpec extends Specification {
     def "Required property missing where value is property"() {
         given: 'property validator with test properties'
 
-        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES);
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES)
         validator.valueIsProperty = true
 
         when:
@@ -71,7 +72,7 @@ class RequiredValidatorSpec extends Specification {
     def "Property value not valid (inList)"() {
         given: 'property validator with test properties'
 
-        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES);
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES)
 
         when:
         ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments', enabled: true, mode: 'badValue'])
@@ -83,7 +84,7 @@ class RequiredValidatorSpec extends Specification {
     def "Property value not valid (range)"() {
         given: 'property validator with test properties'
 
-        PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES);
+        PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES)
 
         when:
         ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments', enabled: true, counter: 8])

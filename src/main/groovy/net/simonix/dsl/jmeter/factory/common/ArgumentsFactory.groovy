@@ -59,7 +59,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ArgumentsFactory extends TestElementFactory {
 
     ArgumentsFactory() {
-        super(Arguments, false, DslDefinition.ARGUMENTS_PROPERTIES)
+        super(Arguments, false, DslDefinition.ARGUMENTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -39,6 +39,6 @@ import org.apache.jmeter.protocol.http.gui.AuthPanel
 final class AuthorizationsFactory extends TestElementNodeFactory {
 
     AuthorizationsFactory(String testElementName) {
-        super(testElementName, AuthManager, AuthPanel, false, DslDefinition.AUTHORIZATIONS_PROPERTIES)
+        super(testElementName, AuthManager, AuthPanel, false, DslDefinition.AUTHORIZATIONS)
     }
 }

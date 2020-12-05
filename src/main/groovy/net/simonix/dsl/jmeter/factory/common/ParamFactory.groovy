@@ -56,7 +56,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamFactory extends TestElementFactory {
 
     ParamFactory() {
-        super(HTTPArgument, DslDefinition.PARAM_PROPERTIES)
+        super(HTTPArgument, DslDefinition.PARAM)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

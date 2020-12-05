@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TotalControllerFactory extends TestElementNodeFactory {
 
     TotalControllerFactory() {
-        super('Total Execution Controller', ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_TOTAL_PROPERTIES)
+        super('Total Execution Controller', ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_TOTAL)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

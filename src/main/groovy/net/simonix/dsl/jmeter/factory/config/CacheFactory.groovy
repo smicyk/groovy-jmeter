@@ -49,7 +49,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CacheFactory extends TestElementNodeFactory {
 
     CacheFactory(String testElementName) {
-        super(testElementName, CacheManager, CacheManagerGui, true, DslDefinition.CACHE_PROPERTIES)
+        super(testElementName, CacheManager, CacheManagerGui, true, DslDefinition.CACHE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

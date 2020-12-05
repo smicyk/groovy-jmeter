@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.KeywordDefinition
 import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
@@ -51,8 +52,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 @CompileDynamic
 abstract class AbstractJSR223Factory extends TestElementNodeFactory {
 
-    protected AbstractJSR223Factory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf) {
-        super(testElementName, testElementClass, testElementGuiClass, leaf, DslDefinition.JSR223_PROPERTIES)
+    protected AbstractJSR223Factory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
+        super(testElementName, testElementClass, testElementGuiClass, leaf, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

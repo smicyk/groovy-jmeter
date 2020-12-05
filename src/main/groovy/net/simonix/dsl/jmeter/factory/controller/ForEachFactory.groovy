@@ -47,7 +47,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ForEachFactory extends TestElementNodeFactory {
 
     ForEachFactory(String testElementName) {
-        super(testElementName, ForeachController, ForeachControlPanel, false, DslDefinition.FOR_EACH_PROPERTIES)
+        super(testElementName, ForeachController, ForeachControlPanel, false, DslDefinition.FOR_EACH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

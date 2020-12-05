@@ -46,7 +46,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class JsonAssertionFactory extends TestElementNodeFactory {
 
     JsonAssertionFactory(String testElementName) {
-        super(testElementName, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON_PROPERTIES)
+        super(testElementName, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -63,7 +63,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IfControllerFactory extends TestElementNodeFactory {
 
     IfControllerFactory() {
-        super('If Controller', IfController, IfControllerPanel, false, DslDefinition.EXECUTE_IF_PROPERTIES)
+        super('If Controller', IfController, IfControllerPanel, false, DslDefinition.EXECUTE_IF)
 
         this.validator.valueIsProperty = true
     }

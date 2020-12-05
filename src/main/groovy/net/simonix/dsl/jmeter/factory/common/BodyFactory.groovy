@@ -78,7 +78,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class BodyFactory extends TestElementFactory {
 
     BodyFactory() {
-        super(HTTPArgument, DslDefinition.BODY_PROPERTIES)
+        super(HTTPArgument, DslDefinition.BODY)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
