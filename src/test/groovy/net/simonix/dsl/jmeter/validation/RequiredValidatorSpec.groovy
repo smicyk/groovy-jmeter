@@ -59,8 +59,7 @@ class RequiredValidatorSpec extends Specification {
     def "Required property missing where value is property"() {
         given: 'property validator with test properties'
 
-        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES)
-        validator.valueIsProperty = true
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES, true)
 
         when:
         ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments'])

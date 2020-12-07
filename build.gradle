@@ -125,7 +125,7 @@ publishing {
         }
     }
     publications {
-       ivy(IvyPublication) {
+        ivy(IvyPublication) {
             organisation = 'net.simonix.scripts'
             module = 'groovy-jmeter'
             revision = project.version

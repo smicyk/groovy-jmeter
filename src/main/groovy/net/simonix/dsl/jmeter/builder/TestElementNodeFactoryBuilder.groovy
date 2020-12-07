@@ -157,8 +157,8 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new JSR223ListenerFactory('JSR223 Listener'))
     }
 
-    void registerPluginFactory(String type, AbstractFactory factory) {
-        registerFactory(type, factory)
+    void registerPluginFactory(AbstractFactory factory) {
+        addFactory(factory)
     }
 
     protected void preInstantiate(Object name, Map attributes, Object value) {

@@ -20,35 +20,41 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 class DefinitionBuilder {
 
-    static KeywordDefinition keyword(String name, Closure c) {
+    static KeywordDefinition keyword(String name) {
         KeywordBuilder builder = new KeywordBuilder(name)
-        c.delegate = builder
 
-        builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+        return builder.build()
+    }
 
-        return builder.definition
+    static KeywordDefinition keyword(String name, Closure c) {
+        c.delegate = new KeywordBuilder(name)
+
+        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+
+        return builder.build()
     }
 
     static Set<PropertyDefinition> properties(Closure c) {
-        PropertyBuilder builder = new PropertyBuilder()
-        c.delegate = builder
+        c.delegate = new PropertyBuilder()
 
-        builder = InvokerHelper.invokeClosure(c, []) as PropertyBuilder
+        PropertyBuilder builder = InvokerHelper.invokeClosure(c, []) as PropertyBuilder
 
-        return builder.properties.toSet().asImmutable()
+        return builder.build()
     }
 
     static class KeywordBuilder {
-        KeywordDefinition definition
+        String name
+        Set<PropertyDefinition> properties
 
         KeywordBuilder(String name) {
-            this.definition = new KeywordDefinition(name: name, properties: [])
+            this.name = name
+            this.properties = []
         }
 
         KeywordBuilder property(Map config) {
             PropertyDefinition propertyDefinition = propertyImpl(config)
 
-            definition.properties.add(propertyDefinition)
+            this.properties.add(propertyDefinition)
 
             return this
         }
@@ -56,9 +62,13 @@ class DefinitionBuilder {
         KeywordBuilder include(Set<PropertyDefinition> properties) {
             assert properties != null
 
-            definition.properties.addAll(properties)
+            this.properties.addAll(properties)
 
             return this
+        }
+
+        KeywordDefinition build() {
+            return new KeywordDefinition(name, properties)
         }
     }
 
@@ -73,6 +83,10 @@ class DefinitionBuilder {
             properties.add(propertyImpl(config))
 
             return this
+        }
+
+        Set<PropertyDefinition> build() {
+            return properties.toSet()
         }
     }
 

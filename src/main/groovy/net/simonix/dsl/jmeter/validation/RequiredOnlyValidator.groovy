@@ -28,12 +28,17 @@ class RequiredOnlyValidator implements Validator {
     // cache for later use
     private Set<String> requiredKeys
 
-    RequiredOnlyValidator(Set<PropertyDefinition> properties) {
+    RequiredOnlyValidator(Set<PropertyDefinition> properties, boolean valueIsProperty) {
+        this.valueIsProperty = valueIsProperty
         properties.each {property ->
             this.properties[property.name] = property
         }
 
         updateCacheValues()
+    }
+
+    RequiredOnlyValidator(Set<PropertyDefinition> properties) {
+        this(properties, false)
     }
 
     void addProperties(Set<PropertyDefinition> properties) {

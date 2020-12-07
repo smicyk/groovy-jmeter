@@ -96,8 +96,8 @@ final class TestScriptRunner {
         TestElementNodeFactoryBuilder builder = new TestElementNodeFactoryBuilder()
 
         if (config.plugins) {
-            config.plugins.each { type, factory ->
-                builder.registerPluginFactory(type, factory)
+            config.plugins.each { factory ->
+                builder.registerPluginFactory(factory)
             }
         }
 

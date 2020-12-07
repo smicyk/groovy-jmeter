@@ -22,7 +22,7 @@ import spock.lang.Specification
 
 class LogSamplerSpec extends Specification {
     def listener
-    def plugins = [ 'log': new LogSamplerFactory('Log Sampler')]
+    def plugins = [ new LogSamplerFactory('Log Sampler')]
 
     def setup() {
         listener = Mock(TestElementListener)

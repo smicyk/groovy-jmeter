@@ -29,12 +29,17 @@ class PropertyValidator implements Validator {
     private Set<String> validKeys
     private Set<String> requiredKeys
 
-    PropertyValidator(Set<PropertyDefinition> properties) {
+    PropertyValidator(Set<PropertyDefinition> properties, boolean valueIsProperty) {
+        this.valueIsProperty = valueIsProperty
         properties.each {property ->
             this.properties[property.name] = property
         }
 
         updateCacheValues()
+    }
+
+    PropertyValidator(Set<PropertyDefinition> properties) {
+        this(properties, false)
     }
 
     void addProperties(Set<PropertyDefinition> properties) {
