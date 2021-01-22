@@ -13,6 +13,8 @@ It has following features:
  Current version uses [Apache JMeter 5.1.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
  
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
+ 
+ > Checkout the project [wiki](https://github.com/smicyk/groovy-jmeter/wiki) for quick reference of all keywords and properties
 
 ## Prerequisites
 
