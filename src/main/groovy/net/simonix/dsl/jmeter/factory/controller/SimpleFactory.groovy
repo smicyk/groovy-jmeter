@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.GenericController
 import org.apache.jmeter.control.gui.LogicControllerGui
 

@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.listener
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.testelement.property.TestElementProperty
@@ -34,8 +34,8 @@ final class BackendListenerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.classname = readValue(config.classname, 'org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient')
-        testElement.queueSize = readValue(config.queueSize?.toString(), '5000')
+        testElement.classname = config.classname
+        testElement.queueSize = config.queueSize?.toString()
 
         testElement.property = new TestElementProperty(BackendListener.ARGUMENTS, new Arguments())
     }

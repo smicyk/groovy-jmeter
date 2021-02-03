@@ -19,7 +19,7 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.handler.CheckHandler
 import net.simonix.dsl.jmeter.handler.CheckRequestHandler
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 
 /**
  * The factory class responsible for building <code>check_request</code> elements in the test.

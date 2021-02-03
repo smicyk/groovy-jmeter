@@ -16,12 +16,10 @@
 package net.simonix.dsl.jmeter.factory.sampler
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.gui.AjpSamplerGui
 import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>ajp</code> element in the test.
@@ -68,12 +66,12 @@ final class AjpFactory extends BaseHttpFactory {
         super.updateTestElementProperties(testElement, name, value, config)
 
         // Embedded resource
-        testElement.imageParser = readValue(config.downloadEmbeddedResources, false)
-        testElement.concurrentDwn = readValue(config.embeddedConcurrent, false)
-        testElement.concurrentPool = readValue(config.embeddedConcurrentDownloads, 6)
-        testElement.embeddedUrlRE = readValue(config.embeddedResourceUrl, '')
+        testElement.imageParser = config.downloadEmbeddedResources
+        testElement.concurrentDwn = config.embeddedConcurrent
+        testElement.concurrentPool = config.embeddedConcurrentDownloads
+        testElement.embeddedUrlRE = config.embeddedResourceUrl
 
         // Use md5 configuration
-        testElement.MD5 = readValue(config.saveAsMD5, false)
+        testElement.MD5 = config.saveAsMD5
     }
 }

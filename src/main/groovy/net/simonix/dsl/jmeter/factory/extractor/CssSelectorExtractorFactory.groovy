@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.extractor
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.extractor.HtmlExtractor
 import org.apache.jmeter.extractor.gui.HtmlExtractorGui
 import org.apache.jmeter.testelement.TestElement
@@ -54,7 +54,7 @@ final class CssSelectorExtractorFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'parent')
+        String applyTo = config.applyTo
 
         if (applyTo == 'all') {
             testElement.setScopeAll()
@@ -68,13 +68,13 @@ final class CssSelectorExtractorFactory extends TestElementNodeFactory {
             testElement.setScopeAll()
         }
 
-        testElement.defaultEmptyValue = readValue(config.useEmptyValue, false)
-        testElement.defaultValue = readValue(config.defaultValue, '')
-        testElement.matchNumber = readValue(config.match, 0)
-        testElement.refName = readValue(config.variable, '')
+        testElement.defaultEmptyValue = config.useEmptyValue
+        testElement.defaultValue = config.defaultValue
+        testElement.matchNumber = config.match
+        testElement.refName = config.variable
 
-        testElement.expression = readValue(config.expression, '')
-        testElement.attribute = readValue(config.attribute, '')
-        testElement.extractor = readValue(config.engine, HtmlExtractor.EXTRACTOR_JSOUP)
+        testElement.expression = config.expression
+        testElement.attribute = config.attribute
+        testElement.extractor = config.engine
     }
 }

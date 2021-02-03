@@ -18,12 +18,10 @@ package net.simonix.dsl.jmeter.factory.assertion
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.handler.PatternHandler
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.ResponseAssertion
 import org.apache.jmeter.assertions.gui.AssertionGui
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>assert_response</code> element in the test.
@@ -55,14 +53,14 @@ final class ResponseAssertionFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'all')
-        String variableName = readValue(config.variable, null)
-        String field = readValue(config.field, 'response_data')
-        String message = readValue(config.message, '')
-        String rule = readValue(config.rule, 'contains')
-        boolean ignoreStatus = readValue(config.ignoreStatus, false)
-        boolean anyMatch = readValue(config.any, false)
-        boolean negate = readValue(config.negate, false)
+        String applyTo = config.applyTo
+        String variableName = config.variable
+        String field = config.field
+        String message = config.message
+        String rule = config.rule
+        boolean ignoreStatus = config.ignoreStatus
+        boolean anyMatch = config.any
+        boolean negate = config.negate
 
         if (applyTo == 'all') {
             testElement.setScopeAll()

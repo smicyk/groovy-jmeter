@@ -17,13 +17,10 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.CSVDataSet
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 
 /**
  * The factory class responsible for building <code>csv</code> element in the test.
@@ -62,20 +59,20 @@ final class CsvDataFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean ignoreFirstLine = readValue(config.ignoreFirstLine, false)
-        boolean allowQuotedData = readValue(config.allowQuotedData, false)
-        boolean recycle = readValue(config.recycle, true)
-        boolean stopUser = readValue(config.stopUser, false)
+        boolean ignoreFirstLine = config.ignoreFirstLine
+        boolean allowQuotedData = config.allowQuotedData
+        boolean recycle = config.recycle
+        boolean stopUser = config.stopUser
 
-        testElement.variableNames = readValues(config.variables, ',', [])
-        testElement.filename = readValue(config.file, '')
-        testElement.fileEncoding = readValue(config.encoding, 'UTF-8')
+        testElement.variableNames = config.variables
+        testElement.filename = config.file
+        testElement.fileEncoding = config.encoding
         testElement.ignoreFirstLine = ignoreFirstLine
-        testElement.delimiter = readValue(config.delimiter, ',')
+        testElement.delimiter = config.delimiter
         testElement.quotedData = allowQuotedData
         testElement.recycle = recycle
         testElement.stopThread = stopUser
-        testElement.shareMode = "shareMode.${readValue(config.shareMode, 'all')}"
+        testElement.shareMode = "shareMode.${config.shareMode}"
 
         // we must set it separately
         testElement.setProperty('filename', testElement.filename)

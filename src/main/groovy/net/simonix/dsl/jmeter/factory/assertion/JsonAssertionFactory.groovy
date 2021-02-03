@@ -17,12 +17,10 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.JSONPathAssertion
 import org.apache.jmeter.assertions.gui.JSONPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>assert_json</code> element in the test.
@@ -50,12 +48,12 @@ final class JsonAssertionFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String jpath = readValue(config.jpath, '$.')
-        boolean assertValue = readValue(config.assertValue, false)
-        boolean assertAsRegex = readValue(config.assertAsRegex, true)
-        String regexValue = readValue(config.value, '')
-        boolean expectNull = readValue(config.expectNull, false)
-        boolean invert = readValue(config.invert, false)
+        String jpath = config.jpath
+        boolean assertValue = config.assertValue
+        boolean assertAsRegex = config.assertAsRegex
+        String regexValue = config.value
+        boolean expectNull = config.expectNull
+        boolean invert = config.invert
 
         testElement.setJsonPath(jpath)
         testElement.setExpectedValue(regexValue)

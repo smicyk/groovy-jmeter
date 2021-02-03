@@ -18,10 +18,7 @@ package net.simonix.dsl.jmeter.factory.controller
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractCompositeTestElementNodeFactory
 import net.simonix.dsl.jmeter.factory.AbstractTestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
-import net.simonix.dsl.jmeter.validation.ValidatorProvider
-import net.simonix.dsl.jmeter.validation.RequiredOnlyValidator
-import net.simonix.dsl.jmeter.validation.Validator
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 
 /**
  * General factory class responsible for creating child test elements for execute command.

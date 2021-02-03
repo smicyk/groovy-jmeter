@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.timer
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.timers.ConstantTimer
 import org.apache.jmeter.timers.gui.ConstantTimerGui

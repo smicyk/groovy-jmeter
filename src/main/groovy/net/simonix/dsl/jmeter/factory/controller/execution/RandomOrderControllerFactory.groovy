@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.RandomOrderController
 import org.apache.jmeter.control.gui.RandomOrderControllerGui
 

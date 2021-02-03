@@ -16,7 +16,8 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DefinitionProvider
+import net.simonix.dsl.jmeter.model.definition.DefinitionAwareMap
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
@@ -49,9 +50,11 @@ abstract class AbstractTestElementFactory extends AbstractFactory implements Val
     }
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        TestElement testElement = newTestElement(builder, name, value, config)
+        Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
 
-        updateTestElementProperties(testElement, name, value, config)
+        TestElement testElement = newTestElement(builder, name, value, definitionAwareConfig)
+
+        updateTestElementProperties(testElement, name, value, definitionAwareConfig)
 
         return testElement
     }

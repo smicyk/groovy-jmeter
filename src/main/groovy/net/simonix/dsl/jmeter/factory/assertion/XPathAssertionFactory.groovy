@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.XPathAssertion
 import org.apache.jmeter.assertions.gui.XPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -55,21 +55,21 @@ final class XPathAssertionFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'all')
-        String variableName = readValue(config.variable, null)
+        String applyTo = config.applyTo
+        String variableName = config.variable
 
-        String xpath = readValue(config.xpath, '/')
-        boolean ignoreWhitespace = readValue(config.ignoreWhitespace, false)
-        boolean validateXml = readValue(config.validate, false)
-        boolean useNamespace = readValue(config.useNamespace, false)
-        boolean fetchDtd = readValue(config.fetchDtd, false)
-        boolean failOnNoMatch = readValue(config.failOnNoMatch, false)
+        String xpath = config.xpath
+        boolean ignoreWhitespace = config.ignoreWhitespace
+        boolean validateXml = config.validate
+        boolean useNamespace = config.useNamespace
+        boolean fetchDtd = config.fetchDtd
+        boolean failOnNoMatch = config.failOnNoMatch
 
         // tidy parser
-        boolean useTolerant = readValue(config.useTolerant, false)
-        boolean reportErrors = readValue(config.reportErrors, false)
-        boolean showWarnings = readValue(config.showWarnings, false)
-        boolean quiet = readValue(config.quiet, true)
+        boolean useTolerant = config.useTolerant
+        boolean reportErrors = config.reportErrors
+        boolean showWarnings = config.showWarnings
+        boolean quiet = config.quiet
 
         if (applyTo == 'all') {
             testElement.setScopeAll()

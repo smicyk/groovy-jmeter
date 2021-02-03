@@ -18,7 +18,7 @@ package net.simonix.dsl.jmeter.test.sampler
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
-import static net.simonix.dsl.jmeter.model.DefinitionBuilder.keyword
+import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
 
 /**
  * Used only in tests.

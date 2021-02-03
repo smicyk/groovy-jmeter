@@ -36,8 +36,8 @@ import net.simonix.dsl.jmeter.factory.sampler.*
 import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
 import net.simonix.dsl.jmeter.factory.timer.UniformRandomTimeFactory
-import net.simonix.dsl.jmeter.model.DefinitionProvider
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import net.simonix.dsl.jmeter.model.ValidationException
 import net.simonix.dsl.jmeter.validation.ValidationResult
 import net.simonix.dsl.jmeter.validation.Validator

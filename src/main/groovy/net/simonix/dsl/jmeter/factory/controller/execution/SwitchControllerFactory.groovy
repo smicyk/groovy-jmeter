@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.SwitchController
 import org.apache.jmeter.control.gui.SwitchControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -48,7 +48,7 @@ final class SwitchControllerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String selection  = readValue(value?.toString(), readValue(config.value?.toString(), '0'))
+        String selection  = readValue(value?.toString(), config.value?.toString())
 
         testElement.selection = selection
     }

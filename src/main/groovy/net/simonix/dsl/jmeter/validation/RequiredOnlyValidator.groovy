@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.validation
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.model.definition.PropertyDefinition
 import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 
 @CompileDynamic

@@ -17,14 +17,11 @@ package net.simonix.dsl.jmeter.factory.sampler
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
-import net.simonix.dsl.jmeter.model.KeywordDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
 import java.util.regex.Matcher
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * Base class for HTTP related factories.
@@ -69,14 +66,14 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String method = readValue(config.method, '')
-        String protocol = readValue(config.protocol, '')
-        String domain = readValue(config.domain, '')
-        String path = readValue(config.path, '')
+        String method = config.method
+        String protocol = config.protocol
+        String domain = config.domain
+        String path = config.path
 
         Integer port = null
         if (config.containsKey('port')) {
-            port = readValue(Integer, config.port, null)
+            port = config.port
         }
 
         // override config elements
@@ -107,12 +104,12 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         // Request configuration
         testElement.method = method
         testElement.path = path
-        testElement.contentEncoding = readValue(config.encoding, '')
-        testElement.autoRedirects = readValue(config.autoRedirects, false)
-        testElement.followRedirects = readValue(config.followRedirects, true)
-        testElement.useKeepAlive = readValue(config.keepAlive, true)
-        testElement.doMultipartPost = readValue(config.multipart, false)
-        testElement.doBrowserCompatibleMultipart = readValue(config.browserCompatibleMultipart, false)
+        testElement.contentEncoding = config.encoding
+        testElement.autoRedirects = config.autoRedirects
+        testElement.followRedirects = config.followRedirects
+        testElement.useKeepAlive = config.keepAlive
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
     }
 
     private String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {

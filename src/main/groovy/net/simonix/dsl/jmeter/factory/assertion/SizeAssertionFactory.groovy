@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.SizeAssertion
 import org.apache.jmeter.assertions.gui.SizeAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -49,11 +49,11 @@ final class SizeAssertionFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'all')
-        String variableName = readValue(config.variable, null)
-        String field = readValue(config.field, 'response_data')
-        String rule = readValue(config.rule, 'eq')
-        Long size = readValue(Long, config.size, 0)
+        String applyTo = config.applyTo
+        String variableName = config.variable
+        String field = config.field
+        String rule = config.rule
+        Long size = config.size as Long
 
         if (applyTo == 'all') {
             testElement.setScopeAll()

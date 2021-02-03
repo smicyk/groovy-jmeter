@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.definition
 
 import groovy.transform.CompileDynamic
 

@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.CacheManager
 import org.apache.jmeter.protocol.http.gui.CacheManagerGui
 import org.apache.jmeter.testelement.TestElement
@@ -53,11 +53,11 @@ final class CacheFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean clearEachIteration = readValue(config.clearEachIteration, false)
-        boolean useExpires = readValue(config.useExpires, true)
+        boolean clearEachIteration = config.clearEachIteration
+        boolean useExpires = config.useExpires
 
         testElement.clearEachIteration = clearEachIteration
         testElement.useExpires = useExpires
-        testElement.maxSize = readValue(config.maxSize, 5000)
+        testElement.maxSize = config.maxSize
     }
 }

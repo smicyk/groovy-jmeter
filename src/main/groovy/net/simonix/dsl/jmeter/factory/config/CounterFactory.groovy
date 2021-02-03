@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.modifiers.CounterConfig
 import org.apache.jmeter.modifiers.gui.CounterConfigGui
 import org.apache.jmeter.testelement.TestElement
@@ -59,14 +59,14 @@ final class CounterFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean perUser = readValue(config.perUser, false)
-        boolean reset = readValue(config.reset, false)
+        boolean perUser = config.perUser
+        boolean reset = config.reset
 
-        testElement.start = readValue(config.start, 0)
-        testElement.end = readValue(config.end, Integer.MAX_VALUE)
-        testElement.increment = readValue(config.increment, 1)
-        testElement.varName = readValue(config.variable, 'c')
-        testElement.format = readValue(config.format, '')
+        testElement.start = config.start
+        testElement.end = config.end
+        testElement.increment = config.increment
+        testElement.varName = config.variable
+        testElement.format = config.format
         testElement.isPerUser = perUser
         testElement.resetOnThreadGroupIteration = reset
     }

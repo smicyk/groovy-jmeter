@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.definition
 
 import groovy.transform.CompileDynamic
 import groovy.transform.EqualsAndHashCode
@@ -26,7 +26,12 @@ import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 class PropertyDefinition {
 
     String name
-    boolean required = false
     Object defaultValue = null
-    PropertyConstraint constraints
+
+    boolean required = false
+
+    String separator = null
+    Class type = null
+
+    PropertyConstraint constraints = null
 }

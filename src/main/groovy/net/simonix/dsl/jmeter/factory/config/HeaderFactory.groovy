@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.Header
 import org.apache.jmeter.protocol.http.control.HeaderManager
 import org.apache.jmeter.testelement.TestElement
@@ -56,8 +56,8 @@ final class HeaderFactory extends TestElementFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.name = readValue(config.name, '')
-        testElement.value = readValue(config.value, '')
+        testElement.name = config.name
+        testElement.value = config.value
     }
 
     void updateParentProperties(FactoryBuilderSupport builder, Object manager, Object header) {

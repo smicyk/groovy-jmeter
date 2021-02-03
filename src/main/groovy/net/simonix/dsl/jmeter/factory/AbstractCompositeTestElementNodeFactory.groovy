@@ -16,10 +16,10 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DefinitionProvider
-import net.simonix.dsl.jmeter.model.KeywordDefinition
+import net.simonix.dsl.jmeter.model.definition.DefinitionAwareMap
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.model.TestElementNode
-import net.simonix.dsl.jmeter.validation.PropertyValidator
 import net.simonix.dsl.jmeter.validation.RequiredOnlyValidator
 import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
@@ -46,8 +46,11 @@ abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory i
     abstract AbstractTestElementNodeFactory getChildFactory(FactoryBuilderSupport builder, Object name, Object value, Map config)
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        AbstractTestElementNodeFactory factory = getChildFactory(builder, name, value, config)
+        Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
 
+        AbstractTestElementNodeFactory factory = getChildFactory(builder, name, value, definitionAwareConfig)
+
+        // we keep original config here, as child factory should handle definition if apprioriate
         return factory.newInstance(builder, name, value, config)
     }
 

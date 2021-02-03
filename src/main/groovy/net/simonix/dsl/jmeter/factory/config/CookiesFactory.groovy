@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.http.client.config.CookieSpecs
 import org.apache.jmeter.protocol.http.control.CookieManager
 import org.apache.jmeter.protocol.http.gui.CookiePanel
@@ -50,10 +50,10 @@ final class CookiesFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean clearEachIteration = readValue(config.clearEachIteration, true)
+        boolean clearEachIteration = config.clearEachIteration
 
         testElement.clearEachIteration = clearEachIteration
-        testElement.cookiePolicy = readValue(config.policy, CookieSpecs.STANDARD)
+        testElement.cookiePolicy = config.policy
 
         // cookie policies: compatibility, standard, netscape, standard-strict, best-match, default, ignoreCookies
     }

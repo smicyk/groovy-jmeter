@@ -16,8 +16,7 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.KeywordDefinition
-import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.PropertyValidator
 import net.simonix.dsl.jmeter.validation.Validator
 import org.apache.jmeter.testelement.TestElement

@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.Cookie
 import org.apache.jmeter.protocol.http.control.CookieManager
 import org.apache.jmeter.testelement.TestElement
@@ -59,16 +59,16 @@ final class CookieFactory extends TestElementFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean secure = readValue(config.secure, false)
+        boolean secure = config.secure
         boolean pathSpecified = config.path != null && config.path != ''
         boolean domainSpecified = config.domain != null && config.domain != ''
 
-        testElement.name = readValue(config.name, '')
-        testElement.value = readValue(config.value, '')
-        testElement.domain = readValue(config.domain, '')
-        testElement.path = readValue(config.path, '')
+        testElement.name = config.name
+        testElement.value = config.value
+        testElement.domain = config.domain
+        testElement.path = config.path
         testElement.secure = secure
-        testElement.expires = readValue(config.expires, 0)
+        testElement.expires = config.expires
         testElement.pathSpecified = pathSpecified
         testElement.domainSpecified = domainSpecified
         testElement.version = 1

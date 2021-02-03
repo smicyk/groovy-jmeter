@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.InterleaveControl
 import org.apache.jmeter.control.gui.InterleaveControlGui
 import org.apache.jmeter.testelement.TestElement
@@ -49,9 +49,9 @@ final class InterleaveControllerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean ignoreSubControllers = readValue(config.ignore, false)
+        boolean ignoreSubControllers = config.ignore
 
         testElement.style = ignoreSubControllers ? InterleaveControl.IGNORE_SUB_CONTROLLERS : InterleaveControl.USE_SUB_CONTROLLERS
-        testElement.interleaveAccrossThreads = readValue(config.acrossUsers, false)
+        testElement.interleaveAccrossThreads = config.acrossUsers
     }
 }

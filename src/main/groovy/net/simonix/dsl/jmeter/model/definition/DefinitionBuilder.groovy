@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.definition
+
 
 import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 import org.codehaus.groovy.runtime.InvokerHelper
@@ -21,13 +22,21 @@ import org.codehaus.groovy.runtime.InvokerHelper
 class DefinitionBuilder {
 
     static KeywordDefinition keyword(String name) {
-        KeywordBuilder builder = new KeywordBuilder(name)
+        KeywordBuilder builder = new KeywordBuilder(name, null)
 
         return builder.build()
     }
 
     static KeywordDefinition keyword(String name, Closure c) {
-        c.delegate = new KeywordBuilder(name)
+        c.delegate = new KeywordBuilder(name, null)
+
+        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+
+        return builder.build()
+    }
+
+    static KeywordDefinition keyword(String name, String description, Closure c) {
+        c.delegate = new KeywordBuilder(name, description)
 
         KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
 
@@ -44,10 +53,12 @@ class DefinitionBuilder {
 
     static class KeywordBuilder {
         String name
+        String description
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name) {
+        KeywordBuilder(String name, String description) {
             this.name = name
+            this.description = description
             this.properties = []
         }
 
@@ -68,7 +79,7 @@ class DefinitionBuilder {
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, properties)
+            return new KeywordDefinition(name, description, properties)
         }
     }
 
@@ -95,10 +106,12 @@ class DefinitionBuilder {
 
         String name = config.name
         boolean required = config.required ?: false
-        PropertyConstraint constraints = (PropertyConstraint) config.constraints ?: null
-        Object defaultValue = config.defaultValue ?: null
+        PropertyConstraint constraints = config.constraints ?: null as PropertyConstraint
+        Object defaultValue = config.defaultValue == null ? null : config.defaultValue
+        String separator = config.separator
+        Class type = config.type as Class
 
-        PropertyDefinition propertyDefinition = new PropertyDefinition(name: name, required: required, constraints: constraints, defaultValue: defaultValue)
+        PropertyDefinition propertyDefinition = new PropertyDefinition(name: name, required: required, constraints: constraints, defaultValue: defaultValue, separator: separator, type: type)
 
         return propertyDefinition
     }

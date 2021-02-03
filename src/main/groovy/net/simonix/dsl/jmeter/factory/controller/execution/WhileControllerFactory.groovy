@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.WhileController
 import org.apache.jmeter.control.gui.WhileControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -50,7 +50,7 @@ final class WhileControllerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String condition = readValue(value, readValue(config.condition, ''))
+        String condition = readValue(value, config.condition)
 
         if (condition == 'LAST') {
             testElement.condition = condition

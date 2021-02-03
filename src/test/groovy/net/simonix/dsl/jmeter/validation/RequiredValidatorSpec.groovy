@@ -15,12 +15,12 @@
  */
 package net.simonix.dsl.jmeter.validation
 
-import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.model.definition.PropertyDefinition
 import spock.lang.Specification
 
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
-import static net.simonix.dsl.jmeter.model.DefinitionBuilder.properties
+import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properties
 
 class RequiredValidatorSpec extends Specification {
 

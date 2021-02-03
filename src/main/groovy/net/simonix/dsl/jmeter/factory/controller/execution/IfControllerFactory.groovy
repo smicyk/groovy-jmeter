@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.IfController
 import org.apache.jmeter.control.gui.IfControllerPanel
 import org.apache.jmeter.testelement.TestElement
@@ -69,10 +69,10 @@ final class IfControllerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String condition = readValue(value, readValue(config.condition, ''))
+        String condition = readValue(value, config.condition)
 
-        boolean useExpression = readValue(config.useExpression, true)
-        boolean evaluateAll = readValue(config.evaluateAll, false)
+        boolean useExpression = config.useExpression
+        boolean evaluateAll = config.evaluateAll
 
         if (useExpression) {
             testElement.condition = "\${${condition}}"

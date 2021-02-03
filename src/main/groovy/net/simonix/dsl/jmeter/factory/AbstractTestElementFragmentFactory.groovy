@@ -17,9 +17,9 @@ package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.FragmentTestScript
-import net.simonix.dsl.jmeter.model.DefinitionProvider
-import net.simonix.dsl.jmeter.model.DslDefinition
-import net.simonix.dsl.jmeter.model.KeywordDefinition
+import net.simonix.dsl.jmeter.model.definition.DefinitionAwareMap
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import net.simonix.dsl.jmeter.validation.PropertyValidator
@@ -50,7 +50,9 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
     }
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        String file = readValue(value, readValue(config.file, null))
+        Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
+
+        String file = readValue(value, definitionAwareConfig.file)
 
         URL url = this.class.classLoader.getResource(file)
         return groovyShell.evaluate(url.toURI())

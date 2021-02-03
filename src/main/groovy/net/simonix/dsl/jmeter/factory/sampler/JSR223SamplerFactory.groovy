@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.sampler
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.java.sampler.JSR223Sampler
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 

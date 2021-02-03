@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.IncludeController
 import org.apache.jmeter.control.gui.IncludeControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -47,6 +47,6 @@ final class IncludeFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.includePath = readValue(value, readValue(config.file, ''))
+        testElement.includePath = readValue(value, config.file)
     }
 }

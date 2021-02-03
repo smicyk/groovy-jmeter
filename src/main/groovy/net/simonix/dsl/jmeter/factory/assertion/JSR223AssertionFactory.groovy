@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractJSR223Factory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.JSR223Assertion
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 

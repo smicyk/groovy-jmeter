@@ -17,9 +17,8 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.handler.CheckHandler
-import net.simonix.dsl.jmeter.model.KeywordDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
-import net.simonix.dsl.jmeter.model.DslDefinition
 import net.simonix.dsl.jmeter.handler.CheckRequestHandler
 import net.simonix.dsl.jmeter.handler.CheckSizeHandler
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
@@ -131,7 +130,7 @@ abstract class CheckFactory extends AbstractFactory implements ValidatorProvider
     abstract CheckHandler createCheckHandler(CheckTestElementNode node, FactoryBuilderSupport builder)
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        String applyTo = readValue(value, readValue(config.applyTo, 'all'))
+        String applyTo = readValue(value, config.applyTo)
 
         return new CheckTestElementNode(applyTo)
     }

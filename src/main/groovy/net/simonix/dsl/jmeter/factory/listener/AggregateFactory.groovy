@@ -17,13 +17,11 @@ package net.simonix.dsl.jmeter.factory.listener
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.reporters.Summariser
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.visualizers.StatVisualizer
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
 final class AggregateFactory extends TestElementNodeFactory {
@@ -39,6 +37,6 @@ final class AggregateFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.filename = readValue(config.file, '')
+        testElement.filename = config.file
     }
 }
