@@ -13,23 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.test.spec
+package net.simonix.dsl.jmeter.handler
 
-import net.simonix.dsl.jmeter.test.sampler.LogSamplerFactory
-import net.simonix.dsl.jmeter.test.sampler.TestElementListener
-import net.simonix.dsl.jmeter.test.sampler.TestElementLogger
-import spock.lang.Specification
+/**
+ * Marker interface for check handlers
+ */
+interface CheckHandler {
 
-class LogSamplerSpec extends Specification {
-    def listener
-    def plugins = [ new LogSamplerFactory('Log Sampler')]
-
-    def setup() {
-        listener = Mock(TestElementListener)
-        TestElementLogger.setListener(listener)
-    }
-
-    def cleanup() {
-        TestElementLogger.setListener(null)
-    }
 }

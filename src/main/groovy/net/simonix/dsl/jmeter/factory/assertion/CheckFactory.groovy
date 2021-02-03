@@ -16,8 +16,9 @@
 package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.handler.CheckHandler
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
-import net.simonix.dsl.jmeter.model.DslDefinition
 import net.simonix.dsl.jmeter.handler.CheckRequestHandler
 import net.simonix.dsl.jmeter.handler.CheckSizeHandler
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
@@ -28,7 +29,7 @@ import net.simonix.dsl.jmeter.validation.PropertyValidator
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
- * The factory class responsible for building <code>check_response, check_request, check_size</code> elements in the test.
+ * The base factory class responsible for building <code>check_response, check_request, check_size</code> elements in the test.
  *
  * <pre>
  * // general check structure
@@ -110,21 +111,26 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Response_Assertion">Response Assertion</a>
  *
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
+ * @see CheckRequestFactory
+ * @see CheckResponseFactory
+ * @see CheckSizeFactory
  */
 @CompileDynamic
-final class CheckFactory extends AbstractFactory implements ValidatorProvider {
+abstract class CheckFactory extends AbstractFactory implements ValidatorProvider {
 
-    final String type
     final PropertyValidator validator
+    final KeywordDefinition definition
 
-    CheckFactory(String type) {
-        this.type = type
+    CheckFactory(KeywordDefinition definition) {
+        this.definition = definition
 
-        this.validator = new PropertyValidator(DslDefinition.CHECK_PROPERTIES)
+        this.validator = new PropertyValidator(definition.properties)
     }
 
+    abstract CheckHandler createCheckHandler(CheckTestElementNode node, FactoryBuilderSupport builder)
+
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        String applyTo = readValue(value, readValue(config.applyTo, 'all'))
+        String applyTo = readValue(value, config.applyTo)
 
         return new CheckTestElementNode(applyTo)
     }
@@ -138,14 +144,7 @@ final class CheckFactory extends AbstractFactory implements ValidatorProvider {
     }
 
     boolean onNodeChildren(FactoryBuilderSupport builder, Object node, Closure c) {
-        def handler
-        if (type == 'response') {
-            handler = new CheckResponseHandler(node, builder)
-        } else if (type == 'request') {
-            handler = new CheckRequestHandler(node, builder)
-        } else if (type == 'size') {
-            handler = new CheckSizeHandler(node, builder)
-        }
+        CheckHandler handler = createCheckHandler((CheckTestElementNode) node, builder)
 
         def resolver = c.rehydrate(handler, this, this)
         resolver.resolveStrategy = Closure.DELEGATE_ONLY

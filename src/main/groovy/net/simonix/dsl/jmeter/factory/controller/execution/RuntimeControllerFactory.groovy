@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.RunTime
 import org.apache.jmeter.control.gui.RunTimeGui
 import org.apache.jmeter.testelement.TestElement
@@ -44,10 +44,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RuntimeControllerFactory extends TestElementNodeFactory {
 
     RuntimeControllerFactory() {
-        super('Runtime Controller', RunTime, RunTimeGui, false, DslDefinition.EXECUTE_RUNTIME_PROPERTIES)
+        super('Runtime Controller', RunTime, RunTimeGui, false, DslDefinition.EXECUTE_RUNTIME)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.runtime = readValue(value, readValue(config.runtime, 1))
+        testElement.runtime = readValue(value, config.runtime)
     }
 }

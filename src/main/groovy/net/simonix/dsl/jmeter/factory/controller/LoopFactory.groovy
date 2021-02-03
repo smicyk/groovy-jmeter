@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
 import org.apache.jmeter.testelement.TestElement
@@ -46,18 +46,18 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
 final class LoopFactory extends TestElementNodeFactory {
 
     LoopFactory(String testElementName) {
-        super(testElementName, LoopController, LoopControlPanel, false, DslDefinition.LOOP_PROPERTIES)
+        super(testElementName, LoopController, LoopControlPanel, false, DslDefinition.LOOP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        Integer count = (Integer) readValue(config.count, 1)
+        Integer count = config.count as Integer
 
         if (value instanceof Integer) {
             count = value
         }
 
         if (hasValue(config.forever)) {
-            testElement.continueForever = readValue(config.forever, false)
+            testElement.continueForever = config.forever
         } else {
             testElement.continueForever = false
         }

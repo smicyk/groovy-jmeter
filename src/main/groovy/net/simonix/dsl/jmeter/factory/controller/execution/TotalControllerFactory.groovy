@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller.execution
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.ThroughputController
 import org.apache.jmeter.control.gui.ThroughputControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -45,12 +45,12 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TotalControllerFactory extends TestElementNodeFactory {
 
     TotalControllerFactory() {
-        super('Total Execution Controller', ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_TOTAL_PROPERTIES)
+        super('Total Execution Controller', ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_TOTAL)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean perUser = readValue(config.perUser, false)
-        Integer total = (Integer) readValue(value, readValue(config.total, 1))
+        boolean perUser = config.perUser
+        Integer total = readValue(value, config.total) as Integer
 
         testElement.style = ThroughputController.BYNUMBER
         testElement.perThread = perUser

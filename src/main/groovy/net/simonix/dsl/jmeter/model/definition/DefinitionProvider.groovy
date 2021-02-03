@@ -13,23 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.test.spec
+package net.simonix.dsl.jmeter.model.definition
 
-import net.simonix.dsl.jmeter.test.sampler.LogSamplerFactory
-import net.simonix.dsl.jmeter.test.sampler.TestElementListener
-import net.simonix.dsl.jmeter.test.sampler.TestElementLogger
-import spock.lang.Specification
+import groovy.transform.CompileDynamic
 
-class LogSamplerSpec extends Specification {
-    def listener
-    def plugins = [ new LogSamplerFactory('Log Sampler')]
+@CompileDynamic
+interface DefinitionProvider {
 
-    def setup() {
-        listener = Mock(TestElementListener)
-        TestElementLogger.setListener(listener)
-    }
-
-    def cleanup() {
-        TestElementLogger.setListener(null)
-    }
+    KeywordDefinition getDefinition()
 }

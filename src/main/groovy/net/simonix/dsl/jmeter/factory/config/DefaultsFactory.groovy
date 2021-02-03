@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.config.gui.HttpDefaultsGui
@@ -32,36 +32,36 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DefaultsFactory extends TestElementNodeFactory {
 
     DefaultsFactory(String testElementName) {
-        super(testElementName, ConfigTestElement, HttpDefaultsGui, false, DslDefinition.DEFAULTS_PROPERTIES)
+        super(testElementName, ConfigTestElement, HttpDefaultsGui, false, DslDefinition.DEFAULTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         // Web Server configuration
-        testElement.setProperty(HTTPSampler.PROTOCOL, readValue(String, config.protocol, 'http'))
-        testElement.setProperty(HTTPSampler.DOMAIN, readValue(String, config.domain, ''))
-        testElement.setProperty(HTTPSampler.PORT, readValue(Integer, config.port, 80))
+        testElement.setProperty(HTTPSampler.PROTOCOL, config.protocol as String)
+        testElement.setProperty(HTTPSampler.DOMAIN, config.domain as String)
+        testElement.setProperty(HTTPSampler.PORT, config.port as Integer)
 
         // Request configuration
-        testElement.setProperty(HTTPSampler.METHOD, readValue(String, config.method, 'GET'))
-        testElement.setProperty(HTTPSampler.PATH, readValue(String, config.path, ''))
-        testElement.setProperty(HTTPSampler.CONTENT_ENCODING, readValue(String, config.encoding, ''))
+        testElement.setProperty(HTTPSampler.METHOD, config.method as String)
+        testElement.setProperty(HTTPSampler.PATH, config.path as String)
+        testElement.setProperty(HTTPSampler.CONTENT_ENCODING, config.encoding as String)
 
         // Impl configuration
-        testElement.setProperty(HTTPSampler.IMPLEMENTATION, readValue(String, config.impl, ''))
+        testElement.setProperty(HTTPSampler.IMPLEMENTATION, config.impl as String)
 
         // Timeouts
-        testElement.setProperty(HTTPSampler.CONNECT_TIMEOUT, readValue(String, config.connectTimeout, ''))
-        testElement.setProperty(HTTPSampler.RESPONSE_TIMEOUT, readValue(String, config.responseTimeout, ''))
+        testElement.setProperty(HTTPSampler.CONNECT_TIMEOUT, config.connectTimeout as String)
+        testElement.setProperty(HTTPSampler.RESPONSE_TIMEOUT, config.responseTimeout as String)
 
         // Embedded resource
-        testElement.setProperty(HTTPSampler.IMAGE_PARSER, readValue(Boolean, config.downloadEmbeddedResources, false))
-        testElement.setProperty(HTTPSampler.CONCURRENT_DWN, readValue(Boolean, config.embeddedConcurrent, false))
-        testElement.setProperty(HTTPSampler.CONCURRENT_POOL, readValue(Integer, config.embeddedConcurrentDownloads, 6))
-        testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, readValue(String, config.embeddedResourceUrl, ''))
+        testElement.setProperty(HTTPSampler.IMAGE_PARSER, config.downloadEmbeddedResources as Boolean)
+        testElement.setProperty(HTTPSampler.CONCURRENT_DWN, config.embeddedConcurrent as Boolean)
+        testElement.setProperty(HTTPSampler.CONCURRENT_POOL, config.embeddedConcurrentDownloads as Integer)
+        testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, config.embeddedResourceUrl as String)
 
         // Source address
-        testElement.setProperty(HTTPSampler.IP_SOURCE, readValue(String, config.ipSource, ''))
-        String ipSourceType = readValue(String, config.ipSourceType, null)
+        testElement.setProperty(HTTPSampler.IP_SOURCE, config.ipSource as String)
+        String ipSourceType = config.ipSourceType as String
 
         if(ipSourceType != null) {
             if(ipSourceType == 'hostname') {
@@ -76,14 +76,14 @@ final class DefaultsFactory extends TestElementNodeFactory {
         }
 
         // Proxy configuration
-        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, readValue(String, config.proxySchema, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYHOST, readValue(String, config.proxyHost, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYPORT, readValue(String, config.proxyPort, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYUSER, readValue(String, config.proxyUser, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYPASS, readValue(String, config.proxyPassword, ''))
+        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, config.proxySchema as String)
+        testElement.setProperty(HTTPSamplerBase.PROXYHOST, config.proxyHost as String)
+        testElement.setProperty(HTTPSamplerBase.PROXYPORT, config.proxyPort as String)
+        testElement.setProperty(HTTPSamplerBase.PROXYUSER, config.proxyUser as String)
+        testElement.setProperty(HTTPSamplerBase.PROXYPASS, config.proxyPassword as String)
 
         // Use md5 configuration
-        testElement.setProperty(HTTPSamplerBase.MD5, readValue(Boolean, config.saveAsMD5, false))
+        testElement.setProperty(HTTPSamplerBase.MD5, config.saveAsMD5 as Boolean)
 
         // must provide default arguments
         testElement.property = new TestElementProperty(HTTPSampler.ARGUMENTS, new Arguments())

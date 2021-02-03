@@ -13,16 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.model.definition
 
 import groovy.transform.CompileDynamic
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 
 @ToString
 @EqualsAndHashCode
 @CompileDynamic
-class KeywordDefinition {
+class PropertyDefinition {
 
     String name
+    Object defaultValue = null
+
+    boolean required = false
+
+    String separator = null
+    Class type = null
+
+    PropertyConstraint constraints = null
 }

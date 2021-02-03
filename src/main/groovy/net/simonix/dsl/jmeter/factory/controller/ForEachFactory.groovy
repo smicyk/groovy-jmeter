@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.ForeachController
 import org.apache.jmeter.control.gui.ForeachControlPanel
 import org.apache.jmeter.testelement.TestElement
@@ -47,14 +47,14 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ForEachFactory extends TestElementNodeFactory {
 
     ForEachFactory(String testElementName) {
-        super(testElementName, ForeachController, ForeachControlPanel, false, DslDefinition.FOR_EACH_PROPERTIES)
+        super(testElementName, ForeachController, ForeachControlPanel, false, DslDefinition.FOR_EACH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.inputVal = readValue(config.in, '')
-        testElement.returnVal = readValue(config.out, '')
-        testElement.useSeparator = readValue(config.separator, true)
-        testElement.startIndex = readValue(config.start, 0)
-        testElement.endIndex = readValue(config.end, 1)
+        testElement.inputVal = config.in
+        testElement.returnVal = config.out
+        testElement.useSeparator = config.separator
+        testElement.startIndex = config.start
+        testElement.endIndex = config.end
     }
 }

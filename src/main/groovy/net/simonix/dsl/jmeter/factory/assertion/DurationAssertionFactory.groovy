@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.DurationAssertion
 import org.apache.jmeter.assertions.gui.DurationAssertionGui
 import org.apache.jmeter.testelement.TestElement
@@ -42,12 +42,12 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DurationAssertionFactory extends TestElementNodeFactory {
 
     DurationAssertionFactory(String testElementName) {
-        super(testElementName, DurationAssertion, DurationAssertionGui, true, DslDefinition.ASSERT_DURATION_PROPERTIES)
+        super(testElementName, DurationAssertion, DurationAssertionGui, true, DslDefinition.ASSERT_DURATION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'all')
-        Long duration = readValue(Long, config.duration, 0)
+        String applyTo = config.applyTo
+        Long duration = config.duration as Long
 
         if (applyTo == 'all') {
             testElement.setScopeAll()

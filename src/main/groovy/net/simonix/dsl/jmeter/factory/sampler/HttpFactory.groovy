@@ -17,13 +17,11 @@ package net.simonix.dsl.jmeter.factory.sampler
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>http</code> element in the test.
@@ -80,7 +78,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class HttpFactory extends BaseHttpFactory {
 
     HttpFactory(String testElementName) {
-        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP_PROPERTIES)
+        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -89,21 +87,21 @@ final class HttpFactory extends BaseHttpFactory {
         // Advanced configuration
 
         // Impl configuration
-        testElement.implementation = readValue(String, config.impl, '')
+        testElement.implementation = config.impl
 
         // Timeouts
-        testElement.connectTimeout = readValue(String, config.connectTimeout, '')
-        testElement.responseTimeout = readValue(String, config.responseTimeout, '')
+        testElement.connectTimeout = config.connectTimeout
+        testElement.responseTimeout = config.responseTimeout
 
         // Embedded resource
-        testElement.imageParser = readValue(Boolean, config.downloadEmbeddedResources, false)
-        testElement.concurrentDwn = readValue(Boolean, config.embeddedConcurrent, false)
-        testElement.concurrentPool = readValue(Integer, config.embeddedConcurrentDownloads, 6)
-        testElement.embeddedUrlRE = readValue(String, config.embeddedResourceUrl, '')
+        testElement.imageParser = config.downloadEmbeddedResources
+        testElement.concurrentDwn = config.embeddedConcurrent
+        testElement.concurrentPool = config.embeddedConcurrentDownloads
+        testElement.embeddedUrlRE = config.embeddedResourceUrl
 
         // Source address
-        testElement.ipSource = readValue(String, config.ipSource, '')
-        String ipSourceType = readValue(String, config.ipSourceType, null)
+        testElement.ipSource = config.ipSource
+        String ipSourceType = config.ipSourceType
 
         if (ipSourceType != null) {
             if (ipSourceType == 'hostname') {
@@ -118,13 +116,13 @@ final class HttpFactory extends BaseHttpFactory {
         }
 
         // Proxy configuration
-        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, readValue(String, config.proxySchema, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYHOST, readValue(String, config.proxyHost, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYPORT, readValue(String, config.proxyPort, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYUSER, readValue(String, config.proxyUser, ''))
-        testElement.setProperty(HTTPSamplerBase.PROXYPASS, readValue(String, config.proxyPassword, ''))
+        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, config.proxySchema)
+        testElement.setProperty(HTTPSamplerBase.PROXYHOST, config.proxyHost)
+        testElement.setProperty(HTTPSamplerBase.PROXYPORT, config.proxyPort)
+        testElement.setProperty(HTTPSamplerBase.PROXYUSER, config.proxyUser)
+        testElement.setProperty(HTTPSamplerBase.PROXYPASS, config.proxyPassword)
 
         // Use md5 configuration
-        testElement.MD5 = readValue(config.saveAsMD5, false)
+        testElement.MD5 = config.saveAsMD5
     }
 }

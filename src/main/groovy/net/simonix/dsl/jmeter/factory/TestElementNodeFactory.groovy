@@ -16,9 +16,9 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.PropertyDefinition
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.PropertyValidator
+import net.simonix.dsl.jmeter.validation.Validator
 import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
@@ -47,21 +47,17 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     final String testElementName
     final boolean leaf
 
-    final PropertyValidator validator
+    final KeywordDefinition definition
+    final Validator validator
 
-    protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, Set<PropertyDefinition> properties) {
-        this(testElementName, testElementClass, testElementGuiClass, leaf)
-
-        this.validator.addProperties(properties)
-    }
-
-    protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf) {
+    protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
         this.testElementClass = testElementClass
         this.testElementGuiClass = testElementGuiClass
         this.testElementName = testElementName
         this.leaf = leaf
+        this.definition = definition
 
-        this.validator = new PropertyValidator(DslDefinition.COMMON_PROPERTIES)
+        this.validator = new PropertyValidator(definition.properties)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

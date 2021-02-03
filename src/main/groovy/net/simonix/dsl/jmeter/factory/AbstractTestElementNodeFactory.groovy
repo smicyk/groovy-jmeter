@@ -16,7 +16,9 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
 import net.simonix.dsl.jmeter.model.TestElementNode
+import net.simonix.dsl.jmeter.model.definition.DefinitionAwareMap
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import org.apache.jmeter.testelement.TestElement
 
@@ -24,7 +26,7 @@ import org.apache.jmeter.testelement.TestElement
  * Factory base class for building {@link TestElementNode}.
  */
 @CompileDynamic
-abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider {
+abstract class AbstractTestElementNodeFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
     abstract TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException
 
@@ -41,12 +43,14 @@ abstract class AbstractTestElementNodeFactory extends AbstractFactory implements
     abstract void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config)
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        TestElement testElement = newTestElement(builder, name, value, config)
+        Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
 
-        updateCommonProperties(testElement, name, value, config)
-        updateClassProperties(testElement, getTestElementClass(name, value, config), getTestElementGuiClass(name, value, config))
+        TestElement testElement = newTestElement(builder, name, value, definitionAwareConfig)
 
-        updateTestElementProperties(testElement, name, value, config)
+        updateCommonProperties(testElement, name, value, definitionAwareConfig)
+        updateClassProperties(testElement, getTestElementClass(name, value, definitionAwareConfig), getTestElementGuiClass(name, value, definitionAwareConfig))
+
+        updateTestElementProperties(testElement, name, value, definitionAwareConfig)
 
         return new TestElementNode(testElement)
     }

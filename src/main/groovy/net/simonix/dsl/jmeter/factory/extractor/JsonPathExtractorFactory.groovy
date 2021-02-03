@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.extractor
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor
 import org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui
 import org.apache.jmeter.testelement.TestElement
@@ -47,11 +47,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 final class JsonPathExtractorFactory extends TestElementNodeFactory {
 
     JsonPathExtractorFactory(String testElementName) {
-        super(testElementName, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR_PROPERTIES)
+        super(testElementName, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'parent')
+        String applyTo = config.applyTo
 
         if (applyTo == 'all') {
             testElement.setScopeAll()
@@ -65,10 +65,10 @@ final class JsonPathExtractorFactory extends TestElementNodeFactory {
             testElement.setScopeParent()
         }
 
-        testElement.defaultValues = readValues(config.defaultValues, ';', [])
-        testElement.matchNumbers = readValues(config.matches, ';', [1])
-        testElement.refNames = readValues(config.variables, ';', [])
-        testElement.jsonPathExpressions = readValues(config.expressions, ';', [])
-        testElement.computeConcatenation = readValue(config.concatenation, false)
+        testElement.defaultValues = config.defaultValues
+        testElement.matchNumbers = config.matches
+        testElement.refNames = config.variables
+        testElement.jsonPathExpressions = config.expressions
+        testElement.computeConcatenation = config.concatenation
     }
 }

@@ -17,7 +17,10 @@ package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.FragmentTestScript
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DefinitionAwareMap
+import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
+import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 import net.simonix.dsl.jmeter.validation.PropertyValidator
 import org.codehaus.groovy.control.CompilerConfiguration
@@ -28,13 +31,17 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * Abstract class for inserting test fragments.
  */
 @CompileDynamic
-abstract class AbstractTestElementFragmentFactory extends AbstractFactory implements ValidatorProvider {
+abstract class AbstractTestElementFragmentFactory extends AbstractFactory implements ValidatorProvider, DefinitionProvider {
 
     final GroovyShell groovyShell
-    final PropertyValidator validator
 
-    protected AbstractTestElementFragmentFactory() {
-        this.validator = new PropertyValidator(DslDefinition.INSERT_PROPERTIES)
+    final KeywordDefinition definition
+    final Validator validator
+
+    protected AbstractTestElementFragmentFactory(KeywordDefinition definition) {
+        this.definition = definition
+
+        this.validator = new PropertyValidator(definition.properties)
 
         CompilerConfiguration config = new CompilerConfiguration()
         config.scriptBaseClass = FragmentTestScript.name
@@ -43,7 +50,9 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
     }
 
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        String file = readValue(value, readValue(config.file, null))
+        Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
+
+        String file = readValue(value, definitionAwareConfig.file)
 
         URL url = this.class.classLoader.getResource(file)
         return groovyShell.evaluate(url.toURI())

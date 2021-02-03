@@ -18,7 +18,7 @@ package net.simonix.dsl.jmeter.factory.common
 import groovy.json.JsonSlurper
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
@@ -60,7 +60,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamsFactory extends TestElementFactory {
 
     ParamsFactory() {
-        super(Arguments, false, DslDefinition.PARAMS_PROPERTIES)
+        super(Arguments, false, DslDefinition.PARAMS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -71,7 +71,7 @@ final class ParamsFactory extends TestElementFactory {
             params = readParamsFromFile(filename)
         }
 
-        params += readValue(config.values, [:])
+        params += config.values
 
         // by default arguments are not encoded and has UTF-8 encoding
         params.each { k, v -> testElement.addArgument(new HTTPArgument(k, v, true, 'UTF-8')) }

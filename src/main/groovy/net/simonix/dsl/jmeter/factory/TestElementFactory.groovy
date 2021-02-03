@@ -16,8 +16,9 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.PropertyDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import net.simonix.dsl.jmeter.validation.PropertyValidator
+import net.simonix.dsl.jmeter.validation.Validator
 import org.apache.jmeter.testelement.TestElement
 
 /**
@@ -31,25 +32,19 @@ class TestElementFactory extends AbstractTestElementFactory {
     final Class testElementClass
     final boolean leaf
 
-    final PropertyValidator validator
+    final KeywordDefinition definition
+    final Validator validator
 
-    protected TestElementFactory(Class testElementClass, Set<PropertyDefinition> properties) {
-        this(testElementClass, true)
-
-        this.validator.addProperties(properties)
+    protected TestElementFactory(Class testElementClass, KeywordDefinition definition) {
+        this(testElementClass, true, definition)
     }
 
-    protected TestElementFactory(Class testElementClass, boolean leaf, Set<PropertyDefinition> properties) {
-        this(testElementClass, leaf)
-
-        this.validator.addProperties(properties)
-    }
-
-    protected TestElementFactory(Class testElementClass, boolean leaf) {
+    protected TestElementFactory(Class testElementClass, boolean leaf, KeywordDefinition definition) {
         this.testElementClass = testElementClass
         this.leaf = leaf
+        this.definition = definition
 
-        this.validator = new PropertyValidator([] as Set<PropertyDefinition>)
+        this.validator = new PropertyValidator(definition.properties)
     }
 
     boolean isLeaf() {

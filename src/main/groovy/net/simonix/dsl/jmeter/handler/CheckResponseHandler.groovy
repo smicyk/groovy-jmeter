@@ -20,7 +20,7 @@ import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
 @CompileDynamic
-final class CheckResponseHandler {
+final class CheckResponseHandler implements CheckHandler {
 
     final static boolean not = true
 

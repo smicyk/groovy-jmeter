@@ -282,7 +282,7 @@
         </DurationAssertion>
         <hashTree/>
         <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="Check MD5Hex" enabled="true">
-          <stringProp name="MD5HexAssertion.size">342sdf234sdf234fs3rf34f223f</stringProp>
+          <stringProp name="MD5HexAssertion.size">2bf7b8126bb7c645638e444f6e2c58a5</stringProp>
         </MD5HexAssertion>
         <hashTree/>
         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="true">

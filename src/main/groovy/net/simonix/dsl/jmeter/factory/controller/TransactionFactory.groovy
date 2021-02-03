@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.TransactionController
 import org.apache.jmeter.control.gui.TransactionControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -44,11 +44,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TransactionFactory extends TestElementNodeFactory {
 
     TransactionFactory(String testElementName) {
-        super(testElementName, TransactionController, TransactionControllerGui, false, DslDefinition.TRANSACTION_PROPERTIES)
+        super(testElementName, TransactionController, TransactionControllerGui, false, DslDefinition.TRANSACTION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.includeTimers = readValue(config.timers, false)
-        testElement.generateParentSample = readValue(config.generate, false)
+        testElement.includeTimers = config.timers
+        testElement.generateParentSample = config.generate
     }
 }

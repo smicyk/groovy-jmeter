@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPArgument
@@ -78,15 +78,15 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class BodyFactory extends TestElementFactory {
 
     BodyFactory() {
-        super(HTTPArgument, DslDefinition.BODY_PROPERTIES)
+        super(HTTPArgument, DslDefinition.BODY)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String bodyValue = readValue(value, readValue(config.inline, null))
+        String bodyValue = readValue(value, config.inline)
 
         String file = config.file
         if (file != null) {
-            String encoding = readValue(config.encoding, 'UTF-8')
+            String encoding = config.encoding
             bodyValue = loadFromFile(file, encoding)
         }
 

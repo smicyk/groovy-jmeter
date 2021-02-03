@@ -17,10 +17,10 @@ package net.simonix.dsl.jmeter.model.constraint
 
 class RangePropertyConstraint implements PropertyConstraint {
 
-    long from
-    long to
+    Long from
+    Long to
 
-    RangePropertyConstraint(long from, long to) {
+    RangePropertyConstraint(Long from, Long to) {
         this.from = from
         this.to = to
     }

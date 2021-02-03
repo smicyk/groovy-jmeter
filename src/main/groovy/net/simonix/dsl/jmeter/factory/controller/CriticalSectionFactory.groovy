@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.controller
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.CriticalSectionController
 import org.apache.jmeter.control.gui.CriticalSectionControllerGui
 import org.apache.jmeter.testelement.TestElement
@@ -43,10 +43,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CriticalSectionFactory extends TestElementNodeFactory {
 
     CriticalSectionFactory(String testElementName) {
-        super(testElementName, CriticalSectionController, CriticalSectionControllerGui, false, DslDefinition.SECTION_PROPERTIES)
+        super(testElementName, CriticalSectionController, CriticalSectionControllerGui, false, DslDefinition.SECTION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.lockName = readValue(config.lock, 'global_lock')
+        testElement.lockName = config.lock
     }
 }

@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.gui.ArgumentsPanel
@@ -59,11 +59,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class VariablesFactory extends TestElementNodeFactory {
 
     VariablesFactory(String testElementName) {
-        super(testElementName, Arguments, ArgumentsPanel, false, DslDefinition.VARIABLES_PROPERTIES)
+        super(testElementName, Arguments, ArgumentsPanel, false, DslDefinition.VARIABLES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        Object values = readValue(config.values, [:])
+        Object values = config.values
 
         values.each { k, v ->
             Argument argument = new Argument()

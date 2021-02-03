@@ -1,0 +1,118 @@
+/*
+ * Copyright 2020 Szymon Micyk
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.simonix.dsl.jmeter.model.definition
+
+
+import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
+import org.codehaus.groovy.runtime.InvokerHelper
+
+class DefinitionBuilder {
+
+    static KeywordDefinition keyword(String name) {
+        KeywordBuilder builder = new KeywordBuilder(name, null)
+
+        return builder.build()
+    }
+
+    static KeywordDefinition keyword(String name, Closure c) {
+        c.delegate = new KeywordBuilder(name, null)
+
+        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+
+        return builder.build()
+    }
+
+    static KeywordDefinition keyword(String name, String description, Closure c) {
+        c.delegate = new KeywordBuilder(name, description)
+
+        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+
+        return builder.build()
+    }
+
+    static Set<PropertyDefinition> properties(Closure c) {
+        c.delegate = new PropertyBuilder()
+
+        PropertyBuilder builder = InvokerHelper.invokeClosure(c, []) as PropertyBuilder
+
+        return builder.build()
+    }
+
+    static class KeywordBuilder {
+        String name
+        String description
+        Set<PropertyDefinition> properties
+
+        KeywordBuilder(String name, String description) {
+            this.name = name
+            this.description = description
+            this.properties = []
+        }
+
+        KeywordBuilder property(Map config) {
+            PropertyDefinition propertyDefinition = propertyImpl(config)
+
+            this.properties.add(propertyDefinition)
+
+            return this
+        }
+
+        KeywordBuilder include(Set<PropertyDefinition> properties) {
+            assert properties != null
+
+            this.properties.addAll(properties)
+
+            return this
+        }
+
+        KeywordDefinition build() {
+            return new KeywordDefinition(name, description, properties)
+        }
+    }
+
+    static class PropertyBuilder {
+        Set<PropertyDefinition> properties
+
+        PropertyBuilder() {
+            this.properties = []
+        }
+
+        PropertyBuilder property(Map config) {
+            properties.add(propertyImpl(config))
+
+            return this
+        }
+
+        Set<PropertyDefinition> build() {
+            return properties.toSet()
+        }
+    }
+
+    private static PropertyDefinition propertyImpl(Map config) {
+        assert config.name != null
+
+        String name = config.name
+        boolean required = config.required ?: false
+        PropertyConstraint constraints = config.constraints ?: null as PropertyConstraint
+        Object defaultValue = config.defaultValue == null ? null : config.defaultValue
+        String separator = config.separator
+        Class type = config.type as Class
+
+        PropertyDefinition propertyDefinition = new PropertyDefinition(name: name, required: required, constraints: constraints, defaultValue: defaultValue, separator: separator, type: type)
+
+        return propertyDefinition
+    }
+}

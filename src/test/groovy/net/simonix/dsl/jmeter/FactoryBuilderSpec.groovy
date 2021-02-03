@@ -627,7 +627,7 @@ class FactoryBuilderSpec extends TempFileSpec {
                         url() contains 'localhost', 'local'
 
                         duration() eq 2000
-                        md5hex() eq '342sdf234sdf234fs3rf34f223f'
+                        md5hex() eq '2bf7b8126bb7c645638e444f6e2c58a5'
                     }
                     check_request {
                         headers(not) contains 'COOKIES', 'no cookies'

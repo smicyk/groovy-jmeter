@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.AuthManager
 import org.apache.jmeter.protocol.http.control.AuthManager.Mechanism
 import org.apache.jmeter.protocol.http.control.Authorization
@@ -60,16 +60,16 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class AuthorizationFactory extends TestElementFactory {
 
     AuthorizationFactory() {
-        super(Authorization, DslDefinition.AUTHORIZATION_PROPERTIES)
+        super(Authorization, DslDefinition.AUTHORIZATION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.URL = readValue(config.url, '')
-        testElement.user = readValue(config.username, '')
-        testElement.pass = readValue(config.password, '')
-        testElement.domain = readValue(config.domain, '')
-        testElement.realm = readValue(config.realm, '')
-        testElement.mechanism = Mechanism.valueOf((String) readValue(config.mechanism, 'BASIC'))
+        testElement.URL = config.url
+        testElement.user = config.username
+        testElement.pass = config.password
+        testElement.domain = config.domain
+        testElement.realm = config.realm
+        testElement.mechanism = Mechanism.valueOf(config.mechanism as String)
     }
 
     void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {

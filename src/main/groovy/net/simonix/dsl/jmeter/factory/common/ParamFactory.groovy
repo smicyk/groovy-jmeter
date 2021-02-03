@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.util.HTTPArgument
@@ -56,17 +56,17 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamFactory extends TestElementFactory {
 
     ParamFactory() {
-        super(HTTPArgument, DslDefinition.PARAM_PROPERTIES)
+        super(HTTPArgument, DslDefinition.PARAM)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
-        boolean isEncoded = readValue(Boolean, config.encoded, false)
+        boolean isEncoded = config.encoded as Boolean
 
         return new HTTPArgument(
-                readValue(String, config.name, null),
-                readValue(String, config.value, null),
+                config.name as String,
+                config.value as String,
                 isEncoded,
-                readValue(String, config.encoding, 'UTF-8')
+                config.encoding as String
         )
     }
 

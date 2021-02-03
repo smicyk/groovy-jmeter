@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.plan
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.gui.ArgumentsPanel
 import org.apache.jmeter.control.gui.TestPlanGui
@@ -24,8 +24,6 @@ import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.testelement.TestPlan
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>plan</code> element in the test.
@@ -64,13 +62,13 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class PlanFactory extends TestElementNodeFactory {
 
     PlanFactory(String testElementName) {
-        super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN_PROPERTIES)
+        super(testElementName, TestPlan, TestPlanGui, false, DslDefinition.PLAN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.serialized = readValue(config.serialized, false)
-        testElement.functionalMode = readValue(config.functionalMode, false)
-        testElement.tearDownOnShutdown = readValue(config.tearDownOnShutdown, false)
+        testElement.serialized = config.serialized
+        testElement.functionalMode = config.functionalMode
+        testElement.tearDownOnShutdown = config.tearDownOnShutdown
         testElement.testPlanClasspath = ''
 
         Arguments arguments = new Arguments()

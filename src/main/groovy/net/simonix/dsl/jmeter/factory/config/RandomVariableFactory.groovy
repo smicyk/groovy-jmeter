@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.config
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.RandomVariableConfig
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 import org.apache.jmeter.testelement.TestElement
@@ -52,18 +52,18 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomVariableFactory extends TestElementNodeFactory {
 
     RandomVariableFactory(String testElementName) {
-        super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE_PROPERTIES)
+        super(testElementName, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        boolean perUser = readValue(config.perUser, true)
+        boolean perUser = config.perUser
 
-        testElement.minimumValue = readValue(String, config.minimum, 0)
-        testElement.maximumValue = readValue(String, config.maximum, Integer.MAX_VALUE)
-        testElement.outputFormat = readValue(config.format, null)
-        testElement.variableName = readValue(config.variable, 'r')
+        testElement.minimumValue = config.minimum as String
+        testElement.maximumValue = config.maximum as String
+        testElement.outputFormat = config.format
+        testElement.variableName = config.variable
         testElement.perThread = perUser
-        testElement.randomSeed = readValue(config.seed, null)
+        testElement.randomSeed = config.seed
 
         testElement.setProperty('minimumValue', testElement.minimumValue)
         testElement.setProperty('maximumValue', testElement.maximumValue)

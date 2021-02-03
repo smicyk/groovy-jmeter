@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.extractor
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.extractor.RegexExtractor
 import org.apache.jmeter.extractor.gui.RegexExtractorGui
 import org.apache.jmeter.testelement.TestElement
@@ -50,12 +50,12 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RegExExtractorFactory extends TestElementNodeFactory {
 
     RegExExtractorFactory(String testElementName) {
-        super(testElementName, RegexExtractor, RegexExtractorGui, true, DslDefinition.REGEX_EXTRACTOR_PROPERTIES)
+        super(testElementName, RegexExtractor, RegexExtractorGui, true, DslDefinition.REGEX_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String applyTo = readValue(config.applyTo, 'parent')
-        String field = readValue(config.field, 'response_body')
+        String applyTo = config.applyTo
+        String field = config.field
 
         if (applyTo == 'all') {
             testElement.setScopeAll()
@@ -89,11 +89,11 @@ final class RegExExtractorFactory extends TestElementNodeFactory {
             testElement.setUseField(RegexExtractor.USE_BODY)
         }
 
-        testElement.defaultEmptyValue = readValue(config.useEmptyValue, false)
-        testElement.defaultValue = readValue(config.defaultValue, '')
-        testElement.matchNumber = readValue(config.match, 1)
-        testElement.refName = readValue(config.variable, '')
-        testElement.regex = readValue(config.expression, '')
-        testElement.template = readValue(config.template, '\$1\$')
+        testElement.defaultEmptyValue = config.useEmptyValue
+        testElement.defaultValue = config.defaultValue
+        testElement.matchNumber = config.match
+        testElement.refName = config.variable
+        testElement.regex = config.expression
+        testElement.template = config.template
     }
 }

@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter.factory.group
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
 import org.apache.jmeter.testelement.TestElement
@@ -66,25 +66,25 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class GroupFactory extends TestElementNodeFactory {
 
     GroupFactory(String testElementName) {
-        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP_PROPERTIES)
+        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE);
+        testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE)
 
-        testElement.numThreads = readValue(Integer, config.users, 1)
-        testElement.rampUp = readValue(Integer, config.rampUp, 1)
-        testElement.setProperty(ThreadGroup.DELAYED_START, (Boolean) readValue(config.delayedStart, false))
+        testElement.numThreads = config.users as Integer
+        testElement.rampUp = config.rampUp as Integer
+        testElement.setProperty(ThreadGroup.DELAYED_START, config.delayedStart as Boolean)
 
         // scheduler configuration
-        testElement.scheduler = readValue(config.scheduler, false)
-        testElement.delay = readValue(config.delay, 0)
-        testElement.duration = readValue(config.duration, 0)
+        testElement.scheduler = config.scheduler
+        testElement.delay = config.delay
+        testElement.duration = config.duration
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
-        defaultLoopController.loops = readValue(config.loops, 1)
-        defaultLoopController.continueForever = readValue(config.forever, false)
+        defaultLoopController.loops = config.loops
+        defaultLoopController.continueForever = config.forever
         defaultLoopController.setEnabled(true)
         defaultLoopController.setProperty(TestElement.TEST_CLASS, LoopController.name)
         defaultLoopController.setProperty(TestElement.GUI_CLASS, LoopControlPanel.name)

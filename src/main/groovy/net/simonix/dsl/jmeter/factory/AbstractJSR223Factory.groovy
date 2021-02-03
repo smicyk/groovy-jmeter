@@ -16,11 +16,8 @@
 package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 
 /**
  * The factory class responsible for building <code>jsr</code> elements in the test.
@@ -51,23 +48,23 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 @CompileDynamic
 abstract class AbstractJSR223Factory extends TestElementNodeFactory {
 
-    protected AbstractJSR223Factory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf) {
-        super(testElementName, testElementClass, testElementGuiClass, leaf, DslDefinition.JSR223_PROPERTIES)
+    protected AbstractJSR223Factory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
+        super(testElementName, testElementClass, testElementGuiClass, leaf, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String script = readValue(config.inline, '')
+        String script = config.inline
 
-        testElement.cacheKey = readValue(config.cacheKey, true)
-        testElement.filename = readValue(config.filename, '')
-        testElement.parameters = readValues(config.parameters, ' ', '')
+        testElement.cacheKey = config.cacheKey
+        testElement.filename = config.filename
+        testElement.parameters = config.parameters
         testElement.script = script
-        testElement.scriptLanguage = readValue(config.language, 'groovy')
+        testElement.scriptLanguage = config.language
 
-        testElement.setProperty('scriptLanguage', readValue(config.language, 'groovy') as String)
-        testElement.setProperty('parameters', readValues(config.parameters, ' ', '') as String)
-        testElement.setProperty('filename', readValue(config.file, '') as String)
-        testElement.setProperty('cacheKey', readValue(config.cacheKey, true) as String)
+        testElement.setProperty('scriptLanguage', config.language as String)
+        testElement.setProperty('parameters', config.parameters as String)
+        testElement.setProperty('filename', config.file as String)
+        testElement.setProperty('cacheKey', config.cacheKey as String)
         testElement.setProperty('script', script)
     }
 }

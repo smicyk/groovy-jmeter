@@ -17,12 +17,10 @@ package net.simonix.dsl.jmeter.factory.assertion
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.assertions.MD5HexAssertion
 import org.apache.jmeter.assertions.gui.MD5HexAssertionGUI
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>assert_md5hex</code> element in the test.
@@ -41,11 +39,11 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class MD5HexAssertionFactory extends TestElementNodeFactory {
 
     MD5HexAssertionFactory(String testElementName) {
-        super(testElementName, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX_PROPERTIES)
+        super(testElementName, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String md5hex = readValue(config.value, '')
+        String md5hex = config.value
 
         testElement.setAllowedMD5Hex(md5hex)
     }

@@ -18,10 +18,7 @@ package net.simonix.dsl.jmeter.factory.controller
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.AbstractCompositeTestElementNodeFactory
 import net.simonix.dsl.jmeter.factory.AbstractTestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
-import net.simonix.dsl.jmeter.validation.ValidatorProvider
-import net.simonix.dsl.jmeter.validation.RequiredOnlyValidator
-import net.simonix.dsl.jmeter.validation.Validator
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 
 /**
  * General factory class responsible for creating child test elements for execute command.
@@ -41,16 +38,15 @@ import net.simonix.dsl.jmeter.validation.Validator
  * </pre>
  */
 @CompileDynamic
-final class ExecuteFactory extends AbstractCompositeTestElementNodeFactory implements ValidatorProvider {
+final class ExecuteFactory extends AbstractCompositeTestElementNodeFactory {
+
+    ExecuteFactory() {
+        super(DslDefinition.EXECUTE)
+    }
 
     AbstractTestElementNodeFactory getChildFactory(FactoryBuilderSupport builder, Object name, Object value, Map config) {
         String factoryName = "execute_${config.type}"
 
         return (AbstractTestElementNodeFactory) builder.factories.get(factoryName)
-    }
-
-    @Override
-    Validator getValidator() {
-        return new RequiredOnlyValidator(DslDefinition.EXECUTE_PROPERTIES)
     }
 }

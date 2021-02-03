@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.listener
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.reporters.Summariser
 import org.apache.jmeter.samplers.SampleSaveConfiguration
@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SummaryFactory extends TestElementNodeFactory {
 
     SummaryFactory(String testElementName) {
-        super(testElementName, ResultCollector, SummaryReport, true, DslDefinition.SUMMARY_PROPERTIES)
+        super(testElementName, ResultCollector, SummaryReport, true, DslDefinition.SUMMARY)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
@@ -40,9 +40,9 @@ final class SummaryFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.filename = readValue(config.file, '')
-        testElement.errorLogging = readValue(config.errorsOnly, false)
-        testElement.successOnlyLogging = readValue(config.successesOnly, false)
+        testElement.filename = config.file
+        testElement.errorLogging = config.errorsOnly
+        testElement.successOnlyLogging = config.successesOnly
 
         SampleSaveConfiguration saveConfig = testElement.saveConfig
 
