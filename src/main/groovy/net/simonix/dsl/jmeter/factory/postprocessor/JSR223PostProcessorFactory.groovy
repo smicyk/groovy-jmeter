@@ -32,7 +32,7 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 @CompileDynamic
 final class JSR223PostProcessorFactory extends AbstractJSR223Factory {
 
-    JSR223PostProcessorFactory(String testElementName) {
-        super(testElementName, JSR223PostProcessor, TestBeanGUI, true, DslDefinition.JSR223_POSTPROCESSOR)
+    JSR223PostProcessorFactory() {
+        super(DslDefinition.JSR223_POSTPROCESSOR.title, JSR223PostProcessor, TestBeanGUI, true, DslDefinition.JSR223_POSTPROCESSOR)
     }
 }

@@ -58,8 +58,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class VariablesFactory extends TestElementNodeFactory {
 
-    VariablesFactory(String testElementName) {
-        super(testElementName, Arguments, ArgumentsPanel, false, DslDefinition.VARIABLES)
+    VariablesFactory() {
+        super(DslDefinition.VARIABLES.title, Arguments, ArgumentsPanel, false, DslDefinition.VARIABLES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

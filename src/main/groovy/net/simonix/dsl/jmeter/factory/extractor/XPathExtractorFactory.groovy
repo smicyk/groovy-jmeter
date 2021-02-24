@@ -10,8 +10,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class XPathExtractorFactory  extends TestElementNodeFactory {
 
-    XPathExtractorFactory(String testElementName) {
-        super(testElementName, XPath2Extractor, XPath2ExtractorGui, true, DslDefinition.XPATH_EXTRACTOR)
+    XPathExtractorFactory() {
+        super(DslDefinition.XPATH_EXTRACTOR.title, XPath2Extractor, XPath2ExtractorGui, true, DslDefinition.XPATH_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

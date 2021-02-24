@@ -33,6 +33,6 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 final class JSR223PreProcessorFactory extends AbstractJSR223Factory {
 
     JSR223PreProcessorFactory(String testElementName) {
-        super(testElementName, JSR223PreProcessor, TestBeanGUI, true, DslDefinition.JSR223_PREPROCESSOR)
+        super(DslDefinition.JSR223_PREPROCESSOR.title, JSR223PreProcessor, TestBeanGUI, true, DslDefinition.JSR223_PREPROCESSOR)
     }
 }

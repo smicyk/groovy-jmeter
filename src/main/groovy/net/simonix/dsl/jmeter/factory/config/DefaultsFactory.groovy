@@ -31,8 +31,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class DefaultsFactory extends TestElementNodeFactory {
 
-    DefaultsFactory(String testElementName) {
-        super(testElementName, ConfigTestElement, HttpDefaultsGui, false, DslDefinition.DEFAULTS)
+    DefaultsFactory() {
+        super(DslDefinition.DEFAULTS.title, ConfigTestElement, HttpDefaultsGui, false, DslDefinition.DEFAULTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

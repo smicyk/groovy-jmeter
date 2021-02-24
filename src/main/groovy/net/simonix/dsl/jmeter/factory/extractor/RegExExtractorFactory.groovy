@@ -49,8 +49,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class RegExExtractorFactory extends TestElementNodeFactory {
 
-    RegExExtractorFactory(String testElementName) {
-        super(testElementName, RegexExtractor, RegexExtractorGui, true, DslDefinition.REGEX_EXTRACTOR)
+    RegExExtractorFactory() {
+        super(DslDefinition.REGEX_EXTRACTOR.title, RegexExtractor, RegexExtractorGui, true, DslDefinition.REGEX_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

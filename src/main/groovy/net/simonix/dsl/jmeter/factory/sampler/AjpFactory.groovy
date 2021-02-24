@@ -58,8 +58,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class AjpFactory extends BaseHttpFactory {
 
-    AjpFactory(String testElementName) {
-        super(testElementName, AjpSampler, AjpSamplerGui, false, DslDefinition.AJP)
+    AjpFactory() {
+        super(DslDefinition.AJP.title, AjpSampler, AjpSamplerGui, false, DslDefinition.AJP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

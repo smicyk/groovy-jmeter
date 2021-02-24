@@ -49,8 +49,8 @@ import org.apache.jmeter.timers.SyncTimer
 @CompileDynamic
 final class SynchronizingTimerFactory extends TestElementNodeFactory {
 
-    SynchronizingTimerFactory(String testElementName) {
-        super(testElementName, SyncTimer, TestBeanGUI, true, DslDefinition.SYNCHRONIZING_TIMER)
+    SynchronizingTimerFactory() {
+        super(DslDefinition.SYNCHRONIZING_TIMER.title, SyncTimer, TestBeanGUI, true, DslDefinition.SYNCHRONIZING_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

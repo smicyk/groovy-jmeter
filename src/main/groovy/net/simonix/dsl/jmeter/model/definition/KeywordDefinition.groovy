@@ -25,11 +25,13 @@ import groovy.transform.ToString
 class KeywordDefinition {
 
     final String name
+    final String title
     final String description
     final Set<PropertyDefinition> properties
 
-    KeywordDefinition(String name, String description, Set<PropertyDefinition> properties) {
+    KeywordDefinition(String name, String title, String description, Set<PropertyDefinition> properties) {
         this.name = name
+        this.title = title
         this.description = description
         this.properties = properties.asImmutable()
     }

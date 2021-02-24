@@ -21,22 +21,28 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 class DefinitionBuilder {
 
+    static final Properties messages = new Properties();
+
+    static {
+        DefinitionBuilder.class.getResourceAsStream("messages.properties").withReader {
+            messages.load(it)
+        }
+    }
+
     static KeywordDefinition keyword(String name) {
-        KeywordBuilder builder = new KeywordBuilder(name, null)
+        String title = messages."${name}.title"
+        String description = messages."${name}.description"
+
+        KeywordBuilder builder = new KeywordBuilder(name, title, description)
 
         return builder.build()
     }
 
     static KeywordDefinition keyword(String name, Closure c) {
-        c.delegate = new KeywordBuilder(name, null)
+        String title = messages."${name}.title"
+        String description = messages."${name}.description"
 
-        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
-
-        return builder.build()
-    }
-
-    static KeywordDefinition keyword(String name, String description, Closure c) {
-        c.delegate = new KeywordBuilder(name, description)
+        c.delegate = new KeywordBuilder(name, title, description)
 
         KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
 
@@ -53,17 +59,21 @@ class DefinitionBuilder {
 
     static class KeywordBuilder {
         String name
+        String title
         String description
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name, String description) {
+        KeywordBuilder(String name, String title, String description) {
             this.name = name
+            this.title = title
             this.description = description
-            this.properties = []
+            this.properties = [] as Set<PropertyDefinition>
         }
 
         KeywordBuilder property(Map config) {
             PropertyDefinition propertyDefinition = propertyImpl(config)
+            propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
+            propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
 
             this.properties.add(propertyDefinition)
 
@@ -73,13 +83,19 @@ class DefinitionBuilder {
         KeywordBuilder include(Set<PropertyDefinition> properties) {
             assert properties != null
 
+            properties.each {propertyDefinition ->
+                propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
+                propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
+
+                this.properties.add(propertyDefinition)
+            }
             this.properties.addAll(properties)
 
             return this
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, description, properties)
+            return new KeywordDefinition(name, title, description, properties)
         }
     }
 
@@ -106,7 +122,7 @@ class DefinitionBuilder {
 
         String name = config.name
         boolean required = config.required ?: false
-        PropertyConstraint constraints = config.constraints ?: null as PropertyConstraint
+        PropertyConstraint constraints = (config.constraints ?: null) as PropertyConstraint
         Object defaultValue = config.defaultValue == null ? null : config.defaultValue
         String separator = config.separator
         Class type = config.type as Class

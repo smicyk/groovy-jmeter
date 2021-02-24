@@ -50,8 +50,8 @@ import org.apache.jmeter.timers.ConstantThroughputTimer
 @CompileDynamic
 final class ConstantThroughputFactory extends TestElementNodeFactory {
 
-    ConstantThroughputFactory(String testElementName) {
-        super(testElementName, ConstantThroughputTimer, TestBeanGUI, true, DslDefinition.CONSTANT_THROUGHPUT)
+    ConstantThroughputFactory() {
+        super(DslDefinition.CONSTANT_THROUGHPUT.title, ConstantThroughputTimer, TestBeanGUI, true, DslDefinition.CONSTANT_THROUGHPUT)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

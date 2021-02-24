@@ -77,8 +77,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class HttpFactory extends BaseHttpFactory {
 
-    HttpFactory(String testElementName) {
-        super(testElementName, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP)
+    HttpFactory() {
+        super(DslDefinition.HTTP.title, HTTPSamplerProxy, HttpTestSampleGui, false, DslDefinition.HTTP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -38,7 +38,7 @@ import org.apache.jmeter.protocol.http.gui.AuthPanel
 @CompileDynamic
 final class AuthorizationsFactory extends TestElementNodeFactory {
 
-    AuthorizationsFactory(String testElementName) {
-        super(testElementName, AuthManager, AuthPanel, false, DslDefinition.AUTHORIZATIONS)
+    AuthorizationsFactory() {
+        super(DslDefinition.AUTHORIZATIONS.title, AuthManager, AuthPanel, false, DslDefinition.AUTHORIZATIONS)
     }
 }

@@ -43,6 +43,8 @@ import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
 import net.simonix.dsl.jmeter.factory.timer.PoissonTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.PreciseThroughputFactory
 import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.ThroughputFactory
+import net.simonix.dsl.jmeter.factory.timer.TimerFactory
 import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
 import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
@@ -75,18 +77,18 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
 
     void registerObjectFactories() {
         // plan and group
-        addFactory(new PlanFactory('Test Plan'))
-        addFactory(new GroupFactory('User Group'))
-        addFactory(new PreGroupFactory('setUp User Group'))
-        addFactory(new PostGroupFactory('tearDown User Group'))
+        addFactory(new PlanFactory())
+        addFactory(new GroupFactory())
+        addFactory(new PreGroupFactory())
+        addFactory(new PostGroupFactory())
 
         // controllers
-        addFactory(new LoopFactory('Loop Controller'))
-        addFactory(new SimpleFactory('Simple Controller'))
-        addFactory(new TransactionFactory('Transaction Controller'))
-        addFactory(new CriticalSectionFactory('Critical Section Controller'))
-        addFactory(new IncludeFactory('Include Controller'))
-        addFactory(new ForEachFactory('ForEach Controller'))
+        addFactory(new LoopFactory())
+        addFactory(new SimpleFactory())
+        addFactory(new TransactionFactory())
+        addFactory(new CriticalSectionFactory())
+        addFactory(new IncludeFactory())
+        addFactory(new ForEachFactory())
 
         addFactory(new ExecuteFactory())
 
@@ -102,75 +104,77 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new SwitchControllerFactory())
 
         // samplers
-        addFactory(new HttpFactory('HTTP Sampler'))
-        addFactory(new AjpFactory('AJP Sampler'))
-        addFactory(new DebugFactory('Debug Sampler'))
-        addFactory(new JSR223SamplerFactory('JSR223 Sampler'))
-        addFactory(new FlowControlActionFactory('Flow Control Action'))
+        addFactory(new HttpFactory())
+        addFactory(new AjpFactory())
+        addFactory(new DebugFactory())
+        addFactory(new JSR223SamplerFactory())
+        addFactory(new FlowControlActionFactory())
 
         // others
         addFactory(new ParamFactory())
         addFactory(new ParamsFactory())
         addFactory(new BodyFactory())
-        addFactory(new InsertFactory())
         addFactory(new ArgumentFactory())
         addFactory(new ArgumentsFactory())
+        addFactory(new InsertFactory())
 
         // timers
-        addFactory(new ConstantTimerFactory('Constant Timer'))
-        addFactory(new UniformTimerFactory('Uniform Random Timer'))
-        addFactory(new GaussianTimerFactory('Gaussian Random Timer'))
-        addFactory(new PoissonTimerFactory('Poisson Random Timer'))
-        addFactory(new ConstantThroughputFactory('Constant Throughput Timer'))
-        addFactory(new PreciseThroughputFactory('Precise Throughput Timer'))
-        addFactory(new SynchronizingTimerFactory('Synchronizing Timer'))
-        addFactory(new JSR223TimerFactory('JSR223 Timer'))
+        addFactory(new TimerFactory())
+        addFactory(new ConstantTimerFactory())
+        addFactory(new UniformTimerFactory())
+        addFactory(new GaussianTimerFactory())
+        addFactory(new PoissonTimerFactory())
+        addFactory(new ThroughputFactory())
+        addFactory(new ConstantThroughputFactory())
+        addFactory(new PreciseThroughputFactory())
+        addFactory(new SynchronizingTimerFactory())
+        addFactory(new JSR223TimerFactory())
 
         // extractors
-        addFactory(new RegExExtractorFactory('Regular Expression Extractor'))
-        addFactory(new CssSelectorExtractorFactory('CSS Selector Extractor'))
-        addFactory(new JsonPathExtractorFactory('Json Path Extractor'))
-        addFactory(new XPathExtractorFactory('XPath2 Extractor'))
+        addFactory(new RegExExtractorFactory())
+        addFactory(new CssSelectorExtractorFactory())
+        addFactory(new JsonPathExtractorFactory())
+        addFactory(new XPathExtractorFactory())
 
         // assertions
-        addFactory(new JSR223AssertionFactory('JSR223 Assertion'))
-        addFactory(new ResponseAssertionFactory('Response Assertion'))
-        addFactory(new SizeAssertionFactory('Size Assertion'))
-        addFactory(new DurationAssertionFactory('Duration Assertion'))
-        addFactory(new XPathAssertionFactory('XPath Assertion'))
-        addFactory(new JsonAssertionFactory('Json Path Assertion'))
-        addFactory(new MD5HexAssertionFactory('MD5Hex Assertion'))
+        addFactory(new JSR223AssertionFactory())
+        addFactory(new ResponseAssertionFactory())
+        addFactory(new SizeAssertionFactory())
+        addFactory(new DurationAssertionFactory())
+        addFactory(new XPathAssertionFactory())
+        addFactory(new JsonAssertionFactory())
+        addFactory(new MD5HexAssertionFactory())
         addFactory(new CheckResponseFactory())
         addFactory(new CheckRequestFactory())
         addFactory(new CheckSizeFactory())
 
         // postprocessors
-        addFactory(new JSR223PostProcessorFactory('JSR223 PostProcessor'))
+        addFactory(new JSR223PostProcessorFactory())
 
         // preprocessors
-        addFactory(new JSR223PreProcessorFactory('JSR223 PreProcessor'))
+        addFactory(new JSR223PreProcessorFactory())
 
         // configs
-        addFactory(new HeadersFactory('Headers'))
+        addFactory(new HeadersFactory())
         addFactory(new HeaderFactory())
-        addFactory(new DefaultsFactory('HTTP Request Defaults'))
-        addFactory(new CsvDataFactory('CSV Data Set Config'))
-        addFactory(new CookiesFactory('HTTP Cookie Manager'))
+        addFactory(new DefaultsFactory())
+        addFactory(new CsvDataFactory())
+        addFactory(new CookiesFactory())
         addFactory(new CookieFactory())
-        addFactory(new CacheFactory('Cache Manager'))
-        addFactory(new LoginFactory('Login Config Element'))
-        addFactory(new VariablesFactory('User Defined Variables'))
+        addFactory(new CacheFactory())
+        addFactory(new LoginFactory())
+        addFactory(new VariablesFactory())
         addFactory(new VariableFactory())
-        addFactory(new AuthorizationsFactory('HTTP Authorization Manager'))
+        addFactory(new AuthorizationsFactory())
         addFactory(new AuthorizationFactory())
-        addFactory(new CounterFactory('Counter'))
-        addFactory(new RandomVariableFactory('Random Variable'))
+        addFactory(new CounterFactory())
+        addFactory(new RandomVariableFactory())
 
         // listeners
-        addFactory(new SummaryFactory('Summary Report'))
-        addFactory(new AggregateFactory('Aggregate Report'))
-        addFactory(new BackendListenerFactory('Backend Listener'))
-        addFactory(new JSR223ListenerFactory('JSR223 Listener'))
+        addFactory(new SummaryFactory())
+        addFactory(new AggregateFactory())
+        addFactory(new BackendListenerFactory())
+        addFactory(new JSR223ListenerFactory())
     }
 
     void registerPluginFactory(AbstractFactory factory) {

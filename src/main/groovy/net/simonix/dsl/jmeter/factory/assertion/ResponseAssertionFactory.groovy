@@ -48,8 +48,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
-    ResponseAssertionFactory(String testElementName) {
-        super(testElementName, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE)
+    ResponseAssertionFactory() {
+        super(DslDefinition.ASSERT_RESPONSE.title, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

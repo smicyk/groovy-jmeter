@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class WhileControllerFactory extends TestElementNodeFactory {
 
     WhileControllerFactory() {
-        super('While Controller', WhileController, WhileControllerGui, false, DslDefinition.EXECUTE_WHILE)
+        super(DslDefinition.EXECUTE_WHILE.title, WhileController, WhileControllerGui, false, DslDefinition.EXECUTE_WHILE)
 
         this.validator.valueIsProperty = true
     }

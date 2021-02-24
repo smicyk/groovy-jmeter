@@ -43,8 +43,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class JsonAssertionFactory extends TestElementNodeFactory {
 
-    JsonAssertionFactory(String testElementName) {
-        super(testElementName, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON)
+    JsonAssertionFactory() {
+        super(DslDefinition.ASSERT_JSON.title, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
