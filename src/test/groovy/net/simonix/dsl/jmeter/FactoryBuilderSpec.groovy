@@ -22,80 +22,6 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class FactoryBuilderSpec extends TempFileSpec {
 
-    def "Check empty plan with default parameters generation"() {
-        given: 'Test plan with empty body'
-        def config = configure {
-            plan {
-
-            }
-        }
-
-        File resultFile = tempFolder.newFile('plan_0.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('plan_0.jmx', resultFile)
-    }
-
-    def "Check empty plan with all parameters set generation"() {
-        given: 'Test plan with empty body'
-        def config = configure {
-            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true) {
-
-            }
-        }
-
-        File resultFile = tempFolder.newFile('plan_1.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('plan_1.jmx', resultFile)
-    }
-
-    def "Check plan with user define variables generation"() {
-        given: 'Test plan with user define variables in the body'
-        def config = configure {
-            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true) {
-                arguments {
-                    argument(name: 'usr_var1', value: '1')
-                    argument(name: 'usr_var2', value: 'uservalue')
-                }
-            }
-        }
-
-        File resultFile = tempFolder.newFile('plan_2.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('plan_2.jmx', resultFile)
-    }
-
-    def "Check plan with user define variables (short version) generation"() {
-        given: 'Test plan with user define variables in the body'
-        def config = configure {
-            plan {
-                arguments values: [
-                        usr_var1: '1',
-                        usr_var2: 'uservalue'
-                ]
-            }
-        }
-
-        File resultFile = tempFolder.newFile('plan_3.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('plan_3.jmx', resultFile)
-    }
-
     def "Check authorizations generation"() {
         given: 'Test plan with authorizations'
         def config = configure {
@@ -238,8 +164,8 @@ class FactoryBuilderSpec extends TempFileSpec {
                     header(name: 'header2', value: 'value2')
                 }
                 headers values: [
-                    header1: 'value1',
-                    header2: 'value2'
+                        header1: 'value1',
+                        header2: 'value2'
                 ]
             }
         }
@@ -271,7 +197,7 @@ class FactoryBuilderSpec extends TempFileSpec {
         filesAreTheSame('login_0.jmx', resultFile)
     }
 
-    def "Check random generation"() {
+    def "Check random variable generation"() {
         given: 'Test plan with random config element'
         def config = configure {
             plan {
@@ -326,23 +252,6 @@ class FactoryBuilderSpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('variables_1.jmx', resultFile)
-    }
-
-    def "Check group generation"() {
-        given: 'Test plan with group element'
-        def config = configure {
-            plan {
-                group(name: 'Factory Group', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, delayedStart: 10, scheduler: true, delay: 10, duration: 10, loops: 2, forever: true)
-            }
-        }
-
-        File resultFile = tempFolder.newFile('group_0.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('group_0.jmx', resultFile)
     }
 
     def "Check http generation"() {
@@ -438,44 +347,6 @@ class FactoryBuilderSpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('controllers_1.jmx', resultFile)
-    }
-
-    def "Check timers controllers generation"() {
-        given: 'Test plan with timers element'
-        def config = configure {
-            plan {
-                timer(delay: 2000)
-                uniform(delay: 100, range: 200)
-            }
-        }
-
-        File resultFile = tempFolder.newFile('timers_1.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('timers_1.jmx', resultFile)
-    }
-
-    def "Check extractors generation"() {
-        given: 'Test plan with extractor elements'
-        def config = configure {
-            plan {
-                extract_css(variable: 'var_variable', expression: '#variable', attribute: 'value')
-                extract_regex(variable: 'var_variable', expression: 'variable')
-                extract_json(variables: 'var_variable', expressions: '$..author')
-                extract_json(variables: ['var_variable1', 'var_variable2'], expressions: ['$..author', '$..book'])
-            }
-        }
-
-        File resultFile = tempFolder.newFile('extractors_0.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('extractors_0.jmx', resultFile)
     }
 
     def "Check listeners generation"() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,33 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.factory.group
+package net.simonix.dsl.jmeter.factory.group;
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.control.LoopController
 import org.apache.jmeter.control.gui.LoopControlPanel
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.threads.AbstractThreadGroup
+import org.apache.jmeter.threads.SetupThreadGroup
 import org.apache.jmeter.threads.ThreadGroup
-import org.apache.jmeter.threads.gui.ThreadGroupGui
-
-import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
+import org.apache.jmeter.threads.gui.SetupThreadGroupGui
 
 /**
- * The factory class responsible for building <code>group</code> element in the test.
+ * The factory class responsible for building <code>before</code> element in the test.
  *
  * <pre>
  * // structure of the element
- * group (
+ * before (
  *   users: integer        [<strong>1</strong>]
  *   rampUp: integer       [<strong>1</strong>]
  *   delayedStart: boolean [<strong>false</strong>]
  *   // properties for scheduler
  *   scheduler: boolean    [<strong>false</strong>]
- *   delay: integer        [<strong>0</strong>]
  *   duration: integer     [<strong>0</strong>]
  *   // properties for loop
  *   loops: integer        [<strong>1</strong>]
@@ -53,22 +50,22 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * // example usage
  * start {
  *     plan {
- *         group(users: 10, rampUp: 60) {
+ *         before(users: 10, rampUp: 60) {
  *             // other configurations
  *         }
  *     }
  * }
  * </pre>
  *
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Thread_Group">JMeter Thread Group</a>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#setUp_Thread_Group">setUp Thread Group</a>
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
 @CompileDynamic
-final class GroupFactory extends TestElementNodeFactory {
+final class PreGroupFactory extends TestElementNodeFactory {
 
-    GroupFactory(String testElementName) {
-        super(testElementName, ThreadGroup, ThreadGroupGui, false, DslDefinition.GROUP)
+    PreGroupFactory(String testElementName) {
+        super(testElementName, SetupThreadGroup, SetupThreadGroupGui, false, DslDefinition.BEFORE_GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -80,7 +77,6 @@ final class GroupFactory extends TestElementNodeFactory {
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
-        testElement.delay = config.delay
         testElement.duration = config.duration
 
         // set default controller as loop (that seems to be jmeter defaults)

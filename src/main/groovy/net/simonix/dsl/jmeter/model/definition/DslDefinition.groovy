@@ -49,6 +49,31 @@ final class DslDefinition {
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
+        property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
+    }
+
+    static final KeywordDefinition BEFORE_GROUP = keyword('before', 'defines setup group (\'SetUp Group\') element') {
+        include(COMMON_PROPERTIES)
+        property(name: 'users', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'rampUp', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'delayedStart', type: Boolean, required: false, defaultValue: false)
+        property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
+        property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'forever', type: Boolean, required: false, defaultValue: false)
+        property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
+    }
+
+    static final KeywordDefinition AFTER_GROUP = keyword('after', 'defines tear down group (\'TearDown Group\') element') {
+        include(COMMON_PROPERTIES)
+        property(name: 'users', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'rampUp', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'delayedStart', type: Boolean, required: false, defaultValue: false)
+        property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
+        property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'forever', type: Boolean, required: false, defaultValue: false)
+        property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
     }
 
     // controllers
@@ -372,15 +397,51 @@ final class DslDefinition {
     }
 
     // timers
-    static final KeywordDefinition CONSTANT_TIMER = keyword('timer', 'defines \'Constant Timer\' element') {
+    static final KeywordDefinition CONSTANT_TIMER = keyword('constant_timer', 'defines \'Constant Timer\' element') {
         include(COMMON_PROPERTIES)
-        property(name: 'delay', type: Integer, required: false, defaultValue: '300', constraints: range(0))
+        property(name: 'delay', type: Long, required: false, defaultValue: 300, constraints: range(0))
     }
 
-    static final KeywordDefinition UNIFORM_TIMER = keyword('uniform', 'defines \'Uniform Timer\' element<') {
+    static final KeywordDefinition UNIFORM_TIMER = keyword('uniform_timer', 'defines \'Uniform Timer\' element<') {
         include(COMMON_PROPERTIES)
-        property(name: 'delay', type: Integer, required: false, defaultValue: '1000', constraints: range(0))
-        property(name: 'range', type: Integer, required: false, defaultValue: '100', constraints: range(0))
+        property(name: 'delay', type: Long, required: false, defaultValue: 1000, constraints: range(0))
+        property(name: 'range', type: Double, required: false, defaultValue: 100.0, constraints: range(0))
+    }
+
+    static final KeywordDefinition GAUSSIAN_TIMER = keyword('gaussian_timer', 'defines \'Gaussian Random Timer\' element<') {
+        include(COMMON_PROPERTIES)
+        property(name: 'delay', type: Long, required: false, defaultValue: 100, constraints: range(0))
+        property(name: 'range', type: Double, required: false, defaultValue: 300.0, constraints: range(0))
+    }
+
+    static final KeywordDefinition POISSON_TIMER = keyword('poisson_timer', 'defines \'Poisson Random Timer\' element<') {
+        include(COMMON_PROPERTIES)
+        property(name: 'delay', type: Long, required: false, defaultValue: 300, constraints: range(0))
+        property(name: 'range', type: Double, required: false, defaultValue: 100.0, constraints: range(0))
+    }
+
+    static final KeywordDefinition SYNCHRONIZING_TIMER = keyword('synchronizing_timer', 'defines \'Synchronizing Timer\' element<') {
+        include(COMMON_PROPERTIES)
+        property(name: 'users', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'timeout', type: Long, required: false, defaultValue: 0, constraints: range(0))
+    }
+
+    static final KeywordDefinition CONSTANT_THROUGHPUT = keyword('constant_throughput', 'defines \'Constant Throughput Timer\' element<') {
+        include(COMMON_PROPERTIES)
+        property(name: 'target', type: Double, required: false, defaultValue: 0.0, constraints: range(0))
+        property(name: 'basedOn', type: String, required: false, defaultValue: 'user', constraints: inList(['user', 'all_users', 'all_users_shared', 'all_users_in_group', 'all_users_in_group_shared']))
+    }
+
+    static final KeywordDefinition PRECISE_THROUGHPUT = keyword('precise_throughput', 'defines \'Precise Throughput Timer\' element<') {
+        include(COMMON_PROPERTIES)
+        property(name: 'target', type: Double, required: false, defaultValue: 100.0, constraints: range(0))
+        property(name: 'period', type: Integer, required: false, defaultValue: 3600, constraints: range(0))
+        property(name: 'duration', type: Long, required: false, defaultValue: 3600, constraints: range(0))
+        property(name: 'batchUsers', type: Integer, required: false, defaultValue: 1, constraints: range(0))
+        property(name: 'batchDelay', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'samples', type: Integer, required: false, defaultValue: 10_000, constraints: range(0))
+        property(name: 'percents', type: Double, required: false, defaultValue: 1.0, constraints: range(0))
+        property(name: 'seed', type: Long, required: false, defaultValue: 0, constraints: range(0))
     }
 
     static final KeywordDefinition JSR223_TIMER = keyword('jsrtimer', 'defines \'JSR223 Timer\' element') {
@@ -473,6 +534,17 @@ final class DslDefinition {
         property(name: 'concatenation', type: Boolean, required: false, defaultValue: false)
     }
 
+    static final KeywordDefinition XPATH_EXTRACTOR = keyword('extract_xpath', 'defines \'XPath2 Extractor\' element') {
+        include(COMMON_PROPERTIES)
+        property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
+        property(name: 'defaultValue', type: String, required: false, defaultValue: '')
+        property(name: 'match', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'variable', type: String, required: true, defaultValue: '')
+        property(name: 'expression', type: String, required: true, defaultValue: '')
+        property(name: 'namespaces', type: String, required: false, defaultValue: [], separator: '\n')
+        property(name: 'fragment', type: Boolean, required: false, defaultValue: false)
+    }
+
     static final KeywordDefinition JSR223_POSTPROCESSOR = keyword('jsrpostprocessor', 'defines \'JSR223 PostProcessor\' element') {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
@@ -562,6 +634,9 @@ final class DslDefinition {
     static final Set<String> VALID_KEYWORDS = [
             PLAN.name,
             GROUP.name,
+            BEFORE_GROUP.name,
+            AFTER_GROUP.name,
+
             LOOP.name,
             SIMPLE.name,
             TRANSACTION.name,
@@ -612,6 +687,11 @@ final class DslDefinition {
 
             CONSTANT_TIMER.name,
             UNIFORM_TIMER.name,
+            GAUSSIAN_TIMER.name,
+            POISSON_TIMER.name,
+            CONSTANT_THROUGHPUT.name,
+            PRECISE_THROUGHPUT.name,
+            SYNCHRONIZING_TIMER.name,
             JSR223_TIMER.name,
 
             AGGREGATE.name,
@@ -622,6 +702,7 @@ final class DslDefinition {
             CSS_EXTRACTOR.name,
             REGEX_EXTRACTOR.name,
             JSON_EXTRACTOR.name,
+            XPATH_EXTRACTOR.name,
 
             JSR223_POSTPROCESSOR.name,
             JSR223_PREPROCESSOR.name,
