@@ -238,8 +238,8 @@ class FactoryBuilderSpec extends TempFileSpec {
                     header(name: 'header2', value: 'value2')
                 }
                 headers values: [
-                    header1: 'value1',
-                    header2: 'value2'
+                        header1: 'value1',
+                        header2: 'value2'
                 ]
             }
         }
@@ -271,7 +271,7 @@ class FactoryBuilderSpec extends TempFileSpec {
         filesAreTheSame('login_0.jmx', resultFile)
     }
 
-    def "Check random generation"() {
+    def "Check random variable generation"() {
         given: 'Test plan with random config element'
         def config = configure {
             plan {
@@ -326,23 +326,6 @@ class FactoryBuilderSpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('variables_1.jmx', resultFile)
-    }
-
-    def "Check group generation"() {
-        given: 'Test plan with group element'
-        def config = configure {
-            plan {
-                group(name: 'Factory Group', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, delayedStart: 10, scheduler: true, delay: 10, duration: 10, loops: 2, forever: true)
-            }
-        }
-
-        File resultFile = tempFolder.newFile('group_0.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('group_0.jmx', resultFile)
     }
 
     def "Check http generation"() {
@@ -438,44 +421,6 @@ class FactoryBuilderSpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('controllers_1.jmx', resultFile)
-    }
-
-    def "Check timers controllers generation"() {
-        given: 'Test plan with timers element'
-        def config = configure {
-            plan {
-                timer(delay: 2000)
-                uniform(delay: 100, range: 200)
-            }
-        }
-
-        File resultFile = tempFolder.newFile('timers_1.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('timers_1.jmx', resultFile)
-    }
-
-    def "Check extractors generation"() {
-        given: 'Test plan with extractor elements'
-        def config = configure {
-            plan {
-                extract_css(variable: 'var_variable', expression: '#variable', attribute: 'value')
-                extract_regex(variable: 'var_variable', expression: 'variable')
-                extract_json(variables: 'var_variable', expressions: '$..author')
-                extract_json(variables: ['var_variable1', 'var_variable2'], expressions: ['$..author', '$..book'])
-            }
-        }
-
-        File resultFile = tempFolder.newFile('extractors_0.jmx')
-
-        when: 'save test to file'
-        save(config, resultFile)
-
-        then: 'both files matches'
-        filesAreTheSame('extractors_0.jmx', resultFile)
     }
 
     def "Check listeners generation"() {

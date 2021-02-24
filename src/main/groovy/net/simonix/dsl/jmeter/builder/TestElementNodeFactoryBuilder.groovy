@@ -24,7 +24,10 @@ import net.simonix.dsl.jmeter.factory.controller.execution.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
+import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.group.GroupFactory
+import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
+import net.simonix.dsl.jmeter.factory.group.PostGroupFactory
 import net.simonix.dsl.jmeter.factory.listener.AggregateFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendListenerFactory
 import net.simonix.dsl.jmeter.factory.listener.JSR223ListenerFactory
@@ -33,9 +36,14 @@ import net.simonix.dsl.jmeter.factory.plan.PlanFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.*
+import net.simonix.dsl.jmeter.factory.timer.ConstantThroughputFactory
 import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.GaussianTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
-import net.simonix.dsl.jmeter.factory.timer.UniformRandomTimeFactory
+import net.simonix.dsl.jmeter.factory.timer.PoissonTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.PreciseThroughputFactory
+import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
 import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import net.simonix.dsl.jmeter.model.ValidationException
@@ -69,6 +77,8 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         // plan and group
         addFactory(new PlanFactory('Test Plan'))
         addFactory(new GroupFactory('User Group'))
+        addFactory(new PreGroupFactory('setUp User Group'))
+        addFactory(new PostGroupFactory('tearDown User Group'))
 
         // controllers
         addFactory(new LoopFactory('Loop Controller'))
@@ -108,13 +118,19 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
 
         // timers
         addFactory(new ConstantTimerFactory('Constant Timer'))
-        addFactory(new UniformRandomTimeFactory('Uniform Random Timer'))
+        addFactory(new UniformTimerFactory('Uniform Random Timer'))
+        addFactory(new GaussianTimerFactory('Gaussian Random Timer'))
+        addFactory(new PoissonTimerFactory('Poisson Random Timer'))
+        addFactory(new ConstantThroughputFactory('Constant Throughput Timer'))
+        addFactory(new PreciseThroughputFactory('Precise Throughput Timer'))
+        addFactory(new SynchronizingTimerFactory('Synchronizing Timer'))
         addFactory(new JSR223TimerFactory('JSR223 Timer'))
 
         // extractors
         addFactory(new RegExExtractorFactory('Regular Expression Extractor'))
         addFactory(new CssSelectorExtractorFactory('CSS Selector Extractor'))
         addFactory(new JsonPathExtractorFactory('Json Path Extractor'))
+        addFactory(new XPathExtractorFactory('XPath2 Extractor'))
 
         // assertions
         addFactory(new JSR223AssertionFactory('JSR223 Assertion'))
