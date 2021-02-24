@@ -30,7 +30,7 @@ class TempFileSpec extends Specification {
     public TemporaryFolder tempFolder = new TemporaryFolder()
 
     def filesAreTheSame(String expected, File result) {
-        Diff d = DiffBuilder.compare(Input.getResourceAsStream("/${this.class.packageName.replaceAll('\\.', '/')}/${expected}"))
+        Diff d = DiffBuilder.compare(this.class.getResourceAsStream(expected))
                 .withTest(Input.fromFile(result))
                 .ignoreComments()
                 .ignoreWhitespace()

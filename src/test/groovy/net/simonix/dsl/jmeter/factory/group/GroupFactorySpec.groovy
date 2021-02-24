@@ -3,7 +3,7 @@ package net.simonix.dsl.jmeter.factory.group
 import net.simonix.dsl.jmeter.test.spec.TempFileSpec
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
-import static net.simonix.dsl.jmeter.TestScriptRunner.save;
+import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class GroupFactorySpec extends TempFileSpec {
     def "Check group generation"() {
