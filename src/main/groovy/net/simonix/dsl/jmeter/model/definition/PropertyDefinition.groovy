@@ -26,6 +26,8 @@ import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 class PropertyDefinition {
 
     String name
+    String title
+    String description
     Object defaultValue = null
 
     boolean required = false

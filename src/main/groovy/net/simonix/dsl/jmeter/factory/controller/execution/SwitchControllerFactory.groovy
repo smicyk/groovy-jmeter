@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SwitchControllerFactory extends TestElementNodeFactory {
 
     SwitchControllerFactory() {
-        super('Switch Controller', SwitchController, SwitchControllerGui, false, DslDefinition.EXECUTE_SWITCH)
+        super(DslDefinition.EXECUTE_SWITCH.title, SwitchController, SwitchControllerGui, false, DslDefinition.EXECUTE_SWITCH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

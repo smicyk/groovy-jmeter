@@ -61,4 +61,33 @@ class TimerFactorySpec extends TempFileSpec {
         then: 'both files matches'
         filesAreTheSame('timers_1.jmx', resultFile)
     }
+
+    def "Check default timers generation with timer and throughput"() {
+        given: 'Test plan with timers element'
+        def config = configure {
+            plan {
+                // random timers
+
+                timer type: 'constant'
+                timer type: 'uniform'
+                timer type: 'poisson'
+                timer type: 'gaussian'
+
+                // throughput
+                throughput type: 'constant'
+                throughput type: 'precise'
+
+                // synchronizing
+                timer type: 'synchronizing'
+            }
+        }
+
+        File resultFile = tempFolder.newFile('timers_2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('timers_2.jmx', resultFile)
+    }
 }

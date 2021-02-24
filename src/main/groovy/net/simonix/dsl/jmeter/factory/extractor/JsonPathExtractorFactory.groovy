@@ -46,8 +46,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 @CompileDynamic
 final class JsonPathExtractorFactory extends TestElementNodeFactory {
 
-    JsonPathExtractorFactory(String testElementName) {
-        super(testElementName, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR)
+    JsonPathExtractorFactory() {
+        super(DslDefinition.JSON_EXTRACTOR.title, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

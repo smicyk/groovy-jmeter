@@ -40,8 +40,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class IncludeFactory extends TestElementNodeFactory {
 
-    IncludeFactory(String testElementName) {
-        super(testElementName, IncludeController, IncludeControllerGui, true, DslDefinition.INCLUDE)
+    IncludeFactory() {
+        super(DslDefinition.INCLUDE.title, IncludeController, IncludeControllerGui, true, DslDefinition.INCLUDE)
 
         this.validator.valueIsProperty = true
     }

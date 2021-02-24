@@ -49,8 +49,8 @@ import org.apache.jmeter.timers.gui.UniformRandomTimerGui
 @CompileDynamic
 final class UniformTimerFactory extends TestElementNodeFactory {
 
-    UniformTimerFactory(String testElementName) {
-        super(testElementName, UniformRandomTimer, UniformRandomTimerGui, true, DslDefinition.UNIFORM_TIMER)
+    UniformTimerFactory() {
+        super(DslDefinition.UNIFORM_TIMER.title, UniformRandomTimer, UniformRandomTimerGui, true, DslDefinition.UNIFORM_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

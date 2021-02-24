@@ -64,8 +64,8 @@ import org.apache.jmeter.threads.gui.SetupThreadGroupGui
 @CompileDynamic
 final class PreGroupFactory extends TestElementNodeFactory {
 
-    PreGroupFactory(String testElementName) {
-        super(testElementName, SetupThreadGroup, SetupThreadGroupGui, false, DslDefinition.BEFORE_GROUP)
+    PreGroupFactory() {
+        super(DslDefinition.BEFORE_GROUP.title, SetupThreadGroup, SetupThreadGroupGui, false, DslDefinition.BEFORE_GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

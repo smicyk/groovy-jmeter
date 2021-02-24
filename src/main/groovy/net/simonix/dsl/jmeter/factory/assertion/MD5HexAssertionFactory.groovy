@@ -38,8 +38,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 final class MD5HexAssertionFactory extends TestElementNodeFactory {
 
-    MD5HexAssertionFactory(String testElementName) {
-        super(testElementName, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX)
+    MD5HexAssertionFactory() {
+        super(DslDefinition.ASSERT_MD5HEX.title, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -49,8 +49,8 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 @CompileDynamic
 final class ConstantTimerFactory extends TestElementNodeFactory {
 
-    ConstantTimerFactory(String testElementName) {
-        super(testElementName, ConstantTimer, ConstantTimerGui, true, DslDefinition.CONSTANT_TIMER)
+    ConstantTimerFactory() {
+        super(DslDefinition.CONSTANT_TIMER.title, ConstantTimer, ConstantTimerGui, true, DslDefinition.CONSTANT_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

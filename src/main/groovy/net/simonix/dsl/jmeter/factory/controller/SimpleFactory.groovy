@@ -38,7 +38,7 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 @CompileDynamic
 final class SimpleFactory extends TestElementNodeFactory {
 
-    SimpleFactory(String testElementName) {
-        super(testElementName, GenericController, LogicControllerGui, false, DslDefinition.SIMPLE)
+    SimpleFactory() {
+        super(DslDefinition.SIMPLE.title, GenericController, LogicControllerGui, false, DslDefinition.SIMPLE)
     }
 }

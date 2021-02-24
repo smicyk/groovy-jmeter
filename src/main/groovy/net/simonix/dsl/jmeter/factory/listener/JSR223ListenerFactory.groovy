@@ -32,7 +32,7 @@ import org.apache.jmeter.visualizers.JSR223Listener
 @CompileDynamic
 final class JSR223ListenerFactory extends AbstractJSR223Factory {
 
-    JSR223ListenerFactory(String testElementName) {
-        super(testElementName, JSR223Listener, TestBeanGUI, true, DslDefinition.JSR223_LISTENER)
+    JSR223ListenerFactory() {
+        super(DslDefinition.JSR223_LISTENER.title, JSR223Listener, TestBeanGUI, true, DslDefinition.JSR223_LISTENER)
     }
 }

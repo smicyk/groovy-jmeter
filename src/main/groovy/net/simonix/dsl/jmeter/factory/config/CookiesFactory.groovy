@@ -45,8 +45,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class CookiesFactory extends TestElementNodeFactory {
 
-    CookiesFactory(String testElementName) {
-        super(testElementName, CookieManager, CookiePanel, false, DslDefinition.COOKIES)
+    CookiesFactory() {
+        super(DslDefinition.COOKIES.title, CookieManager, CookiePanel, false, DslDefinition.COOKIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

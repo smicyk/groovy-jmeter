@@ -56,8 +56,8 @@ import org.apache.jmeter.timers.poissonarrivals.PreciseThroughputTimer
 @CompileDynamic
 final class PreciseThroughputFactory extends TestElementNodeFactory {
 
-    PreciseThroughputFactory(String testElementName) {
-        super(testElementName, PreciseThroughputTimer, TestBeanGUI, true, DslDefinition.PRECISE_THROUGHPUT)
+    PreciseThroughputFactory() {
+        super(DslDefinition.PRECISE_THROUGHPUT.title, PreciseThroughputTimer, TestBeanGUI, true, DslDefinition.PRECISE_THROUGHPUT)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

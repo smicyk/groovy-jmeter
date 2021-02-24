@@ -42,8 +42,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class CriticalSectionFactory extends TestElementNodeFactory {
 
-    CriticalSectionFactory(String testElementName) {
-        super(testElementName, CriticalSectionController, CriticalSectionControllerGui, false, DslDefinition.SECTION)
+    CriticalSectionFactory() {
+        super(DslDefinition.SECTION.title, CriticalSectionController, CriticalSectionControllerGui, false, DslDefinition.SECTION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
