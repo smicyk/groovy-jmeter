@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Szymon Micyk
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.simonix.dsl.jmeter.factory.plan
 
 import net.simonix.dsl.jmeter.test.spec.TempFileSpec
@@ -26,7 +41,7 @@ class PlanFactorySpec extends TempFileSpec {
     def "Check empty plan with all parameters set generation"() {
         given: 'Test plan with empty body'
         def config = configure {
-            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true) {
+            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true, classpath: ['listeners.jar', 'functions.jar']) {
 
             }
         }
@@ -43,7 +58,7 @@ class PlanFactorySpec extends TempFileSpec {
     def "Check plan with user define variables generation"() {
         given: 'Test plan with user define variables in the body'
         def config = configure {
-            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true) {
+            plan(name: 'Factory Test Plan', comments: "Factory Comment", enabled: false, serialized: true, functionalMode: true, tearDownOnShutdown: true, classpath: ['listeners.jar', 'functions.jar']) {
                 arguments {
                     argument(name: 'usr_var1', value: '1')
                     argument(name: 'usr_var2', value: 'uservalue')

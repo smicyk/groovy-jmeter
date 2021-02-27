@@ -69,7 +69,7 @@ final class PlanFactory extends TestElementNodeFactory {
         testElement.serialized = config.serialized
         testElement.functionalMode = config.functionalMode
         testElement.tearDownOnShutdown = config.tearDownOnShutdown
-        testElement.testPlanClasspath = ''
+        testElement.testPlanClasspath = config.classpath
 
         Arguments arguments = new Arguments()
         arguments.enabled = true

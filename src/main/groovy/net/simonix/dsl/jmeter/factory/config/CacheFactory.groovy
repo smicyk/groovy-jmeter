@@ -31,13 +31,14 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * // element structure
  * cache (
  *   clearEachIteration: boolean [<strong>false</strong>]
- *   useExpires: boolean [<strong>true</strong>]
- *   maxSize: integer [<strong>5000</strong>]
+ *   useExpires: boolean         [<strong>true</strong>]
+ *   maxSize: integer            [<strong>5000</strong>]
+ *   useUserConfig: boolean     [<strong>false</strong>]
  * )
  * // example usage
  * start {
  *   plan {
- *     cache(clearEachIteration: true, useExpires: false, maxSize: 1000)
+ *     cache(clearEachIteration: true, useExpires: false, maxSize: 1000, useUserConfig: true)
  *   }
  * }
  * </pre>
@@ -55,9 +56,11 @@ final class CacheFactory extends TestElementNodeFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         boolean clearEachIteration = config.clearEachIteration
         boolean useExpires = config.useExpires
+        boolean controlledByUser = config.useUserConfig
 
         testElement.clearEachIteration = clearEachIteration
         testElement.useExpires = useExpires
         testElement.maxSize = config.maxSize
+        testElement.controlledByThread = controlledByUser
     }
 }

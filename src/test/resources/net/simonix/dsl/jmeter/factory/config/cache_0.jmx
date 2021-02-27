@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2019 Szymon Micyk
+ Copyright 2021 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -28,11 +28,18 @@
       </elementProp>
     </TestPlan>
     <hashTree>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="Cache Manager" enabled="true">
+        <boolProp name="clearEachIteration">false</boolProp>
+        <boolProp name="useExpires">true</boolProp>
+        <boolProp name="CacheManager.controlledByThread">false</boolProp>
+      </CacheManager>
+      <hashTree/>
       <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="Factory cache" enabled="false">
         <boolProp name="clearEachIteration">true</boolProp>
         <boolProp name="useExpires">false</boolProp>
         <stringProp name="TestPlan.comments">Factory Comments</stringProp>
         <intProp name="maxSize">1000</intProp>
+        <boolProp name="CacheManager.controlledByThread">true</boolProp>
       </CacheManager>
       <hashTree/>
     </hashTree>

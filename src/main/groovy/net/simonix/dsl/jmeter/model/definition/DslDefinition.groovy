@@ -36,6 +36,7 @@ final class DslDefinition {
         property(name: 'serialized', type: Boolean, required: false, defaultValue: false)
         property(name: 'functionalMode', type: Boolean, required: false, defaultValue: false)
         property(name: 'tearDownOnShutdown', type: Boolean, required: false, defaultValue: false)
+        property(name: 'classpath', type: String, required: false, separator: ',', defaultValue: [])
     }
 
     // group
@@ -44,6 +45,7 @@ final class DslDefinition {
         property(name: 'users', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'rampUp', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'delayedStart', type: Boolean, required: false, defaultValue: false)
+        property(name: 'keepUser', type: Boolean, required: false, defaultValue: true)
         property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
         property(name: 'delay', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
@@ -56,8 +58,9 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'users', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'rampUp', type: Integer, required: false, defaultValue: 1, constraints: range(1))
-        property(name: 'delayedStart', type: Boolean, required: false, defaultValue: false)
+        property(name: 'keepUser', type: Boolean, required: false, defaultValue: true)
         property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
+        property(name: 'delay', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
@@ -68,8 +71,9 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'users', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'rampUp', type: Integer, required: false, defaultValue: 1, constraints: range(1))
-        property(name: 'delayedStart', type: Boolean, required: false, defaultValue: false)
+        property(name: 'keepUser', type: Boolean, required: false, defaultValue: true)
         property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
+        property(name: 'delay', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
@@ -273,6 +277,14 @@ final class DslDefinition {
         property(name: 'file', type: String, required: false, defaultValue: null)
     }
 
+    static final KeywordDefinition FILE = keyword('file') {
+        property(name: 'file', type: String, required: true, defaultValue: null)
+        property(name: 'name', type: Object, required: true, defaultValue: null)
+        property(name: 'type', type: Boolean, required: true, defaultValue: false)
+    }
+
+    static final KeywordDefinition FILES = keyword('files')
+
     // configs
     static final KeywordDefinition AUTHORIZATION = keyword('authorization') {
         property(name: 'url', type: String, required: false, defaultValue: '')
@@ -285,6 +297,8 @@ final class DslDefinition {
 
     static final KeywordDefinition AUTHORIZATIONS = keyword('authorizations') {
         include(COMMON_PROPERTIES)
+        property(name: 'clearEachIteration', type: Boolean, perequired: false, defaultValue: false)
+        property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
     }
 
     static final KeywordDefinition CACHE = keyword('cache') {
@@ -292,6 +306,7 @@ final class DslDefinition {
         property(name: 'clearEachIteration', type: Boolean, perequired: false, defaultValue: false)
         property(name: 'useExpires', type: Boolean, required: false, defaultValue: true)
         property(name: 'maxSize', type: Integer, required: false, defaultValue: 5000, constraints: range(0))
+        property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
     }
 
     static final KeywordDefinition COOKIE = keyword('cookie') {
@@ -305,8 +320,9 @@ final class DslDefinition {
 
     static final KeywordDefinition COOKIES = keyword('cookies') {
         include(COMMON_PROPERTIES)
-        property(name: 'clearEachIteration', type: Boolean, required: false, defaultValue: true)
-        property(name: 'policy', type: String, required: false, defaultValue: 'standard', constraints: inList(['standard', 'compatibility', 'netscape', 'standard-strict', 'best-match', 'default', 'ignoreCookies']))
+        property(name: 'clearEachIteration', type: Boolean, required: false, defaultValue: false)
+        property(name: 'policy', type: String, required: false, defaultValue: 'standard', constraints: inList(['standard', 'compatibility', 'netscape', 'standard-strict', 'best-match', 'rfc2109', 'rfc2965', 'default', 'ignoreCookies']))
+        property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
     }
 
     static final KeywordDefinition COUNTER = keyword('counter') {
@@ -675,6 +691,8 @@ final class DslDefinition {
 
             PARAM.name,
             PARAMS.name,
+            FILE.name,
+            FILES.name,
             BODY.name,
             ARGUMENT.name,
             ARGUMENTS.name,

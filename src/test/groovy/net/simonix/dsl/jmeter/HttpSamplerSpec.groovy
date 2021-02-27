@@ -16,6 +16,11 @@
 package net.simonix.dsl.jmeter
 
 import net.simonix.dsl.jmeter.test.spec.MockServerSpec
+import org.mockserver.verify.VerificationTimes
+
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
@@ -143,26 +148,32 @@ class HttpSamplerSpec extends MockServerSpec {
         once())
     }
     
-    def "HTTP request with cache element"() {
-        given: "define cached resource"
-        
+    def "HTTP request with cache handles expired resource"() {
+        given: "define cached resource which is already expired"
+
+        ZonedDateTime date = ZonedDateTime.now()
+        ZonedDateTime lastModified = date.minusDays(30)
+        ZonedDateTime expires = date.minusSeconds(7200)
+
         mockServerClient.when(
             request().withPath('/cached')
         ).respond(
             response()
                 .withStatusCode(200)
-                .withHeader('Last-Modified', 'Tue, 15 Nov 1994 12:45:26 GMT')
-                .withHeader('ETag', '737060cd8c284d8af7ad3082f209582d')
+                .withHeader('Date', DateTimeFormatter.RFC_1123_DATE_TIME.format(date))
+                .withHeader('Last-Modified', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
+                .withHeader('Expires', DateTimeFormatter.RFC_1123_DATE_TIME.format(expires))
+                .withHeader('ETag', '--my-e-tag--')
                 .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
         )
-        
-        when: "add params to request"
-        
+
+        when: "use default cache control using control-cache/expires headers"
+
         def testPlan = configure {
             plan {
                 group {
                     cache()
-                    
+
                     http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
                     http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
                 }
@@ -172,16 +183,60 @@ class HttpSamplerSpec extends MockServerSpec {
         run(testPlan)
 
         then: "we get request with default values and with custom"
-        
+
         mockServerClient.verify(
             request('/cached')
                 .withMethod('GET'),
             request('/cached')
                 .withMethod('GET')
-                .withHeader('If-Modified-Since', 'Tue, 15 Nov 1994 12:45:26 GMT')
-                .withHeader('If-None-Match', '737060cd8c284d8af7ad3082f209582d'))
+                .withHeader('If-Modified-Since', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
+                .withHeader('If-None-Match', '--my-e-tag--'))
     }
-    
+
+    def "HTTP request with cache handles not expired resource"() {
+        given: "define cached resource which is not expired"
+
+        ZonedDateTime date = ZonedDateTime.now()
+        ZonedDateTime lastModified = date.minusDays(30)
+        ZonedDateTime expires = date.plusSeconds(7200)
+
+        mockServerClient.when(
+                request().withPath('/cached')
+        ).respond(
+                response()
+                        .withStatusCode(200)
+                        .withHeader('Cache-Control', 'max-age=7200')
+                        .withHeader('Date', DateTimeFormatter.RFC_1123_DATE_TIME.format(date))
+                        .withHeader('Last-Modified', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
+                        .withHeader('Expires', DateTimeFormatter.RFC_1123_DATE_TIME.format(expires))
+                        .withHeader('ETag', '--my-e-tag--')
+                        .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
+        )
+
+        when: "use default cache control using control-cache/expires headers"
+
+        def testPlan = configure {
+            plan {
+                group {
+                    cache()
+
+                    http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
+                    http(protocol: 'http', domain: 'localhost', path: '/cached', port: 8899, method: 'GET')
+                }
+            }
+        }
+
+        run(testPlan)
+
+        then: "we get request with default values and with custom"
+
+        mockServerClient.verify(
+                request('/cached')
+                        .withMethod('GET'),
+                once()
+                )
+    }
+
     def "HTTP request with cookies element"() {
         given: "define cached resource"
         

@@ -33,7 +33,7 @@ import java.util.regex.Pattern
 @CompileDynamic
 final class TestScriptRunner {
 
-    final static Pattern JMETER_JARFILES_MATCHER = ~/(ApacheJMeter_[A-Za-z-.0-9]+\.jar)$/
+    final static Pattern JMETER_JARPATHS_MATCHER = ~/.*\/ApacheJMeter_[A-Za-z-.0-9]+\.jar$/
 
     final static String JMETER_PROPERITES_FILE = 'jmeter.properties'
     final static String JMETER_SAVESERVICE_FILE = 'saveservice.properties'
@@ -82,7 +82,7 @@ final class TestScriptRunner {
         // we need to set jmeter libraries to search paths so functions can be picked up
         List<String> paths = System.properties[JAVA_CLASSPATH_PROPERTY].tokenize(File.pathSeparator)
 
-        String searchPaths = paths.collect { it =~ JMETER_JARFILES_MATCHER }
+        String searchPaths = paths.collect { it =~ JMETER_JARPATHS_MATCHER }
                 .findAll { it.find() }
                 .collect { it.group() }
                 .join(';')

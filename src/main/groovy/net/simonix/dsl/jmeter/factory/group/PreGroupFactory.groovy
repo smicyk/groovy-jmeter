@@ -34,14 +34,13 @@ import org.apache.jmeter.threads.gui.SetupThreadGroupGui
  * before (
  *   users: integer        [<strong>1</strong>]
  *   rampUp: integer       [<strong>1</strong>]
- *   delayedStart: boolean [<strong>false</strong>]
  *   // properties for scheduler
  *   scheduler: boolean    [<strong>false</strong>]
+ *   delay: integer        [<strong>0</strong>]
  *   duration: integer     [<strong>0</strong>]
  *   // properties for loop
  *   loops: integer        [<strong>1</strong>]
  *   forever: boolean      [<strong>false</strong>]
- *
  *   onError: string       [<strong>continue</strong>, start_next, stop_user, stop_test, stop_now]
  * ) {
  *   groups | controllers | samplers | config
@@ -73,10 +72,11 @@ final class PreGroupFactory extends TestElementNodeFactory {
 
         testElement.numThreads = config.users as Integer
         testElement.rampUp = config.rampUp as Integer
-        testElement.setProperty(ThreadGroup.DELAYED_START, config.delayedStart as Boolean)
+        testElement.isSameUserOnNextIteration = config.keepUser
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
+        testElement.delay = config.delay
         testElement.duration = config.duration
 
         // set default controller as loop (that seems to be jmeter defaults)

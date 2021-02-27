@@ -18,12 +18,9 @@ package net.simonix.dsl.jmeter.factory.config
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.http.client.config.CookieSpecs
 import org.apache.jmeter.protocol.http.control.CookieManager
 import org.apache.jmeter.protocol.http.gui.CookiePanel
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * The factory class responsible for building <code>cookies</code> element in the test.
@@ -32,7 +29,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * // element structure
  * cookies (
  *   clearEachIteration: boolean [<strong>true</strong>]
- *   policy: string [<strong>standard</strong>, compatibility, netscape, standard-strict, best-match, default, ignoreCookies]
+ *   policy: string              [<strong>standard</strong>, compatibility, netscape, standard-strict, best-match, default, ignoreCookies]
+ *   useUserConfig: boolean      [<strong>false</strong>]
  * ) {
  *     {@link CookieFactory cookie}
  * }
@@ -51,10 +49,12 @@ final class CookiesFactory extends TestElementNodeFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         boolean clearEachIteration = config.clearEachIteration
+        boolean controlledByUser = config.useUserConfig
 
         testElement.clearEachIteration = clearEachIteration
         testElement.cookiePolicy = config.policy
+        testElement.controlledByThread = controlledByUser
 
-        // cookie policies: compatibility, standard, netscape, standard-strict, best-match, default, ignoreCookies
+        // cookie policies: compatibility, standard, netscape, standard-strict, best-match, rfc2109, rfc2965, default, ignoreCookies
     }
 }

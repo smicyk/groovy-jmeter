@@ -20,13 +20,17 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.control.AuthManager
 import org.apache.jmeter.protocol.http.gui.AuthPanel
+import org.apache.jmeter.testelement.TestElement
 
 /**
  * The factory class responsible for building <code>authorizations</code> element in the test.
  *
  * <pre>
  * // element structure
- * authorizations {
+ * authorizations (
+ *   clearEachIteration: boolean [<strong>false</strong>]
+ *   useUserConfig: boolean      [<strong>false</strong>]
+ * ) {
  *     {@link AuthorizationFactory authorization}
  * }
  * </pre>
@@ -40,5 +44,13 @@ final class AuthorizationsFactory extends TestElementNodeFactory {
 
     AuthorizationsFactory() {
         super(DslDefinition.AUTHORIZATIONS.title, AuthManager, AuthPanel, false, DslDefinition.AUTHORIZATIONS)
+    }
+
+    void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
+        boolean clearEachIteration = config.clearEachIteration
+        boolean controlledByUser = config.useUserConfig
+
+        testElement.clearEachIteration = clearEachIteration
+        testElement.controlledByThread = controlledByUser
     }
 }

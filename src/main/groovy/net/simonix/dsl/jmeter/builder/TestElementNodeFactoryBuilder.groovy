@@ -113,6 +113,8 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         // others
         addFactory(new ParamFactory())
         addFactory(new ParamsFactory())
+        addFactory(new FileFactory())
+        addFactory(new FilesFactory())
         addFactory(new BodyFactory())
         addFactory(new ArgumentFactory())
         addFactory(new ArgumentsFactory())
