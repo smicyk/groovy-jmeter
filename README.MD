@@ -10,7 +10,7 @@ It has following features:
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
  
- Current version uses [Apache JMeter 5.1.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
+ Current version uses [Apache JMeter 5.2.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
  
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  
@@ -285,14 +285,14 @@ All keywords in the DSL has predefined default values for its properties. For ex
 start {
     // would be same as plan (name: 'Test Plan')
     plan { 
-    
+
     }
-    
+
     plan {
         // would be same as group (users: 1, rampUp: 1) 
         group {
-        
-        }    
+
+        }
     }
 }
 ```
@@ -309,7 +309,7 @@ start {
         group {
             // condition property is required, otherwise using execute_if controller has no sense
             execute_if (condition: '''__jexl3(vars.get('var_random') mod 2 == 0)''') {
-            
+
             }
         }
     }
@@ -339,15 +339,15 @@ start {
 start {
     // keyword without properties, after keyword you can open closure without any properties or parenthesis
     plan {
-    
+
     }
     // keyword with properties, the properties of the keyword can have properties defined as key/value pair 
     plan (name: 'test', comments: 'new test plan') {
-    
+
     }
     // keyword with properties but without parenthesis, please note that after all properties you must put comma
     plan name: 'test', comments: 'new test plan', {
-    
+
     }
     // keyword without properties and child test elements, note that the parenthesis must be used
     plan()
@@ -393,18 +393,18 @@ start {
         group {
             // long version for HTTP request
             http(protocol: 'http', domain: 'localhost', port: 8080, path: '/app/login', method: 'GET') {
-            
+
             }
             // short version for HTTP request
             http 'GET http://localhost:8080/app/login', {
-            
+
             }
         }
 
         // if used with defaults keyword, some elements can be ommitted
         group {
             defaults(protocol: 'http', domain: 'localhost', port: 8080)
-            
+
             http 'GET /app/login', {}
         }
     }
@@ -458,7 +458,6 @@ start {
             // the name of the sample will generated as 'GET /app/books/:var_bookId'
             // currently this is default behaviour only if short version is used
             http 'GET http://localhost/app/books/${var_bookId}', {}
-            
             // to define own sample name you must use long version
             http name: 'Custom Name', protocol: 'http', domain: 'localhost', path: '/app/books/${var_bookId}', method: 'GET', {}
         }
