@@ -16,9 +16,7 @@
 package net.simonix.dsl.jmeter
 
 import net.simonix.dsl.jmeter.test.spec.MockServerSpec
-import org.mockserver.verify.VerificationTimes
 
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
