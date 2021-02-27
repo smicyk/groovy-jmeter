@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2019 Szymon Micyk
+ Copyright 2021 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -28,6 +28,11 @@
       </elementProp>
     </TestPlan>
     <hashTree>
+      <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager" enabled="true">
+        <collectionProp name="AuthManager.auth_list"/>
+        <boolProp name="AuthManager.controlledByThreadGroup">false</boolProp>
+      </AuthManager>
+      <hashTree/>
       <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="Factory Authorization" enabled="false">
         <collectionProp name="AuthManager.auth_list">
           <elementProp name="" elementType="Authorization">
@@ -70,6 +75,8 @@
           </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+        <boolProp name="AuthManager.clearEachIteration">true</boolProp>
+        <boolProp name="AuthManager.controlledByThreadGroup">true</boolProp>
       </AuthManager>
       <hashTree/>
     </hashTree>

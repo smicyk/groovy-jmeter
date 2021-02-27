@@ -44,7 +44,6 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  *   // properties for loop
  *   loops: integer        [<strong>1</strong>]
  *   forever: boolean      [<strong>false</strong>]
- *
  *   onError: string       [<strong>continue</strong>, start_next, stop_user, stop_test, stop_now]
  * ) {
  *   groups | controllers | samplers | config
@@ -77,6 +76,7 @@ final class GroupFactory extends TestElementNodeFactory {
         testElement.numThreads = config.users as Integer
         testElement.rampUp = config.rampUp as Integer
         testElement.setProperty(ThreadGroup.DELAYED_START, config.delayedStart as Boolean)
+        testElement.isSameUserOnNextIteration = config.keepUser
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
