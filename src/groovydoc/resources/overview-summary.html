@@ -14,6 +14,8 @@
 <h3>Group elements</h3>
 <ul>
     <li><a href="net/simonix/dsl/jmeter/factory/group/GroupFactory.html">group</a> - defines users group ('Thread Group')</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/PreGroupFactory.html">before</a> - defines before group ('setUp Thread Group')</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/PostGroupFactory.html">after</a> - defines after group ('tearDown Thread Group')</li>
 </ul>
 <h3>Config elements</h3>
 <ul>
@@ -55,6 +57,8 @@
     <li><a href="net/simonix/dsl/jmeter/factory/common/ParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/common/ParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/common/BodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/FileFactory.html">file</a> - defines upload file for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/FilesFactory.html">files</a> - defines upload files for 'HTTP Request' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/JSR223SamplerFactory.html">jsrsampler</a> - defines 'JSR223' sampler</li>
 </ul>
 <h3>Assertion elements</h3>
@@ -90,9 +94,14 @@
 </ul>
 <h3>Timer elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantTimerFactory.html">timer</a> - defines 'Constant Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantTimerFactory.html">constant_timer</a> - defines 'Constant Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformTimeFactory.html">uniform_timer</a> - defines 'Uniform Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/GaussianTimeFactory.html">gaussian_timer</a> - defines 'Gaussian Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/PoissonTimeFactory.html">poisson_timer</a> - defines 'Poisson Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/SynchronizingTimerFactory.html">synchronizing_timer</a> - defines 'Synchronizing Timer' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/timer/JSR223TimerFactory.html">jsrtimer</a> - defines 'JSR223 Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformRandomTimeFactory.html">uniform</a> - defines 'Uniform Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantThroughputFactory.html">constant_throughput</a> - defines 'Const Throughput Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/PreciseThroughputFactory.html">precise_throughput</a> - defines 'Precise Throughput Timer' element</li>
 </ul>
 </body>
 </html>

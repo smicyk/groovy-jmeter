@@ -34,10 +34,10 @@ Clone, build and publish jars to your local repository:
 git clone https://github.com/smicyk/groovy-jmeter.git
 
 # in Linux
-./gradlew clean build publish
+./gradlew clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-gradlew clean build publish
+gradlew clean build publishIvyPublicationToIvyRepository
 ```
 
 You can also try alternative approach and build everything on *Docker* without installing anything on your machine:
@@ -48,10 +48,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publish
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## First steps
