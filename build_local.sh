@@ -16,4 +16,4 @@
 # limitations under the License.
 ###
 
-./gradlew clean build publish
+./gradlew clean build publishIvyPublicationToIvyRepository
