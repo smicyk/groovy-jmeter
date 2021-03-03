@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,20 +29,20 @@ class DefinitionBuilder {
         }
     }
 
-    static KeywordDefinition keyword(String name) {
+    static KeywordDefinition keyword(String name, KeywordCategory category) {
         String title = messages."${name}.title"
         String description = messages."${name}.description"
 
-        KeywordBuilder builder = new KeywordBuilder(name, title, description)
+        KeywordBuilder builder = new KeywordBuilder(name, category, title, description)
 
         return builder.build()
     }
 
-    static KeywordDefinition keyword(String name, Closure c) {
+    static KeywordDefinition keyword(String name, KeywordCategory category, Closure c) {
         String title = messages."${name}.title"
         String description = messages."${name}.description"
 
-        c.delegate = new KeywordBuilder(name, title, description)
+        c.delegate = new KeywordBuilder(name, category, title, description)
 
         KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
 
@@ -59,13 +59,15 @@ class DefinitionBuilder {
 
     static class KeywordBuilder {
         String name
+        KeywordCategory category
         String title
         String description
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name, String title, String description) {
+        KeywordBuilder(String name, KeywordCategory category, String title, String description) {
             this.name = name
             this.title = title
+            this.category = category
             this.description = description
             this.properties = [] as Set<PropertyDefinition>
         }
@@ -95,7 +97,7 @@ class DefinitionBuilder {
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, title, description, properties)
+            return new KeywordDefinition(name, category, title, description, properties)
         }
     }
 

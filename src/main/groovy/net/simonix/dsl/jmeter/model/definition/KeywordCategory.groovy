@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.test.sampler
+package net.simonix.dsl.jmeter.model.definition
 
-import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.definition.KeywordCategory
-import org.apache.jmeter.testbeans.gui.TestBeanGUI
-
-import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
-
-/**
- * Used only in tests.
- * 
- * Handles 'log' keyword.
- *
- */
-final class LogSamplerFactory extends TestElementNodeFactory {
-    
-    LogSamplerFactory(String testElementName) {
-        super(testElementName, LogSampler, TestBeanGUI, true, keyword('log', KeywordCategory.SAMPLER))
-    }
+enum KeywordCategory {
+    PLAN,
+    GROUP,
+    CONTROLLER,
+    SAMPLER,
+    TIMER,
+    EXTRACTOR,
+    POSTPROCESSOR,
+    PREPROCESSOR,
+    ASSERTION,
+    CONFIG,
+    LISTENER,
+    CHECK,
+    AGGREGATOR,
+    OTHER
 }
