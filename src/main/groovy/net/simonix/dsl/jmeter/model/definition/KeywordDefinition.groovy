@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,12 @@ class KeywordDefinition {
     final String name
     final String title
     final String description
+    final String category
     final Set<PropertyDefinition> properties
 
-    KeywordDefinition(String name, String title, String description, Set<PropertyDefinition> properties) {
+    KeywordDefinition(String name, KeywordCategory category, String title, String description, Set<PropertyDefinition> properties) {
         this.name = name
+        this.category = category
         this.title = title
         this.description = description
         this.properties = properties.asImmutable()
