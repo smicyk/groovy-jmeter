@@ -33,7 +33,7 @@ import java.util.regex.Pattern
 @CompileDynamic
 final class TestScriptRunner {
 
-    final static Pattern JMETER_JARPATHS_MATCHER = ~/.*\/ApacheJMeter_[A-Za-z-.0-9]+\.jar$/
+    final static Pattern JMETER_JARPATHS_MATCHER = ~/.*(\/|\\)ApacheJMeter_[A-Za-z-.0-9]+\.jar$/
 
     final static String JMETER_PROPERITES_FILE = 'jmeter.properties'
     final static String JMETER_SAVESERVICE_FILE = 'saveservice.properties'
