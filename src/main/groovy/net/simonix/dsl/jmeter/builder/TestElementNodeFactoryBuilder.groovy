@@ -169,6 +169,8 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new VariableFactory())
         addFactory(new AuthorizationsFactory())
         addFactory(new AuthorizationFactory())
+        addFactory(new DnsFactory())
+        addFactory(new DnsHostFactory())
         addFactory(new CounterFactory())
         addFactory(new RandomVariableFactory())
 
