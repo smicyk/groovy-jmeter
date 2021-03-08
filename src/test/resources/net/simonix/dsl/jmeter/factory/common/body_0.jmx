@@ -32,9 +32,7 @@
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments">
             <elementProp name="" elementType="HTTPArgument">
-              <stringProp name="Argument.value">{&#xd;
-  &quot;parameter&quot;: &quot;value&quot;&#xd;
-}</stringProp>
+              <stringProp name="Argument.value">{&quot;parameter&quot;: &quot;value&quot;}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <boolProp name="HTTPArgument.always_encode">false</boolProp>
             </elementProp>
