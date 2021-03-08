@@ -57,8 +57,6 @@ final class FileFactory extends TestElementFactory {
 
     FileFactory() {
         super(HTTPFileArg, DslDefinition.FILE)
-
-        this.validator.valueIsProperty = true
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class XPathAssertionFactory extends TestElementNodeFactory {
 
     XPathAssertionFactory() {
-        super(DslDefinition.ASSERT_XPATH.title, XPathAssertion, XPathAssertionGui, true, DslDefinition.ASSERT_XPATH)
+        super(DslDefinition.ASSERT_XPATH.title, XPathAssertion, XPathAssertionGui, DslDefinition.ASSERT_XPATH.leaf, DslDefinition.ASSERT_XPATH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

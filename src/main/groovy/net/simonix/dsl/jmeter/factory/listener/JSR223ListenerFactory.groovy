@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,6 @@ import org.apache.jmeter.visualizers.JSR223Listener
 final class JSR223ListenerFactory extends AbstractJSR223Factory {
 
     JSR223ListenerFactory() {
-        super(DslDefinition.JSR223_LISTENER.title, JSR223Listener, TestBeanGUI, true, DslDefinition.JSR223_LISTENER)
+        super(DslDefinition.JSR223_LISTENER.title, JSR223Listener, TestBeanGUI, DslDefinition.JSR223_LISTENER.leaf, DslDefinition.JSR223_LISTENER)
     }
 }

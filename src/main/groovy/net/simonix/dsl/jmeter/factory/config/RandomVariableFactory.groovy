@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomVariableFactory extends TestElementNodeFactory {
 
     RandomVariableFactory() {
-        super(DslDefinition.RANDOM_VARIABLE.title, RandomVariableConfig, TestBeanGUI, true, DslDefinition.RANDOM_VARIABLE)
+        super(DslDefinition.RANDOM_VARIABLE.title, RandomVariableConfig, TestBeanGUI, DslDefinition.RANDOM_VARIABLE.leaf, DslDefinition.RANDOM_VARIABLE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

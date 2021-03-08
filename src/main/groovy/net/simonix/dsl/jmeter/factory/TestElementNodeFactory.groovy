@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
         this.leaf = leaf
         this.definition = definition
 
-        this.validator = new PropertyValidator(definition.properties)
+        this.validator = new PropertyValidator(definition.properties, definition.valueIsProperty)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

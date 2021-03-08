@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Copyright 2021 Szymon Micyk
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="User Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <longProp name="ThreadGroup.duration">0</longProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">1</intProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+          <collectionProp name="Asserion.test_strings"/>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Factory" enabled="true">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="-1670867693">pattern \d+</stringProp>
+            <stringProp name="-968454971">any string</stringProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Factory comments</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+          <intProp name="Assertion.test_type">37</intProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <boolProp name="Assertion.assume_success">true</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <longProp name="DurationAssertion.duration">10</longProp>
+        </DurationAssertion>
+        <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assert Duration Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <longProp name="DurationAssertion.duration">10</longProp>
+        </DurationAssertion>
+        <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <longProp name="DurationAssertion.duration">10</longProp>
+        </DurationAssertion>
+        <hashTree/>
+        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Json Path Assertion" enabled="true">
+          <stringProp name="JSON_PATH">$.</stringProp>
+          <stringProp name="EXPECTED_VALUE"></stringProp>
+          <boolProp name="JSONVALIDATION">false</boolProp>
+          <boolProp name="EXPECT_NULL">false</boolProp>
+          <boolProp name="INVERT">false</boolProp>
+          <boolProp name="ISREGEX">true</boolProp>
+        </JSONPathAssertion>
+        <hashTree/>
+        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Json Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <stringProp name="JSON_PATH">$.element</stringProp>
+          <stringProp name="EXPECTED_VALUE">test</stringProp>
+          <boolProp name="JSONVALIDATION">true</boolProp>
+          <boolProp name="EXPECT_NULL">true</boolProp>
+          <boolProp name="INVERT">true</boolProp>
+          <boolProp name="ISREGEX">false</boolProp>
+        </JSONPathAssertion>
+        <hashTree/>
+        <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="MD5Hex Assertion" enabled="true">
+          <stringProp name="MD5HexAssertion.size">--some--value--</stringProp>
+        </MD5HexAssertion>
+        <hashTree/>
+        <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="Assert MD5 Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <stringProp name="MD5HexAssertion.size">--some-value--</stringProp>
+        </MD5HexAssertion>
+        <hashTree/>
+        <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="--some--value--" enabled="true">
+          <stringProp name="MD5HexAssertion.size">--some--value--</stringProp>
+        </MD5HexAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">50</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Assert Size Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">50</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">50</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="XPath.xpath">/</stringProp>
+          <boolProp name="XPath.whitespace">false</boolProp>
+          <boolProp name="XPath.validate">false</boolProp>
+          <boolProp name="XPath.namespace">false</boolProp>
+          <boolProp name="XPath.tolerant">false</boolProp>
+          <boolProp name="XPath.negate">false</boolProp>
+        </XPathAssertion>
+        <hashTree/>
+        <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="Assert XPath Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <stringProp name="XPath.xpath">//span</stringProp>
+          <boolProp name="XPath.whitespace">true</boolProp>
+          <boolProp name="XPath.validate">true</boolProp>
+          <boolProp name="XPath.namespace">true</boolProp>
+          <boolProp name="XPath.tolerant">true</boolProp>
+          <boolProp name="XPath.negate">true</boolProp>
+          <boolProp name="XPath.report_errors">true</boolProp>
+          <boolProp name="XPath.show_warnings">true</boolProp>
+          <boolProp name="XPath.download_dtds">true</boolProp>
+        </XPathAssertion>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

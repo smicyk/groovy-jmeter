@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 final class PlanFactory extends TestElementNodeFactory {
 
     PlanFactory() {
-        super(DslDefinition.PLAN.title, TestPlan, TestPlanGui, false, DslDefinition.PLAN)
+        super(DslDefinition.PLAN.title, TestPlan, TestPlanGui, DslDefinition.PLAN.leaf, DslDefinition.PLAN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

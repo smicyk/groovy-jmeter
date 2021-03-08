@@ -50,7 +50,7 @@ import org.apache.jmeter.timers.gui.GaussianRandomTimerGui
 final class GaussianTimerFactory extends TestElementNodeFactory {
 
     GaussianTimerFactory() {
-        super(DslDefinition.GAUSSIAN_TIMER.title, GaussianRandomTimer, GaussianRandomTimerGui, true, DslDefinition.GAUSSIAN_TIMER)
+        super(DslDefinition.GAUSSIAN_TIMER.title, GaussianRandomTimer, GaussianRandomTimerGui, DslDefinition.GAUSSIAN_TIMER.leaf, DslDefinition.GAUSSIAN_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

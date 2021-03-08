@@ -47,7 +47,7 @@ import org.apache.jmeter.protocol.http.util.HTTPFileArgs
 final class FilesFactory extends TestElementFactory {
 
     FilesFactory() {
-        super(HTTPFileArgs, false, DslDefinition.FILES)
+        super(HTTPFileArgs, DslDefinition.FILES.leaf, DslDefinition.FILES)
     }
 
     void onNodeCompleted( FactoryBuilderSupport builder, Object parent, Object files) {

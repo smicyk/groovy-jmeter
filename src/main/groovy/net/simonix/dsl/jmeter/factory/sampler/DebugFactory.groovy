@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DebugFactory extends TestElementNodeFactory {
 
     DebugFactory() {
-        super(DslDefinition.DEBUG.title, DebugSampler, TestBeanGUI, false, DslDefinition.DEBUG)
+        super(DslDefinition.DEBUG.title, DebugSampler, TestBeanGUI, DslDefinition.DEBUG.leaf, DslDefinition.DEBUG)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

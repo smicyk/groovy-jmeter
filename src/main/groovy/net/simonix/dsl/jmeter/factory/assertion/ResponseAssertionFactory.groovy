@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ import org.apache.jmeter.testelement.TestElement
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
     ResponseAssertionFactory() {
-        super(DslDefinition.ASSERT_RESPONSE.title, ResponseAssertion, AssertionGui, false, DslDefinition.ASSERT_RESPONSE)
+        super(DslDefinition.ASSERT_RESPONSE.title, ResponseAssertion, AssertionGui, DslDefinition.ASSERT_RESPONSE.leaf, DslDefinition.ASSERT_RESPONSE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -106,8 +106,8 @@ final class ResponseAssertionFactory extends TestElementNodeFactory {
             testElement.setToContainsType()
         }
 
-        testElement.setCustomFailureMessage(message)
-        testElement.setAssumeSuccess(ignoreStatus)
+        testElement.customFailureMessage = message
+        testElement.assumeSuccess = ignoreStatus
 
         if (anyMatch) {
             testElement.setToOrType()

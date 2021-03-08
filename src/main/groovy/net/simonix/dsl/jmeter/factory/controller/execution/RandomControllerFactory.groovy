@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomControllerFactory extends TestElementNodeFactory {
 
     RandomControllerFactory() {
-        super(DslDefinition.EXECUTE_RANDOM.title, RandomController, RandomControlGui, false, DslDefinition.EXECUTE_RANDOM)
+        super(DslDefinition.EXECUTE_RANDOM.title, RandomController, RandomControlGui, DslDefinition.EXECUTE_RANDOM.leaf, DslDefinition.EXECUTE_RANDOM)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

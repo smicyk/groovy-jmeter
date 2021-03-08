@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
 @CompileDynamic
 final class LoopFactory extends TestElementNodeFactory {
 
-    LoopFactory(String testElementName) {
-        super(DslDefinition.LOOP.title, LoopController, LoopControlPanel, false, DslDefinition.LOOP)
+    LoopFactory() {
+        super(DslDefinition.LOOP.title, LoopController, LoopControlPanel, DslDefinition.LOOP.leaf, DslDefinition.LOOP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
