@@ -314,13 +314,29 @@ final class DslDefinition {
 
     static final KeywordDefinition AUTHORIZATIONS = keyword('authorizations', KeywordCategory.CONFIG) {
         include(COMMON_PROPERTIES)
-        property(name: 'clearEachIteration', type: Boolean, perequired: false, defaultValue: false)
+        property(name: 'clearEachIteration', type: Boolean, required: false, defaultValue: false)
         property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition DNS = keyword('dns', KeywordCategory.CONFIG) {
+        include(COMMON_PROPERTIES)
+        property(name: 'clearEachIteration', type: Boolean, required: false, defaultValue: false)
+        property(name: 'useSystem', type: Boolean, required: false, defaultValue: true)
+        property(name: 'servers', type: String, required: false, defaultValue: [])
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
+    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG) {
+        include(COMMON_PROPERTIES)
+        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition CACHE = keyword('cache', KeywordCategory.CONFIG) {
         include(COMMON_PROPERTIES)
-        property(name: 'clearEachIteration', type: Boolean, perequired: false, defaultValue: false)
+        property(name: 'clearEachIteration', type: Boolean, required: false, defaultValue: false)
         property(name: 'useExpires', type: Boolean, required: false, defaultValue: true)
         property(name: 'maxSize', type: Integer, required: false, defaultValue: 5000, constraints: range(0))
         property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
@@ -755,6 +771,8 @@ final class DslDefinition {
 
             AUTHORIZATION.name,
             AUTHORIZATIONS.name,
+            DNS.name,
+            DNS_HOST.name,
             CACHE.name,
             COOKIE.name,
             COOKIES.name,
