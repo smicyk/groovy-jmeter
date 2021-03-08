@@ -330,6 +330,8 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition CACHE = keyword('cache', KeywordCategory.CONFIG) {
