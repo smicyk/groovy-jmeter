@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,11 @@ import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.testelement.TestElement
 import org.apache.jmeter.testelement.property.TestElementProperty
 
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
-
 @CompileDynamic
 final class DefaultsFactory extends TestElementNodeFactory {
 
     DefaultsFactory() {
-        super(DslDefinition.DEFAULTS.title, ConfigTestElement, HttpDefaultsGui, false, DslDefinition.DEFAULTS)
+        super(DslDefinition.DEFAULTS.title, ConfigTestElement, HttpDefaultsGui, DslDefinition.DEFAULTS.leaf, DslDefinition.DEFAULTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

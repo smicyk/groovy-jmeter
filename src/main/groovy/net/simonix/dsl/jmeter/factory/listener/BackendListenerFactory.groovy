@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class BackendListenerFactory extends TestElementNodeFactory {
 
-    BackendListenerFactory(String testElementName) {
-        super(DslDefinition.BACKEND.title, BackendListener, BackendListenerGui, false, DslDefinition.BACKEND)
+    BackendListenerFactory() {
+        super(DslDefinition.BACKEND.title, BackendListener, BackendListenerGui, DslDefinition.BACKEND.leaf, DslDefinition.BACKEND)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

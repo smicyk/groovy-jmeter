@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ import org.apache.jmeter.testelement.TestElement
 final class CsvDataFactory extends TestElementNodeFactory {
 
     CsvDataFactory() {
-        super(DslDefinition.CSV_DATA.title, CSVDataSet, TestBeanGUI, false, DslDefinition.CSV_DATA)
+        super(DslDefinition.CSV_DATA.title, CSVDataSet, TestBeanGUI, DslDefinition.CSV_DATA.leaf, DslDefinition.CSV_DATA)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -33,7 +33,9 @@ class DefinitionBuilder {
         String title = messages."${name}.title"
         String description = messages."${name}.description"
 
-        KeywordBuilder builder = new KeywordBuilder(name, category, title, description)
+        KeywordBuilder builder = new KeywordBuilder(name, category)
+        builder.title = title
+        builder.description = description
 
         return builder.build()
     }
@@ -42,9 +44,13 @@ class DefinitionBuilder {
         String title = messages."${name}.title"
         String description = messages."${name}.description"
 
-        c.delegate = new KeywordBuilder(name, category, title, description)
+        KeywordBuilder builder = new KeywordBuilder(name, category)
+        builder.title = title
+        builder.description = description
 
-        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+        c.delegate = builder
+
+        builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
 
         return builder.build()
     }
@@ -62,13 +68,13 @@ class DefinitionBuilder {
         KeywordCategory category
         String title
         String description
+        boolean leaf = false
+        boolean valueIsProperty = false
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name, KeywordCategory category, String title, String description) {
+        KeywordBuilder(String name, KeywordCategory category) {
             this.name = name
-            this.title = title
             this.category = category
-            this.description = description
             this.properties = [] as Set<PropertyDefinition>
         }
 
@@ -96,8 +102,20 @@ class DefinitionBuilder {
             return this
         }
 
+        KeywordBuilder leaf() {
+            this.leaf = true
+
+            return this
+        }
+
+        KeywordBuilder valueIsProperty() {
+            this.valueIsProperty = true
+
+            return this
+        }
+
         KeywordDefinition build() {
-            return new KeywordDefinition(name, category, title, description, properties)
+            return new KeywordDefinition(name, category, title, description, leaf, valueIsProperty, properties)
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import org.apache.jmeter.assertions.MD5HexAssertion
 import org.apache.jmeter.assertions.gui.MD5HexAssertionGUI
 import org.apache.jmeter.testelement.TestElement
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
+
 /**
  * The factory class responsible for building <code>assert_md5hex</code> element in the test.
  *
@@ -39,12 +41,12 @@ import org.apache.jmeter.testelement.TestElement
 final class MD5HexAssertionFactory extends TestElementNodeFactory {
 
     MD5HexAssertionFactory() {
-        super(DslDefinition.ASSERT_MD5HEX.title, MD5HexAssertion, MD5HexAssertionGUI, true, DslDefinition.ASSERT_MD5HEX)
+        super(DslDefinition.ASSERT_MD5HEX.title, MD5HexAssertion, MD5HexAssertionGUI, DslDefinition.ASSERT_MD5HEX.leaf, DslDefinition.ASSERT_MD5HEX)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        String md5hex = config.value
+        String md5hex = readValue(value, config.value)
 
-        testElement.setAllowedMD5Hex(md5hex)
+        testElement.allowedMD5Hex = md5hex
     }
 }

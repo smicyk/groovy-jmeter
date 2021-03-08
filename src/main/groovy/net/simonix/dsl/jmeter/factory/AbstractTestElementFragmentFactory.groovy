@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
     protected AbstractTestElementFragmentFactory(KeywordDefinition definition) {
         this.definition = definition
 
-        this.validator = new PropertyValidator(definition.properties)
+        this.validator = new PropertyValidator(definition.properties, definition.valueIsProperty)
 
         CompilerConfiguration config = new CompilerConfiguration()
         config.scriptBaseClass = FragmentTestScript.name
@@ -59,7 +59,7 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
     }
 
     boolean isLeaf() {
-        return true
+        return definition.leaf
     }
 
     boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map config ) {

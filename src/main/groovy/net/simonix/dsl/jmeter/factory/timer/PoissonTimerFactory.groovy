@@ -50,7 +50,7 @@ import org.apache.jmeter.timers.gui.PoissonRandomTimerGui
 final class PoissonTimerFactory extends TestElementNodeFactory {
 
     PoissonTimerFactory() {
-        super(DslDefinition.POISSON_TIMER.title, PoissonRandomTimer, PoissonRandomTimerGui, true, DslDefinition.POISSON_TIMER)
+        super(DslDefinition.POISSON_TIMER.title, PoissonRandomTimer, PoissonRandomTimerGui, DslDefinition.POISSON_TIMER.leaf, DslDefinition.POISSON_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

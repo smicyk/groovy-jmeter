@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CssSelectorExtractorFactory extends TestElementNodeFactory {
 
     CssSelectorExtractorFactory() {
-        super(DslDefinition.CSS_EXTRACTOR.title, HtmlExtractor, HtmlExtractorGui, true, DslDefinition.CSS_EXTRACTOR)
+        super(DslDefinition.CSS_EXTRACTOR.title, HtmlExtractor, HtmlExtractorGui, DslDefinition.CSS_EXTRACTOR.leaf, DslDefinition.CSS_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class LoginFactory extends TestElementNodeFactory {
 
     LoginFactory() {
-        super(DslDefinition.LOGIN.title, ConfigTestElement, LoginConfigGui, false, DslDefinition.LOGIN)
+        super(DslDefinition.LOGIN.title, ConfigTestElement, LoginConfigGui, DslDefinition.LOGIN.leaf, DslDefinition.LOGIN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

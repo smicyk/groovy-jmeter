@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TotalControllerFactory extends TestElementNodeFactory {
 
     TotalControllerFactory() {
-        super(DslDefinition.EXECUTE_TOTAL.title, ThroughputController, ThroughputControllerGui, false, DslDefinition.EXECUTE_TOTAL)
+        super(DslDefinition.EXECUTE_TOTAL.title, ThroughputController, ThroughputControllerGui, DslDefinition.EXECUTE_TOTAL.leaf, DslDefinition.EXECUTE_TOTAL)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

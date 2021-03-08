@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 @CompileDynamic
 final class JSR223PreProcessorFactory extends AbstractJSR223Factory {
 
-    JSR223PreProcessorFactory(String testElementName) {
-        super(DslDefinition.JSR223_PREPROCESSOR.title, JSR223PreProcessor, TestBeanGUI, true, DslDefinition.JSR223_PREPROCESSOR)
+    JSR223PreProcessorFactory() {
+        super(DslDefinition.JSR223_PREPROCESSOR.title, JSR223PreProcessor, TestBeanGUI, DslDefinition.JSR223_PREPROCESSOR.leaf, DslDefinition.JSR223_PREPROCESSOR)
     }
 }

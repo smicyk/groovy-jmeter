@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SummaryFactory extends TestElementNodeFactory {
 
     SummaryFactory() {
-        super(DslDefinition.SUMMARY.title, ResultCollector, SummaryReport, true, DslDefinition.SUMMARY)
+        super(DslDefinition.SUMMARY.title, ResultCollector, SummaryReport, DslDefinition.SUMMARY.leaf, DslDefinition.SUMMARY)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

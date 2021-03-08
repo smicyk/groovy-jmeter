@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class WhileControllerFactory extends TestElementNodeFactory {
 
     WhileControllerFactory() {
-        super(DslDefinition.EXECUTE_WHILE.title, WhileController, WhileControllerGui, false, DslDefinition.EXECUTE_WHILE)
-
-        this.validator.valueIsProperty = true
+        super(DslDefinition.EXECUTE_WHILE.title, WhileController, WhileControllerGui, DslDefinition.EXECUTE_WHILE.leaf, DslDefinition.EXECUTE_WHILE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

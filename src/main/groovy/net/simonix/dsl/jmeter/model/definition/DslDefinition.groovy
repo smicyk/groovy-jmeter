@@ -105,6 +105,8 @@ final class DslDefinition {
     static final KeywordDefinition INCLUDE = keyword('include', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'file', type: String, required: true)
+        leaf()
+        valueIsProperty()
     }
     
     static final KeywordDefinition FOR_EACH = keyword('for_each', KeywordCategory.CONTROLLER) {
@@ -126,11 +128,13 @@ final class DslDefinition {
         property(name: 'condition', type: String, required: true)
         property(name: 'useExpression', type: Boolean, required: false, defaultValue: true)
         property(name: 'evaluateAll', type: Boolean, required: false, defaultValue: false)
+        valueIsProperty()
     }
 
     static final KeywordDefinition EXECUTE_WHILE = keyword('execute_while', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'condition', type: String, required: true)
+        valueIsProperty()
     }
 
     static final KeywordDefinition EXECUTE_ONCE = keyword('execute_once', KeywordCategory.CONTROLLER) {
@@ -156,22 +160,26 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'percent', type: Integer, required: false, defaultValue: 100, constraints: range(0, 100))
         property(name: 'perUser', type: Boolean, required: false, defaultValue: false)
+        valueIsProperty()
     }
 
     static final KeywordDefinition EXECUTE_TOTAL = keyword('execute_total', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'total', type: Integer, required: false, defaultValue: 1, constraints: range(0))
         property(name: 'perUser', type: Boolean, required: false, defaultValue: false)
+        valueIsProperty()
     }
 
     static final KeywordDefinition EXECUTE_RUNTIME = keyword('execute_runtime', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'runtime', type: Integer, required: false, defaultValue: 1, constraints: range(0))
+        valueIsProperty()
     }
 
     static final KeywordDefinition EXECUTE_SWITCH = keyword('execute_switch', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'value', type: String, required: false, defaultValue: '0')
+        valueIsProperty()
     }
 
     // samplers
@@ -252,6 +260,7 @@ final class DslDefinition {
         property(name: 'value', type: Object, required: false, defaultValue: null)
         property(name: 'encoded', type: Boolean, required: false, defaultValue: false)
         property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
     }
 
     static final KeywordDefinition PARAMS = keyword('params', KeywordCategory.OTHER) {
@@ -262,11 +271,14 @@ final class DslDefinition {
         property(name: 'file', type: String, required: false, defaultVabodlue: null)
         property(name: 'inline', type: String, required: false, defaultValue: null)
         property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition ARGUMENT = keyword('argument', KeywordCategory.OTHER) {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition ARGUMENTS = keyword('arguments', KeywordCategory.OTHER) {
@@ -275,12 +287,16 @@ final class DslDefinition {
 
     static final KeywordDefinition INSERT = keyword('insert', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: false, defaultValue: null)
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition FILE = keyword('file', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: true, defaultValue: null)
         property(name: 'name', type: Object, required: true, defaultValue: null)
         property(name: 'type', type: Boolean, required: true, defaultValue: false)
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition FILES = keyword('files', KeywordCategory.OTHER)
@@ -293,6 +309,7 @@ final class DslDefinition {
         property(name: 'domain', type: String, required: false, defaultValue: '')
         property(name: 'realm', type: String, required: false, defaultValue: '')
         property(name: 'mechanism', type: String, required: false, defaultValue: 'BASIC', constraints: inList(['BASIC', 'DIGEST', 'KERBEROS', 'BASIC_DIGEST']))
+        leaf()
     }
 
     static final KeywordDefinition AUTHORIZATIONS = keyword('authorizations', KeywordCategory.CONFIG) {
@@ -307,6 +324,7 @@ final class DslDefinition {
         property(name: 'useExpires', type: Boolean, required: false, defaultValue: true)
         property(name: 'maxSize', type: Integer, required: false, defaultValue: 5000, constraints: range(0))
         property(name: 'useUserConfig', type: Boolean, required: false, defaultValue: false)
+        leaf()
     }
 
     static final KeywordDefinition COOKIE = keyword('cookie', KeywordCategory.CONFIG) {
@@ -316,6 +334,7 @@ final class DslDefinition {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
         property(name: 'expires', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition COOKIES = keyword('cookies', KeywordCategory.CONFIG) {
@@ -334,6 +353,7 @@ final class DslDefinition {
         property(name: 'increment', type: Integer, required: false, defaultValue: 1)
         property(name: 'variable', type: String, required: false, defaultValue: 'c')
         property(name: 'format', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition CSV_DATA = keyword('csv', KeywordCategory.CONFIG) {
@@ -347,6 +367,7 @@ final class DslDefinition {
         property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
         property(name: 'delimiter', type: String, required: false, defaultValue: ',')
         property(name: 'shareMode', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'group', 'thread' ]))
+        leaf()
     }
 
     static final KeywordDefinition DEFAULTS = keyword('defaults', KeywordCategory.CONFIG) {
@@ -377,6 +398,7 @@ final class DslDefinition {
     static final KeywordDefinition HEADER = keyword('header', KeywordCategory.CONFIG) {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition HEADERS = keyword('headers', KeywordCategory.CONFIG) {
@@ -398,12 +420,14 @@ final class DslDefinition {
         property(name: 'format', type: String, required: false, defaultValue: null)
         property(name: 'variable', type: String, required: false, defaultValue: 'r')
         property(name: 'seed', type: Long, required: false, defaultValue: null)
+        leaf()
     }
 
     static final KeywordDefinition VARIABLE = keyword('variable', KeywordCategory.CONFIG) {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
         property(name: 'description', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition VARIABLES = keyword('variables', KeywordCategory.CONFIG) {
@@ -415,46 +439,54 @@ final class DslDefinition {
     static final KeywordDefinition TIMER = keyword('timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'type', type: String, required: true, constraints: inList(['constant', 'uniform', 'gaussian', 'poisson', 'synchronizing']))
+        leaf()
     }
 
     static final KeywordDefinition CONSTANT_TIMER = keyword('constant_timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'delay', type: Long, required: false, defaultValue: 300, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition UNIFORM_TIMER = keyword('uniform_timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'delay', type: Long, required: false, defaultValue: 1000, constraints: range(0))
         property(name: 'range', type: Double, required: false, defaultValue: 100.0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition GAUSSIAN_TIMER = keyword('gaussian_timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'delay', type: Long, required: false, defaultValue: 100, constraints: range(0))
         property(name: 'range', type: Double, required: false, defaultValue: 300.0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition POISSON_TIMER = keyword('poisson_timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'delay', type: Long, required: false, defaultValue: 300, constraints: range(0))
         property(name: 'range', type: Double, required: false, defaultValue: 100.0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition SYNCHRONIZING_TIMER = keyword('synchronizing_timer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'users', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'timeout', type: Long, required: false, defaultValue: 0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition THROUGHPUT = keyword('throughput', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'type', type: String, required: true, constraints: inList(['constant', 'precise']))
+        leaf()
     }
 
     static final KeywordDefinition CONSTANT_THROUGHPUT = keyword('constant_throughput', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         property(name: 'target', type: Double, required: false, defaultValue: 0.0, constraints: range(0))
         property(name: 'basedOn', type: String, required: false, defaultValue: 'user', constraints: inList(['user', 'all_users', 'all_users_shared', 'all_users_in_group', 'all_users_in_group_shared']))
+        leaf()
     }
 
     static final KeywordDefinition PRECISE_THROUGHPUT = keyword('precise_throughput', KeywordCategory.TIMER) {
@@ -467,17 +499,20 @@ final class DslDefinition {
         property(name: 'samples', type: Integer, required: false, defaultValue: 10_000, constraints: range(0))
         property(name: 'percents', type: Double, required: false, defaultValue: 1.0, constraints: range(0))
         property(name: 'seed', type: Long, required: false, defaultValue: 0, constraints: range(0))
+        leaf()
     }
 
     static final KeywordDefinition JSR223_TIMER = keyword('jsrtimer', KeywordCategory.TIMER) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
+        leaf()
     }
 
     // listeners
     static final KeywordDefinition AGGREGATE = keyword('aggregate', KeywordCategory.LISTENER) {
         include(COMMON_PROPERTIES)
         property(name: 'file', type: String, required: true, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition BACKEND = keyword('backend', KeywordCategory.LISTENER)  {
@@ -518,11 +553,13 @@ final class DslDefinition {
         property(name: 'timestamp', type: Boolean, required: false)
         property(name: 'url', type: Boolean, required: false)
         property(name: 'xml', type: Boolean, required: false)
+        leaf()
     }
 
     static final KeywordDefinition JSR223_LISTENER = keyword('jsrlistener', KeywordCategory.LISTENER) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
+        leaf()
     }
 
     // extractors
@@ -536,6 +573,7 @@ final class DslDefinition {
         property(name: 'expression', type: String, required: true, defaultValue: '')
         property(name: 'attribute', type: String, required: false, defaultValue: '')
         property(name: 'engine', type: String, required: false, defaultValue: 'JSOUP', constraints: inList(['JSOUP', 'JODD']))
+        leaf()
     }
 
     static final KeywordDefinition REGEX_EXTRACTOR = keyword('extract_regex', KeywordCategory.EXTRACTOR) {
@@ -548,6 +586,7 @@ final class DslDefinition {
         property(name: 'variable', type: String, required: true, defaultValue: '')
         property(name: 'expression', type: String, required: true, defaultValue: '')
         property(name: 'template', type: String, required: false, defaultValue: '\$1\$')
+        leaf()
     }
 
     static final KeywordDefinition JSON_EXTRACTOR = keyword('extract_json', KeywordCategory.EXTRACTOR) {
@@ -558,6 +597,7 @@ final class DslDefinition {
         property(name: 'variables', type: String, required: true, defaultValue: [], separator: ';')
         property(name: 'expressions', type: String, required: true, defaultValue: [], separator: ';')
         property(name: 'concatenation', type: Boolean, required: false, defaultValue: false)
+        leaf()
     }
 
     static final KeywordDefinition XPATH_EXTRACTOR = keyword('extract_xpath', KeywordCategory.EXTRACTOR) {
@@ -569,22 +609,26 @@ final class DslDefinition {
         property(name: 'expression', type: String, required: true, defaultValue: '')
         property(name: 'namespaces', type: String, required: false, defaultValue: [], separator: '\n')
         property(name: 'fragment', type: Boolean, required: false, defaultValue: false)
+        leaf()
     }
 
     static final KeywordDefinition JSR223_POSTPROCESSOR = keyword('jsrpostprocessor', KeywordCategory.POSTPROCESSOR) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
+        leaf()
     }
 
     static final KeywordDefinition JSR223_PREPROCESSOR = keyword('jsrpreprocessor', KeywordCategory.PREPROCESSOR) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
+        leaf()
     }
 
     // assertions
     static final KeywordDefinition JSR223_ASSERTION = keyword('jsrassertion', KeywordCategory.ASSERTION) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
+        leaf()
     }
 
     static final KeywordDefinition ASSERT_RESPONSE = keyword('assert_response', KeywordCategory.ASSERTION) {
@@ -605,13 +649,17 @@ final class DslDefinition {
         property(name: 'variable', type: String, required: false, defaultValue: null)
         property(name: 'field', type: String, required: false, defaultValue: 'response_data', constraints: inList(['response_data', 'response_body', 'response_code', 'response_message', 'response_headers']))
         property(name: 'rule', type: String, required: false, defaultValue: 'eq', constraints: inList(['contains', 'matches', 'equals', 'substring']))
-        property(name: 'size', type: Long, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'size', type: Long, required: true, defaultValue: 0, constraints: range(0))
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition ASSERT_DURATION = keyword('assert_duration', KeywordCategory.ASSERTION) {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
-        property(name: 'duration', type: Long, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'duration', type: Long, required: true, defaultValue: 0, constraints: range(0))
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition ASSERT_XPATH = keyword('assert_xpath', KeywordCategory.ASSERTION) {
@@ -628,6 +676,7 @@ final class DslDefinition {
         property(name: 'reportErrors', type: Boolean, required: false, defaultValue: false)
         property(name: 'showWarnings', type: Boolean, required: false, defaultValue: false)
         property(name: 'quiet', type: Boolean, required: false, defaultValue: true)
+        leaf()
     }
 
     static final KeywordDefinition ASSERT_JSON = keyword('assert_json', KeywordCategory.ASSERTION) {
@@ -638,23 +687,29 @@ final class DslDefinition {
         property(name: 'value', type: String, required: false, defaultValue: '')
         property(name: 'expectNull', type: Boolean, required: false, defaultValue: false)
         property(name: 'invert', type: Boolean, required: false, defaultValue: false)
+        leaf()
     }
 
     static final KeywordDefinition ASSERT_MD5HEX = keyword('assert_md5hex', KeywordCategory.ASSERTION) {
         include(COMMON_PROPERTIES)
-        property(name: 'value', type: String, required: false, defaultValue: '')
+        property(name: 'value', type: String, required: true, defaultValue: '')
+        leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition CHECK_RESPONSE = keyword('check_response', KeywordCategory.CHECK) {
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
+        valueIsProperty()
     }
 
     static final KeywordDefinition CHECK_REQUEST = keyword('check_request', KeywordCategory.CHECK) {
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
+        valueIsProperty()
     }
 
     static final KeywordDefinition CHECK_SIZE = keyword('check_size', KeywordCategory.CHECK) {
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
+        valueIsProperty()
     }
 
     static final Set<String> VALID_KEYWORDS = [

@@ -44,7 +44,7 @@ import org.apache.jmeter.testelement.TestElement
 final class CookiesFactory extends TestElementNodeFactory {
 
     CookiesFactory() {
-        super(DslDefinition.COOKIES.title, CookieManager, CookiePanel, false, DslDefinition.COOKIES)
+        super(DslDefinition.COOKIES.title, CookieManager, CookiePanel, DslDefinition.COOKIES.leaf, DslDefinition.COOKIES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

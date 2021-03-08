@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,6 @@ import org.apache.jmeter.control.gui.OnceOnlyControllerGui
 final class OnceControllerFactory extends TestElementNodeFactory {
 
     OnceControllerFactory() {
-        super(DslDefinition.EXECUTE_ONCE.title, OnceOnlyController, OnceOnlyControllerGui, false, DslDefinition.EXECUTE_ONCE)
+        super(DslDefinition.EXECUTE_ONCE.title, OnceOnlyController, OnceOnlyControllerGui, DslDefinition.EXECUTE_ONCE.leaf, DslDefinition.EXECUTE_ONCE)
     }
 }

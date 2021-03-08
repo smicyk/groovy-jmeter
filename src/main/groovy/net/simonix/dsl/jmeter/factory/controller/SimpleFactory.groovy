@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,6 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 final class SimpleFactory extends TestElementNodeFactory {
 
     SimpleFactory() {
-        super(DslDefinition.SIMPLE.title, GenericController, LogicControllerGui, false, DslDefinition.SIMPLE)
+        super(DslDefinition.SIMPLE.title, GenericController, LogicControllerGui, DslDefinition.SIMPLE.leaf, DslDefinition.SIMPLE)
     }
 }
