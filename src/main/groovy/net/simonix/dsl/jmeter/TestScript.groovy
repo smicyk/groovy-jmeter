@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,13 @@ import groovy.transform.CompileDynamic
  *
  * {@literal @}groovy.transform.BaseScript net.simonix.dsl.jmeter.TestScript script
  *
- * start {*    plan {*        group {*
- *}*}*}* </pre>
+ * start {
+ *   plan {
+ *     group {
+ *     }
+ *   }
+ * }
+ * </pre>
  */
 @CompileDynamic
 abstract class TestScript extends TestScriptBase {

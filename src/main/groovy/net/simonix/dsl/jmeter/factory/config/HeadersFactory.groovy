@@ -61,8 +61,8 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 final class HeadersFactory extends TestElementNodeFactory {
 
-    HeadersFactory(String testElementName) {
-        super(DslDefinition.HEADERS.title, HeaderManager, HeaderPanel, DslDefinition.HEADERS.leaf, DslDefinition.HEADERS)
+    HeadersFactory() {
+        super(HeaderManager, HeaderPanel, DslDefinition.HEADERS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
