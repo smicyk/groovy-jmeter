@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.model
+package net.simonix.dsl.jmeter.factory.sampler.jdbc.model
 
-import groovy.transform.CompileStatic
+import groovy.transform.CompileDynamic
+import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
-/**
- * Represents node in test tree structure.
- * <p>
- * Each node has {@link TestElement} and its children.
- */
-@CompileStatic
-class TestElementNode {
-
-    String name
-    TestElement testElement
-    List<TestElementNode> testElementNodes = [] as LinkedList<TestElementNode>
-
-    TestElementNode(String name, TestElement testElement) {
-        this.name = name
-        this.testElement = testElement
-    }
-
-    void add(TestElementNode testElementNode) {
-        this.testElementNodes << testElementNode
-    }
+@CompileDynamic
+class ParameterTestElement extends AbstractTestElement implements TestElement {
+    Object value
+    String type
 }

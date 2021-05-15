@@ -30,8 +30,12 @@ class DefinitionBuilder {
     }
 
     static KeywordDefinition keyword(String name, KeywordCategory category) {
-        String title = messages."${name}.title"
-        String description = messages."${name}.description"
+        return keyword(name, category, '')
+    }
+
+    static KeywordDefinition keyword(String name, KeywordCategory category, String prefix) {
+        String title = messages."${prefix}${name}.title"
+        String description = messages."${prefix}${name}.description"
 
         KeywordBuilder builder = new KeywordBuilder(name, category)
         builder.title = title
@@ -41,10 +45,14 @@ class DefinitionBuilder {
     }
 
     static KeywordDefinition keyword(String name, KeywordCategory category, Closure c) {
-        String title = messages."${name}.title"
-        String description = messages."${name}.description"
+        return keyword(name, category, '', c)
+    }
 
-        KeywordBuilder builder = new KeywordBuilder(name, category)
+    static KeywordDefinition keyword(String name, KeywordCategory category, String prefix, Closure c) {
+        String title = messages."${prefix}${name}.title"
+        String description = messages."${prefix}${name}.description"
+
+        KeywordBuilder builder = new KeywordBuilder(name, category, prefix)
         builder.title = title
         builder.description = description
 
@@ -65,6 +73,7 @@ class DefinitionBuilder {
 
     static class KeywordBuilder {
         String name
+        String prefix
         KeywordCategory category
         String title
         String description
@@ -72,16 +81,17 @@ class DefinitionBuilder {
         boolean valueIsProperty = false
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name, KeywordCategory category) {
+        KeywordBuilder(String name, KeywordCategory category, String prefix = '') {
             this.name = name
+            this.prefix = prefix
             this.category = category
             this.properties = [] as Set<PropertyDefinition>
         }
 
         KeywordBuilder property(Map config) {
             PropertyDefinition propertyDefinition = propertyImpl(config)
-            propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
-            propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
+            propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
+            propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
 
             this.properties.add(propertyDefinition)
 
@@ -92,8 +102,8 @@ class DefinitionBuilder {
             assert properties != null
 
             properties.each {propertyDefinition ->
-                propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
-                propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
+                propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
+                propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
 
                 this.properties.add(propertyDefinition)
             }

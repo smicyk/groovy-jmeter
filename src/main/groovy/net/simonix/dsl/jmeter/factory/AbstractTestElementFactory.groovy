@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ abstract class AbstractTestElementFactory extends AbstractFactory implements Val
 
     abstract void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config)
 
+    abstract void updateOnComplete(Object parent, Object child)
+
     boolean isLeaf() {
         return true
     }
@@ -62,6 +64,8 @@ abstract class AbstractTestElementFactory extends AbstractFactory implements Val
     void setParent(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof TestElementNode) {
             updateParentProperties(builder, parent.testElement, child)
+        } else if(parent instanceof TestElement) {
+            updateParentProperties(builder, parent, child)
         }
     }
 

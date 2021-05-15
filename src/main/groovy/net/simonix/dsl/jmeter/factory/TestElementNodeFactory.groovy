@@ -50,6 +50,10 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     final KeywordDefinition definition
     final Validator validator
 
+    protected TestElementNodeFactory(Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
+        this(definition.title, testElementClass, testElementGuiClass, definition.leaf, definition)
+    }
+
     protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
         this.testElementClass = testElementClass
         this.testElementGuiClass = testElementGuiClass
@@ -61,6 +65,10 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
+        // default implementation is empty
+    }
+
+    void updateOnComplete(Object parent, Object child) {
         // default implementation is empty
     }
 

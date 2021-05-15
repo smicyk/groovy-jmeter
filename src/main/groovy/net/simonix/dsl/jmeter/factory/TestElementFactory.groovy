@@ -62,4 +62,8 @@ class TestElementFactory extends AbstractTestElementFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         // empty implementation
     }
+
+    void updateOnComplete(Object parent, Object child) {
+        // default implementation is empty
+    }
 }

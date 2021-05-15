@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package net.simonix.dsl.jmeter
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.builder.TestElementNodeFactoryBuilder
+import net.simonix.dsl.jmeter.builder.DefaultFactoryBuilder
 import net.simonix.dsl.jmeter.builder.TestTreeBuilder
 import net.simonix.dsl.jmeter.model.TestElementNode
 import org.apache.jmeter.engine.StandardJMeterEngine
@@ -93,7 +93,7 @@ final class TestScriptRunner {
     }
 
     static TestElementNode invokeBuilder(Map config, Closure closure) {
-        TestElementNodeFactoryBuilder builder = new TestElementNodeFactoryBuilder()
+        DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
         if (config.plugins) {
             config.plugins.each { factory ->
@@ -102,6 +102,7 @@ final class TestScriptRunner {
         }
 
         closure.delegate = builder
+        closure.resolveStrategy = Closure.DELEGATE_ONLY
 
         return InvokerHelper.invokeClosure(closure, []) as TestElementNode
     }

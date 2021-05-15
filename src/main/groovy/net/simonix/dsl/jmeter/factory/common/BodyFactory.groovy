@@ -22,7 +22,6 @@ import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
-import sun.misc.Resource
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
@@ -124,6 +123,6 @@ final class BodyFactory extends TestElementFactory {
             return body.getText(encoding)
         }
 
-        throw new FileNotFoundException(file, '''The file doesn't exist''')
+        throw new FileNotFoundException('''The file doesn't exist''')
     }
 }

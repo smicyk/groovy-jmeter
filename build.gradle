@@ -84,6 +84,11 @@ dependencies {
         exclude group: 'xml-apis', module: 'xml-apis'
     }
 
+    implementation('org.apache.jmeter:ApacheJMeter_jdbc:5.2.1') {
+        exclude group: 'xerces', module: 'xercesImpl'
+        exclude group: 'xml-apis', module: 'xml-apis'
+    }
+
     implementation('org.apache.httpcomponents:httpclient:4.5.10')
 
     // testing and mocking
@@ -94,6 +99,7 @@ dependencies {
     testImplementation('org.mock-server:mockserver-client-java:5.6.0')
 
     testImplementation('org.xmlunit:xmlunit-core:2.6.3')
+    testImplementation('com.h2database:h2:1.4.200')
 }
 
 codenarc {

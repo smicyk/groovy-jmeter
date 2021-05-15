@@ -254,7 +254,67 @@ final class DslDefinition {
         property(name: 'duration', type: Integer, required: false, defaultValue: '0', constraints: range(0))
     }
 
+    static final KeywordDefinition JDBC_REQUEST = keyword('jdbc_request', KeywordCategory.SAMPLER) {
+        include(COMMON_PROPERTIES)
+        property(name: 'use', type: String, required: true, defaultValue: '')
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_QUERY = keyword('query', KeywordCategory.OTHER, 'jdbc_') {
+        property(name: 'prepared', type: Boolean, required: false, defaultValue: true)
+        property(name: 'limit', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'timeout', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'result', type: String, required: false, defaultValue: '')
+        property(name: 'variables', type: List, required: false, defaultValue: [], separator: ',')
+        property(name: 'file', type: String, required: false, defaultValue: '')
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_EXECUTE = keyword('execute', KeywordCategory.OTHER, 'jdbc_') {
+        property(name: 'prepared', type: Boolean, required: false, defaultValue: true)
+        property(name: 'limit', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'timeout', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'result', type: String, required: false, defaultValue: '')
+        property(name: 'variables', type: List, required: false, defaultValue: [], separator: ',')
+        property(name: 'file', type: String, required: false, defaultValue: '')
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_CALLABLE = keyword('callable', KeywordCategory.OTHER, 'jdbc_') {
+        property(name: 'limit', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'timeout', type: Long, required: false, defaultValue: null, constraints: range(0))
+        property(name: 'result', type: String, required: false, defaultValue: '')
+        property(name: 'variables', type: List, required: false, defaultValue: [], separator: ',')
+        property(name: 'file', type: String, required: false, defaultValue: '')
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_AUTOCOMMIT = keyword('autocommit', KeywordCategory.OTHER, 'jdbc_') {
+        property(name: 'value', type: Boolean, required: true, defaultValue: true)
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition JDBC_COMMIT = keyword('commit', KeywordCategory.OTHER, 'jdbc_') {
+        leaf()
+    }
+
+    static final KeywordDefinition JDBC_ROLLBACK = keyword('rollback', KeywordCategory.OTHER, 'jdbc_') {
+        leaf()
+    }
+
     // common
+    static final KeywordDefinition JDBC_PARAMETERS = keyword('params', KeywordCategory.OTHER, 'jdbc_')
+
+    static final KeywordDefinition JDBC_PARAMETER = keyword('param', KeywordCategory.OTHER, 'jdbc_') {
+        property(name: 'value', type: Object, required: true, defaultValue: null)
+        property(name: 'type', type: String, required: true, defaultValue: null)
+        leaf()
+    }
+
     static final KeywordDefinition PARAM = keyword('param', KeywordCategory.OTHER) {
         property(name: 'name', type: String, required: false, defaultValue: null)
         property(name: 'value', type: Object, required: false, defaultValue: null)
@@ -268,7 +328,7 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition BODY = keyword('body', KeywordCategory.OTHER) {
-        property(name: 'file', type: String, required: false, defaultVabodlue: null)
+        property(name: 'file', type: String, required: false, defaultValue: null)
         property(name: 'inline', type: String, required: false, defaultValue: null)
         property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
         leaf()
@@ -420,6 +480,51 @@ final class DslDefinition {
     static final KeywordDefinition HEADERS = keyword('headers', KeywordCategory.CONFIG) {
         include(COMMON_PROPERTIES)
         property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
+    static final KeywordDefinition JDBC = keyword('jdbc', KeywordCategory.CONFIG) {
+        include(COMMON_PROPERTIES)
+        property(name: 'datasource', type: String, required: false, defaultValue: '')
+        property(name: 'use', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_CONFIG = keyword('jdbc_config', KeywordCategory.CONFIG) {
+        include(COMMON_PROPERTIES)
+        property(name: 'datasource', type: String, required: true, defaultValue: '')
+    }
+
+    static final KeywordDefinition JDBC_CONNECTION = keyword('connection', KeywordCategory.CONFIG, 'jdbc_') {
+        property(name: 'url', type: String, required: true, defaultValue: '')
+        property(name: 'driver', type: String, required: true, defaultValue: '')
+        property(name: 'username', type: String, required: true, defaultValue: '')
+        property(name: 'password', type: String, required: true, defaultValue: '')
+        property(name: 'properties', type: Map, required: false, defaultValue: [:])
+        leaf()
+    }
+
+    static final KeywordDefinition JDBC_POOL = keyword('pool', KeywordCategory.CONFIG, 'jdbc_') {
+        property(name: 'connections', type: Long, required: false, defaultValue: 0)
+        property(name: 'wait', type: Long, required: false, defaultValue: 10000)
+        property(name: 'eviction', type: Long, required: false, defaultValue: 60000)
+        property(name: 'autocommit', type: Boolean, required: false, defaultValue: true)
+        property(name: 'isolation', type: String, required: false, defaultValue: 'DEFAULT', constraints: inList(['DEFAULT', 'TRANSACTION_NONE', 'TRANSACTION_READ_UNCOMMITTED', 'TRANSACTION_READ_UNCOMMITTED', 'TRANSACTION_SERIALIZABLE', 'TRANSACTION_REPEATABLE_READ']))
+        property(name: 'preinit', type: Boolean, required: false, defaultValue: false)
+        leaf()
+    }
+
+    static final KeywordDefinition JDBC_INIT = keyword('init', KeywordCategory.CONFIG, 'jdbc_') {
+        property(name: 'inline', type: List, required: false, defaultValue: [], separator: '\n')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_VALIDATION = keyword('validation', KeywordCategory.CONFIG, 'jdbc_') {
+        property(name: 'idle', type: Boolean, required: false, defaultValue: true)
+        property(name: 'timeout', type: Long, required: false, defaultValue: 5000)
+        property(name: 'query', type: String, required: true, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition LOGIN = keyword('login', KeywordCategory.CONFIG) {
@@ -628,17 +733,32 @@ final class DslDefinition {
         leaf()
     }
 
+    // postprocessors
     static final KeywordDefinition JSR223_POSTPROCESSOR = keyword('jsrpostprocessor', KeywordCategory.POSTPROCESSOR) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
         leaf()
     }
 
+    static final KeywordDefinition JDBC_POSTPROCESSOR = keyword('jdbc_postprocessor', KeywordCategory.POSTPROCESSOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'use', type: String, required: true, defaultValue: '')
+        valueIsProperty()
+    }
+
+    // preprocessors
     static final KeywordDefinition JSR223_PREPROCESSOR = keyword('jsrpreprocessor', KeywordCategory.PREPROCESSOR) {
         include(COMMON_PROPERTIES)
         include(JSR223_PROPERTIES)
         leaf()
     }
+
+    static final KeywordDefinition JDBC_PREPROCESSOR = keyword('jdbc_preprocessor', KeywordCategory.PREPROCESSOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'use', type: String, required: true, defaultValue: '')
+        valueIsProperty()
+    }
+
 
     // assertions
     static final KeywordDefinition JSR223_ASSERTION = keyword('jsrassertion', KeywordCategory.ASSERTION) {
@@ -727,98 +847,4 @@ final class DslDefinition {
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         valueIsProperty()
     }
-
-    static final Set<String> VALID_KEYWORDS = [
-            PLAN.name,
-            GROUP.name,
-            BEFORE_GROUP.name,
-            AFTER_GROUP.name,
-
-            LOOP.name,
-            SIMPLE.name,
-            TRANSACTION.name,
-            SECTION.name,
-            INCLUDE.name,
-            FOR_EACH.name,
-
-            EXECUTE.name,
-
-            EXECUTE_IF.name,
-            EXECUTE_WHILE.name,
-            EXECUTE_ONCE.name,
-            EXECUTE_INTERLEAVE.name,
-            EXECUTE_RANDOM.name,
-            EXECUTE_ORDER.name,
-            EXECUTE_PERCENT.name,
-            EXECUTE_TOTAL.name,
-            EXECUTE_RUNTIME.name,
-            EXECUTE_SWITCH.name,
-
-            HTTP.name,
-            AJP.name,
-            DEBUG.name,
-            JSR223_SAMPLER.name,
-            FLOW.name,
-
-            PARAM.name,
-            PARAMS.name,
-            FILE.name,
-            FILES.name,
-            BODY.name,
-            ARGUMENT.name,
-            ARGUMENTS.name,
-            INSERT.name,
-
-            AUTHORIZATION.name,
-            AUTHORIZATIONS.name,
-            DNS.name,
-            DNS_HOST.name,
-            CACHE.name,
-            COOKIE.name,
-            COOKIES.name,
-            COUNTER.name,
-            CSV_DATA.name,
-            DEFAULTS.name,
-            HEADER.name,
-            HEADERS.name,
-            LOGIN.name,
-            RANDOM_VARIABLE.name,
-            VARIABLE.name,
-            VARIABLES.name,
-
-            TIMER.name,
-            CONSTANT_TIMER.name,
-            UNIFORM_TIMER.name,
-            GAUSSIAN_TIMER.name,
-            POISSON_TIMER.name,
-            THROUGHPUT.name,
-            CONSTANT_THROUGHPUT.name,
-            PRECISE_THROUGHPUT.name,
-            SYNCHRONIZING_TIMER.name,
-            JSR223_TIMER.name,
-
-            AGGREGATE.name,
-            BACKEND.name,
-            SUMMARY.name,
-            JSR223_LISTENER.name,
-
-            CSS_EXTRACTOR.name,
-            REGEX_EXTRACTOR.name,
-            JSON_EXTRACTOR.name,
-            XPATH_EXTRACTOR.name,
-
-            JSR223_POSTPROCESSOR.name,
-            JSR223_PREPROCESSOR.name,
-
-            JSR223_ASSERTION.name,
-            ASSERT_RESPONSE.name,
-            ASSERT_SIZE.name,
-            ASSERT_DURATION.name,
-            ASSERT_XPATH.name,
-            ASSERT_JSON.name,
-            ASSERT_MD5HEX.name,
-            CHECK_RESPONSE.name,
-            CHECK_REQUEST.name,
-            CHECK_SIZE.name,
-    ].toSet().asImmutable()
 }

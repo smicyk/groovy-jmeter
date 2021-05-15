@@ -50,7 +50,7 @@ abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory i
 
         AbstractTestElementNodeFactory factory = getChildFactory(builder, name, value, definitionAwareConfig)
 
-        // we keep original config here, as child factory should handle definition if apprioriate
+        // we keep original config here, as child factory should handle definition if appropriate
         return factory.newInstance(builder, name, value, config)
     }
 
