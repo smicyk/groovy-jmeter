@@ -16,10 +16,26 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.factory.assertion.CheckRequestFactory
+import net.simonix.dsl.jmeter.factory.assertion.CheckResponseFactory
+import net.simonix.dsl.jmeter.factory.assertion.CheckSizeFactory
+import net.simonix.dsl.jmeter.factory.assertion.DurationAssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.JSR223AssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.JsonAssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.MD5HexAssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.ResponseAssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.SizeAssertionFactory
+import net.simonix.dsl.jmeter.factory.assertion.XPathAssertionFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConnectionFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcInitFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcPoolFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcValidationFactory
+import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
+import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
+import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
+import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
+import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
+import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcAutocommitFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCallableFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCommitFactory
@@ -30,6 +46,16 @@ import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactor
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcQueryFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRollbackFactory
+import net.simonix.dsl.jmeter.factory.timer.ConstantThroughputFactory
+import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.GaussianTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
+import net.simonix.dsl.jmeter.factory.timer.PoissonTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.PreciseThroughputFactory
+import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.ThroughputFactory
+import net.simonix.dsl.jmeter.factory.timer.TimerFactory
+import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.AbstractJDBCTestElement
@@ -82,9 +108,41 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
 
         // preprocessor
         addFactory(new JdbcPreprocessorFactory())
+        addFactory(new JSR223PreProcessorFactory())
 
         // postprocessor
         addFactory(new JdbcPostprocessorFactory())
+        addFactory(new JSR223PostProcessorFactory())
+
+        // assertions
+        addFactory(new JSR223AssertionFactory())
+        addFactory(new ResponseAssertionFactory())
+        addFactory(new SizeAssertionFactory())
+        addFactory(new DurationAssertionFactory())
+        addFactory(new XPathAssertionFactory())
+        addFactory(new JsonAssertionFactory())
+        addFactory(new MD5HexAssertionFactory())
+        addFactory(new CheckResponseFactory())
+        addFactory(new CheckRequestFactory())
+        addFactory(new CheckSizeFactory())
+
+        // timers
+        addFactory(new TimerFactory())
+        addFactory(new ConstantTimerFactory())
+        addFactory(new UniformTimerFactory())
+        addFactory(new GaussianTimerFactory())
+        addFactory(new PoissonTimerFactory())
+        addFactory(new ThroughputFactory())
+        addFactory(new ConstantThroughputFactory())
+        addFactory(new PreciseThroughputFactory())
+        addFactory(new SynchronizingTimerFactory())
+        addFactory(new JSR223TimerFactory())
+
+        // extractors
+        addFactory(new RegExExtractorFactory())
+        addFactory(new CssSelectorExtractorFactory())
+        addFactory(new JsonPathExtractorFactory())
+        addFactory(new XPathExtractorFactory())
     }
 
     protected Object postNodeCompletion(Object parent, Object node) {
