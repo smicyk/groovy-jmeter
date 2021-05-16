@@ -9,7 +9,8 @@ The **examples** folder contains several scripts:
  - [gradle](gradle) - the script can be run as a gradle task (gradle manages all dependencies and there is no need to add Grape annotation to the scripts)
  - [docker](docker) - the script runs in the docker container (if you don't want install runtime environment)
  - [docker-gradle](docker-gradle) - docker and gradle examples combined into one 
- - [application](application) - run test scripts in docker with all components - the application, test server and monitoring. Gives an overview how all component can be configured to work together.
+ - [application](application) - run test scripts in docker with all components - the application, test server and monitoring. It gives an overview of how the developer can configure all components to work together.
+ - [database](database) - run test scripts in docker with all components - the application, test server and monitoring. It gives an overview of how the developer can configure JDBC components to work together.
  
 There are two folders [mockserver](mockserver) and [monitoring](monitoring) which contains application mock and monitoring for backed listener.
 
