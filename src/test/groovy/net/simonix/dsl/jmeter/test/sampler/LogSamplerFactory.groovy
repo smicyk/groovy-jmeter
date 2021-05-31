@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.test.sampler
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+import net.simonix.dsl.jmeter.model.definition.KeywordCategory
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
 import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
@@ -29,6 +30,6 @@ import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
 final class LogSamplerFactory extends TestElementNodeFactory {
     
     LogSamplerFactory(String testElementName) {
-        super(testElementName, LogSampler, TestBeanGUI, true, keyword('log'))
+        super(testElementName, LogSampler, TestBeanGUI, true, keyword('log', KeywordCategory.SAMPLER))
     }
 }

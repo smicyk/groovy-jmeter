@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SizeAssertionFactory extends TestElementNodeFactory {
 
     SizeAssertionFactory() {
-        super(DslDefinition.ASSERT_SIZE.title, SizeAssertion, SizeAssertionGui, true, DslDefinition.ASSERT_SIZE)
+        super(DslDefinition.ASSERT_SIZE.title, SizeAssertion, SizeAssertionGui, DslDefinition.ASSERT_SIZE.leaf, DslDefinition.ASSERT_SIZE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -53,7 +53,7 @@ final class SizeAssertionFactory extends TestElementNodeFactory {
         String variableName = config.variable
         String field = config.field
         String rule = config.rule
-        Long size = config.size as Long
+        Long size = readValue(value, config.size)
 
         if (applyTo == 'all') {
             testElement.setScopeAll()
@@ -97,6 +97,6 @@ final class SizeAssertionFactory extends TestElementNodeFactory {
             testElement.setCompOper(SizeAssertion.EQUAL)
         }
 
-        testElement.setAllowedSize(size)
+        testElement.allowedSize = size
     }
 }

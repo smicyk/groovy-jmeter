@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IncludeFactory extends TestElementNodeFactory {
 
     IncludeFactory() {
-        super(DslDefinition.INCLUDE.title, IncludeController, IncludeControllerGui, true, DslDefinition.INCLUDE)
-
-        this.validator.valueIsProperty = true
+        super(DslDefinition.INCLUDE.title, IncludeController, IncludeControllerGui, DslDefinition.INCLUDE.leaf, DslDefinition.INCLUDE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

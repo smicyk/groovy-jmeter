@@ -42,6 +42,8 @@ abstract class AbstractTestElementNodeFactory extends AbstractFactory implements
 
     abstract void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config)
 
+    abstract void updateOnComplete(Object parent, Object child)
+
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
         Map definitionAwareConfig = new DefinitionAwareMap(config, definition)
 
@@ -52,7 +54,7 @@ abstract class AbstractTestElementNodeFactory extends AbstractFactory implements
 
         updateTestElementProperties(testElement, name, value, definitionAwareConfig)
 
-        return new TestElementNode(testElement)
+        return new TestElementNode(name as String, testElement)
     }
 
     void setChild(FactoryBuilderSupport builder, Object parent, Object child) {

@@ -48,7 +48,10 @@ class DefinitionAwareMap extends HashMap<String, Object> implements Map<String, 
             if (List.isAssignableFrom(value.getClass())) {
                 PropertyDefinition property = properties.get(key)
 
-                return value.join(property.separator)
+                // if separator is not defined means we don't need to join the list
+                if(property.separator) {
+                    return value.join(property.separator)
+                }
             }
         }
 
@@ -57,5 +60,11 @@ class DefinitionAwareMap extends HashMap<String, Object> implements Map<String, 
 
     Object getRaw(String key) {
         return super.get(key)
+    }
+
+    boolean isPresent(String key) {
+        Object value = super.get(key)
+
+        return value != null
     }
 }

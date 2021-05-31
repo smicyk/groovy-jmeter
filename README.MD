@@ -6,7 +6,7 @@ It has following features:
  - keep JMeter test files (*.jmx) as a code (Groovy scripts)
  - run scripts as standalone scripts, JUnit tests or Gradle tasks
  - support of basic JMeter elements like controllers, groups, extractors and assertions
- - support of HTTP and JSR223 JMeter samplers
+ - support of HTTP, JSR223 and JDBC JMeter samplers
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
  
@@ -27,6 +27,8 @@ Before start, you should have:
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
 
 ## How to start
+
+> Starting from version 0.11.0, all artificats are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you don't need the latest changes, skip this section and go to [First Steps](#first-steps).
 
 Clone, build and publish jars to your local repository:
 
@@ -249,6 +251,70 @@ start {
 
         // output to .jtl file
         summary(file: 'script.jtl', enabled: true)
+    }
+}
+```
+The next example shows testing database with JMeter.
+```groovy
+@GrabConfig(systemClassLoader=true)
+@Grab('net.simonix.scripts:groovy-jmeter')
+@Grab('org.postgresql:postgresql:42.2.20') // download JDBC driver for your database
+
+@groovy.transform.BaseScript net.simonix.dsl.jmeter.TestScript script
+
+start {
+    plan {
+        before {
+            jdbc datasource: 'postgres', {
+                pool connections: 10, wait: 1000, eviction: 60000, autocommit: true, isolation: 'DEFAULT', preinit: true
+                connection url: 'jdbc:postgresql://database-db:5432/', driver: 'org.postgresql.Driver', username: 'postgres', password: 'postgres'
+                init(['SET search_path TO public'])
+                validation idle: true, timeout: 5000, query: '''SELECT 1'''
+            }
+
+            jdbc use: 'postgres', {
+                jdbc_preprocessor use: 'postgres', {
+                    execute('''
+                        DROP TABLE employee
+                    ''')
+                }
+
+                execute('''
+                    CREATE TABLE employee (id INTEGER PRIMARY KEY, first_name VARCHAR(50), last_name VARCHAR(50), email VARCHAR(50), salary INTEGER)
+                ''')
+            }
+        }
+
+        group users: 100, rampUp: 60, loops: 1, {
+            csv file: 'employees.csv', delimiter: ',', ignoreFirstLine: true, variables: ['var_id', 'var_first_name', 'var_last_name', 'var_email', 'var_salary']
+
+            jdbc use: 'postgres', {
+                execute('''
+                    INSERT INTO employee (id, first_name, last_name, email, salary) VALUES(?, ?, ?, ?, ?)
+                ''') {
+                    params {
+                        param value: '${var_id}', type: 'INTEGER'
+                        param value: '${var_first_name}', type: 'VARCHAR'
+                        param value: '${var_last_name}', type: 'VARCHAR'
+                        param value: '${var_email}', type: 'VARCHAR'
+                        param value: '${var_salary}', type: 'INTEGER'
+                    }
+                }
+            }
+
+            jdbc use: 'postgres', {
+                query(limit: 1, result: 'var_employee_count', inline: '''
+                    SELECT count(*) FROM employee
+                ''')
+
+                jsrpostprocessor(inline: '''
+                    log.info('Number of employees: ' + vars.get('var_employee_count'))
+                ''')
+            }
+
+            // output to .jtl file
+            summary(file: 'script.jtl', enabled: true)
+        }
     }
 }
 ```

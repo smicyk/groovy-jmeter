@@ -64,7 +64,7 @@ import org.apache.jmeter.threads.gui.PostThreadGroupGui
 final class PostGroupFactory extends TestElementNodeFactory {
 
     PostGroupFactory() {
-        super(DslDefinition.AFTER_GROUP.title, PostThreadGroup, PostThreadGroupGui, false, DslDefinition.AFTER_GROUP)
+        super(DslDefinition.AFTER_GROUP.title, PostThreadGroup, PostThreadGroupGui, DslDefinition.AFTER_GROUP.leaf, DslDefinition.AFTER_GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

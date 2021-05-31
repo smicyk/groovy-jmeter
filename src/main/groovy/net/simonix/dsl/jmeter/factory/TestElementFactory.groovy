@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ class TestElementFactory extends AbstractTestElementFactory {
     final Validator validator
 
     protected TestElementFactory(Class testElementClass, KeywordDefinition definition) {
-        this(testElementClass, true, definition)
+        this(testElementClass, definition.leaf, definition)
     }
 
     protected TestElementFactory(Class testElementClass, boolean leaf, KeywordDefinition definition) {
@@ -44,7 +44,7 @@ class TestElementFactory extends AbstractTestElementFactory {
         this.leaf = leaf
         this.definition = definition
 
-        this.validator = new PropertyValidator(definition.properties)
+        this.validator = new PropertyValidator(definition.properties, definition.valueIsProperty)
     }
 
     boolean isLeaf() {
@@ -61,5 +61,9 @@ class TestElementFactory extends AbstractTestElementFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         // empty implementation
+    }
+
+    void updateOnComplete(Object parent, Object child) {
+        // default implementation is empty
     }
 }

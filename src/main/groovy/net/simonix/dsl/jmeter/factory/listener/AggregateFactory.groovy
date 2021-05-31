@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.apache.jmeter.visualizers.StatVisualizer
 final class AggregateFactory extends TestElementNodeFactory {
 
     AggregateFactory() {
-        super(DslDefinition.AGGREGATE.title, ResultCollector, StatVisualizer, true, DslDefinition.AGGREGATE)
+        super(DslDefinition.AGGREGATE.title, ResultCollector, StatVisualizer, DslDefinition.AGGREGATE.leaf, DslDefinition.AGGREGATE)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

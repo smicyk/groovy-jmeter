@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ForEachFactory extends TestElementNodeFactory {
 
     ForEachFactory() {
-        super(DslDefinition.FOR_EACH.title, ForeachController, ForeachControlPanel, false, DslDefinition.FOR_EACH)
+        super(DslDefinition.FOR_EACH.title, ForeachController, ForeachControlPanel, DslDefinition.FOR_EACH.leaf, DslDefinition.FOR_EACH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

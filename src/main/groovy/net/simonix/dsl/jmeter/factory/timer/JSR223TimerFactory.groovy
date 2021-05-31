@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,6 @@ import org.apache.jmeter.timers.JSR223Timer
 final class JSR223TimerFactory extends AbstractJSR223Factory {
 
     JSR223TimerFactory() {
-        super(DslDefinition.JSR223_TIMER.title, JSR223Timer, TestBeanGUI, true, DslDefinition.JSR223_TIMER)
+        super(DslDefinition.JSR223_TIMER.title, JSR223Timer, TestBeanGUI, DslDefinition.JSR223_TIMER.leaf, DslDefinition.JSR223_TIMER)
     }
 }

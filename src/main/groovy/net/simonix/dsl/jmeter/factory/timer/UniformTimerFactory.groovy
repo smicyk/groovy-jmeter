@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ import org.apache.jmeter.timers.gui.UniformRandomTimerGui
 final class UniformTimerFactory extends TestElementNodeFactory {
 
     UniformTimerFactory() {
-        super(DslDefinition.UNIFORM_TIMER.title, UniformRandomTimer, UniformRandomTimerGui, true, DslDefinition.UNIFORM_TIMER)
+        super(DslDefinition.UNIFORM_TIMER.title, UniformRandomTimer, UniformRandomTimerGui, DslDefinition.UNIFORM_TIMER.leaf, DslDefinition.UNIFORM_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Copyright 2021 Szymon Micyk
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
+        <collectionProp name="DNSCacheManager.servers"/>
+        <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
+      </DNSCacheManager>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="Factory DNS" enabled="false">
+        <collectionProp name="DNSCacheManager.servers">
+          <stringProp name="2123400670">217.173.198.3</stringProp>
+          <stringProp name="747319407">193.111.144.161</stringProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+        <boolProp name="DNSCacheManager.isCustomResolver">true</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">true</boolProp>
+        <collectionProp name="DNSCacheManager.hosts">
+          <elementProp name="www.example.com" elementType="StaticHost">
+            <stringProp name="StaticHost.Name">www.example.com</stringProp>
+            <stringProp name="StaticHost.Address">123.123.123.123</stringProp>
+          </elementProp>
+          <elementProp name="www.example.com" elementType="StaticHost">
+            <stringProp name="StaticHost.Name">www.example.com</stringProp>
+            <stringProp name="StaticHost.Address">123.123.123.123</stringProp>
+          </elementProp>
+        </collectionProp>
+      </DNSCacheManager>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="Factory DNS" enabled="false">
+        <collectionProp name="DNSCacheManager.servers">
+          <stringProp name="2123400670">217.173.198.3</stringProp>
+          <stringProp name="747319407">193.111.144.161</stringProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+        <boolProp name="DNSCacheManager.isCustomResolver">true</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">true</boolProp>
+        <collectionProp name="DNSCacheManager.hosts">
+          <elementProp name="www.example.com" elementType="StaticHost">
+            <stringProp name="StaticHost.Name">www.example.com</stringProp>
+            <stringProp name="StaticHost.Address">123.123.123.132</stringProp>
+          </elementProp>
+          <elementProp name="www.example1.com" elementType="StaticHost">
+            <stringProp name="StaticHost.Name">www.example1.com</stringProp>
+            <stringProp name="StaticHost.Address">123.123.123.123</stringProp>
+          </elementProp>
+        </collectionProp>
+      </DNSCacheManager>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
+        <collectionProp name="DNSCacheManager.servers"/>
+        <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
+      </DNSCacheManager>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
+        <collectionProp name="DNSCacheManager.servers">
+          <stringProp name="2123400670">217.173.198.3</stringProp>
+          <stringProp name="747319407">193.111.144.161</stringProp>
+        </collectionProp>
+        <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
+      </DNSCacheManager>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
+        <collectionProp name="DNSCacheManager.servers">
+          <stringProp name="2123400670">217.173.198.3</stringProp>
+          <stringProp name="747319407">193.111.144.161</stringProp>
+        </collectionProp>
+        <boolProp name="DNSCacheManager.isCustomResolver">true</boolProp>
+        <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
+      </DNSCacheManager>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,6 @@ import org.apache.jmeter.control.gui.RandomOrderControllerGui
 final class RandomOrderControllerFactory extends TestElementNodeFactory {
 
     RandomOrderControllerFactory() {
-        super(DslDefinition.EXECUTE_ORDER.title, RandomOrderController, RandomOrderControllerGui, false, DslDefinition.EXECUTE_ORDER)
+        super(DslDefinition.EXECUTE_ORDER.title, RandomOrderController, RandomOrderControllerGui, DslDefinition.EXECUTE_ORDER.leaf, DslDefinition.EXECUTE_ORDER)
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class ParamsFactory extends TestElementFactory {
 
     ParamsFactory() {
-        super(Arguments, false, DslDefinition.PARAMS)
+        super(Arguments, DslDefinition.PARAMS.leaf, DslDefinition.PARAMS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

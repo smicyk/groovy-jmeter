@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,7 +108,21 @@ final class BodyFactory extends TestElementFactory {
         }
     }
 
-    private static String loadFromFile(String file, String encoding) {
-        return new File(file).getText(encoding)
+    private String loadFromFile(String file, String encoding) {
+        File body = null
+
+        URL url = this.class.getResource(file)
+
+        if(url != null) {
+            body = new File(url.toURI())
+        } else {
+            body = new File(file)
+        }
+
+        if(body.exists()) {
+            return body.getText(encoding)
+        }
+
+        throw new FileNotFoundException('''The file doesn't exist''')
     }
 }

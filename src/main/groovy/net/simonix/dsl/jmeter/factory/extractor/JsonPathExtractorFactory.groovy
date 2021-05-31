@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 final class JsonPathExtractorFactory extends TestElementNodeFactory {
 
     JsonPathExtractorFactory() {
-        super(DslDefinition.JSON_EXTRACTOR.title, JSONPostProcessor, JSONPostProcessorGui, true, DslDefinition.JSON_EXTRACTOR)
+        super(DslDefinition.JSON_EXTRACTOR.title, JSONPostProcessor, JSONPostProcessorGui, DslDefinition.JSON_EXTRACTOR.leaf, DslDefinition.JSON_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

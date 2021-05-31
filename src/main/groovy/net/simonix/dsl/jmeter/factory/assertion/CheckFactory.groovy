@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,7 +124,7 @@ abstract class CheckFactory extends AbstractFactory implements ValidatorProvider
     CheckFactory(KeywordDefinition definition) {
         this.definition = definition
 
-        this.validator = new PropertyValidator(definition.properties)
+        this.validator = new PropertyValidator(definition.properties, definition.valueIsProperty)
     }
 
     abstract CheckHandler createCheckHandler(CheckTestElementNode node, FactoryBuilderSupport builder)
@@ -141,6 +141,10 @@ abstract class CheckFactory extends AbstractFactory implements ValidatorProvider
 
     boolean isHandlesNodeChildren() {
         return true
+    }
+
+    boolean isLeaf() {
+        return definition.leaf
     }
 
     boolean onNodeChildren(FactoryBuilderSupport builder, Object node, Closure c) {

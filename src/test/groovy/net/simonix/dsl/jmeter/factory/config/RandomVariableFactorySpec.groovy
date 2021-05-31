@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter
+package net.simonix.dsl.jmeter.factory.config
 
 import net.simonix.dsl.jmeter.test.spec.TempFileSpec
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
-class InsertFactorySpec extends TempFileSpec {
-    def "Check insert from classpath"() {
-        given: 'Test insert fragment from classpath file'
+class RandomVariableFactorySpec extends TempFileSpec {
+
+    def "Check random variable generation"() {
+        given: 'Test plan with random config element'
         def config = configure {
             plan {
-                group {
-                    insert file: 'net/simonix/dsl/jmeter/fragments/fragment.groovy'
-                }
+                random(name: 'Factory Random', comments: "Factory Comment", enabled: false, perUser: false, minimum: 1, maximum: 10, format: '0.0', variable: 'variable', seed: '5')
+                random()
             }
         }
 
-        File resultFile = tempFolder.newFile('insert_0.jmx')
+        File resultFile = tempFolder.newFile('random_0.jmx')
 
         when: 'save test to file'
         save(config, resultFile)
 
         then: 'both files matches'
-        filesAreTheSame('insert_0.jmx', resultFile)
+        filesAreTheSame('random_0.jmx', resultFile)
     }
 }

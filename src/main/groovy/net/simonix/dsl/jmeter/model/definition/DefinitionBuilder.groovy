@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,22 +29,36 @@ class DefinitionBuilder {
         }
     }
 
-    static KeywordDefinition keyword(String name) {
-        String title = messages."${name}.title"
-        String description = messages."${name}.description"
+    static KeywordDefinition keyword(String name, KeywordCategory category) {
+        return keyword(name, category, '')
+    }
 
-        KeywordBuilder builder = new KeywordBuilder(name, title, description)
+    static KeywordDefinition keyword(String name, KeywordCategory category, String prefix) {
+        String title = messages."${prefix}${name}.title"
+        String description = messages."${prefix}${name}.description"
+
+        KeywordBuilder builder = new KeywordBuilder(name, category)
+        builder.title = title
+        builder.description = description
 
         return builder.build()
     }
 
-    static KeywordDefinition keyword(String name, Closure c) {
-        String title = messages."${name}.title"
-        String description = messages."${name}.description"
+    static KeywordDefinition keyword(String name, KeywordCategory category, Closure c) {
+        return keyword(name, category, '', c)
+    }
 
-        c.delegate = new KeywordBuilder(name, title, description)
+    static KeywordDefinition keyword(String name, KeywordCategory category, String prefix, Closure c) {
+        String title = messages."${prefix}${name}.title"
+        String description = messages."${prefix}${name}.description"
 
-        KeywordBuilder builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
+        KeywordBuilder builder = new KeywordBuilder(name, category, prefix)
+        builder.title = title
+        builder.description = description
+
+        c.delegate = builder
+
+        builder = InvokerHelper.invokeClosure(c, []) as KeywordBuilder
 
         return builder.build()
     }
@@ -59,21 +73,25 @@ class DefinitionBuilder {
 
     static class KeywordBuilder {
         String name
+        String prefix
+        KeywordCategory category
         String title
         String description
+        boolean leaf = false
+        boolean valueIsProperty = false
         Set<PropertyDefinition> properties
 
-        KeywordBuilder(String name, String title, String description) {
+        KeywordBuilder(String name, KeywordCategory category, String prefix = '') {
             this.name = name
-            this.title = title
-            this.description = description
+            this.prefix = prefix
+            this.category = category
             this.properties = [] as Set<PropertyDefinition>
         }
 
         KeywordBuilder property(Map config) {
             PropertyDefinition propertyDefinition = propertyImpl(config)
-            propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
-            propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
+            propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
+            propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
 
             this.properties.add(propertyDefinition)
 
@@ -84,8 +102,8 @@ class DefinitionBuilder {
             assert properties != null
 
             properties.each {propertyDefinition ->
-                propertyDefinition.title = messages."${name}.property.${propertyDefinition.name}.title"
-                propertyDefinition.description = messages."${name}.property.${propertyDefinition.name}.description"
+                propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
+                propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
 
                 this.properties.add(propertyDefinition)
             }
@@ -94,8 +112,20 @@ class DefinitionBuilder {
             return this
         }
 
+        KeywordBuilder leaf() {
+            this.leaf = true
+
+            return this
+        }
+
+        KeywordBuilder valueIsProperty() {
+            this.valueIsProperty = true
+
+            return this
+        }
+
         KeywordDefinition build() {
-            return new KeywordDefinition(name, title, description, properties)
+            return new KeywordDefinition(name, category, title, description, leaf, valueIsProperty, properties)
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import org.apache.jmeter.testelement.TestElement
 final class JsonAssertionFactory extends TestElementNodeFactory {
 
     JsonAssertionFactory() {
-        super(DslDefinition.ASSERT_JSON.title, JSONPathAssertion, JSONPathAssertionGui, true, DslDefinition.ASSERT_JSON)
+        super(DslDefinition.ASSERT_JSON.title, JSONPathAssertion, JSONPathAssertionGui, DslDefinition.ASSERT_JSON.leaf, DslDefinition.ASSERT_JSON)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -55,11 +55,11 @@ final class JsonAssertionFactory extends TestElementNodeFactory {
         boolean expectNull = config.expectNull
         boolean invert = config.invert
 
-        testElement.setJsonPath(jpath)
-        testElement.setExpectedValue(regexValue)
-        testElement.setJsonValidationBool(assertValue)
-        testElement.setExpectNull(expectNull)
-        testElement.setInvert(invert)
-        testElement.setIsRegex(assertAsRegex)
+        testElement.jsonPath = jpath
+        testElement.expectedValue = regexValue
+        testElement.jsonValidationBool = assertValue
+        testElement.expectNull = expectNull
+        testElement.invert = invert
+        testElement.isRegex = assertAsRegex
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class TransactionFactory extends TestElementNodeFactory {
 
     TransactionFactory() {
-        super(DslDefinition.TRANSACTION.title, TransactionController, TransactionControllerGui, false, DslDefinition.TRANSACTION)
+        super(DslDefinition.TRANSACTION.title, TransactionController, TransactionControllerGui, DslDefinition.TRANSACTION.leaf, DslDefinition.TRANSACTION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

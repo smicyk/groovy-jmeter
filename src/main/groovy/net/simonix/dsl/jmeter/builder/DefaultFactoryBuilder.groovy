@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.assertion.*
 import net.simonix.dsl.jmeter.factory.common.*
 import net.simonix.dsl.jmeter.factory.config.*
+import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConfigFactory
+import net.simonix.dsl.jmeter.factory.common.jdbc.JdbcFactory
 import net.simonix.dsl.jmeter.factory.controller.*
 import net.simonix.dsl.jmeter.factory.controller.execution.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
@@ -36,6 +38,9 @@ import net.simonix.dsl.jmeter.factory.plan.PlanFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.*
+import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
+import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
+import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory
 import net.simonix.dsl.jmeter.factory.timer.ConstantThroughputFactory
 import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.GaussianTimerFactory
@@ -46,33 +51,16 @@ import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
 import net.simonix.dsl.jmeter.factory.timer.ThroughputFactory
 import net.simonix.dsl.jmeter.factory.timer.TimerFactory
 import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
-import net.simonix.dsl.jmeter.model.definition.DefinitionProvider
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import net.simonix.dsl.jmeter.model.ValidationException
-import net.simonix.dsl.jmeter.validation.ValidationResult
-import net.simonix.dsl.jmeter.validation.Validator
-import net.simonix.dsl.jmeter.validation.ValidatorProvider
+import net.simonix.dsl.jmeter.model.TestElementNode
 
 /**
  * Handles all DSL keywords and builds final {@link net.simonix.dsl.jmeter.model.TestElementNode} tree.
  */
 @CompileDynamic
-class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
+class DefaultFactoryBuilder extends TestFactoryBuilder {
 
-    TestElementNodeFactoryBuilder(boolean init = true) {
-        super(init)
-
-        this.methodMissingDelegate = { name, config ->
-            if (!DslDefinition.VALID_KEYWORDS.contains(name)) {
-                throw new ValidationException("The keyword '${name}' is not valid. Did you misspell any of valid keywords ${DslDefinition.VALID_KEYWORDS}?")
-            }
-        }
-    }
-
-    void addFactory(AbstractFactory factory) {
-        String name = getKeywordDefinitionName(factory as DefinitionProvider)
-
-        registerFactory(name, factory)
+    DefaultFactoryBuilder() {
+        super()
     }
 
     void registerObjectFactories() {
@@ -109,6 +97,7 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new DebugFactory())
         addFactory(new JSR223SamplerFactory())
         addFactory(new FlowControlActionFactory())
+        addFactory(new JdbcRequestFactory())
 
         // others
         addFactory(new ParamFactory())
@@ -152,9 +141,11 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
 
         // postprocessors
         addFactory(new JSR223PostProcessorFactory())
+        addFactory(new JdbcPostprocessorFactory())
 
         // preprocessors
         addFactory(new JSR223PreProcessorFactory())
+        addFactory(new JdbcPreprocessorFactory())
 
         // configs
         addFactory(new HeadersFactory())
@@ -169,8 +160,12 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new VariableFactory())
         addFactory(new AuthorizationsFactory())
         addFactory(new AuthorizationFactory())
+        addFactory(new DnsFactory())
+        addFactory(new DnsHostFactory())
         addFactory(new CounterFactory())
         addFactory(new RandomVariableFactory())
+        addFactory(new JdbcFactory())
+        addFactory(new JdbcConfigFactory())
 
         // listeners
         addFactory(new SummaryFactory())
@@ -179,24 +174,15 @@ class TestElementNodeFactoryBuilder extends FactoryBuilderSupport {
         addFactory(new JSR223ListenerFactory())
     }
 
-    void registerPluginFactory(AbstractFactory factory) {
-        addFactory(factory)
-    }
+    protected void setClosureDelegate(Closure closure, Object node) {
+        if(node instanceof TestElementNode && JdbcFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
+            Map<String, Object> parentContext = getProxyBuilder().getContext()
 
-    protected void preInstantiate(Object name, Map attributes, Object value) {
-        super.preInstantiate(name, attributes, value)
-
-        ValidatorProvider provider = getCurrentFactory() as ValidatorProvider
-
-        Validator validator = provider.getValidator()
-        ValidationResult result = validator.validate(name, value, attributes)
-
-        if (!result.valid) {
-            throw new ValidationException(result.message)
+            closure.delegate = new JdbcFactoryBuilder(parentContext, closure)
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
+        } else {
+            closure.delegate = this
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
         }
-    }
-
-    private String getKeywordDefinitionName(DefinitionProvider provider) {
-        return provider.definition.name
     }
 }

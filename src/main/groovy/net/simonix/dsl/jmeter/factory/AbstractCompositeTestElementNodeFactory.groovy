@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory i
 
         AbstractTestElementNodeFactory factory = getChildFactory(builder, name, value, definitionAwareConfig)
 
-        // we keep original config here, as child factory should handle definition if apprioriate
+        // we keep original config here, as child factory should handle definition if appropriate
         return factory.newInstance(builder, name, value, config)
     }
 
@@ -62,5 +62,9 @@ abstract class AbstractCompositeTestElementNodeFactory extends AbstractFactory i
 
     boolean onHandleNodeAttributes(FactoryBuilderSupport builder, Object node, Map config ) {
         return false
+    }
+
+    boolean isLeaf() {
+        return definition.leaf
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,10 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     final KeywordDefinition definition
     final Validator validator
 
+    protected TestElementNodeFactory(Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
+        this(definition.title, testElementClass, testElementGuiClass, definition.leaf, definition)
+    }
+
     protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
         this.testElementClass = testElementClass
         this.testElementGuiClass = testElementGuiClass
@@ -57,10 +61,14 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
         this.leaf = leaf
         this.definition = definition
 
-        this.validator = new PropertyValidator(definition.properties)
+        this.validator = new PropertyValidator(definition.properties, definition.valueIsProperty)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
+        // default implementation is empty
+    }
+
+    void updateOnComplete(Object parent, Object child) {
         // default implementation is empty
     }
 

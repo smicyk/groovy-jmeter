@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,12 +42,12 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DurationAssertionFactory extends TestElementNodeFactory {
 
     DurationAssertionFactory() {
-        super(DslDefinition.ASSERT_DURATION.title, DurationAssertion, DurationAssertionGui, true, DslDefinition.ASSERT_DURATION)
+        super(DslDefinition.ASSERT_DURATION.title, DurationAssertion, DurationAssertionGui, DslDefinition.ASSERT_DURATION.leaf, DslDefinition.ASSERT_DURATION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         String applyTo = config.applyTo
-        Long duration = config.duration as Long
+        Long duration = readValue(value, config.duration)
 
         if (applyTo == 'all') {
             testElement.setScopeAll()
@@ -61,6 +61,6 @@ final class DurationAssertionFactory extends TestElementNodeFactory {
             testElement.setScopeAll()
         }
 
-        testElement.setAllowedDuration(duration)
+        testElement.allowedDuration = duration
     }
 }

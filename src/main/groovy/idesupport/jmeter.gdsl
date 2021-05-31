@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,220 +15,1631 @@
  */
 package idesupport
 
-commonArgs = [name: 'java.lang.String', comment: 'java.lang.String', enabled: 'java.lang.Boolean']
-
 def ctx = context(scope: scriptScope())
 
 contributor(ctx) {
-    method(name: 'start', params: [plan: {}], doc: 'Start JMeter script')
-    method(name: 'start', params: [config: 'java.util.Map', plan: {}], doc: 'Start JMeter script')
+    method(name: 'start', params: [closure: {}], doc: 'Start JMeter script')
+    method(name: 'start', params: [config: Map.name, closure: {}], doc: 'Start JMeter script')
 }
 
 def closureBodyCtx = context(scope: closureScope())
 
 contributor(closureBodyCtx) {
     if (enclosingCall('start')) {
-        contributePlan(delegate)
+        contributeKeywords(delegate)
     }
 }
 
-private void contributePlan(delegate) {
-    final args = [ serialized: 'java.lang.Boolean', functionalMode: 'java.lang.Boolean', tearDownOnShutdown: 'java.lang.Boolean' ]
-
-    delegate.method(name: 'plan', params: [body: {}])
-    delegate.method(name: 'plan', params: [config: commonArgs + args, body: {}])
-
-    if(delegate.enclosingCall('plan')) {
-        contributeArguments(delegate)
-        contributeGroup(delegate)
-        contributeDefaults(delegate)
-        contributeCookies(delegate)
-        contributeSummary(delegate)
-        contributeBacked(delegate)
+private void contributeKeywords(delegate) {
+    contributeBackend(delegate)
+    contributeAggregate(delegate)
+    contributeExecute_switch(delegate)
+    contributeGaussian_timer(delegate)
+    contributeAssert_response(delegate)
+    contributeSummary(delegate)
+    contributeAssert_json(delegate)
+    contributeAfter(delegate)
+    contributeLogin(delegate)
+    contributeCookies(delegate)
+    contributeExecute_order(delegate)
+    contributeAssert_xpath(delegate)
+    contributeExecute_percent(delegate)
+    contributeExecute(delegate)
+    contributeFor_each(delegate)
+    contributeAuthorization(delegate)
+    contributeExtract_css(delegate)
+    contributeVariables(delegate)
+    contributeThroughput(delegate)
+    contributeSynchronizing_timer(delegate)
+    contributeBefore(delegate)
+    contributeCookie(delegate)
+    contributeInclude(delegate)
+    contributeFile(delegate)
+    contributeConstant_timer(delegate)
+    contributeExtract_json(delegate)
+    contributeExtract_regex(delegate)
+    contributeGroup(delegate)
+    contributeCsv(delegate)
+    contributeParam(delegate)
+    contributeTimer(delegate)
+    contributeExecute_while(delegate)
+    contributeParams(delegate)
+    contributeBody(delegate)
+    contributeHttp(delegate)
+    contributeExecute_once(delegate)
+    contributeExecute_runtime(delegate)
+    contributeCheck_size(delegate)
+    contributeCache(delegate)
+    contributeExecute_if(delegate)
+    contributeUniform_timer(delegate)
+    contributeJsrassertion(delegate)
+    contributeArguments(delegate)
+    contributeConstant_throughput(delegate)
+    contributeJsrlistener(delegate)
+    contributeLoop(delegate)
+    contributeAssert_duration(delegate)
+    contributeJsrpreprocessor(delegate)
+    contributeFlow(delegate)
+    contributeAssert_size(delegate)
+    contributeArgument(delegate)
+    contributePrecise_throughput(delegate)
+    contributeHeaders(delegate)
+    contributePlan(delegate)
+    contributeAssert_md5hex(delegate)
+    contributeSection(delegate)
+    contributeExecute_total(delegate)
+    contributeRandom(delegate)
+    contributeVariable(delegate)
+    contributeSimple(delegate)
+    contributeFiles(delegate)
+    contributeExtract_xpath(delegate)
+    contributeCheck_request(delegate)
+    contributeJsrtimer(delegate)
+    contributeExecute_interleave(delegate)
+    contributeExecute_random(delegate)
+    contributeAjp(delegate)
+    contributeCounter(delegate)
+    contributeJsrpostprocessor(delegate)
+    contributeDebug(delegate)
+    contributeCheck_response(delegate)
+    contributePoisson_timer(delegate)
+    contributeInsert(delegate)
+    contributeAuthorizations(delegate)
+    contributeHeader(delegate)
+    contributeDefaults(delegate)
+    contributeJsrsampler(delegate)
+    contributeTransaction(delegate)
+}
+private void contributeBackend(delegate) {
+    def doc = '''<pre>
+    backend (
+        classname: string (org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient)
+        comments: string
+        enabled: boolean (true)
+        name: string
+        queueSize: integer (5000)
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'backend', params: [value: String.name], doc: doc)
+    delegate.method(name: 'backend', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'backend', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'backend', params: [closure: {}], doc: doc)
+    delegate.method(name: 'backend', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'backend', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'backend', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
-private void contributeArgument(delegate) {
-    final args = [ name: 'java.lang.String', value: 'java.lang.Object' ]
-
-    delegate.method(name: 'argument', params: [config: args])
-}
-
-private void contributeArguments(delegate) {
-    delegate.method(name: 'arguments', params: [body: {}])
-    delegate.method(name: 'arguments', params: [values: [:]])
-
-    if(delegate.enclosingCall('arguments')) {
-        contributeArgument(delegate)
+private void contributeAggregate(delegate) {
+    def doc = '''<pre>
+    aggregate (
+        comments: string
+        enabled: boolean (true)
+        file: string
+        name: string
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'aggregate', params: [value: String.name], doc: doc)
+    delegate.method(name: 'aggregate', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'aggregate', params: [value: String.name, config: Map.name], doc: doc)
 }
 
-private void contributeCookie(delegate) {
-    final args = [
-            name: 'java.lang.String',
-            value: 'java.lang.String',
-            domain: 'java.lang.String',
-            path: 'java.lang.String',
-            secure: 'java.lang.Boolean',
-            expries: 'java.lang.Integer'
-    ]
-
-    delegate.method(name: 'cookie', params: [config: args])
-}
-
-private void contributeCookies(delegate) {
-    final args = [ clearEachIteration: 'java.lang.Boolean', policy: 'org.apache.http.client.config.CookieSpecs']
-
-    delegate.method(name: 'cookies', params: [body: {}])
-    delegate.method(name: 'cookies', params: [config: commonArgs + args])
-    delegate.method(name: 'cookies', params: [config: commonArgs + args, body: {}])
-
-    if(delegate.enclosingCall('cookies')) {
-        contributeCookie(delegate)
+private void contributeExecute_switch(delegate) {
+    def doc = '''<pre>
+    execute_switch (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        value: string (0)
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'execute_switch', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_switch', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_switch', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_switch', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_switch', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_switch', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_switch', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
-private void contributeGroup(delegate) {
-    final args = [
-            users: 'java.lang.Integer',
-            rampUp: 'java.lang.String',
-            delayedStart: 'java.lang.Boolean',
-            scheduler: 'java.lang.Boolean',
-            delay: 'java.lang.Integer',
-            duration: 'java.lang.Integer',
-            loops: 'java.lang.Integer',
-            forever: 'java.lang.Boolean'
-    ]
-
-    delegate.method(name: 'group', params: [name: 'java.lang.String'])
-    delegate.method(name: 'group', params: [name: 'java.lang.String', body: {}])
-    delegate.method(name: 'group', params: [users: 'java.lang.Integer', rampUp: 'java.lang.Integer', body: {}])
-    delegate.method(name: 'group', params: [body: {}])
-    delegate.method(name: 'group', params: [config: commonArgs + args, body: {}])
-
-    if(delegate.enclosingCall('group')) {
-        contributeHttp(delegate)
-        contributeConditional(delegate)
-        contributeExecution(delegate)
-        contributeLoop(delegate)
-        contributeSimple(delegate)
+private void contributeGaussian_timer(delegate) {
+    def doc = '''<pre>
+    gaussian_timer (
+        comments: string
+        delay: long (100)
+        enabled: boolean (true)
+        name: string
+        range: double (300.0)
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'gaussian_timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'gaussian_timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'gaussian_timer', params: [value: String.name, config: Map.name], doc: doc)
 }
 
-private void contributeDefaults(delegate) {
-    final args = [
-            protocol: 'java.lang.String',
-            domain: 'java.lang.String',
-            port: 'java.lang.Integer',
-            method: 'java.lang.String',
-            path: 'java.lang.String',
-            encoding: 'java.lang.String'
-    ]
-
-    delegate.method(name: 'defaults',  params: [config: commonArgs + args])
-    delegate.method(name: 'defaults',  params: [config: commonArgs + args, body: {}])
+private void contributeAssert_response(delegate) {
+    def doc = '''<pre>
+    assert_response (
+        any: boolean
+        applyTo: string (all)
+        comments: string
+        enabled: boolean (true)
+        field: string (response_data)
+        ignoreStatus: boolean
+        message: string
+        name: string
+        negate: boolean
+        rule: string (contains)
+        variable: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'assert_response', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_response', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_response', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'assert_response', params: [closure: {}], doc: doc)
+    delegate.method(name: 'assert_response', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'assert_response', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'assert_response', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
 private void contributeSummary(delegate) {
-    final args = [ file: 'java.lang.String' ]
-
-    delegate.method(name: 'summary',  params: [config: commonArgs + args])
+    def doc = '''<pre>
+    summary (
+        assertions: boolean
+        bytes: boolean
+        code: boolean
+        comments: string
+        connectTime: boolean
+        dataType: boolean
+        enabled: boolean (true)
+        encoding: boolean
+        errorsOnly: boolean
+        fieldNames: boolean
+        file: string
+        fileName: boolean
+        hostname: boolean
+        idleTime: boolean
+        label: boolean
+        latency: boolean
+        message: boolean
+        name: string
+        requestHeaders: boolean
+        responseData: boolean
+        responseHeaders: boolean
+        sampleCount: boolean
+        samplerData: boolean
+        sentBytes: boolean
+        subresults: boolean
+        success: boolean
+        successesOnly: boolean
+        threadCounts: boolean
+        threadName: boolean
+        time: boolean
+        timestamp: boolean
+        url: boolean
+        xml: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'summary', params: [value: String.name], doc: doc)
+    delegate.method(name: 'summary', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'summary', params: [value: String.name, config: Map.name], doc: doc)
 }
 
-private void contributeHttp(delegate) {
-    final args = [
-            protocol: 'java.lang.String',
-            domain: 'java.lang.String',
-            port: 'java.lang.Integer',
-            method: 'java.lang.String',
-            path: 'java.lang.String',
-            encoding: 'java.lang.String',
-            autoRedirects: 'java.lang.Boolean',
-            followRedirects: 'java.lang.Boolean',
-            keepAlive: 'java.lang.Boolean',
-            multipart: 'java.lang.Boolean',
-            browserCompatibleMultipart: 'java.lang.Boolean'
-    ]
-
-    delegate.method(name: 'http', params: [value: 'java.lang.String'])
-    delegate.method(name: 'http', params: [value: 'java.lang.String', body: {}])
-    delegate.method(name: 'http', params: [config: commonArgs + args])
-    delegate.method(name: 'http', params: [config: commonArgs + args, body: {}])
-
-    if(delegate.enclosingCall('http')) {
-        contributeParam(delegate)
-        contributeParams(delegate)
+private void contributeAssert_json(delegate) {
+    def doc = '''<pre>
+    assert_json (
+        assertAsRegex: boolean (true)
+        assertValue: boolean
+        comments: string
+        enabled: boolean (true)
+        expectNull: boolean
+        invert: boolean
+        jpath: string ($.)
+        name: string
+        value: string
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'assert_json', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_json', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_json', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeAfter(delegate) {
+    def doc = '''<pre>
+    after (
+        comments: string
+        delay: integer
+        duration: integer
+        enabled: boolean (true)
+        forever: boolean
+        keepUser: boolean (true)
+        loops: integer (1)
+        name: string
+        onError: string (continue)
+        rampUp: integer (1)
+        scheduler: boolean
+        users: integer (1)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'after', params: [value: String.name], doc: doc)
+    delegate.method(name: 'after', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'after', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'after', params: [closure: {}], doc: doc)
+    delegate.method(name: 'after', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'after', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'after', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeLogin(delegate) {
+    def doc = '''<pre>
+    login (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        password: string
+        username: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'login', params: [value: String.name], doc: doc)
+    delegate.method(name: 'login', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'login', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'login', params: [closure: {}], doc: doc)
+    delegate.method(name: 'login', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'login', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'login', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCookies(delegate) {
+    def doc = '''<pre>
+    cookies (
+        clearEachIteration: boolean
+        comments: string
+        enabled: boolean (true)
+        name: string
+        policy: string (standard)
+        useUserConfig: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'cookies', params: [value: String.name], doc: doc)
+    delegate.method(name: 'cookies', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'cookies', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'cookies', params: [closure: {}], doc: doc)
+    delegate.method(name: 'cookies', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'cookies', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'cookies', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExecute_order(delegate) {
+    def doc = '''<pre>
+    execute_order (
+        comments: string
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_order', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_order', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_order', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_order', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_order', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_order', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_order', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeAssert_xpath(delegate) {
+    def doc = '''<pre>
+    assert_xpath (
+        applyTo: string (all)
+        comments: string
+        enabled: boolean (true)
+        failOnNoMatch: boolean
+        fetchDtd: boolean
+        ignoreWhitespace: boolean
+        name: string
+        quiet: boolean (true)
+        reportErrors: boolean
+        showWarnings: boolean
+        useNamespace: boolean
+        useTolerant: boolean
+        validate: boolean
+        variable: string
+        xpath: string (/)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'assert_xpath', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_xpath', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_xpath', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExecute_percent(delegate) {
+    def doc = '''<pre>
+    execute_percent (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        perUser: boolean
+        percent: integer (100)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_percent', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_percent', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_percent', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_percent', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_percent', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_percent', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_percent', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExecute(delegate) {
+    def doc = '''<pre>
+    execute (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        type: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeFor_each(delegate) {
+    def doc = '''<pre>
+    for_each (
+        comments: string
+        enabled: boolean (true)
+        end: integer (1)
+        in: string
+        name: string
+        out: string
+        separator: boolean (true)
+        start: integer
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'for_each', params: [value: String.name], doc: doc)
+    delegate.method(name: 'for_each', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'for_each', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'for_each', params: [closure: {}], doc: doc)
+    delegate.method(name: 'for_each', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'for_each', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'for_each', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeAuthorization(delegate) {
+    def doc = '''<pre>
+    authorization (
+        domain: string
+        mechanism: string (BASIC)
+        password: string
+        realm: string
+        url: string
+        username: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'authorization', params: [value: String.name], doc: doc)
+    delegate.method(name: 'authorization', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'authorization', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExtract_css(delegate) {
+    def doc = '''<pre>
+    extract_css (
+        applyTo: string (parent)
+        attribute: string
+        comments: string
+        defaultValue: string
+        enabled: boolean (true)
+        engine: string (JSOUP)
+        expression: string
+        match: integer
+        name: string
+        useEmptyValue: boolean
+        variable: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'extract_css', params: [value: String.name], doc: doc)
+    delegate.method(name: 'extract_css', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'extract_css', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeVariables(delegate) {
+    def doc = '''<pre>
+    variables (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        values: map
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'variables', params: [value: String.name], doc: doc)
+    delegate.method(name: 'variables', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'variables', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'variables', params: [closure: {}], doc: doc)
+    delegate.method(name: 'variables', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'variables', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'variables', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeThroughput(delegate) {
+    def doc = '''<pre>
+    throughput (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        type: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'throughput', params: [value: String.name], doc: doc)
+    delegate.method(name: 'throughput', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'throughput', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeSynchronizing_timer(delegate) {
+    def doc = '''<pre>
+    synchronizing_timer (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        timeout: long
+        users: integer
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'synchronizing_timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'synchronizing_timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'synchronizing_timer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeBefore(delegate) {
+    def doc = '''<pre>
+    before (
+        comments: string
+        delay: integer
+        duration: integer
+        enabled: boolean (true)
+        forever: boolean
+        keepUser: boolean (true)
+        loops: integer (1)
+        name: string
+        onError: string (continue)
+        rampUp: integer (1)
+        scheduler: boolean
+        users: integer (1)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'before', params: [value: String.name], doc: doc)
+    delegate.method(name: 'before', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'before', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'before', params: [closure: {}], doc: doc)
+    delegate.method(name: 'before', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'before', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'before', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCookie(delegate) {
+    def doc = '''<pre>
+    cookie (
+        domain: string
+        expires: integer
+        name: string
+        path: string
+        secure: boolean
+        value: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'cookie', params: [value: String.name], doc: doc)
+    delegate.method(name: 'cookie', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'cookie', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeInclude(delegate) {
+    def doc = '''<pre>
+    include (
+        comments: string
+        enabled: boolean (true)
+        file: string
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'include', params: [value: String.name], doc: doc)
+    delegate.method(name: 'include', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'include', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeFile(delegate) {
+    def doc = '''<pre>
+    file (
+        file: string
+        name: object
+        type: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'file', params: [value: String.name], doc: doc)
+    delegate.method(name: 'file', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'file', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeConstant_timer(delegate) {
+    def doc = '''<pre>
+    constant_timer (
+        comments: string
+        delay: long (300)
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'constant_timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'constant_timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'constant_timer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExtract_json(delegate) {
+    def doc = '''<pre>
+    extract_json (
+        applyTo: string (parent)
+        comments: string
+        concatenation: boolean
+        defaultValues: string
+        enabled: boolean (true)
+        expressions: string
+        matches: integer ([1])
+        name: string
+        variables: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'extract_json', params: [value: String.name], doc: doc)
+    delegate.method(name: 'extract_json', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'extract_json', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExtract_regex(delegate) {
+    def doc = '''<pre>
+    extract_regex (
+        applyTo: string (parent)
+        comments: string
+        defaultValue: string
+        enabled: boolean (true)
+        expression: string
+        field: string (response_body)
+        match: integer (1)
+        name: string
+        template: string ($1$)
+        useEmptyValue: boolean
+        variable: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'extract_regex', params: [value: String.name], doc: doc)
+    delegate.method(name: 'extract_regex', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'extract_regex', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeGroup(delegate) {
+    def doc = '''<pre>
+    group (
+        comments: string
+        delay: integer
+        delayedStart: boolean
+        duration: integer
+        enabled: boolean (true)
+        forever: boolean
+        keepUser: boolean (true)
+        loops: integer (1)
+        name: string
+        onError: string (continue)
+        rampUp: integer (1)
+        scheduler: boolean
+        users: integer (1)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'group', params: [value: String.name], doc: doc)
+    delegate.method(name: 'group', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'group', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'group', params: [closure: {}], doc: doc)
+    delegate.method(name: 'group', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'group', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'group', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCsv(delegate) {
+    def doc = '''<pre>
+    csv (
+        allowQuotedData: boolean
+        comments: string
+        delimiter: string (,)
+        enabled: boolean (true)
+        encoding: string (UTF-8)
+        file: string
+        ignoreFirstLine: boolean
+        name: string
+        recycle: boolean (true)
+        shareMode: string (all)
+        stopUser: boolean
+        variables: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'csv', params: [value: String.name], doc: doc)
+    delegate.method(name: 'csv', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'csv', params: [value: String.name, config: Map.name], doc: doc)
 }
 
 private void contributeParam(delegate) {
-    final args = [
-            name: 'java.lang.String',
-            value: 'java.lang.String',
-            encoded: 'java.lang.Boolean',
-            encoding: 'java.lang.String'
-    ]
+    def doc = '''<pre>
+    param (
+        encoded: boolean
+        encoding: string (UTF-8)
+        name: string
+        value: object
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'param', params: [value: String.name], doc: doc)
+    delegate.method(name: 'param', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'param', params: [value: String.name, config: Map.name], doc: doc)
+}
 
-    delegate.method(name: 'param', params: [config: args])
+private void contributeTimer(delegate) {
+    def doc = '''<pre>
+    timer (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        type: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'timer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExecute_while(delegate) {
+    def doc = '''<pre>
+    execute_while (
+        comments: string
+        condition: string
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_while', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_while', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_while', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_while', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_while', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_while', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_while', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
 private void contributeParams(delegate) {
-    delegate.method(name: 'params', params: [body: {}])
-    delegate.method(name: 'params', params: [values: [:]])
-
-    if(delegate.enclosingCall('params')) {
-        contributeParam(delegate)
+    def doc = '''<pre>
+    params (
+        values: map
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'params', params: [value: String.name], doc: doc)
+    delegate.method(name: 'params', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'params', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'params', params: [closure: {}], doc: doc)
+    delegate.method(name: 'params', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'params', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'params', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
-private void contributeConditional(delegate) {
-    final args = [
-            'if': 'java.lang.String',
-            'while': 'java.lang.String'
-    ]
-
-    delegate.method(name: 'conditional', params: [config: commonArgs + args, body: {}])
+private void contributeBody(delegate) {
+    def doc = '''<pre>
+    body (
+        encoding: string (UTF-8)
+        file: string
+        inline: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'body', params: [value: String.name], doc: doc)
+    delegate.method(name: 'body', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'body', params: [value: String.name, config: Map.name], doc: doc)
 }
 
-private void contributeExecution(delegate) {
-    final args = [
-            type: 'java.lang.String',
-            ignore: 'java.lang.Boolean',
-            style: 'java.lang.Integer',
-            accrossUsers: 'java.lang.Boolean',
-            perUser: 'java.lang.Boolean',
-            percent: 'java.lang.Integer',
-            total: 'java.lang.Integer',
-            runtime: 'java.lang.Integer',
-            value: 'java.lang.Object'
-    ]
+private void contributeHttp(delegate) {
+    def doc = '''<pre>
+    http (
+        autoRedirects: boolean
+        browserCompatibleMultipart: boolean
+        comments: string
+        connectTimeout: string
+        domain: string
+        downloadEmbeddedResources: boolean
+        embeddedConcurrent: boolean
+        embeddedConcurrentDownloads: integer (6)
+        embeddedResourceUrl: string
+        enabled: boolean (true)
+        encoding: string
+        followRedirects: boolean (true)
+        impl: string
+        ipSource: string
+        ipSourceType: string
+        keepAlive: boolean (true)
+        method: string
+        multipart: boolean
+        name: string
+        path: string
+        port: integer
+        protocol: string
+        proxyHost: string
+        proxyPassword: string
+        proxyPort: string
+        proxySchema: string
+        proxyUser: string
+        responseTimeout: string
+        saveAsMD5: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'http', params: [value: String.name], doc: doc)
+    delegate.method(name: 'http', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'http', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'http', params: [closure: {}], doc: doc)
+    delegate.method(name: 'http', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'http', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'http', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
 
-    delegate.method(name: 'execution', params: [config: commonArgs + args, body: {}])
+private void contributeExecute_once(delegate) {
+    def doc = '''<pre>
+    execute_once (
+        comments: string
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_once', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_once', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_once', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_once', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_once', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_once', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_once', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExecute_runtime(delegate) {
+    def doc = '''<pre>
+    execute_runtime (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        runtime: integer (1)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_runtime', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_runtime', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCheck_size(delegate) {
+    def doc = '''<pre>
+    check_size (
+        applyTo: string (all)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'check_size', params: [value: String.name], doc: doc)
+    delegate.method(name: 'check_size', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'check_size', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeCache(delegate) {
+    def doc = '''<pre>
+    cache (
+        clearEachIteration: boolean
+        comments: string
+        enabled: boolean (true)
+        maxSize: integer (5000)
+        name: string
+        useExpires: boolean (true)
+        useUserConfig: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'cache', params: [value: String.name], doc: doc)
+    delegate.method(name: 'cache', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'cache', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExecute_if(delegate) {
+    def doc = '''<pre>
+    execute_if (
+        comments: string
+        condition: string
+        enabled: boolean (true)
+        evaluateAll: boolean
+        name: string
+        useExpression: boolean (true)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_if', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_if', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_if', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_if', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_if', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_if', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_if', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeUniform_timer(delegate) {
+    def doc = '''<pre>
+    uniform_timer (
+        comments: string
+        delay: long (1000)
+        enabled: boolean (true)
+        name: string
+        range: double (100.0)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'uniform_timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'uniform_timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'uniform_timer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeJsrassertion(delegate) {
+    def doc = '''<pre>
+    jsrassertion (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrassertion', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrassertion', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrassertion', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeArguments(delegate) {
+    def doc = '''<pre>
+    arguments (
+        values: map
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'arguments', params: [value: String.name], doc: doc)
+    delegate.method(name: 'arguments', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'arguments', params: [closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeConstant_throughput(delegate) {
+    def doc = '''<pre>
+    constant_throughput (
+        basedOn: string (user)
+        comments: string
+        enabled: boolean (true)
+        name: string
+        target: double
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'constant_throughput', params: [value: String.name], doc: doc)
+    delegate.method(name: 'constant_throughput', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'constant_throughput', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeJsrlistener(delegate) {
+    def doc = '''<pre>
+    jsrlistener (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrlistener', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrlistener', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrlistener', params: [value: String.name, config: Map.name], doc: doc)
 }
 
 private void contributeLoop(delegate) {
-    final args = [
-            count: 'java.lang.Integer',
-            forever: 'java.lang.Boolean',
-    ]
+    def doc = '''<pre>
+    loop (
+        comments: string
+        count: integer (1)
+        enabled: boolean (true)
+        forever: boolean
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'loop', params: [value: String.name], doc: doc)
+    delegate.method(name: 'loop', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'loop', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'loop', params: [closure: {}], doc: doc)
+    delegate.method(name: 'loop', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'loop', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'loop', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
 
-    delegate.method(name: 'loop', params: [config: commonArgs + args, body: {}])
+private void contributeAssert_duration(delegate) {
+    def doc = '''<pre>
+    assert_duration (
+        applyTo: string (all)
+        comments: string
+        duration: long
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'assert_duration', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_duration', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_duration', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeJsrpreprocessor(delegate) {
+    def doc = '''<pre>
+    jsrpreprocessor (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrpreprocessor', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrpreprocessor', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrpreprocessor', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeFlow(delegate) {
+    def doc = '''<pre>
+    flow (
+        action: string (pause)
+        comments: string
+        duration: integer (0)
+        enabled: boolean (true)
+        name: string
+        target: string (current)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'flow', params: [value: String.name], doc: doc)
+    delegate.method(name: 'flow', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'flow', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'flow', params: [closure: {}], doc: doc)
+    delegate.method(name: 'flow', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'flow', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'flow', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeAssert_size(delegate) {
+    def doc = '''<pre>
+    assert_size (
+        applyTo: string (all)
+        comments: string
+        enabled: boolean (true)
+        field: string (response_data)
+        name: string
+        rule: string (eq)
+        size: long
+        variable: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'assert_size', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_size', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_size', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeArgument(delegate) {
+    def doc = '''<pre>
+    argument (
+        name: string
+        value: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'argument', params: [value: String.name], doc: doc)
+    delegate.method(name: 'argument', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'argument', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributePrecise_throughput(delegate) {
+    def doc = '''<pre>
+    precise_throughput (
+        batchDelay: integer
+        batchUsers: integer (1)
+        comments: string
+        duration: long (3600)
+        enabled: boolean (true)
+        name: string
+        percents: double (1.0)
+        period: integer (3600)
+        samples: integer (10000)
+        seed: long
+        target: double (100.0)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'precise_throughput', params: [value: String.name], doc: doc)
+    delegate.method(name: 'precise_throughput', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'precise_throughput', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeHeaders(delegate) {
+    def doc = '''<pre>
+    headers (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        values: map
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'headers', params: [value: String.name], doc: doc)
+    delegate.method(name: 'headers', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'headers', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'headers', params: [closure: {}], doc: doc)
+    delegate.method(name: 'headers', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'headers', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'headers', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributePlan(delegate) {
+    def doc = '''<pre>
+    plan (
+        classpath: string
+        comments: string
+        enabled: boolean (true)
+        functionalMode: boolean
+        name: string
+        serialized: boolean
+        tearDownOnShutdown: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'plan', params: [value: String.name], doc: doc)
+    delegate.method(name: 'plan', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'plan', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'plan', params: [closure: {}], doc: doc)
+    delegate.method(name: 'plan', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'plan', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'plan', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeAssert_md5hex(delegate) {
+    def doc = '''<pre>
+    assert_md5hex (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        value: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'assert_md5hex', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_md5hex', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_md5hex', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeSection(delegate) {
+    def doc = '''<pre>
+    section (
+        comments: string
+        enabled: boolean (true)
+        lock: string (global_lock)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'section', params: [value: String.name], doc: doc)
+    delegate.method(name: 'section', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'section', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'section', params: [closure: {}], doc: doc)
+    delegate.method(name: 'section', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'section', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'section', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExecute_total(delegate) {
+    def doc = '''<pre>
+    execute_total (
+        comments: string
+        enabled: boolean (true)
+        name: string
+        perUser: boolean
+        total: integer (1)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_total', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_total', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_total', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_total', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_total', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_total', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_total', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeRandom(delegate) {
+    def doc = '''<pre>
+    random (
+        comments: string
+        enabled: boolean (true)
+        format: string
+        maximum: integer (2147483647)
+        minimum: integer
+        name: string
+        perUser: boolean (true)
+        seed: long
+        variable: string (r)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'random', params: [value: String.name], doc: doc)
+    delegate.method(name: 'random', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'random', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeVariable(delegate) {
+    def doc = '''<pre>
+    variable (
+        description: string
+        name: string
+        value: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'variable', params: [value: String.name], doc: doc)
+    delegate.method(name: 'variable', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'variable', params: [value: String.name, config: Map.name], doc: doc)
 }
 
 private void contributeSimple(delegate) {
-    delegate.method(name: 'simple', params: [config: commonArgs, body: {}])
-}
-
-private void contributeBacked(delegate) {
-    final args = [
-            classname: 'java.lang.String',
-            queueSize: 'java.lang.String'
-    ]
-    delegate.method(name: 'backend', params: [body: {}])
-    delegate.method(name: 'backend', params: [config: commonArgs + args, body: {}])
-
-    if(delegate.enclosingCall('backend')) {
-        contributeArguments(delegate)
+    def doc = '''<pre>
+    simple (
+        comments: string
+        enabled: boolean (true)
+        name: string
+    ) {
     }
+    </pre>'''
+    delegate.method(name: 'simple', params: [value: String.name], doc: doc)
+    delegate.method(name: 'simple', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'simple', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'simple', params: [closure: {}], doc: doc)
+    delegate.method(name: 'simple', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'simple', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'simple', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 
+private void contributeFiles(delegate) {
+    def doc = '''<pre>
+    files (
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'files', params: [value: String.name], doc: doc)
+    delegate.method(name: 'files', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'files', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'files', params: [closure: {}], doc: doc)
+    delegate.method(name: 'files', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'files', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'files', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExtract_xpath(delegate) {
+    def doc = '''<pre>
+    extract_xpath (
+        applyTo: string (parent)
+        comments: string
+        defaultValue: string
+        enabled: boolean (true)
+        expression: string
+        fragment: boolean
+        match: integer
+        name: string
+        namespaces: string
+        variable: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'extract_xpath', params: [value: String.name], doc: doc)
+    delegate.method(name: 'extract_xpath', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'extract_xpath', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeCheck_request(delegate) {
+    def doc = '''<pre>
+    check_request (
+        applyTo: string (all)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'check_request', params: [value: String.name], doc: doc)
+    delegate.method(name: 'check_request', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'check_request', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeJsrtimer(delegate) {
+    def doc = '''<pre>
+    jsrtimer (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrtimer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrtimer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrtimer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeExecute_interleave(delegate) {
+    def doc = '''<pre>
+    execute_interleave (
+        acrossUsers: boolean
+        comments: string
+        enabled: boolean (true)
+        ignore: boolean
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_interleave', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_interleave', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeExecute_random(delegate) {
+    def doc = '''<pre>
+    execute_random (
+        comments: string
+        enabled: boolean (true)
+        ignore: boolean
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'execute_random', params: [value: String.name], doc: doc)
+    delegate.method(name: 'execute_random', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'execute_random', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'execute_random', params: [closure: {}], doc: doc)
+    delegate.method(name: 'execute_random', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_random', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'execute_random', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeAjp(delegate) {
+    def doc = '''<pre>
+    ajp (
+        autoRedirects: boolean
+        browserCompatibleMultipart: boolean
+        comments: string
+        domain: string
+        downloadEmbeddedResources: boolean
+        embeddedConcurrent: boolean
+        embeddedConcurrentDownloads: integer (6)
+        embeddedResourceUrl: string
+        enabled: boolean (true)
+        encoding: string
+        followRedirects: boolean (true)
+        keepAlive: boolean (true)
+        method: string
+        multipart: boolean
+        name: string
+        path: string
+        port: integer
+        protocol: string
+        saveAsMD5: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'ajp', params: [value: String.name], doc: doc)
+    delegate.method(name: 'ajp', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'ajp', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'ajp', params: [closure: {}], doc: doc)
+    delegate.method(name: 'ajp', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'ajp', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'ajp', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCounter(delegate) {
+    def doc = '''<pre>
+    counter (
+        comments: string
+        enabled: boolean (true)
+        end: integer (2147483647)
+        format: string
+        increment: integer (1)
+        name: string
+        perUser: boolean
+        reset: boolean
+        start: integer
+        variable: string (c)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'counter', params: [value: String.name], doc: doc)
+    delegate.method(name: 'counter', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'counter', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeJsrpostprocessor(delegate) {
+    def doc = '''<pre>
+    jsrpostprocessor (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrpostprocessor', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrpostprocessor', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrpostprocessor', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeDebug(delegate) {
+    def doc = '''<pre>
+    debug (
+        comments: string
+        displayJMeterProperties: boolean
+        displayJMeterVariables: boolean
+        displaySystemProperties: boolean
+        enabled: boolean (true)
+        name: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'debug', params: [value: String.name], doc: doc)
+    delegate.method(name: 'debug', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'debug', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'debug', params: [closure: {}], doc: doc)
+    delegate.method(name: 'debug', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'debug', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'debug', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeCheck_response(delegate) {
+    def doc = '''<pre>
+    check_response (
+        applyTo: string (all)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'check_response', params: [value: String.name], doc: doc)
+    delegate.method(name: 'check_response', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'check_response', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributePoisson_timer(delegate) {
+    def doc = '''<pre>
+    poisson_timer (
+        comments: string
+        delay: long (300)
+        enabled: boolean (true)
+        name: string
+        range: double (100.0)
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'poisson_timer', params: [value: String.name], doc: doc)
+    delegate.method(name: 'poisson_timer', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'poisson_timer', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeInsert(delegate) {
+    def doc = '''<pre>
+    insert (
+        file: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'insert', params: [value: String.name], doc: doc)
+    delegate.method(name: 'insert', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'insert', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeAuthorizations(delegate) {
+    def doc = '''<pre>
+    authorizations (
+        clearEachIteration: boolean
+        comments: string
+        enabled: boolean (true)
+        name: string
+        useUserConfig: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'authorizations', params: [value: String.name], doc: doc)
+    delegate.method(name: 'authorizations', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'authorizations', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'authorizations', params: [closure: {}], doc: doc)
+    delegate.method(name: 'authorizations', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'authorizations', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'authorizations', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeHeader(delegate) {
+    def doc = '''<pre>
+    header (
+        name: string
+        value: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'header', params: [value: String.name], doc: doc)
+    delegate.method(name: 'header', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'header', params: [value: String.name, config: Map.name], doc: doc)
+}
+
+private void contributeDefaults(delegate) {
+    def doc = '''<pre>
+    defaults (
+        comments: string
+        connectTimeout: string
+        domain: string
+        downloadEmbeddedResources: boolean
+        embeddedConcurrent: boolean
+        embeddedConcurrentDownloads: integer (6)
+        embeddedResourceUrl: string
+        enabled: boolean (true)
+        encoding: string
+        impl: string
+        ipSource: string
+        ipSourceType: string
+        method: string (GET)
+        name: string
+        path: string
+        port: integer (80)
+        protocol: string (http)
+        proxyHost: string
+        proxyPassword: string
+        proxyPort: string
+        proxySchema: string
+        proxyUser: string
+        responseTimeout: string
+        saveAsMD5: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'defaults', params: [value: String.name], doc: doc)
+    delegate.method(name: 'defaults', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'defaults', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'defaults', params: [closure: {}], doc: doc)
+    delegate.method(name: 'defaults', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'defaults', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'defaults', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeJsrsampler(delegate) {
+    def doc = '''<pre>
+    jsrsampler (
+        cacheKey: boolean (true)
+        comments: string
+        enabled: boolean (true)
+        file: string
+        inline: string
+        language: string (groovy)
+        name: string
+        parameters: string
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'jsrsampler', params: [value: String.name], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [closure: {}], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'jsrsampler', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+
+private void contributeTransaction(delegate) {
+    def doc = '''<pre>
+    transaction (
+        comments: string
+        enabled: boolean (true)
+        generate: boolean
+        name: string
+        timers: boolean
+    ) {
+    }
+    </pre>'''
+    delegate.method(name: 'transaction', params: [value: String.name], doc: doc)
+    delegate.method(name: 'transaction', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'transaction', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'transaction', params: [closure: {}], doc: doc)
+    delegate.method(name: 'transaction', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'transaction', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'transaction', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}

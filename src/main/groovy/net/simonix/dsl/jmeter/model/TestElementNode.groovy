@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,12 @@ import org.apache.jmeter.testelement.TestElement
 @CompileStatic
 class TestElementNode {
 
+    String name
     TestElement testElement
     List<TestElementNode> testElementNodes = [] as LinkedList<TestElementNode>
 
-    TestElementNode(TestElement testElement) {
+    TestElementNode(String name, TestElement testElement) {
+        this.name = name
         this.testElement = testElement
     }
 
