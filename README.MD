@@ -28,7 +28,7 @@ Or you can use the [Docker](https://www.docker.com/) approach (check the section
 
 ## How to start
 
-> Starting from version 0.11.0, all artificats are available through [maven repository](https://repo1.maven.org/maven2/). If you don't need the latest changes, skip this section and go to [First Steps](#first-steps).
+> Starting from version 0.11.0, all artificats are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you don't need the latest changes, skip this section and go to [First Steps](#first-steps).
 
 Clone, build and publish jars to your local repository:
 
