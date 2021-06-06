@@ -76,14 +76,15 @@ abstract class TestScript extends TestScriptBase {
         }
 
         script.no_run = options.'no-run'
-
-        binding.setProperty('script', script)
+        script.variables = [:]
 
         if (options.Vs) {
             options.Vs.each { String name, String value ->
-                binding.setVariable(name, value)
+                script.variables[name] = value
             }
         }
+
+        binding.setProperty('script', script)
 
         updateJMeterClassPath()
 

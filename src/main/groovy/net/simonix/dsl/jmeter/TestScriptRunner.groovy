@@ -95,6 +95,12 @@ final class TestScriptRunner {
     static TestElementNode invokeBuilder(Map config, Closure closure) {
         DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
+        if(config.variables) {
+            config.variables.each { entry ->
+                builder.setVariable(entry.key as String, entry.value)
+            }
+        }
+
         if (config.plugins) {
             config.plugins.each { factory ->
                 builder.registerPluginFactory(factory)
