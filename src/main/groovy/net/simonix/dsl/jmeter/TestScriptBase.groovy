@@ -57,6 +57,14 @@ abstract class TestScriptBase extends Script {
 
         String saveToPath = saveTo != null ? saveTo : null
 
+        // add custom variables from command line
+        config.variables = [:]
+        if(script.variables) {
+            script.variables.each {
+                config.variables[it.key] = it.value
+            }
+        }
+
         HashTree configuration = TestScriptRunner.configure(config, c)
 
         if (saveToPath) {

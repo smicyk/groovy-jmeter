@@ -178,7 +178,14 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         if(node instanceof TestElementNode && JdbcFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
             Map<String, Object> parentContext = getProxyBuilder().getContext()
 
-            closure.delegate = new JdbcFactoryBuilder(parentContext, closure)
+            JdbcFactoryBuilder builder = new JdbcFactoryBuilder(parentContext, closure)
+
+            // copy any variables from command line to the child builder
+            this.variables.each { entry ->
+                builder.setVariable(entry.key as String, entry.value)
+            }
+
+            closure.delegate = builder
             closure.resolveStrategy = Closure.DELEGATE_ONLY
         } else {
             closure.delegate = this
