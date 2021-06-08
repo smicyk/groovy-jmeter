@@ -84,11 +84,13 @@ abstract class TestScript extends TestScriptBase {
             }
         }
 
+        println "test 123"
+
         binding.setProperty('script', script)
 
         updateJMeterClassPath()
 
         // here we execute normal script code
-        executeScript()
+        return executeScript()
     }
 }
