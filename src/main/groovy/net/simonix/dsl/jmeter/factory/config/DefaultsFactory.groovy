@@ -57,6 +57,11 @@ final class DefaultsFactory extends TestElementNodeFactory {
         testElement.setProperty(HTTPSampler.CONCURRENT_POOL, config.embeddedConcurrentDownloads as Integer)
         testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, config.embeddedResourceUrl as String)
 
+        String embeddedResourceUrlExclude = config.embeddedResourceUrlExclude as String
+        if(embeddedResourceUrlExclude != null && !embeddedResourceUrlExclude.isEmpty()) {
+            testElement.setProperty(HTTPSampler.EMBEDDED_URL_EXCLUDE_RE, embeddedResourceUrlExclude)
+        }
+
         // Source address
         testElement.setProperty(HTTPSampler.IP_SOURCE, config.ipSource as String)
         String ipSourceType = config.ipSourceType as String

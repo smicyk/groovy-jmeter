@@ -65,6 +65,7 @@
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
           <stringProp name="HTTPSampler.implementation"></stringProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.embedded_url_exclude_re"></stringProp>
           <stringProp name="HTTPSampler.proxyScheme"></stringProp>
           <stringProp name="HTTPSampler.proxyHost"></stringProp>
           <stringProp name="HTTPSampler.proxyPort"></stringProp>

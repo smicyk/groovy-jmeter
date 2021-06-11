@@ -463,6 +463,7 @@ final class DslDefinition {
         property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
         property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
         property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
+        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
         property(name: 'ipSource', type: String, required: false, defaultValue: '')
         property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
         property(name: 'proxySchema', type: String, required: false, defaultValue: '')
