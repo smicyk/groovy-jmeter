@@ -59,7 +59,7 @@ import org.apache.jmeter.testelement.TestElement
 final class DnsFactory extends TestElementNodeFactory {
 
     DnsFactory() {
-        super(DslDefinition.DNS.title, DNSCacheManager, DNSCachePanel, false, DslDefinition.DNS)
+        super(DNSCacheManager, DNSCachePanel, DslDefinition.DNS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -42,7 +42,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class DurationAssertionFactory extends TestElementNodeFactory {
 
     DurationAssertionFactory() {
-        super(DslDefinition.ASSERT_DURATION.title, DurationAssertion, DurationAssertionGui, DslDefinition.ASSERT_DURATION.leaf, DslDefinition.ASSERT_DURATION)
+        super(DurationAssertion, DurationAssertionGui, DslDefinition.ASSERT_DURATION)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -26,7 +26,7 @@ import org.apache.jmeter.testelement.TestElement
 final class XPathExtractorFactory  extends TestElementNodeFactory {
 
     XPathExtractorFactory() {
-        super(DslDefinition.XPATH_EXTRACTOR.title, XPath2Extractor, XPath2ExtractorGui, DslDefinition.XPATH_EXTRACTOR.leaf, DslDefinition.XPATH_EXTRACTOR)
+        super(XPath2Extractor, XPath2ExtractorGui, DslDefinition.XPATH_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

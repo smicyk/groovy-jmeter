@@ -39,6 +39,6 @@ import org.apache.jmeter.control.gui.OnceOnlyControllerGui
 final class OnceControllerFactory extends TestElementNodeFactory {
 
     OnceControllerFactory() {
-        super(DslDefinition.EXECUTE_ONCE.title, OnceOnlyController, OnceOnlyControllerGui, DslDefinition.EXECUTE_ONCE.leaf, DslDefinition.EXECUTE_ONCE)
+        super(OnceOnlyController, OnceOnlyControllerGui, DslDefinition.EXECUTE_ONCE)
     }
 }

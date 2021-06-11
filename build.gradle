@@ -85,7 +85,7 @@ dependencies {
 configurations {
     all*.exclude group: 'xml-apis'
     all*.exclude group: 'xerces'
-    // must be since JMeter has broken build, see https://bz.apache.org/bugzilla/show_bug.cgi?id=64465
+    // it must be added since JMeter has broken build, see https://bz.apache.org/bugzilla/show_bug.cgi?id=64465
     all*.exclude group: 'org.apache.jmeter', module: 'bom'
 }
 
@@ -142,9 +142,8 @@ task javadocJar(type: Jar) {
 publishing {
     repositories {
         ivy {
-            url "${System.properties['user.home']}/.groovy/grapes"
-//            artifactPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/jars/[artifact]-[revision](.[ext])"
-//            ivyPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/ivy-[revision].xml"
+            artifactPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/jars/[artifact]-[revision](.[ext])"
+            ivyPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/ivy-[revision].xml"
         }
         maven {
             credentials {
@@ -203,6 +202,12 @@ publishing {
     }
 }
 
+// disable gradle module metadata to amke Ivy custom publication working
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+
 signing {
+    required { gradle.taskGraph.hasTask('publishMavenPublicationToMavenRepository') }
     sign publishing.publications.maven
 }

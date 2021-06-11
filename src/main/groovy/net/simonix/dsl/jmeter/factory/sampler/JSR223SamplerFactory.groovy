@@ -33,6 +33,6 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 final class JSR223SamplerFactory extends AbstractJSR223Factory {
 
     JSR223SamplerFactory() {
-        super(DslDefinition.JSR223_SAMPLER.title, JSR223Sampler, TestBeanGUI, DslDefinition.JSR223_SAMPLER.leaf, DslDefinition.JSR223_SAMPLER)
+        super(JSR223Sampler, TestBeanGUI, DslDefinition.JSR223_SAMPLER)
     }
 }

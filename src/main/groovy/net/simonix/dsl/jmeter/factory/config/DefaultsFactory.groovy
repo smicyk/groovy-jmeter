@@ -30,7 +30,7 @@ import org.apache.jmeter.testelement.property.TestElementProperty
 final class DefaultsFactory extends TestElementNodeFactory {
 
     DefaultsFactory() {
-        super(DslDefinition.DEFAULTS.title, ConfigTestElement, HttpDefaultsGui, DslDefinition.DEFAULTS.leaf, DslDefinition.DEFAULTS)
+        super(ConfigTestElement, HttpDefaultsGui, DslDefinition.DEFAULTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

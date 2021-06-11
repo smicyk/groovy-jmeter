@@ -55,7 +55,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CounterFactory extends TestElementNodeFactory {
 
     CounterFactory() {
-        super(DslDefinition.COUNTER.title, CounterConfig, CounterConfigGui, DslDefinition.COUNTER.leaf, DslDefinition.COUNTER)
+        super(CounterConfig, CounterConfigGui, DslDefinition.COUNTER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

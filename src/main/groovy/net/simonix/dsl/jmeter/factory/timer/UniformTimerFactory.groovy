@@ -50,7 +50,7 @@ import org.apache.jmeter.timers.gui.UniformRandomTimerGui
 final class UniformTimerFactory extends TestElementNodeFactory {
 
     UniformTimerFactory() {
-        super(DslDefinition.UNIFORM_TIMER.title, UniformRandomTimer, UniformRandomTimerGui, DslDefinition.UNIFORM_TIMER.leaf, DslDefinition.UNIFORM_TIMER)
+        super(UniformRandomTimer, UniformRandomTimerGui, DslDefinition.UNIFORM_TIMER)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

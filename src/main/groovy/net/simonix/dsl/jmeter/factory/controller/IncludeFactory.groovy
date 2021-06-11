@@ -41,7 +41,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IncludeFactory extends TestElementNodeFactory {
 
     IncludeFactory() {
-        super(DslDefinition.INCLUDE.title, IncludeController, IncludeControllerGui, DslDefinition.INCLUDE.leaf, DslDefinition.INCLUDE)
+        super(IncludeController, IncludeControllerGui, DslDefinition.INCLUDE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

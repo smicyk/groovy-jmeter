@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class BackendListenerFactory extends TestElementNodeFactory {
 
     BackendListenerFactory() {
-        super(DslDefinition.BACKEND.title, BackendListener, BackendListenerGui, DslDefinition.BACKEND.leaf, DslDefinition.BACKEND)
+        super(BackendListener, BackendListenerGui, DslDefinition.BACKEND)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

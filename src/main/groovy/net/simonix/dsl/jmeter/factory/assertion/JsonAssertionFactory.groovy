@@ -44,7 +44,7 @@ import org.apache.jmeter.testelement.TestElement
 final class JsonAssertionFactory extends TestElementNodeFactory {
 
     JsonAssertionFactory() {
-        super(DslDefinition.ASSERT_JSON.title, JSONPathAssertion, JSONPathAssertionGui, DslDefinition.ASSERT_JSON.leaf, DslDefinition.ASSERT_JSON)
+        super(JSONPathAssertion, JSONPathAssertionGui, DslDefinition.ASSERT_JSON)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

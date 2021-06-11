@@ -41,7 +41,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class MD5HexAssertionFactory extends TestElementNodeFactory {
 
     MD5HexAssertionFactory() {
-        super(DslDefinition.ASSERT_MD5HEX.title, MD5HexAssertion, MD5HexAssertionGUI, DslDefinition.ASSERT_MD5HEX.leaf, DslDefinition.ASSERT_MD5HEX)
+        super(MD5HexAssertion, MD5HexAssertionGUI, DslDefinition.ASSERT_MD5HEX)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

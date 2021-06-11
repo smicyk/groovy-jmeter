@@ -63,7 +63,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class IfControllerFactory extends TestElementNodeFactory {
 
     IfControllerFactory() {
-        super(DslDefinition.EXECUTE_IF.title, IfController, IfControllerPanel, DslDefinition.EXECUTE_IF.leaf, DslDefinition.EXECUTE_IF)
+        super(IfController, IfControllerPanel, DslDefinition.EXECUTE_IF)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -51,7 +51,7 @@ import org.apache.jmeter.timers.ConstantThroughputTimer
 final class ConstantThroughputFactory extends TestElementNodeFactory {
 
     ConstantThroughputFactory() {
-        super(DslDefinition.CONSTANT_THROUGHPUT.title, ConstantThroughputTimer, TestBeanGUI, DslDefinition.CONSTANT_THROUGHPUT.leaf, DslDefinition.CONSTANT_THROUGHPUT)
+        super(ConstantThroughputTimer, TestBeanGUI, DslDefinition.CONSTANT_THROUGHPUT)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
