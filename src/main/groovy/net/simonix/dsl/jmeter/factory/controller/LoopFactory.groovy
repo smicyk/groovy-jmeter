@@ -46,7 +46,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
 final class LoopFactory extends TestElementNodeFactory {
 
     LoopFactory() {
-        super(DslDefinition.LOOP.title, LoopController, LoopControlPanel, DslDefinition.LOOP.leaf, DslDefinition.LOOP)
+        super(LoopController, LoopControlPanel, DslDefinition.LOOP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

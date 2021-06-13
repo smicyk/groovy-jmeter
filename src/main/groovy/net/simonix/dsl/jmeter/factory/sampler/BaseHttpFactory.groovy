@@ -61,8 +61,8 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
 
     static final NAME_PATTERNS = [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
 
-    protected BaseHttpFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
-        super(testElementName, testElementClass, testElementGuiClass, leaf, definition)
+    protected BaseHttpFactory(Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
+        super(testElementClass, testElementGuiClass, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

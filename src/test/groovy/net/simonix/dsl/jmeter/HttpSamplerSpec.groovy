@@ -16,17 +16,17 @@
 package net.simonix.dsl.jmeter
 
 import net.simonix.dsl.jmeter.test.spec.MockServerSpec
+import org.mockserver.model.MediaType
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
+import static net.simonix.dsl.jmeter.TestScriptRunner.save
 import static org.mockserver.model.HttpRequest.request
 import static org.mockserver.model.HttpResponse.response
 import static org.mockserver.verify.VerificationTimes.once
-
-import com.google.common.net.MediaType
 
 class HttpSamplerSpec extends MockServerSpec {
 
@@ -74,13 +74,14 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "all params are send"
         
         mockServerClient.verify(request('/params')
-            .withMethod('GET')
-            .withQueryStringParameter('param1', 'value1')
-            .withQueryStringParameter('param2', '3')
-            .withQueryStringParameter('param3', 'not encoded value')
-            .withQueryStringParameter('param4', 'not encoded value')
-            .withQueryStringParameter('param5', 'encoded value'),
-        once())
+                .withMethod('GET')
+                .withQueryStringParameter('param1', 'value1')
+                .withQueryStringParameter('param2', '3')
+                .withQueryStringParameter('param3', 'not encoded value')
+                .withQueryStringParameter('param4', 'not encoded value')
+                .withQueryStringParameter('param5', 'encoded value'),
+                once()
+        )
     }
     
     def "HTTP request with defaults"() {
@@ -112,13 +113,13 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "we get request with default values and with custom"
         
         mockServerClient.verify(
-            request('/default')
-                .withMethod('GET')
-                .withQueryStringParameter('param1', 'default'),
-            request('/custom')
-                .withMethod('GET')
-                .withQueryStringParameter('param1', 'value1')
-                .withQueryStringParameter('param2', '3'))
+                request('/default')
+                        .withMethod('GET')
+                        .withQueryStringParameter('param1', 'default'),
+                request('/custom')
+                        .withMethod('GET')
+                        .withQueryStringParameter('param1', 'value1')
+                        .withQueryStringParameter('param2', '3'))
     }
     
     def "HTTP request with authorization element"() {
@@ -141,9 +142,10 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "we get request with default values and with custom"
         
         mockServerClient.verify(request('/resource')
-            .withMethod('GET')
-            .withHeader('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ='),
-        once())
+                .withMethod('GET')
+                .withHeader('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ='),
+                once()
+        )
     }
     
     def "HTTP request with cache handles expired resource"() {
@@ -154,15 +156,15 @@ class HttpSamplerSpec extends MockServerSpec {
         ZonedDateTime expires = date.minusSeconds(7200)
 
         mockServerClient.when(
-            request().withPath('/cached')
+                request().withPath('/cached')
         ).respond(
-            response()
-                .withStatusCode(200)
-                .withHeader('Date', DateTimeFormatter.RFC_1123_DATE_TIME.format(date))
-                .withHeader('Last-Modified', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
-                .withHeader('Expires', DateTimeFormatter.RFC_1123_DATE_TIME.format(expires))
-                .withHeader('ETag', '--my-e-tag--')
-                .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
+                response()
+                        .withStatusCode(200)
+                        .withHeader('Date', DateTimeFormatter.RFC_1123_DATE_TIME.format(date))
+                        .withHeader('Last-Modified', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
+                        .withHeader('Expires', DateTimeFormatter.RFC_1123_DATE_TIME.format(expires))
+                        .withHeader('ETag', '--my-e-tag--')
+                        .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
         )
 
         when: "use default cache control using control-cache/expires headers"
@@ -183,12 +185,12 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "we get request with default values and with custom"
 
         mockServerClient.verify(
-            request('/cached')
-                .withMethod('GET'),
-            request('/cached')
-                .withMethod('GET')
-                .withHeader('If-Modified-Since', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
-                .withHeader('If-None-Match', '--my-e-tag--'))
+                request('/cached')
+                        .withMethod('GET'),
+                request('/cached')
+                        .withMethod('GET')
+                        .withHeader('If-Modified-Since', DateTimeFormatter.RFC_1123_DATE_TIME.format(lastModified))
+                        .withHeader('If-None-Match', '--my-e-tag--'))
     }
 
     def "HTTP request with cache handles not expired resource"() {
@@ -232,19 +234,19 @@ class HttpSamplerSpec extends MockServerSpec {
                 request('/cached')
                         .withMethod('GET'),
                 once()
-                )
+        )
     }
 
     def "HTTP request with cookies element"() {
         given: "define cached resource"
         
         mockServerClient.when(
-            request().withPath('/resource')
+                request().withPath('/resource')
         ).respond(
-            response()
-                .withStatusCode(200)
-                .withCookie('MYCOOKIE', 'somevalue')
-                .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
+                response()
+                        .withStatusCode(200)
+                        .withCookie('MYCOOKIE', 'somevalue')
+                        .withBody('value to cache', MediaType.PLAIN_TEXT_UTF_8)
         )
         
         when: "add params to request"
@@ -267,13 +269,13 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "we get request with default values and with custom"
         
         mockServerClient.verify(
-            request('/resource')
-                .withMethod('GET')
-                .withCookie('HARDCODED', 'value'),
-            request('/resource')
-                .withMethod('GET')
-                .withCookie('HARDCODED', 'value')
-                .withCookie('MYCOOKIE', 'somevalue'))
+                request('/resource')
+                        .withMethod('GET')
+                        .withCookie('HARDCODED', 'value'),
+                request('/resource')
+                        .withMethod('GET')
+                        .withCookie('HARDCODED', 'value')
+                        .withCookie('MYCOOKIE', 'somevalue'))
     }
     
     def "HTTP request with headers element"() {
@@ -301,13 +303,13 @@ class HttpSamplerSpec extends MockServerSpec {
         then: "we get request with default values and with custom"
         
         mockServerClient.verify(
-            request('/resource')
-                .withMethod('GET')
-                .withHeader('X-GLOBAL-VALUE', 'global')
-                .withHeader('X-LOCAL-VALUE', 'local'),
-            request('/resource')
-                .withMethod('GET')
-                .withHeader('X-GLOBAL-VALUE', 'global'))
+                request('/resource')
+                        .withMethod('GET')
+                        .withHeader('X-GLOBAL-VALUE', 'global')
+                        .withHeader('X-LOCAL-VALUE', 'local'),
+                request('/resource')
+                        .withMethod('GET')
+                        .withHeader('X-GLOBAL-VALUE', 'global'))
     }
 
     def "HTTP request short version"() {
@@ -424,7 +426,7 @@ class HttpSamplerSpec extends MockServerSpec {
 
                         http('GET /complex-path/with.special/cha_racters') {
                             params values: [
-                                'param1': 'value1'
+                                    'param1': 'value1'
                             ]
                         }
                     }
@@ -433,7 +435,7 @@ class HttpSamplerSpec extends MockServerSpec {
                         defaults(protocol: 'http', domain: 'localhost', port: 8899)
 
                         variables values: [
-                            'var_id': '123456'
+                                'var_id': '123456'
                         ]
 
                         http('GET /variable/${var_id}')
@@ -442,6 +444,7 @@ class HttpSamplerSpec extends MockServerSpec {
             }
         }
 
+        save(testPlan, "test.jmx")
         run(testPlan)
 
         then: "we get request with default values and with custom"

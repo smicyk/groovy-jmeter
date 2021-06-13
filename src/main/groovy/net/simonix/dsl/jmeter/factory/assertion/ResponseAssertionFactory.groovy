@@ -49,7 +49,7 @@ import org.apache.jmeter.testelement.TestElement
 final class ResponseAssertionFactory extends TestElementNodeFactory {
 
     ResponseAssertionFactory() {
-        super(DslDefinition.ASSERT_RESPONSE.title, ResponseAssertion, AssertionGui, DslDefinition.ASSERT_RESPONSE.leaf, DslDefinition.ASSERT_RESPONSE)
+        super(ResponseAssertion, AssertionGui, DslDefinition.ASSERT_RESPONSE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

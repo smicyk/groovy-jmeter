@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SizeAssertionFactory extends TestElementNodeFactory {
 
     SizeAssertionFactory() {
-        super(DslDefinition.ASSERT_SIZE.title, SizeAssertion, SizeAssertionGui, DslDefinition.ASSERT_SIZE.leaf, DslDefinition.ASSERT_SIZE)
+        super(SizeAssertion, SizeAssertionGui, DslDefinition.ASSERT_SIZE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RuntimeControllerFactory extends TestElementNodeFactory {
 
     RuntimeControllerFactory() {
-        super(DslDefinition.EXECUTE_RUNTIME.title, RunTime, RunTimeGui, DslDefinition.EXECUTE_RUNTIME.leaf, DslDefinition.EXECUTE_RUNTIME)
+        super(RunTime, RunTimeGui, DslDefinition.EXECUTE_RUNTIME)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

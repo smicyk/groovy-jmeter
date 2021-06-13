@@ -62,7 +62,7 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 final class PlanFactory extends TestElementNodeFactory {
 
     PlanFactory() {
-        super(DslDefinition.PLAN.title, TestPlan, TestPlanGui, DslDefinition.PLAN.leaf, DslDefinition.PLAN)
+        super(TestPlan, TestPlanGui, DslDefinition.PLAN)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

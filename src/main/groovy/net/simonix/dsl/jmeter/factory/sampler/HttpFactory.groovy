@@ -78,7 +78,7 @@ import org.apache.jmeter.testelement.TestElement
 final class HttpFactory extends BaseHttpFactory {
 
     HttpFactory() {
-        super(DslDefinition.HTTP.title, HTTPSamplerProxy, HttpTestSampleGui, DslDefinition.HTTP.leaf, DslDefinition.HTTP)
+        super(HTTPSamplerProxy, HttpTestSampleGui, DslDefinition.HTTP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -98,6 +98,7 @@ final class HttpFactory extends BaseHttpFactory {
         testElement.concurrentDwn = config.embeddedConcurrent
         testElement.concurrentPool = config.embeddedConcurrentDownloads
         testElement.embeddedUrlRE = config.embeddedResourceUrl
+        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
 
         // Source address
         testElement.ipSource = config.ipSource

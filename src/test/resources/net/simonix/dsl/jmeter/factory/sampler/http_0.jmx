@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -43,6 +43,7 @@
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
         <stringProp name="HTTPSampler.implementation"></stringProp>
         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        <stringProp name="HTTPSampler.embedded_url_exclude_re"></stringProp>
         <stringProp name="HTTPSampler.proxyScheme"></stringProp>
         <stringProp name="HTTPSampler.proxyHost"></stringProp>
         <stringProp name="HTTPSampler.proxyPort"></stringProp>
@@ -66,6 +67,7 @@
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
         <stringProp name="HTTPSampler.implementation"></stringProp>
         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        <stringProp name="HTTPSampler.embedded_url_exclude_re"></stringProp>
         <stringProp name="HTTPSampler.proxyScheme"></stringProp>
         <stringProp name="HTTPSampler.proxyHost"></stringProp>
         <stringProp name="HTTPSampler.proxyPort"></stringProp>
@@ -103,6 +105,7 @@
         <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
         <stringProp name="HTTPSampler.implementation"></stringProp>
         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        <stringProp name="HTTPSampler.embedded_url_exclude_re"></stringProp>
         <stringProp name="HTTPSampler.proxyScheme"></stringProp>
         <stringProp name="HTTPSampler.proxyHost"></stringProp>
         <stringProp name="HTTPSampler.proxyPort"></stringProp>

@@ -43,7 +43,7 @@ import org.apache.jmeter.testelement.TestElement
 final class AuthorizationsFactory extends TestElementNodeFactory {
 
     AuthorizationsFactory() {
-        super(DslDefinition.AUTHORIZATIONS.title, AuthManager, AuthPanel, DslDefinition.AUTHORIZATIONS.leaf, DslDefinition.AUTHORIZATIONS)
+        super(AuthManager, AuthPanel, DslDefinition.AUTHORIZATIONS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

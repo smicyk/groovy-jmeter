@@ -38,6 +38,6 @@ abstract class DefaultTestScript extends TestScriptBase {
         updateJMeterClassPath()
 
         // here we execute normal script code
-        executeScript()
+        return executeScript()
     }
 }

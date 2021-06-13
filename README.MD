@@ -10,7 +10,7 @@ It has following features:
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
  
- Current version uses [Apache JMeter 5.2.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
+ Current version uses [Apache JMeter 5.4.1](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
  
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  
@@ -21,8 +21,8 @@ It has following features:
 Before start, you should have:
 
 - [Java 8+](https://openjdk.java.net/)
-- [Groovy 2.5.x](https://groovy.apache.org/download.html)
-- [Gradle](https://gradle.org/releases/)
+- [Groovy 3.0.7](https://groovy.apache.org/download.html)
+- [Gradle 7.0.2](https://gradle.org/releases/)
 
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
 
@@ -50,10 +50,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:5.6.4-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## First steps
@@ -89,10 +89,10 @@ If you want to start the same script inside a docker run the following command o
 
 ```shell script
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:2.5.9-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
 ```
 
 Typical output from the command line should look like below:
@@ -390,7 +390,7 @@ There are several things to keep in mind while writing the scripts; most of the 
 
 ```groovy
 
-start {       
+start {
     // using single quotes (for Java plain String)
     plan (name: 'Test name')
     // using single quotes is recommended in most situation (should be used when you want use JMeter variable substitution in the script)

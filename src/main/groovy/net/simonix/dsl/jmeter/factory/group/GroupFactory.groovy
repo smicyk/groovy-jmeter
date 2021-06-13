@@ -67,7 +67,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class GroupFactory extends TestElementNodeFactory {
 
     GroupFactory() {
-        super(DslDefinition.GROUP.title, ThreadGroup, ThreadGroupGui, DslDefinition.GROUP.leaf, DslDefinition.GROUP)
+        super(ThreadGroup, ThreadGroupGui, DslDefinition.GROUP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

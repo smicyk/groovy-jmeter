@@ -55,7 +55,7 @@ import org.apache.jmeter.testelement.TestElement
 final class CsvDataFactory extends TestElementNodeFactory {
 
     CsvDataFactory() {
-        super(DslDefinition.CSV_DATA.title, CSVDataSet, TestBeanGUI, DslDefinition.CSV_DATA.leaf, DslDefinition.CSV_DATA)
+        super(CSVDataSet, TestBeanGUI, DslDefinition.CSV_DATA)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
