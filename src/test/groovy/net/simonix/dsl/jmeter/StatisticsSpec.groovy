@@ -65,7 +65,7 @@ class StatisticsSpec extends MockServerSpec {
         statistics.averagePageBytes < 500
         statistics.totalBytes < 15000
         // elapsed time (in milliseconds) only for all samples
-        statistics.elapsedTime < 1000
+        statistics.elapsedTime < 2000
 
         and: 'check statistics for each sample'
         statistics.'GET /context/get'.mean < 100
