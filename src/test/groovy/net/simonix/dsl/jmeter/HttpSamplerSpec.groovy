@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2021 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import java.time.format.DateTimeFormatter
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
-import static net.simonix.dsl.jmeter.TestScriptRunner.save
 import static org.mockserver.model.HttpRequest.request
 import static org.mockserver.model.HttpResponse.response
 import static org.mockserver.verify.VerificationTimes.once
@@ -444,7 +443,6 @@ class HttpSamplerSpec extends MockServerSpec {
             }
         }
 
-        save(testPlan, "test.jmx")
         run(testPlan)
 
         then: "we get request with default values and with custom"
