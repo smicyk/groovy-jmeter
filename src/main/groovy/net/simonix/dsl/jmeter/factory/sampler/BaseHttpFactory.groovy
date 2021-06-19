@@ -73,7 +73,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
 
         Integer port = null
         if (config.containsKey('port')) {
-            port = config.port
+            port = config.port as Integer
         }
 
         // override config elements
@@ -89,7 +89,10 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
                 }
                 path = matches.group('path') ?: path
 
-                testElement.name = evaluateElementName(method, protocol, domain, port, path)
+                // only if name is not provided
+                if(!config.isPresent('name')) {
+                    testElement.name = evaluateElementName(method, protocol, domain, port, path)
+                }
             }
         }
 
@@ -112,7 +115,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
     }
 
-    private String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
+    private static String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
         String elementName = "${method} ${path?:'/'}"
 
         return elementName.replaceAll(/(\$\{(.*?)\})/) { input, expression, variable -> ":$variable" }

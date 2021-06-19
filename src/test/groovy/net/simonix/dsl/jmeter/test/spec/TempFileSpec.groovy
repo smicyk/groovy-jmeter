@@ -29,13 +29,13 @@ class TempFileSpec extends Specification {
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder()
 
-    def filesAreTheSame(String expected, File result) {
+    void filesAreTheSame(String expected, File result) {
         Diff d = DiffBuilder.compare(this.class.getResourceAsStream(expected))
                 .withTest(Input.fromFile(result))
                 .ignoreComments()
                 .ignoreWhitespace()
                 .build()
 
-        return !d.hasDifferences()
+        assert !d.hasDifferences()
     }
 }

@@ -89,6 +89,11 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     }
 
     String getTestElementName(Object name, Object value, Map config) {
+        if(config.isPresent('name')) {
+            return config.name?.toString() ?: testElementName
+        }
+
+        // we want 'value' to be default name if property 'name' is not provided
         if (value instanceof String) {
             return value ?: config.name?.toString() ?: testElementName
         }
