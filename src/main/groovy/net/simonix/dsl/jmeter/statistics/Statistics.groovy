@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap
  * Gathers statistics during test execution. Works similar to {@link org.apache.jmeter.visualizers.SummaryReport} class but with storing data to file.
  */
 class Statistics implements StatisticsProvider {
+
     private static final String LABEL_TOTAL_ROW = '__total__'
 
     private final Map<String, Calculator> rows
@@ -41,7 +42,7 @@ class Statistics implements StatisticsProvider {
     }
 
     void addSample(SampleResult sample) {
-        Calculator row = rows.computeIfAbsent(sample.getSampleLabel(false), label -> {
+        Calculator row = rows.computeIfAbsent(sample.getSampleLabel(false), { label ->
             return new Calculator(label)
         })
 

@@ -25,86 +25,124 @@ interface StatisticsProvider {
     /**
      * @return sample mean time
      */
-    default double getMean() {
-        return 0
-    }
+    double getMean()
 
     /**
      * @return sample standard deviation time
      */
-    default double getStandardDeviation() {
-        return 0
-    }
+    double getStandardDeviation()
 
     /**
      * @return sample lowest time
      */
-    default double getMin() {
-        return 0
-    }
+    double getMin()
 
     /**
      * @return sample highest time
      */
-    default double getMax() {
-        return 0
-    }
+    double getMax()
 
     /**
      * @return sample count
      */
-    default long getCount() {
-        return 0
-    }
+    long getCount()
 
     /**
      * @return sample error percentage
      */
-    default double getError() {
-        return 0
-    }
+    double getError()
 
     /**
      * @return sample throughput as number of request per second
      */
-    default double getThroughput() {
-        return 0
-    }
+    double getThroughput()
 
     /**
      * @return sample received bytes per second
      */
-    default double getReceivedBytes() {
-        return 0
-    }
+    double getReceivedBytes()
 
     /**
      * @return sample sent bytes per second
      */
-    default double getSentBytes() {
-        return 0
-    }
+    double getSentBytes()
 
     /**
      * @return sample received bytes divided by number of samples
      */
-    default double getAveragePageBytes() {
-        return 0
-    }
+    double getAveragePageBytes()
 
     /**
      * @return sample total bytes received
      */
-    default long getTotalBytes() {
-        return 0
-    }
+    long getTotalBytes()
 
-    default long getElapsedTime() {
-        return 0
-    }
+    /**
+     * @return total test time in milliseconds
+     */
+    long getElapsedTime()
 
     static class EmptyStatisticsProvider implements StatisticsProvider {
 
+        @Override
+        double getMean() {
+            return 0
+        }
+
+        @Override
+        double getStandardDeviation() {
+            return 0
+        }
+
+        @Override
+        double getMin() {
+            return 0
+        }
+
+        @Override
+        double getMax() {
+            return 0
+        }
+
+        @Override
+        long getCount() {
+            return 0
+        }
+
+        @Override
+        double getError() {
+            return 0
+        }
+
+        @Override
+        double getThroughput() {
+            return 0
+        }
+
+        @Override
+        double getReceivedBytes() {
+            return 0
+        }
+
+        @Override
+        double getSentBytes() {
+            return 0
+        }
+
+        @Override
+        double getAveragePageBytes() {
+            return 0
+        }
+
+        @Override
+        long getTotalBytes() {
+            return 0
+        }
+
+        @Override
+        long getElapsedTime() {
+            return 0
+        }
     }
 
     static class CalculatorStatisticsProvider implements StatisticsProvider {
@@ -167,6 +205,11 @@ interface StatisticsProvider {
         @Override
         long getTotalBytes() {
             return calculator.totalBytes
+        }
+
+        @Override
+        long getElapsedTime() {
+            return 0
         }
     }
 }

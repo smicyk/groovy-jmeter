@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.statistics
 
+import groovy.transform.CompileDynamic
 import org.apache.jmeter.samplers.SampleResult
 import org.apache.jmeter.testelement.TestStateListener
 import org.apache.jmeter.visualizers.Visualizer
@@ -22,7 +23,9 @@ import org.apache.jmeter.visualizers.Visualizer
 /**
  * Simple implementation of {@link Visualizer} used by {@link org.apache.jmeter.reporters.ResultCollector}
  */
+@CompileDynamic
 class StatisticsListener implements Visualizer, TestStateListener {
+
     final Statistics statistics = new Statistics()
 
     @Override
