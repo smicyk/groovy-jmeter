@@ -59,7 +59,7 @@ import org.apache.jmeter.testelement.TestElement
 final class AjpFactory extends BaseHttpFactory {
 
     AjpFactory() {
-        super(DslDefinition.AJP.title, AjpSampler, AjpSamplerGui, DslDefinition.AJP.leaf, DslDefinition.AJP)
+        super(AjpSampler, AjpSamplerGui, DslDefinition.AJP)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -70,6 +70,7 @@ final class AjpFactory extends BaseHttpFactory {
         testElement.concurrentDwn = config.embeddedConcurrent
         testElement.concurrentPool = config.embeddedConcurrentDownloads
         testElement.embeddedUrlRE = config.embeddedResourceUrl
+        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5

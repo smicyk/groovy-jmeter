@@ -33,6 +33,6 @@ import org.apache.jmeter.testbeans.gui.TestBeanGUI
 final class JSR223AssertionFactory extends AbstractJSR223Factory {
 
     JSR223AssertionFactory() {
-        super(DslDefinition.JSR223_ASSERTION.title, JSR223Assertion, TestBeanGUI, DslDefinition.JSR223_ASSERTION.leaf, DslDefinition.JSR223_ASSERTION)
+        super(JSR223Assertion, TestBeanGUI, DslDefinition.JSR223_ASSERTION)
     }
 }

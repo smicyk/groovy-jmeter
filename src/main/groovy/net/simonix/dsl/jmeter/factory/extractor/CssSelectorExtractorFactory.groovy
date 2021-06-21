@@ -50,7 +50,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class CssSelectorExtractorFactory extends TestElementNodeFactory {
 
     CssSelectorExtractorFactory() {
-        super(DslDefinition.CSS_EXTRACTOR.title, HtmlExtractor, HtmlExtractorGui, DslDefinition.CSS_EXTRACTOR.leaf, DslDefinition.CSS_EXTRACTOR)
+        super(HtmlExtractor, HtmlExtractorGui, DslDefinition.CSS_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

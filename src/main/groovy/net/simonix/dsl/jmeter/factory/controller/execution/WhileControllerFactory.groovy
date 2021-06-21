@@ -44,7 +44,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class WhileControllerFactory extends TestElementNodeFactory {
 
     WhileControllerFactory() {
-        super(DslDefinition.EXECUTE_WHILE.title, WhileController, WhileControllerGui, DslDefinition.EXECUTE_WHILE.leaf, DslDefinition.EXECUTE_WHILE)
+        super(WhileController, WhileControllerGui, DslDefinition.EXECUTE_WHILE)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

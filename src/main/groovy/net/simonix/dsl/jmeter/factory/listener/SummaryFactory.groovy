@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class SummaryFactory extends TestElementNodeFactory {
 
     SummaryFactory() {
-        super(DslDefinition.SUMMARY.title, ResultCollector, SummaryReport, DslDefinition.SUMMARY.leaf, DslDefinition.SUMMARY)
+        super(ResultCollector, SummaryReport, DslDefinition.SUMMARY)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

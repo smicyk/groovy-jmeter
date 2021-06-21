@@ -1,5 +1,6 @@
 ruleset {
-    // Basic
+
+    // rulesets/basic.xml
     AssertWithinFinallyBlock
     AssignmentInConditional
     BigDecimalInstantiation
@@ -39,18 +40,19 @@ ruleset {
     HardCodedWindowsRootDirectory
     IntegerGetInteger
     MultipleUnaryOperators
+    ParameterAssignmentInFilterClosure
     RandomDoubleCoercedToZero
     RemoveAllOnSelf
     ReturnFromFinallyBlock
     ThrowExceptionFromFinallyBlock
-    
-    // Braces
+
+    // rulesets/braces.xml
     ElseBlockBraces
     ForStatementBraces
     IfStatementBraces
     WhileStatementBraces
 
-    // Comments
+    // rulesets/comments.xml
     ClassJavadoc
     JavadocConsecutiveEmptyLines
     JavadocEmptyAuthorTag
@@ -66,8 +68,8 @@ ruleset {
     JavadocMissingExceptionDescription
     JavadocMissingParamDescription
     JavadocMissingThrowsDescription
-    
-    // Concurency
+
+    // rulesets/concurrency.xml
     BusyWait
     DoubleCheckedLocking
     InconsistentPropertyLocking
@@ -94,8 +96,8 @@ ruleset {
     VolatileArrayField
     VolatileLongOrDoubleField
     WaitOutsideOfWhileLoop
-    
-    // Convention
+
+    // rulesets/convention.xml
     CompileStatic
     ConfusingTernary
     CouldBeElvis
@@ -103,12 +105,16 @@ ruleset {
     FieldTypeRequired
     HashtableIsObsolete
     IfStatementCouldBeTernary
+    ImplicitClosureParameter
+    ImplicitReturnStatement
     InvertedCondition
     InvertedIfElse
     LongLiteralWithLowerCaseL
     MethodParameterTypeRequired
     MethodReturnTypeRequired
     NoDef
+    NoDouble
+    NoFloat
     NoJavaUtilDate
     NoTabCharacter
     ParameterReassignment
@@ -119,8 +125,8 @@ ruleset {
     TrailingComma
     VariableTypeRequired
     VectorIsObsolete
-    
-    // Design
+
+    // rulesets/design.xml
     AbstractClassWithPublicConstructor
     AbstractClassWithoutAbstractMethod
     AssignmentToStaticFieldFromInstanceMethod
@@ -136,6 +142,9 @@ ruleset {
     Instanceof
     LocaleSetDefault
     NestedForLoop
+    OptionalCollectionReturnType
+    OptionalField
+    OptionalMethodParameter
     PrivateFieldCouldBeFinal
     PublicInstanceField
     ReturnsNullInsteadOfEmptyArray
@@ -143,20 +152,20 @@ ruleset {
     SimpleDateFormatMissingLocale
     StatelessSingleton
     ToStringReturnsNull
-    
-    // Dry
+
+    // rulesets/dry.xml
     DuplicateListLiteral
     DuplicateMapLiteral
     DuplicateNumberLiteral
     DuplicateStringLiteral
-    
-    // Enhanced // disable by default since gradle plugin doens't support it
-    //CloneWithoutCloneable
-    //JUnitAssertEqualsConstantActualValue
-    //MissingOverrideAnnotation
-    //UnsafeImplementationAsMap
-    
-    // Exception
+
+    // rulesets/enhanced.xml
+    CloneWithoutCloneable
+    JUnitAssertEqualsConstantActualValue
+    MissingOverrideAnnotation
+    UnsafeImplementationAsMap
+
+    // rulesets/exceptions.xml
     CatchArrayIndexOutOfBoundsException
     CatchError
     CatchException
@@ -177,8 +186,8 @@ ruleset {
     ThrowNullPointerException
     ThrowRuntimeException
     ThrowThrowable
-    
-    // Formatting
+
+    // rulesets/formatting.xml
     BlankLineBeforePackage
     BlockEndsWithBlankLine
     BlockStartsWithBlankLine
@@ -187,7 +196,7 @@ ruleset {
     BracesForIfElse
     BracesForMethod
     BracesForTryCatchFinally
-    //ClassEndsWithBlankLine
+//    ClassEndsWithBlankLine
     ClassStartsWithBlankLine
     ClosureStatementOnOpeningLineOfMultipleLineClosure
     ConsecutiveBlankLines
@@ -196,11 +205,15 @@ ruleset {
     LineLength
     MissingBlankLineAfterImports
     MissingBlankLineAfterPackage
+    MissingBlankLineBeforeAnnotatedField
     SpaceAfterCatch
     SpaceAfterClosingBrace
     SpaceAfterComma
     SpaceAfterFor
     SpaceAfterIf
+    SpaceAfterMethodCallName
+    SpaceAfterMethodDeclarationName
+    SpaceAfterNotOperator
     SpaceAfterOpeningBrace
     SpaceAfterSemicolon
     SpaceAfterSwitch
@@ -212,9 +225,10 @@ ruleset {
     SpaceAroundOperator
     SpaceBeforeClosingBrace
     SpaceBeforeOpeningBrace
+    SpaceInsideParentheses
     TrailingWhitespace
-    
-    // Generic
+
+    // rulesets/generic.xml
     IllegalClassMember
     IllegalClassReference
     IllegalPackageReference
@@ -224,8 +238,8 @@ ruleset {
     RequiredRegex
     RequiredString
     StatelessClass
-    
-    // Groovyism
+
+    // rulesets/groovyism.xml
     AssignCollectionSort
     AssignCollectionUnique
     ClosureAsLastMethodParameter
@@ -259,8 +273,8 @@ ruleset {
     GroovyLangImmutable
     UseCollectMany
     UseCollectNested
-    
-    // Imports
+
+    // rulesets/imports.xml
     DuplicateImport
     ImportFromSamePackage
     ImportFromSunPackages
@@ -270,8 +284,14 @@ ruleset {
     NoWildcardImports
     UnnecessaryGroovyImport
     UnusedImport
-    
-    // JUnit
+
+    // rulesets/jdbc.xml
+    DirectConnectionManagement
+    JdbcConnectionReference
+    JdbcResultSetReference
+    JdbcStatementReference
+
+    // rulesets/junit.xml
     ChainedTest
     CoupledTestCase
     JUnitAssertAlwaysFails
@@ -296,8 +316,8 @@ ruleset {
     UseAssertSameInsteadOfAssertTrue
     UseAssertTrueInsteadOfAssertEquals
     UseAssertTrueInsteadOfNegation
-    
-    // Logging
+
+    // rulesets/logging.xml
     LoggerForDifferentClass
     LoggerWithWrongModifiers
     LoggingSwallowsStacktrace
@@ -306,8 +326,8 @@ ruleset {
     Println
     SystemErrPrint
     SystemOutPrint
-    
-    // Naming
+
+    // rulesets/naming.xml
     AbstractClassName
     ClassName
     ClassNameSameAsFilename
@@ -324,35 +344,35 @@ ruleset {
     ParameterName
     PropertyName
     VariableName
-    
-    // Security
+
+    // rulesets/security.xml
     FileCreateTempFile
     InsecureRandom
-    //JavaIoPackageAccess
+    JavaIoPackageAccess
     NonFinalPublicField
     NonFinalSubclassOfSensitiveInterface
     ObjectFinalize
     PublicFinalizeMethod
     SystemExit
     UnsafeArrayDeclaration
-    
-    // Serialization
+
+    // rulesets/serialization.xml
     EnumCustomSerializationIgnored
     SerialPersistentFields
     SerialVersionUID
     SerializableClassMustDefineSerialVersionUID
-    
-    
-    AbcMetric // (Requires the GMetrics jar)
+
+    // rulesets/size.xml
+    AbcMetric   // Requires the GMetrics jar
     ClassSize
-    CrapMetric //(Requires the GMetrics jar and a Cobertura coverage file)
-    CyclomaticComplexity //(Requires the GMetrics jar)
+    CrapMetric   // Requires the GMetrics jar and a Cobertura coverage file
+    CyclomaticComplexity   // Requires the GMetrics jar
     MethodCount
     MethodSize
     NestedBlockDepth
     ParameterCount
-    
-    // Unnecessary
+
+    // rulesets/unnecessary.xml
     AddEmptyString
     ConsecutiveLiteralAppends
     ConsecutiveStringConcatenation
@@ -390,7 +410,7 @@ ruleset {
     UnnecessaryPackageReference
     UnnecessaryParenthesesForMethodCallWithClosure
     UnnecessaryPublicModifier
-    // UnnecessaryReturnKeyword
+//    UnnecessaryReturnKeyword
     UnnecessarySafeNavigationOperator
     UnnecessarySelfAssignment
     UnnecessarySemicolon
@@ -400,8 +420,8 @@ ruleset {
     UnnecessaryTernaryExpression
     UnnecessaryToString
     UnnecessaryTransientModifier
-    
-    // Unused
+
+    // rulesets/unused.xml
     UnusedArray
     UnusedMethodParameter
     UnusedObject
@@ -409,4 +429,6 @@ ruleset {
     UnusedPrivateMethod
     UnusedPrivateMethodParameter
     UnusedVariable
+
+
 }

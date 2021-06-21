@@ -33,6 +33,6 @@ import org.apache.jmeter.visualizers.JSR223Listener
 final class JSR223ListenerFactory extends AbstractJSR223Factory {
 
     JSR223ListenerFactory() {
-        super(DslDefinition.JSR223_LISTENER.title, JSR223Listener, TestBeanGUI, DslDefinition.JSR223_LISTENER.leaf, DslDefinition.JSR223_LISTENER)
+        super(JSR223Listener, TestBeanGUI, DslDefinition.JSR223_LISTENER)
     }
 }

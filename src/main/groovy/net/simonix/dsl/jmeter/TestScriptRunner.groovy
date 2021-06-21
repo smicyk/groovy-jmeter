@@ -18,11 +18,17 @@ package net.simonix.dsl.jmeter
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.DefaultFactoryBuilder
 import net.simonix.dsl.jmeter.builder.TestTreeBuilder
+import net.simonix.dsl.jmeter.statistics.Statistics
 import net.simonix.dsl.jmeter.model.TestElementNode
+import net.simonix.dsl.jmeter.statistics.StatisticsListener
+import net.simonix.dsl.jmeter.statistics.StatisticsProvider
 import org.apache.jmeter.engine.StandardJMeterEngine
+import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.save.SaveService
+import org.apache.jmeter.testelement.TestPlan
 import org.apache.jmeter.util.JMeterUtils
 import org.apache.jorphan.collections.HashTree
+import org.apache.jorphan.collections.SearchByClass
 import org.codehaus.groovy.runtime.InvokerHelper
 
 import java.nio.file.FileSystems
@@ -121,21 +127,45 @@ final class TestScriptRunner {
         save(testPlan, new File(path))
     }
 
-    static void run(HashTree testPlan) {
+    static StatisticsProvider run(HashTree testPlan, boolean statistics = false) {
         StandardJMeterEngine engine = new StandardJMeterEngine()
+
+        StatisticsListener listener = statistics ? applyStatistics(testPlan) : null
 
         // Run Test Plan
         engine.configure(testPlan)
         engine.run()
+
+        return listener ? listener.statistics : Statistics.empty()
     }
 
     static void start(Map config, Closure closure) {
         HashTree configuration = configure(config, closure)
 
-        run(configuration)
+        run(configuration, false)
     }
 
     static void start(Closure closure) {
         start([:], closure)
+    }
+
+    private static StatisticsListener applyStatistics(HashTree hashTree) {
+        SearchByClass<TestPlan> searchTestPlan = new SearchByClass<>(TestPlan)
+        hashTree.traverse(searchTestPlan)
+        TestPlan testPlan = searchTestPlan.getSearchResults().find()
+
+        if(!testPlan) {
+            throw new IllegalStateException('Could not find the TestPlan in the script')
+        }
+
+        StatisticsListener listener = new StatisticsListener()
+        ResultCollector collector = new ResultCollector()
+        collector.setListener(listener)
+
+        HashTree testPlanTree = hashTree.getTree(testPlan)
+        testPlanTree.add(collector)
+        testPlanTree.add(listener)
+
+        return listener
     }
 }

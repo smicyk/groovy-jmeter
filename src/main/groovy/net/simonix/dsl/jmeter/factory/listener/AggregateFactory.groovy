@@ -27,7 +27,7 @@ import org.apache.jmeter.visualizers.StatVisualizer
 final class AggregateFactory extends TestElementNodeFactory {
 
     AggregateFactory() {
-        super(DslDefinition.AGGREGATE.title, ResultCollector, StatVisualizer, DslDefinition.AGGREGATE.leaf, DslDefinition.AGGREGATE)
+        super(ResultCollector, StatVisualizer, DslDefinition.AGGREGATE)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

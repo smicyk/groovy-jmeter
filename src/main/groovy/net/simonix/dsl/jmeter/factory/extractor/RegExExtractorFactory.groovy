@@ -50,7 +50,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RegExExtractorFactory extends TestElementNodeFactory {
 
     RegExExtractorFactory() {
-        super(DslDefinition.REGEX_EXTRACTOR.title, RegexExtractor, RegexExtractorGui, DslDefinition.REGEX_EXTRACTOR.leaf, DslDefinition.REGEX_EXTRACTOR)
+        super(RegexExtractor, RegexExtractorGui, DslDefinition.REGEX_EXTRACTOR)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

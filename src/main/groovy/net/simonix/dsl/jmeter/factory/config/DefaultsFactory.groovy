@@ -30,7 +30,7 @@ import org.apache.jmeter.testelement.property.TestElementProperty
 final class DefaultsFactory extends TestElementNodeFactory {
 
     DefaultsFactory() {
-        super(DslDefinition.DEFAULTS.title, ConfigTestElement, HttpDefaultsGui, DslDefinition.DEFAULTS.leaf, DslDefinition.DEFAULTS)
+        super(ConfigTestElement, HttpDefaultsGui, DslDefinition.DEFAULTS)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -56,6 +56,11 @@ final class DefaultsFactory extends TestElementNodeFactory {
         testElement.setProperty(HTTPSampler.CONCURRENT_DWN, config.embeddedConcurrent as Boolean)
         testElement.setProperty(HTTPSampler.CONCURRENT_POOL, config.embeddedConcurrentDownloads as Integer)
         testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, config.embeddedResourceUrl as String)
+
+        String embeddedResourceUrlExclude = config.embeddedResourceUrlExclude as String
+        if(embeddedResourceUrlExclude != null && !embeddedResourceUrlExclude.isEmpty()) {
+            testElement.setProperty(HTTPSampler.EMBEDDED_URL_EXCLUDE_RE, embeddedResourceUrlExclude)
+        }
 
         // Source address
         testElement.setProperty(HTTPSampler.IP_SOURCE, config.ipSource as String)

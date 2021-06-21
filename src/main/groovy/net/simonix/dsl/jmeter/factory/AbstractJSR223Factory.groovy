@@ -48,8 +48,8 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 abstract class AbstractJSR223Factory extends TestElementNodeFactory {
 
-    protected AbstractJSR223Factory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
-        super(testElementName, testElementClass, testElementGuiClass, leaf, definition)
+    protected AbstractJSR223Factory(Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
+        super(testElementClass, testElementGuiClass, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

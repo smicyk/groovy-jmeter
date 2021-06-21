@@ -39,6 +39,6 @@ import org.apache.jmeter.control.gui.RandomOrderControllerGui
 final class RandomOrderControllerFactory extends TestElementNodeFactory {
 
     RandomOrderControllerFactory() {
-        super(DslDefinition.EXECUTE_ORDER.title, RandomOrderController, RandomOrderControllerGui, DslDefinition.EXECUTE_ORDER.leaf, DslDefinition.EXECUTE_ORDER)
+        super(RandomOrderController, RandomOrderControllerGui, DslDefinition.EXECUTE_ORDER)
     }
 }

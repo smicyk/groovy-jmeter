@@ -43,7 +43,8 @@ abstract class TestScriptBase extends Script {
     void start(Map config, Closure c) {
         updateJMeterPropertiesLocation(config)
 
-        Map script = binding.getProperty('script') as Map
+//        Map script = binding.getProperty('script') as Map
+        Map script = getProperty('script') as Map
 
         boolean optionsEnabled = script.options_enabled
 

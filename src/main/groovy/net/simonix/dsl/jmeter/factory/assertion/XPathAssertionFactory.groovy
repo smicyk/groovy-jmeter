@@ -51,7 +51,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class XPathAssertionFactory extends TestElementNodeFactory {
 
     XPathAssertionFactory() {
-        super(DslDefinition.ASSERT_XPATH.title, XPathAssertion, XPathAssertionGui, DslDefinition.ASSERT_XPATH.leaf, DslDefinition.ASSERT_XPATH)
+        super(XPathAssertion, XPathAssertionGui, DslDefinition.ASSERT_XPATH)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {

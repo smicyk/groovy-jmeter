@@ -45,7 +45,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 final class RandomControllerFactory extends TestElementNodeFactory {
 
     RandomControllerFactory() {
-        super(DslDefinition.EXECUTE_RANDOM.title, RandomController, RandomControlGui, DslDefinition.EXECUTE_RANDOM.leaf, DslDefinition.EXECUTE_RANDOM)
+        super(RandomController, RandomControlGui, DslDefinition.EXECUTE_RANDOM)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
