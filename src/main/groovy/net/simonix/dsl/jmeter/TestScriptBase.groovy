@@ -43,7 +43,6 @@ abstract class TestScriptBase extends Script {
     void start(Map config, Closure c) {
         updateJMeterPropertiesLocation(config)
 
-//        Map script = binding.getProperty('script') as Map
         Map script = getProperty('script') as Map
 
         boolean optionsEnabled = script.options_enabled
@@ -62,7 +61,7 @@ abstract class TestScriptBase extends Script {
         config.variables = [:]
         if(script.variables) {
             script.variables.each {
-                config.variables[it.key] = it.value
+                config.variables[it.key as String] = it.value
             }
         }
 
@@ -73,7 +72,16 @@ abstract class TestScriptBase extends Script {
         }
 
         if (!noRun) {
-            TestScriptRunner.run(configuration)
+            if(script.worker) {
+                // worker node server
+                TestScriptServerRunner.run(script.worker_hostname as String, script.worker_port as String)
+            } else if(script.controller) {
+                // controller server
+                TestScriptServerRunner.run(configuration, script.remote_workers as List<String>)
+            } else {
+                // standard script execution
+                TestScriptRunner.run(configuration)
+            }
         }
     }
 
