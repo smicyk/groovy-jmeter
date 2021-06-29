@@ -18,6 +18,7 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
@@ -74,6 +75,8 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         Integer port = null
         if (config.containsKey('port')) {
             port = config.port as Integer
+        } else {
+            port = HTTPSamplerProxy.UNSPECIFIED_PORT
         }
 
         // override config elements

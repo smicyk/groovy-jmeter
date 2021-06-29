@@ -100,11 +100,11 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new JdbcRequestFactory())
 
         // others
-        addFactory(new ParamFactory())
-        addFactory(new ParamsFactory())
-        addFactory(new FileFactory())
-        addFactory(new FilesFactory())
-        addFactory(new BodyFactory())
+//        addFactory(new ParamFactory())
+//        addFactory(new ParamsFactory())
+//        addFactory(new FileFactory())
+//        addFactory(new FilesFactory())
+//        addFactory(new BodyFactory())
         addFactory(new ArgumentFactory())
         addFactory(new ArgumentsFactory())
         addFactory(new InsertFactory())
@@ -179,6 +179,18 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
             Map<String, Object> parentContext = getProxyBuilder().getContext()
 
             JdbcFactoryBuilder builder = new JdbcFactoryBuilder(parentContext, closure)
+
+            // copy any variables from command line to the child builder
+            this.variables.each { entry ->
+                builder.setVariable(entry.key as String, entry.value)
+            }
+
+            closure.delegate = builder
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
+        } else if(node instanceof TestElementNode && HttpFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
+            Map<String, Object> parentContext = getProxyBuilder().getContext()
+
+            HttpFactoryBuilder builder = new HttpFactoryBuilder(parentContext, closure)
 
             // copy any variables from command line to the child builder
             this.variables.each { entry ->

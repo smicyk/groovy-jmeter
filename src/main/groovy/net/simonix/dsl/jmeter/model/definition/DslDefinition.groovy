@@ -211,29 +211,32 @@ final class DslDefinition {
         property(name: 'impl', type: String, required: false, defaultValue: '')
         property(name: 'connectTimeout', type: String, required: false, defaultValue: '')
         property(name: 'responseTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
+
         property(name: 'ipSource', type: String, required: false, defaultValue: '')
         property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
-        property(name: 'proxySchema', type: String, required: false, defaultValue: '')
-        property(name: 'proxyHost', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPort', type: String, required: false, defaultValue: '')
-        property(name: 'proxyUser', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPassword', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition HTTP_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'http') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_RESOURCE = keyword('resource', KeywordCategory.SAMPLER, 'http') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition AJP = keyword('ajp', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         include(HTTP_COMMON_PROPERTIES)
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
     }
 

@@ -94,11 +94,11 @@ final class HttpFactory extends BaseHttpFactory {
         testElement.responseTimeout = config.responseTimeout
 
         // Embedded resource
-        testElement.imageParser = config.downloadEmbeddedResources
-        testElement.concurrentDwn = config.embeddedConcurrent
-        testElement.concurrentPool = config.embeddedConcurrentDownloads
-        testElement.embeddedUrlRE = config.embeddedResourceUrl
-        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
+//        testElement.imageParser = config.downloadEmbeddedResources
+//        testElement.concurrentDwn = config.embeddedConcurrent
+//        testElement.concurrentPool = config.embeddedConcurrentDownloads
+//        testElement.embeddedUrlRE = config.embeddedResourceUrl
+//        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
 
         // Source address
         testElement.ipSource = config.ipSource
@@ -117,11 +117,11 @@ final class HttpFactory extends BaseHttpFactory {
         }
 
         // Proxy configuration
-        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, config.proxySchema)
-        testElement.setProperty(HTTPSamplerBase.PROXYHOST, config.proxyHost)
-        testElement.setProperty(HTTPSamplerBase.PROXYPORT, config.proxyPort)
-        testElement.setProperty(HTTPSamplerBase.PROXYUSER, config.proxyUser)
-        testElement.setProperty(HTTPSamplerBase.PROXYPASS, config.proxyPassword)
+//        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, config.proxySchema)
+//        testElement.setProperty(HTTPSamplerBase.PROXYHOST, config.proxyHost)
+//        testElement.setProperty(HTTPSamplerBase.PROXYPORT, config.proxyPort)
+//        testElement.setProperty(HTTPSamplerBase.PROXYUSER, config.proxyUser)
+//        testElement.setProperty(HTTPSamplerBase.PROXYPASS, config.proxyPassword)
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5

@@ -21,7 +21,8 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class HttpFactorySpec extends TempFileSpec {
-    def "Check http generation"() {
+
+    def "Check default http generation"() {
         given: 'Test plan with http element'
         def config = configure {
             plan {
@@ -43,5 +44,69 @@ class HttpFactorySpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('http_0.jmx', resultFile)
+    }
+
+    def "Check http proxy generation"() {
+        given: 'Test plan with http element'
+        def config = configure {
+            plan {
+                http 'GET http://www.example.com', {
+                    proxy scheme: 'http', host: 'my.proxy.com', port: '80', username: 'test', password: 'test'
+                }
+
+                http 'GET http://www.example.com', {
+                    proxy 'http://my.proxy.com:80', username: 'test', password: 'test'
+                }
+
+                http 'GET http://www.example.com', {
+                    proxy 'http://my.proxy.com:80'
+                }
+
+                http 'GET http://www.example.com', {
+                    proxy 'my.proxy.com:80'
+                }
+
+                http 'GET http://www.example.com', {
+                    proxy 'my.proxy.com'
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('http_1.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('http_1.jmx', resultFile)
+    }
+
+    def "Check http embedded resources generation"() {
+        given: 'Test plan with http element'
+        def config = configure {
+            plan {
+                http 'GET http://www.example.com', {
+                    resource parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                }
+
+                http 'GET http://www.example.com', {
+                    resource urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                }
+
+                http 'GET http://www.example.com', {
+                    resource()
+                }
+
+                http 'GET http://www.example.com'
+            }
+        }
+
+        File resultFile = tempFolder.newFile('http_2.jmx')
+
+        when: 'save test to file'
+        save(config, 'http_2.jmx')
+
+        then: 'both files matches'
+        filesAreTheSame('http_2.jmx', resultFile)
     }
 }
