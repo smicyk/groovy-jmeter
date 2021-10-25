@@ -59,6 +59,8 @@ import net.simonix.dsl.jmeter.factory.sampler.AjpFactory
 import net.simonix.dsl.jmeter.factory.sampler.HttpFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.HttpResourceFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceAddressFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.*
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
@@ -78,7 +80,7 @@ class HttpFactoryBuilder extends TestFactoryBuilder {
     HttpFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()
 
-        // create new context for jdbc tree
+        // create new context for http tree
         getProxyBuilder().newContext()
         getProxyBuilder().getContext().put(OWNER, closure.getOwner())
         getProxyBuilder().getContext().put(CURRENT_NODE, context.get(CURRENT_NODE))
@@ -114,6 +116,8 @@ class HttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new HttpFactory())
         addFactory(new HttpProxyFactory())
         addFactory(new HttpResourceFactory())
+        addFactory(new HttpSourceAddressFactory())
+        addFactory(new HttpTimeoutFactory())
         addFactory(new AjpFactory())
 
         // preprocessor

@@ -28,33 +28,21 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Sampler" enabled="true">
+      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.protocol"></stringProp>
-        <stringProp name="HTTPSampler.domain"></stringProp>
-        <stringProp name="HTTPSampler.method"></stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
+        <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-        <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
-          <collectionProp name="HTTPFileArgs.files">
-            <elementProp name="test.txt" elementType="HTTPFileArg">
-              <stringProp name="File.path">test.txt</stringProp>
-              <stringProp name="File.paramname">param1</stringProp>
-              <stringProp name="File.mimetype">text/plain</stringProp>
-            </elementProp>
-            <elementProp name="test.pdf" elementType="HTTPFileArg">
-              <stringProp name="File.path">test.pdf</stringProp>
-              <stringProp name="File.paramname">param2</stringProp>
-              <stringProp name="File.mimetype">application/pdf</stringProp>
-            </elementProp>
-          </collectionProp>
-        </elementProp>
+        <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
       </HTTPSamplerProxy>
       <hashTree/>
     </hashTree>

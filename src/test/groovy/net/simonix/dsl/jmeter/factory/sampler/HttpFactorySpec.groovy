@@ -28,7 +28,7 @@ class HttpFactorySpec extends TempFileSpec {
             plan {
                 http()
                 http(name: 'Factory Http', comments: "Factory Comment", enabled: false)
-                http(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompatibleMultipart: true) {
+                http(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompatibleMultipart: true, impl: 'java', saveAsMD5: true) {
                     params {
                         param(name: 'param1', value: 'value1')
                         param(name: 'param2', value: 'value2')
@@ -86,15 +86,15 @@ class HttpFactorySpec extends TempFileSpec {
         def config = configure {
             plan {
                 http 'GET http://www.example.com', {
-                    resource parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                    resources parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
                 }
 
                 http 'GET http://www.example.com', {
-                    resource urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                    resources urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
                 }
 
                 http 'GET http://www.example.com', {
-                    resource()
+                    resources()
                 }
 
                 http 'GET http://www.example.com'
@@ -104,9 +104,60 @@ class HttpFactorySpec extends TempFileSpec {
         File resultFile = tempFolder.newFile('http_2.jmx')
 
         when: 'save test to file'
-        save(config, 'http_2.jmx')
+        save(config, resultFile)
 
         then: 'both files matches'
         filesAreTheSame('http_2.jmx', resultFile)
+    }
+
+    def "Check http source generation"() {
+        given: 'Test plan with http element and source element'
+
+        def config = configure {
+            plan {
+                http 'GET http://www.example.com', {
+                    source type: 'hostname', address: 'example.com'
+                }
+
+                http 'GET http://www.example.com', {
+                    source type: 'device', address: 'eth0'
+                }
+
+                http 'GET http://www.example.com', {
+                    source type: 'deviceIp4', address: 'eth0'
+                }
+
+                http 'GET http://www.example.com', {
+                    source type: 'deviceIp6', address: 'eth0'
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('http_3.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('http_3.jmx', resultFile)
+    }
+
+    def "Check http timeout generation"() {
+        given: 'Test plan with http element and timeout element'
+        def config = configure {
+            plan {
+                http 'GET http://www.example.com', {
+                    timeout connect: 5000, response: 10000
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('http_4.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('http_4.jmx', resultFile)
     }
 }

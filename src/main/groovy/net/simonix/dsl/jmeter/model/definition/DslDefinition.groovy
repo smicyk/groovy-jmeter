@@ -208,12 +208,8 @@ final class DslDefinition {
     static final KeywordDefinition HTTP = keyword('http', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         include(HTTP_COMMON_PROPERTIES)
-        property(name: 'impl', type: String, required: false, defaultValue: '')
-        property(name: 'connectTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'responseTimeout', type: String, required: false, defaultValue: '')
+        property(name: 'impl', type: String, required: false, defaultValue: '', constraints: inList(['java', 'http']))
 
-        property(name: 'ipSource', type: String, required: false, defaultValue: '')
-        property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
     }
 
@@ -227,10 +223,22 @@ final class DslDefinition {
         leaf()
     }
 
-    static final KeywordDefinition HTTP_RESOURCE = keyword('resource', KeywordCategory.SAMPLER, 'http') {
+    static final KeywordDefinition HTTP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'http') {
         property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
         property(name: 'urlInclude', type: String, required: false, defaultValue: '')
         property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'http') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'http') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
         leaf()
     }
 
@@ -460,20 +468,6 @@ final class DslDefinition {
         property(name: 'path', type: String, required: false, defaultValue: '')
         property(name: 'encoding', type: String, required: false, defaultValue: '')
         property(name: 'impl', type: String, required: false, defaultValue: '')
-        property(name: 'connectTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'responseTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
-        property(name: 'ipSource', type: String, required: false, defaultValue: '')
-        property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
-        property(name: 'proxySchema', type: String, required: false, defaultValue: '')
-        property(name: 'proxyHost', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPort', type: String, required: false, defaultValue: '')
-        property(name: 'proxyUser', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPassword', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
     }
 

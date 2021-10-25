@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter
 
 import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
+import static net.simonix.dsl.jmeter.TestScriptRunner.save
 import static org.mockserver.model.HttpRequest.request
 import static org.mockserver.model.HttpResponse.response
 import static org.mockserver.verify.VerificationTimes.once
@@ -417,7 +418,11 @@ class HttpSamplerSpec extends MockServerSpec {
             plan {
                 group {
                     simple {
-                        http('GET http://localhost:8899/complex-path/with.special/cha_racters')
+                        http('GET http://localhost:8899/complex-path/with.special/cha_racters') {
+                            check_response {
+                                status() eq 200
+                            }
+                        }
                     }
 
                     simple {
@@ -427,6 +432,10 @@ class HttpSamplerSpec extends MockServerSpec {
                             params values: [
                                     'param1': 'value1'
                             ]
+
+                            check_response {
+                                status() eq 200
+                            }
                         }
                     }
 
@@ -437,7 +446,11 @@ class HttpSamplerSpec extends MockServerSpec {
                                 'var_id': '123456'
                         ]
 
-                        http('GET /variable/${var_id}')
+                        http('GET /variable/${var_id}') {
+                            check_response {
+                                status() eq 200
+                            }
+                        }
                     }
                 }
             }

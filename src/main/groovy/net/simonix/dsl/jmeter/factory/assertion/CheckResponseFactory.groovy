@@ -94,4 +94,9 @@ final class CheckResponseFactory extends CheckFactory {
     CheckHandler createCheckHandler(CheckTestElementNode node, FactoryBuilderSupport builder) {
         return new CheckResponseHandler((CheckTestElementNode) node, builder)
     }
+
+    @Override
+    void updateOnComplete(Object parent, Object child) {
+        // empty implementation
+    }
 }

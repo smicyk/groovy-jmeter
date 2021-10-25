@@ -75,8 +75,6 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         Integer port = null
         if (config.containsKey('port')) {
             port = config.port as Integer
-        } else {
-            port = HTTPSamplerProxy.UNSPECIFIED_PORT
         }
 
         // override config elements
