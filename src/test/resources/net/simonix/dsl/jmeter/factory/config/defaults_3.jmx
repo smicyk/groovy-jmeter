@@ -32,63 +32,71 @@
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.protocol"></stringProp>
-        <stringProp name="HTTPSampler.domain"></stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.domain">localhost</stringProp>
+        <intProp name="HTTPSampler.port">8080</intProp>
         <stringProp name="HTTPSampler.method"></stringProp>
-        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.path">/context</stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-      </HTTPSamplerProxy>
-      <hashTree/>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Factory Http" enabled="false">
-        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-          <collectionProp name="Arguments.arguments"/>
-        </elementProp>
-        <stringProp name="TestPlan.comments">Factory Comment</stringProp>
-        <stringProp name="HTTPSampler.protocol"></stringProp>
-        <stringProp name="HTTPSampler.domain"></stringProp>
-        <stringProp name="HTTPSampler.method"></stringProp>
-        <stringProp name="HTTPSampler.path"></stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+        <stringProp name="HTTPSampler.ipSource">example.com</stringProp>
       </HTTPSamplerProxy>
       <hashTree/>
       <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Sampler" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="param1" elementType="HTTPArgument">
-              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-              <stringProp name="Argument.name">param1</stringProp>
-              <stringProp name="Argument.value">value1</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="param2" elementType="HTTPArgument">
-              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-              <stringProp name="Argument.name">param2</stringProp>
-              <stringProp name="Argument.value">value2</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
+          <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.protocol">http</stringProp>
-        <stringProp name="HTTPSampler.domain">example.com</stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
-        <stringProp name="HTTPSampler.method">GET</stringProp>
-        <stringProp name="HTTPSampler.path">/</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-        <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
-        <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
-        <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
-        <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
-        <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
-        <stringProp name="HTTPSampler.implementation">Java</stringProp>
-        <boolProp name="HTTPSampler.md5">true</boolProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.domain">localhost</stringProp>
+        <intProp name="HTTPSampler.port">8080</intProp>
+        <stringProp name="HTTPSampler.method"></stringProp>
+        <stringProp name="HTTPSampler.path">/context</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+        <stringProp name="HTTPSampler.ipSource">eth0</stringProp>
+        <intProp name="HTTPSampler.ipSourceType">1</intProp>
+      </HTTPSamplerProxy>
+      <hashTree/>
+      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Sampler" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.domain">localhost</stringProp>
+        <intProp name="HTTPSampler.port">8080</intProp>
+        <stringProp name="HTTPSampler.method"></stringProp>
+        <stringProp name="HTTPSampler.path">/context</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+        <stringProp name="HTTPSampler.ipSource">eth0</stringProp>
+        <intProp name="HTTPSampler.ipSourceType">2</intProp>
+      </HTTPSamplerProxy>
+      <hashTree/>
+      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Sampler" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.domain">localhost</stringProp>
+        <intProp name="HTTPSampler.port">8080</intProp>
+        <stringProp name="HTTPSampler.method"></stringProp>
+        <stringProp name="HTTPSampler.path">/context</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+        <stringProp name="HTTPSampler.ipSource">eth0</stringProp>
+        <intProp name="HTTPSampler.ipSourceType">3</intProp>
       </HTTPSamplerProxy>
       <hashTree/>
     </hashTree>

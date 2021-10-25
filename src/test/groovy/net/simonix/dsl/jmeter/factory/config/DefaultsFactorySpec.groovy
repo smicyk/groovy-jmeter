@@ -26,7 +26,7 @@ class DefaultsFactorySpec extends TempFileSpec {
         given: 'Test plan with defaults config element'
         def config = configure {
             plan {
-                defaults(name: 'Factory Defaults', comments: "Factory Comment", enabled: false, protocol: 'https', domain: 'localhost', port: 8080, method: 'POST', path: '/context', encoding: 'UTF-8')
+                defaults(name: 'Factory Defaults', comments: "Factory Comment", enabled: false, protocol: 'https', domain: 'localhost', port: 8080, method: 'POST', path: '/context', encoding: 'UTF-8', saveAsMD5: true)
                 defaults()
                 defaults {
                     params {
@@ -43,5 +43,118 @@ class DefaultsFactorySpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('defaults_0.jmx', resultFile)
+    }
+
+    def "Check defaults proxy generation"() {
+        given: 'Test plan with defaults element and proxy'
+        def config = configure {
+            plan {
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    proxy scheme: 'http', host: 'my.proxy.com', port: '80', username: 'test', password: 'test'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    proxy 'http://my.proxy.com:80', username: 'test', password: 'test'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    proxy 'http://my.proxy.com:80'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    proxy 'my.proxy.com:80'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    proxy 'my.proxy.com'
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('defaults_1.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('defaults_1.jmx', resultFile)
+    }
+
+    def "Check defaults embedded resources generation"() {
+        given: 'Test plan with defaults element and embedded resources'
+        def config = configure {
+            plan {
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    resources parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    resources urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    resources()
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('defaults_2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('defaults_2.jmx', resultFile)
+    }
+
+    def "Check defaults source generation"() {
+        given: 'Test plan with defaults element and source element'
+
+        def config = configure {
+            plan {
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    source type: 'hostname', address: 'example.com'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    source type: 'device', address: 'eth0'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    source type: 'deviceIp4', address: 'eth0'
+                }
+
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    source type: 'deviceIp6', address: 'eth0'
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('defaults_3.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('defaults_3.jmx', resultFile)
+    }
+
+    def "Check defaults timeout generation"() {
+        given: 'Test plan with defaults element and timeout element'
+        def config = configure {
+            plan {
+                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                    timeout connect: 5000, response: 10000
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('defaults_4.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('defaults_4.jmx', resultFile)
     }
 }

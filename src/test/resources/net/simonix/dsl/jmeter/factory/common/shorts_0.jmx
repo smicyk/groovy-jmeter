@@ -50,19 +50,6 @@
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.implementation"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <boolProp name="HTTPSampler.image_parser">false</boolProp>
-          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
-          <intProp name="HTTPSampler.concurrentPool">6</intProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.ipSource"></stringProp>
-          <stringProp name="HTTPSampler.proxyScheme"></stringProp>
-          <stringProp name="HTTPSampler.proxyHost"></stringProp>
-          <stringProp name="HTTPSampler.proxyPort"></stringProp>
-          <stringProp name="HTTPSampler.proxyUser"></stringProp>
-          <stringProp name="HTTPSampler.proxyPass"></stringProp>
           <boolProp name="HTTPSampler.md5">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -108,14 +95,6 @@
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation"></stringProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.embedded_url_exclude_re"></stringProp>
-          <stringProp name="HTTPSampler.proxyScheme"></stringProp>
-          <stringProp name="HTTPSampler.proxyHost"></stringProp>
-          <stringProp name="HTTPSampler.proxyPort"></stringProp>
-          <stringProp name="HTTPSampler.proxyUser"></stringProp>
-          <stringProp name="HTTPSampler.proxyPass"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
