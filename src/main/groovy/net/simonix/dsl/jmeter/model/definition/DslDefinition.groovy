@@ -213,7 +213,7 @@ final class DslDefinition {
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
     }
 
-    static final KeywordDefinition HTTP_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'http') {
+    static final KeywordDefinition HTTP_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'http_') {
         property(name: 'scheme', type: String, required: false, defaultValue: '')
         property(name: 'host', type: String, required: false, defaultValue: '')
         property(name: 'port', type: String, required: false, defaultValue: '')
@@ -223,20 +223,20 @@ final class DslDefinition {
         leaf()
     }
 
-    static final KeywordDefinition HTTP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'http') {
+    static final KeywordDefinition HTTP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'http_') {
         property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
         property(name: 'urlInclude', type: String, required: false, defaultValue: '')
         property(name: 'urlExclude', type: String, required: false, defaultValue: '')
         leaf()
     }
 
-    static final KeywordDefinition HTTP_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'http') {
+    static final KeywordDefinition HTTP_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'http_') {
         property(name: 'type', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()
     }
 
-    static final KeywordDefinition HTTP_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'http') {
+    static final KeywordDefinition HTTP_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'http_') {
         property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
         property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
         leaf()
@@ -246,6 +246,13 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         include(HTTP_COMMON_PROPERTIES)
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition AJP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'ajp_') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
     }
 
     static final KeywordDefinition DEBUG = keyword('debug', KeywordCategory.SAMPLER) {
@@ -469,6 +476,35 @@ final class DslDefinition {
         property(name: 'encoding', type: String, required: false, defaultValue: '')
         property(name: 'impl', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition DEFAULTS_PROXY = keyword('proxy', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_RESOURCES = keyword('resources', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_SOURCE = keyword('source', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_TIMEOUT = keyword('timeout', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        leaf()
     }
 
     static final KeywordDefinition HEADER = keyword('header', KeywordCategory.CONFIG) {

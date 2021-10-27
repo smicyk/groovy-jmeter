@@ -28,7 +28,7 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /" enabled="true">
+      <AjpSampler guiclass="AjpSamplerGui" testclass="AjpSampler" testname="GET /" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
@@ -46,9 +46,9 @@
         <stringProp name="HTTPSampler.concurrentPool">7</stringProp>
         <stringProp name="HTTPSampler.embedded_url_re">http://example\.invalid/.*</stringProp>
         <stringProp name="HTTPSampler.embedded_url_exclude_re">.*\.(?i:svg|png)</stringProp>
-      </HTTPSamplerProxy>
+      </AjpSampler>
       <hashTree/>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /" enabled="true">
+      <AjpSampler guiclass="AjpSamplerGui" testclass="AjpSampler" testname="GET /" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
@@ -64,9 +64,9 @@
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
         <stringProp name="HTTPSampler.embedded_url_re">http://example\.invalid/.*</stringProp>
         <stringProp name="HTTPSampler.embedded_url_exclude_re">.*\.(?i:svg|png)</stringProp>
-      </HTTPSamplerProxy>
+      </AjpSampler>
       <hashTree/>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /" enabled="true">
+      <AjpSampler guiclass="AjpSamplerGui" testclass="AjpSampler" testname="GET /" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
@@ -81,9 +81,9 @@
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-      </HTTPSamplerProxy>
+      </AjpSampler>
       <hashTree/>
-      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET /" enabled="true">
+      <AjpSampler guiclass="AjpSamplerGui" testclass="AjpSampler" testname="GET /" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
@@ -96,7 +96,7 @@
         <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-      </HTTPSamplerProxy>
+      </AjpSampler>
       <hashTree/>
     </hashTree>
   </hashTree>

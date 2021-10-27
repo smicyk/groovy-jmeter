@@ -25,6 +25,7 @@ import groovy.transform.ToString
 class KeywordDefinition {
 
     final String name
+    final String prefix
     final String title
     final String description
     final String category
@@ -32,8 +33,9 @@ class KeywordDefinition {
     final boolean valueIsProperty
     final Set<PropertyDefinition> properties
 
-    KeywordDefinition(String name, KeywordCategory category, String title, String description, boolean leaf, boolean valueIsProperty, Set<PropertyDefinition> properties) {
+    KeywordDefinition(String name, String prefix, KeywordCategory category, String title, String description, boolean leaf, boolean valueIsProperty, Set<PropertyDefinition> properties) {
         this.name = name
+        this.prefix = prefix
         this.category = category
         this.title = title
         this.description = description

@@ -18,7 +18,8 @@ package net.simonix.dsl.jmeter.factory.sampler.http.model
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
-class SourceAddressTestElement extends AbstractTestElement implements TestElement {
+class SourceTestElement extends AbstractTestElement implements TestElement {
     String type
     String address
+    int typeValue
 }

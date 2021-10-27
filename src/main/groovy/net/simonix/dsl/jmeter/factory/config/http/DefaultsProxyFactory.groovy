@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.factory.sampler.http
+package net.simonix.dsl.jmeter.factory.config.http
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.AbstractProxyFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.model.ProxyTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
-import org.apache.jmeter.testelement.TestElement
-
-import java.util.regex.Matcher
 
 /**
  * The factory class responsible for building <code>proxy</code> element inside http element.
@@ -40,26 +35,27 @@ import java.util.regex.Matcher
  *     password: string
  * )
  * </pre>
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">HTTP Request Defaults</a>
  *
+ * @see net.simonix.dsl.jmeter.factory.config.DefaultsFactory DefaultsFactory
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
 @CompileDynamic
-final class HttpProxyFactory extends AbstractProxyFactory {
+final class DefaultsProxyFactory extends AbstractProxyFactory {
 
-    HttpProxyFactory() {
-        super(DslDefinition.HTTP_PROXY)
+    DefaultsProxyFactory() {
+        super(DslDefinition.DEFAULTS_PROXY)
     }
 
     void updateOnComplete(Object parent, Object child) {
-        if (parent instanceof HTTPSamplerBase && child instanceof ProxyTestElement) {
-            HTTPSamplerBase sampler = parent as HTTPSamplerBase
+        if (parent instanceof ConfigTestElement && child instanceof ProxyTestElement) {
+            ConfigTestElement testElement = parent as ConfigTestElement
 
-            sampler.proxyScheme = child.scheme
-            sampler.proxyHost = child.host
-            sampler.proxyPortInt = child.port
-            sampler.proxyUser = child.username
-            sampler.proxyPass = child.password
+            testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, child.scheme)
+            testElement.setProperty(HTTPSamplerBase.PROXYHOST, child.host)
+            testElement.setProperty(HTTPSamplerBase.PROXYPORT, child.port)
+            testElement.setProperty(HTTPSamplerBase.PROXYUSER, child.username)
+            testElement.setProperty(HTTPSamplerBase.PROXYPASS, child.password)
         }
     }
 }
