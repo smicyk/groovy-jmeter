@@ -16,12 +16,14 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.common.*
-import net.simonix.dsl.jmeter.factory.config.*
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpResourceFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceAddressFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory
+import net.simonix.dsl.jmeter.factory.common.BodyFactory
+import net.simonix.dsl.jmeter.factory.common.ParamFactory
+import net.simonix.dsl.jmeter.factory.common.ParamsFactory
+import net.simonix.dsl.jmeter.factory.config.DefaultsFactory
+import net.simonix.dsl.jmeter.factory.config.http.DefaultsProxyFactory
+import net.simonix.dsl.jmeter.factory.config.http.DefaultsResourcesFactory
+import net.simonix.dsl.jmeter.factory.config.http.DefaultsSourceFactory
+import net.simonix.dsl.jmeter.factory.config.http.DefaultsTimeoutFactory
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.ConfigTestElement
@@ -58,10 +60,10 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new BodyFactory())
 
         // sampler
-        addFactory(new HttpProxyFactory())
-        addFactory(new HttpResourceFactory())
-        addFactory(new HttpSourceAddressFactory())
-        addFactory(new HttpTimeoutFactory())
+        addFactory(new DefaultsProxyFactory())
+        addFactory(new DefaultsResourcesFactory())
+        addFactory(new DefaultsSourceFactory())
+        addFactory(new DefaultsTimeoutFactory())
     }
 
     protected Object postNodeCompletion(Object parent, Object node) {

@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.factory.sampler.http
+package net.simonix.dsl.jmeter.factory.config.http
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.TestElementFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.AbstractTimeoutFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.model.TimeoutTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.AjpSampler
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
-import org.apache.jmeter.testelement.TestElement
+import org.apache.jmeter.protocol.http.sampler.HTTPSampler
 
 /**
  * The factory class responsible for building <code>timeout</code> element inside http element.
@@ -36,26 +34,27 @@ import org.apache.jmeter.testelement.TestElement
  * ) {
  * }
  * </pre>
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">HTTP Request Defaults</a>
  *
+ * @see net.simonix.dsl.jmeter.factory.config.DefaultsFactory DefaultsFactory
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
 @CompileDynamic
-final class HttpTimeoutFactory extends AbstractTimeoutFactory {
+final class DefaultsTimeoutFactory extends AbstractTimeoutFactory {
 
-    HttpTimeoutFactory() {
-        super(DslDefinition.HTTP_TIMEOUT)
+    DefaultsTimeoutFactory() {
+        super(DslDefinition.DEFAULTS_TIMEOUT)
     }
 
     void updateOnComplete(Object parent, Object child) {
-        if (parent instanceof HTTPSamplerBase && child instanceof TimeoutTestElement) {
-            HTTPSamplerBase sampler = parent as HTTPSamplerBase
+        if (parent instanceof ConfigTestElement && child instanceof TimeoutTestElement) {
+            ConfigTestElement testElement = parent as ConfigTestElement
 
             String connect = child.connect as String
             String response = child.response as String
 
-            sampler.connectTimeout = connect
-            sampler.responseTimeout = response
+            testElement.setProperty(HTTPSampler.CONNECT_TIMEOUT, connect)
+            testElement.setProperty(HTTPSampler.RESPONSE_TIMEOUT, response)
         }
     }
 }

@@ -26,9 +26,9 @@ class AjpFactorySpec extends TempFileSpec {
         given: 'Test plan with ajp element'
         def config = configure {
             plan {
-                http()
-                http(name: 'Factory Ajp', comments: "Factory Comment", enabled: false)
-                http(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompatibleMultipart: true, saveAsMD5: true) {
+                ajp()
+                ajp(name: 'Factory Ajp', comments: "Factory Comment", enabled: false)
+                ajp(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, multipart: true, browserCompatibleMultipart: true, saveAsMD5: true) {
                     params {
                         param(name: 'param1', value: 'value1')
                         param(name: 'param2', value: 'value2')
@@ -50,19 +50,19 @@ class AjpFactorySpec extends TempFileSpec {
         given: 'Test plan with ajp element'
         def config = configure {
             plan {
-                http 'GET http://www.example.com', {
+                ajp 'GET http://www.example.com', {
                     resources parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
                 }
 
-                http 'GET http://www.example.com', {
+                ajp 'GET http://www.example.com', {
                     resources urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
                 }
 
-                http 'GET http://www.example.com', {
+                ajp 'GET http://www.example.com', {
                     resources()
                 }
 
-                http 'GET http://www.example.com'
+                ajp 'GET http://www.example.com'
             }
         }
 

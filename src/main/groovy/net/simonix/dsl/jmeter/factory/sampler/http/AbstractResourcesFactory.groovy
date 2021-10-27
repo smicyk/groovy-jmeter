@@ -17,27 +17,20 @@ package net.simonix.dsl.jmeter.factory.sampler.http
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.model.ProxyTestElement
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.factory.sampler.http.model.ResourceTestElement
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
-import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.AjpSampler
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.testelement.TestElement
 
-import java.util.regex.Matcher
-
 /**
- * The factory class responsible for building <code>proxy</code> element inside http element.
+ * The abstract factory class responsible for building <code>resources</code> element inside http/ajp element.
  *
  * <pre>
  * // element structure
- * proxy (
- *     schema: string
- *     host: string
- *     port: int
- *     username: string
- *     password: string
+ * resources (
+ *     // Embedded resource
+ *     parallel: int [<strong>6</strong>]
+ *     urlInclude: string
+ *     urlExclude: string
  * )
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
@@ -45,21 +38,18 @@ import java.util.regex.Matcher
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
  */
 @CompileDynamic
-final class HttpProxyFactory extends AbstractProxyFactory {
+abstract class AbstractResourcesFactory extends TestElementFactory {
 
-    HttpProxyFactory() {
-        super(DslDefinition.HTTP_PROXY)
+    protected AbstractResourcesFactory(KeywordDefinition definition) {
+        super(ResourceTestElement, definition)
     }
 
-    void updateOnComplete(Object parent, Object child) {
-        if (parent instanceof HTTPSamplerBase && child instanceof ProxyTestElement) {
-            HTTPSamplerBase sampler = parent as HTTPSamplerBase
+    void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
+        boolean downloadParallel = config.isPresent('parallel')
 
-            sampler.proxyScheme = child.scheme
-            sampler.proxyHost = child.host
-            sampler.proxyPortInt = child.port
-            sampler.proxyUser = child.username
-            sampler.proxyPass = child.password
-        }
+        testElement.downloadParallel = downloadParallel && config.parallel != 0
+        testElement.parallel = config.parallel
+        testElement.urlInclude = config.urlInclude
+        testElement.urlExclude = config.urlExclude
     }
 }

@@ -194,10 +194,22 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
 
             closure.delegate = builder
             closure.resolveStrategy = Closure.DELEGATE_ONLY
+        } else if(node instanceof TestElementNode && AjpFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
+            Map<String, Object> parentContext = getProxyBuilder().getContext()
+
+            AjpFactoryBuilder builder = new AjpFactoryBuilder(parentContext, closure)
+
+            // copy any variables from command line to the child builder
+            this.variables.each { entry ->
+                builder.setVariable(entry.key as String, entry.value)
+            }
+
+            closure.delegate = builder
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
         } else if(node instanceof TestElementNode && DefaultsHttpFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
             Map<String, Object> parentContext = getProxyBuilder().getContext()
 
-            HttpFactoryBuilder builder = new HttpFactoryBuilder(parentContext, closure)
+            DefaultsHttpFactoryBuilder builder = new DefaultsHttpFactoryBuilder(parentContext, closure)
 
             // copy any variables from command line to the child builder
             this.variables.each { entry ->

@@ -49,24 +49,8 @@ class DefaultsFactorySpec extends TempFileSpec {
         given: 'Test plan with defaults element and proxy'
         def config = configure {
             plan {
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                defaults {
                     proxy scheme: 'http', host: 'my.proxy.com', port: '80', username: 'test', password: 'test'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    proxy 'http://my.proxy.com:80', username: 'test', password: 'test'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    proxy 'http://my.proxy.com:80'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    proxy 'my.proxy.com:80'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    proxy 'my.proxy.com'
                 }
             }
         }
@@ -84,16 +68,8 @@ class DefaultsFactorySpec extends TempFileSpec {
         given: 'Test plan with defaults element and embedded resources'
         def config = configure {
             plan {
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                defaults {
                     resources parallel: 7, urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    resources urlInclude: 'http://example\\.invalid/.*', urlExclude: '.*\\.(?i:svg|png)'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    resources()
                 }
             }
         }
@@ -112,20 +88,8 @@ class DefaultsFactorySpec extends TempFileSpec {
 
         def config = configure {
             plan {
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                defaults {
                     source type: 'hostname', address: 'example.com'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    source type: 'device', address: 'eth0'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    source type: 'deviceIp4', address: 'eth0'
-                }
-
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
-                    source type: 'deviceIp6', address: 'eth0'
                 }
             }
         }
@@ -143,7 +107,7 @@ class DefaultsFactorySpec extends TempFileSpec {
         given: 'Test plan with defaults element and timeout element'
         def config = configure {
             plan {
-                http protocol: 'https', domain: 'localhost', port: 8080, path: '/context', {
+                defaults {
                     timeout connect: 5000, response: 10000
                 }
             }

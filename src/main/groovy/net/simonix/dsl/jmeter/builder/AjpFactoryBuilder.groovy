@@ -17,20 +17,8 @@ package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.assertion.*
-import net.simonix.dsl.jmeter.factory.common.BodyFactory
-import net.simonix.dsl.jmeter.factory.common.FileFactory
-import net.simonix.dsl.jmeter.factory.common.FilesFactory
-import net.simonix.dsl.jmeter.factory.common.ParamFactory
-import net.simonix.dsl.jmeter.factory.common.ParamsFactory
-import net.simonix.dsl.jmeter.factory.config.AuthorizationFactory
-import net.simonix.dsl.jmeter.factory.config.AuthorizationsFactory
-import net.simonix.dsl.jmeter.factory.config.CacheFactory
-import net.simonix.dsl.jmeter.factory.config.CookieFactory
-import net.simonix.dsl.jmeter.factory.config.CookiesFactory
-import net.simonix.dsl.jmeter.factory.config.DefaultsFactory
-import net.simonix.dsl.jmeter.factory.config.HeaderFactory
-import net.simonix.dsl.jmeter.factory.config.HeadersFactory
-import net.simonix.dsl.jmeter.factory.config.LoginFactory
+import net.simonix.dsl.jmeter.factory.common.*
+import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
@@ -40,25 +28,20 @@ import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactor
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.AjpFactory
-import net.simonix.dsl.jmeter.factory.sampler.HttpFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.AjpResourcesFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpResourcesFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 
 @CompileDynamic
-class HttpFactoryBuilder extends TestFactoryBuilder {
+class AjpFactoryBuilder extends TestFactoryBuilder {
 
     static List<String> ACCEPTED_KEYWORDS = [
-            DslDefinition.HTTP.name
+            DslDefinition.AJP.name,
     ]
 
-    HttpFactoryBuilder(Map<String, Object> context, Closure closure) {
+    AjpFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()
 
         // create new context for http tree
@@ -94,11 +77,8 @@ class HttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new BodyFactory())
 
         // sampler
-        addFactory(new HttpFactory())
-        addFactory(new HttpProxyFactory())
-        addFactory(new HttpResourcesFactory())
-        addFactory(new HttpSourceFactory())
-        addFactory(new HttpTimeoutFactory())
+        addFactory(new AjpFactory())
+        addFactory(new AjpResourcesFactory())
 
         // preprocessor
         addFactory(new JdbcPreprocessorFactory())

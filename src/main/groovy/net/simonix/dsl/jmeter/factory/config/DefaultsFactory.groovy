@@ -56,7 +56,7 @@ import org.apache.jmeter.testelement.property.TestElementProperty
  *     body | params | headers | resources | proxy | timeout | source
  * }
  * </pre>
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">HTTP Request Defaults</a>
  *
  * @see net.simonix.dsl.jmeter.factory.sampler.BaseHttpFactory BaseHttpFactory
  * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory

@@ -125,7 +125,7 @@ class DefinitionBuilder {
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, category, title, description, leaf, valueIsProperty, properties)
+            return new KeywordDefinition(name, prefix, category, title, description, leaf, valueIsProperty, properties)
         }
     }
 
