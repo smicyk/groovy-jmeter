@@ -41,8 +41,8 @@
         </elementProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
         <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
-        <stringProp name="HTTPSampler.concurrentPool">http://example\.invalid/.*</stringProp>
-        <stringProp name="HTTPSampler.embedded_url_re">.*\.(?i:svg|png)</stringProp>
+        <intProp name="HTTPSampler.concurrentPool">7</intProp>
+        <stringProp name="HTTPSampler.embedded_url_re">http://example\.invalid/.*</stringProp>
         <stringProp name="HTTPSampler.embedded_url_exclude_re">.*\.(?i:svg|png)</stringProp>
       </ConfigTestElement>
       <hashTree/>
