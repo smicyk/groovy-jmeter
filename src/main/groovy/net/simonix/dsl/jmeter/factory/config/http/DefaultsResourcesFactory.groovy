@@ -37,8 +37,11 @@ final class DefaultsResourcesFactory extends AbstractResourcesFactory {
 
             testElement.setProperty(HTTPSampler.IMAGE_PARSER, true)
             testElement.setProperty(HTTPSampler.CONCURRENT_DWN, child.downloadParallel)
-            testElement.setProperty(HTTPSampler.CONCURRENT_POOL, child.urlInclude)
-            testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, child.urlExclude)
+            testElement.setProperty(HTTPSampler.CONCURRENT_POOL, child.parallel)
+
+            if(child.urlInclude != null && !child.urlInclude.isEmpty()) {
+                testElement.setProperty(HTTPSampler.EMBEDDED_URL_RE, child.urlInclude)
+            }
 
             if (child.urlExclude != null && !child.urlExclude.isEmpty()) {
                 testElement.setProperty(HTTPSampler.EMBEDDED_URL_EXCLUDE_RE, child.urlExclude)
