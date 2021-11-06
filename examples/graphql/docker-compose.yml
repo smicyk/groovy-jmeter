@@ -1,0 +1,82 @@
+version: '3'
+
+volumes:
+  grapes-cache:
+    external: true
+  influxdb-db-data:
+
+services:
+  database:
+    image: "postgres:13"
+    container_name: database-db
+    restart: always
+    volumes:
+      - ./db/init/:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  graphql:
+    image: graphile/postgraphile
+    container_name: graphql-db
+    restart: always
+    depends_on:
+      - database
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    command: [ "--connection", "postgres://postgres:postgres@database-db:5432/hr", "--host", "0.0.0.0", "--port", "5000", "--schema", "hr" ]
+    links:
+      - database:database-db
+
+#  testserver:
+#    image: "groovy:3.0.7-jdk8"
+#    container_name: testserver-db
+#    volumes:
+#      - .:/home/groovy
+#      - grapes-cache:/home/groovy/.groovy/grapes
+#    links:
+#      - graphql:graphql-db
+##      - influxdb:influxdb-db
+#    command: ["groovy", "script.groovy"]
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    container_name: grafana-db
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./jmeter-dashboard.json:/var/lib/grafana/dashboards/jmeter-dashboard.json:ro
+#      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro
+#      - ./grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
+#    links:
+#      - influxdb:influxdb-db
+#    environment:
+#      GF_SECURITY_ADMIN_USER: admin
+#      GF_SECURITY_ADMIN_PASSWORD: admin
+
+#  influxdb:
+#    image: influxdb:1.5.4
+#    container_name: influxdb-db
+#    ports:
+#      - 8083:8083
+#      - 8086:8086
+#    volumes:
+#      - influxdb-db-data:/var/lib/influxdb
+#      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+#    environment:
+#      INFLUXDB_DB: "jmeter"
+#      INFLUXDB_ADMIN_USER: "jmeter"
+#      INFLUXDB_ADMIN_PASSWORD: "jmeter"
+
+#  telegraf:
+#    image: telegraf:1.8.3
+#    container_name: telegraf-db
+#    links:
+#      - influxdb:influxdb-db
+#    ports:
+#      - "8125:8125/udp"
+#    volumes:
+#      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+#      - /var/run/docker.sock:/var/run/docker.sock
+

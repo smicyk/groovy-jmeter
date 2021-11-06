@@ -56,7 +56,7 @@ abstract class AbstractJSR223Factory extends TestElementNodeFactory {
         String script = config.inline
 
         testElement.cacheKey = config.cacheKey
-        testElement.filename = config.filename
+        testElement.filename = config.file
         testElement.parameters = config.parameters
         testElement.script = script
         testElement.scriptLanguage = config.language

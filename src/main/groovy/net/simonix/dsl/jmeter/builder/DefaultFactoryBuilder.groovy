@@ -94,6 +94,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         // samplers
         addFactory(new HttpFactory())
         addFactory(new AjpFactory())
+        addFactory(new GraphQLFactory())
         addFactory(new DebugFactory())
         addFactory(new JSR223SamplerFactory())
         addFactory(new FlowControlActionFactory())
@@ -210,6 +211,18 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
             Map<String, Object> parentContext = getProxyBuilder().getContext()
 
             DefaultsHttpFactoryBuilder builder = new DefaultsHttpFactoryBuilder(parentContext, closure)
+
+            // copy any variables from command line to the child builder
+            this.variables.each { entry ->
+                builder.setVariable(entry.key as String, entry.value)
+            }
+
+            closure.delegate = builder
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
+        } else if(node instanceof TestElementNode && GraphQLFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
+            Map<String, Object> parentContext = getProxyBuilder().getContext()
+
+            GraphQLFactoryBuilder builder = new GraphQLFactoryBuilder(parentContext, closure)
 
             // copy any variables from command line to the child builder
             this.variables.each { entry ->

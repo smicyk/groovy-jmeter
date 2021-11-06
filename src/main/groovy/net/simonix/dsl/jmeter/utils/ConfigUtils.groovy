@@ -60,4 +60,22 @@ final class ConfigUtils {
     static boolean hasValue(Object value) {
         return value != null
     }
+
+    static String loadFromFile(String file, String encoding) {
+        File content = null
+
+        URL url = this.class.getResource(file)
+
+        if(url != null) {
+            content = new File(url.toURI())
+        } else {
+            content = new File(file)
+        }
+
+        if(content.exists()) {
+            return content.getText(encoding)
+        }
+
+        throw new FileNotFoundException('''The file doesn't exist''')
+    }
 }
