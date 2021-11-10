@@ -85,7 +85,7 @@ start {
                 }
             }
 
-            // variables has prefix depending on row number
+            // variables has postfix depending on row number
             execute_if '''__groovy(vars.get('var_updated_salary_1').toInteger() > 6000)''', {
                 jdbc use: 'postgres', name: 'Call FireEmployee', {
                     callable('''

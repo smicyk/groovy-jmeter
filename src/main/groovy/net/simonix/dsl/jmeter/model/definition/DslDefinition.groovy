@@ -35,7 +35,7 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'serialized', type: Boolean, required: false, defaultValue: false)
         property(name: 'functionalMode', type: Boolean, required: false, defaultValue: false)
-        property(name: 'tearDownOnShutdown', type: Boolean, required: false, defaultValue: false)
+        property(name: 'tearDownOnShutdown', type: Boolean, required: false, defaultValue: true)
         property(name: 'classpath', type: String, required: false, separator: ',', defaultValue: [])
     }
 
@@ -252,6 +252,67 @@ final class DslDefinition {
         property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
         property(name: 'urlInclude', type: String, required: false, defaultValue: '')
         property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL = keyword('graphql', KeywordCategory.SAMPLER) {
+        include(COMMON_PROPERTIES)
+        property(name: 'method', type: String, required: false, defaultValue: 'POST', constraints: inList(['POST', 'GET']))
+        property(name: 'protocol', type: String, required: false, defaultValue: '')
+        property(name: 'domain', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: Integer, required: false, constraints: range(1, 65535))
+        property(name: 'path', type: String, required: false, defaultValue: '')
+        property(name: 'encoding', type: String, required: false, defaultValue: '')
+        property(name: 'autoRedirects', type: Boolean, required: false, defaultValue: false)
+        property(name: 'followRedirects', type: Boolean, required: false, defaultValue: false)
+        property(name: 'keepAlive', type: Boolean, required: false, defaultValue: true)
+        property(name: 'impl', type: String, required: false, defaultValue: '', constraints: inList(['java', 'http']))
+
+        property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition GRAPHQL_OPERATION = keyword('operation', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'name', type: String, required: true, defaultValue: '')
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_EXECUTE = keyword('execute', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_VARIABLES = keyword('variables', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
         leaf()
     }
 

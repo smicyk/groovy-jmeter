@@ -18,23 +18,43 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerFactory
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
+import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
+import org.apache.jmeter.testelement.property.BooleanProperty
+import org.apache.jmeter.testelement.property.TestElementProperty
 
 /**
- * The factory class responsible for building <code>resources</code> element inside http element.
+ * The factory class responsible for building <code>http</code> element in the test.
  *
  * <pre>
  * // element structure
- * resources (
- *     // Embedded resource
- *     parallel: int [<strong>6</strong>]
- *     urlInclude: string
- *     urlExclude: string
- * ) {
+ * http (
+ *     method: string
+ *     protocol: string
+ *     domain: string
+ *     path: string
+ *     port: integer
+ *     // Request configuration
+ *     encoding: string
+ *     autoRedirects: boolean [<strong>false</strong>]
+ *     followRedirects: boolean [<strong>true</strong>]
+ *     keepAlive: boolean [<strong>true</strong>]
+ *     multipart: boolean [<strong>false</strong>]
+ *     browserCompatibleMultipart: boolean [<strong>false</strong>]
+ *
+ *     // Impl configuration
+ *     impl: string
+ *
+ *     // Use md5 configuration
+ *     saveAsMD5: boolean [<strong>false</strong>]
+ * )
+ * {
+ *    body | params | headers | timeout | source | resources | proxy
  * }
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
@@ -50,6 +70,10 @@ final class HttpFactory extends BaseHttpFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         super.updateTestElementProperties(testElement, name, value, config)
+
+        // Request configuration
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
 
         // Impl configuration
         String impl = config.impl
