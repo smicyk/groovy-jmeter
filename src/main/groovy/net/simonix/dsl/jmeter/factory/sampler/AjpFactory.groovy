@@ -62,6 +62,10 @@ final class AjpFactory extends BaseHttpFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         super.updateTestElementProperties(testElement, name, value, config)
 
+        // Request configuration
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
+
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5
     }

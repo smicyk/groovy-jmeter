@@ -8,7 +8,7 @@ volumes:
 services:
   database:
     image: "postgres:13"
-    container_name: database-db
+    container_name: graphql-db
     restart: always
     volumes:
       - ./db/init/:/docker-entrypoint-initdb.d
@@ -17,7 +17,7 @@ services:
 
   graphql:
     image: graphile/postgraphile
-    container_name: graphql-db
+    container_name: graphql-api
     restart: always
     depends_on:
       - database
@@ -25,20 +25,20 @@ services:
       - 5000
     ports:
       - 5000:5000
-    command: [ "--connection", "postgres://postgres:postgres@database-db:5432/hr", "--host", "0.0.0.0", "--port", "5000", "--schema", "hr" ]
+    command: [ "--connection", "postgres://postgres:postgres@graphql-db:5432/hr", "--host", "0.0.0.0", "--port", "5000", "--schema", "hr" ]
     links:
-      - database:database-db
+      - database:graphql-db
 
-#  testserver:
-#    image: "groovy:3.0.7-jdk8"
-#    container_name: testserver-db
-#    volumes:
-#      - .:/home/groovy
-#      - grapes-cache:/home/groovy/.groovy/grapes
-#    links:
-#      - graphql:graphql-db
-##      - influxdb:influxdb-db
-#    command: ["groovy", "script.groovy"]
+  testserver:
+    image: "groovy:3.0.7-jdk8"
+    container_name: graphql-test
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    links:
+      - graphql:graphql-api
+#      - influxdb:influxdb-db
+    command: ["groovy", "script.groovy"]
 
 #  grafana:
 #    image: grafana/grafana:latest
@@ -55,19 +55,19 @@ services:
 #      GF_SECURITY_ADMIN_USER: admin
 #      GF_SECURITY_ADMIN_PASSWORD: admin
 
-#  influxdb:
-#    image: influxdb:1.5.4
-#    container_name: influxdb-db
-#    ports:
-#      - 8083:8083
-#      - 8086:8086
-#    volumes:
-#      - influxdb-db-data:/var/lib/influxdb
-#      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
-#    environment:
-#      INFLUXDB_DB: "jmeter"
-#      INFLUXDB_ADMIN_USER: "jmeter"
-#      INFLUXDB_ADMIN_PASSWORD: "jmeter"
+  influxdb:
+    image: influxdb:1.5.4
+    container_name: graphql-influx
+    ports:
+      - 8083:8083
+      - 8086:8086
+    volumes:
+      - influxdb-db-data:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    environment:
+      INFLUXDB_DB: "jmeter"
+      INFLUXDB_ADMIN_USER: "jmeter"
+      INFLUXDB_ADMIN_PASSWORD: "jmeter"
 
 #  telegraf:
 #    image: telegraf:1.8.3

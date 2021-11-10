@@ -257,19 +257,25 @@ final class DslDefinition {
 
     static final KeywordDefinition GRAPHQL = keyword('graphql', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
-        property(name: 'method', type: String, required: false, defaultValue: '', constraints: inList(['POST', 'GET']))
+        property(name: 'method', type: String, required: false, defaultValue: 'POST', constraints: inList(['POST', 'GET']))
         property(name: 'protocol', type: String, required: false, defaultValue: '')
         property(name: 'domain', type: String, required: false, defaultValue: '')
         property(name: 'port', type: Integer, required: false, constraints: range(1, 65535))
         property(name: 'path', type: String, required: false, defaultValue: '')
         property(name: 'encoding', type: String, required: false, defaultValue: '')
         property(name: 'autoRedirects', type: Boolean, required: false, defaultValue: false)
-        property(name: 'followRedirects', type: Boolean, required: false, defaultValue: true)
+        property(name: 'followRedirects', type: Boolean, required: false, defaultValue: false)
         property(name: 'keepAlive', type: Boolean, required: false, defaultValue: true)
         property(name: 'impl', type: String, required: false, defaultValue: '', constraints: inList(['java', 'http']))
-        property(name: 'operation', type: String, required: false, defaultValue: '')
 
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition GRAPHQL_OPERATION = keyword('operation', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'name', type: String, required: true, defaultValue: '')
+
+        valueIsProperty()
+        leaf()
     }
 
     static final KeywordDefinition GRAPHQL_EXECUTE = keyword('execute', KeywordCategory.SAMPLER, 'graphql_') {

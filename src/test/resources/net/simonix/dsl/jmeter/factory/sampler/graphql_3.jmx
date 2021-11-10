@@ -29,23 +29,32 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
-        <stringProp name="HTTPSampler.protocol">http</stringProp>
-        <stringProp name="HTTPSampler.domain"></stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
-        <stringProp name="HTTPSampler.method">GET</stringProp>
-        <stringProp name="HTTPSampler.path"></stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <boolProp name="HTTPSampler.md5">false</boolProp>
+      <HTTPSamplerProxy guiclass="GraphQLHTTPSamplerGui" testclass="HTTPSamplerProxy" testname="GET /graphql" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-          <collectionProp name="Arguments.arguments"/>
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="query" elementType="HTTPArgument" enabled="true">
+              <boolProp name="HTTPArgument.always_encode">true</boolProp>
+              <stringProp name="Argument.name">query</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <boolProp name="HTTPArgument.use_equals">true</boolProp>
+            </elementProp>
+          </collectionProp>
         </elementProp>
-        <stringProp name="HTTPSampler.proxyScheme">http</stringProp>
-        <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
-        <stringProp name="HTTPSampler.proxyPort">80</stringProp>
-        <stringProp name="HTTPSampler.proxyUser">test</stringProp>
-        <stringProp name="HTTPSampler.proxyPass">test</stringProp>
-      </ConfigTestElement>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
+        <stringProp name="HTTPSampler.method">GET</stringProp>
+        <stringProp name="HTTPSampler.path">/graphql</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+        <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
+        <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
+        <stringProp name="GraphQLHTTPSampler.query"></stringProp>
+        <stringProp name="GraphQLHTTPSampler.variables"></stringProp>
+      </HTTPSamplerProxy>
       <hashTree/>
     </hashTree>
   </hashTree>

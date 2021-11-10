@@ -29,7 +29,8 @@ class GraphQLFactorySpec extends TempFileSpec {
                 group {
                     graphql()
                     graphql(name: 'Factory Http', comments: "Factory Comment", enabled: false)
-                    graphql(protocol: 'http', domain: 'example.com', port: 80, path: '/', method: 'GET', encoding: 'UTF-8', operation: 'MyOperation', autoRedirects: true, followRedirects: false, keepAlive: false, impl: 'java', saveAsMD5: true) {
+                    graphql(protocol: 'http', domain: 'example.com', port: 80, path: '/graphql', method: 'GET', encoding: 'UTF-8', autoRedirects: true, followRedirects: false, keepAlive: false, impl: 'java', saveAsMD5: true) {
+                        operation 'MyOperation'
                         execute '''
                             mutation {
                               createEmployee(
@@ -67,7 +68,7 @@ class GraphQLFactorySpec extends TempFileSpec {
         File resultFile = tempFolder.newFile('graphql_0.jmx')
 
         when: 'save test to file'
-        save(config, 'graphql_0.jmx')
+        save(config, resultFile)
 
         then: 'both files matches'
         filesAreTheSame('graphql_0.jmx', resultFile)
@@ -102,7 +103,7 @@ class GraphQLFactorySpec extends TempFileSpec {
         File resultFile = tempFolder.newFile('graphql_1.jmx')
 
         when: 'save test to file'
-        save(config, 'graphql_1.jmx')
+        save(config, resultFile)
 
         then: 'both files matches'
         filesAreTheSame('graphql_1.jmx', resultFile)
@@ -134,7 +135,7 @@ class GraphQLFactorySpec extends TempFileSpec {
         File resultFile = tempFolder.newFile('graphql_2.jmx')
 
         when: 'save test to file'
-        save(config, 'graphql_2.jmx')
+        save(config, resultFile)
 
         then: 'both files matches'
         filesAreTheSame('graphql_2.jmx', resultFile)
@@ -153,7 +154,7 @@ class GraphQLFactorySpec extends TempFileSpec {
         File resultFile = tempFolder.newFile('graphql_3.jmx')
 
         when: 'save test to file'
-        save(config, 'graphql_3.jmx')
+        save(config, resultFile)
 
         then: 'both files matches'
         filesAreTheSame('graphql_3.jmx', resultFile)

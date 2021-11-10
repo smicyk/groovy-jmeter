@@ -10,61 +10,58 @@ start {
         group users: 100, rampUp: 60, loops: 10, {
             csv file: 'employees.csv', delimiter: ',', ignoreFirstLine: true, variables: ['var_id', 'var_first_name', 'var_last_name', 'var_email', 'var_salary']
 
-            defaults host: 'graphql-db', port: 5000
+            defaults domain: 'graphql-api', port: 5000
 
-            graphql {
-                execute '''
-                    mutation {
-                        createEmployee(
-                            input: {
-                              employee: {
-                                id: $id
-                                firstName: $firstName
-                                lastName: $lastName
-                                email: $email
-                                salary: $salary
-                              }
-                            }
-                          ) {
-                            employee {
-                              id
-                            }
-                          }
-                      }
-                '''
-                variables '''
-                    {
-                        id: "${var_id}"
-                        firstName: "${var_first_name}"
-                        lastName: "${var_last_name}"
-                        email: "${var_email}"
-                        salary: ${var_salary}
-                    }
-                '''
+            headers {
+                header name: 'Content-Type', value: 'application/json'
             }
 
-            graphql {
+            graphql 'POST /graphql', {
                 execute '''
-                    query {
-                        allEmployees {
-                            nodes {
+                    mutation createEmployee($input: CreateEmployeeInput!) {
+                        createEmployee(input: $input) {
+                            employee {
+                                id
                             }
-                                salary
+                        }
+                    }
+                '''
+                // currently variables has a bug https://github.com/apache/jmeter/pull/660 which prevents numerical/boolean variables in json
+                variables '''
+                    {
+                        "input": {
+                            "employee": {
+                                "id": "${var_id}",
+                                "firstName": "${var_first_name}",
+                                "lastName": "${var_last_name}",
+                                "email": "${var_email}",
+                                "salary": "${var_salary}"
+                            }
                         }
                     }
                 '''
             }
 
-            debug displayJMeterVariables: true
+            graphql 'POST /graphql', {
+                execute '''
+                    query {
+                        allEmployees {
+                            nodes {
+                                salary
+                            }
+                        }
+                    }
+                '''
+            }
 
             // output to .jtl file
-            summary(file: 'script.jtl', enabled: true)
+            summary(file: 'script.jtl', enabled: true, requestHeaders: true, responseData: true, responseHeaders: true, xml: true, samplerData: true)
 
             // gather execution information influxdb backend
             backend(name: 'InfluxDb Backend', enabled: true) {
                 arguments {
                     argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
-                    argument(name: 'influxdbUrl', value: 'http://influxdb-db:8086/write?db=jmeter')
+                    argument(name: 'influxdbUrl', value: 'http://graphql-influx:8086/write?db=jmeter')
                     argument(name: 'application', value: 'employees')
                     argument(name: 'measurement', value: 'performance')
                     argument(name: 'summaryOnly', value: 'false')

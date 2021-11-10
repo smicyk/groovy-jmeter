@@ -17,7 +17,6 @@ package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.assertion.*
-import net.simonix.dsl.jmeter.factory.common.*
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
@@ -28,16 +27,7 @@ import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactor
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.GraphQLFactory
-import net.simonix.dsl.jmeter.factory.sampler.HttpFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.GraphQLExecuteFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.GraphQLProxyFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.GraphQLSourceFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.GraphQLTimeoutFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.GraphQLVariablesFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpResourcesFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.*
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
@@ -84,6 +74,7 @@ class GraphQLFactoryBuilder extends TestFactoryBuilder {
         addFactory(new GraphQLTimeoutFactory())
         addFactory(new GraphQLExecuteFactory())
         addFactory(new GraphQLVariablesFactory())
+        addFactory(new GraphQLOperationFactory())
 
         // preprocessor
         addFactory(new JdbcPreprocessorFactory())

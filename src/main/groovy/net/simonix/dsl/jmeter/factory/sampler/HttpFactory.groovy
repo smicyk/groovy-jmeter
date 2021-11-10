@@ -18,11 +18,15 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerFactory
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
+import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
+import org.apache.jmeter.testelement.property.BooleanProperty
+import org.apache.jmeter.testelement.property.TestElementProperty
 
 /**
  * The factory class responsible for building <code>http</code> element in the test.
@@ -66,6 +70,10 @@ final class HttpFactory extends BaseHttpFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         super.updateTestElementProperties(testElement, name, value, config)
+
+        // Request configuration
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
 
         // Impl configuration
         String impl = config.impl

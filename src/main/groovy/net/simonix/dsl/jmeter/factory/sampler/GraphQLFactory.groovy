@@ -63,8 +63,6 @@ final class GraphQLFactory extends BaseHttpFactory {
 
         testElement.postBodyRaw = HTTPConstants.GET != testElement.method
 
-        testElement.setProperty(GraphQLUrlConfigGui.OPERATION_NAME, config.operation as String)
-
         // Impl configuration
         String impl = config.impl
 
@@ -78,6 +76,10 @@ final class GraphQLFactory extends BaseHttpFactory {
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5
+    }
+
+    protected List<String> validMethods() {
+        return [ HTTPConstants.GET, HTTPConstants.POST ]
     }
 
     void onNodeCompleted( FactoryBuilderSupport builder, Object parent, Object node) {
@@ -109,6 +111,10 @@ final class GraphQLFactory extends BaseHttpFactory {
             } else {
                 arguments.addArgument(createHTTPArgument("", GraphQLRequestParamUtils.toPostBodyString(params), false))
             }
+
+            element.setProperty(GraphQLUrlConfigGui.OPERATION_NAME, params.operationName)
+            element.setProperty(GraphQLUrlConfigGui.QUERY, params.query)
+            element.setProperty(GraphQLUrlConfigGui.VARIABLES, params.variables)
 
             element.setProperty(new TestElementProperty(HTTPSamplerBase.ARGUMENTS, arguments))
         }
