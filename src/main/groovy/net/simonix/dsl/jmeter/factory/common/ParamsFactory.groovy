@@ -18,10 +18,8 @@ package net.simonix.dsl.jmeter.factory.common
 import groovy.json.JsonSlurper
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.config.Arguments
-import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
 
@@ -57,10 +55,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see ParamFactory ParamFactory
  */
 @CompileDynamic
-final class ParamsFactory extends TestElementFactory {
+abstract class ParamsFactory extends TestElementFactory {
 
-    ParamsFactory() {
-        super(Arguments, DslDefinition.PARAMS)
+    ParamsFactory(KeywordDefinition definition) {
+        super(Arguments, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -75,16 +73,6 @@ final class ParamsFactory extends TestElementFactory {
 
         // by default arguments are not encoded and has UTF-8 encoding
         params.each { k, v -> testElement.addArgument(new HTTPArgument(k, v, true, 'UTF-8')) }
-    }
-
-    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object arguments) {
-        if (arguments instanceof Arguments) {
-            if (parent instanceof HTTPSamplerBase) {
-                parent.arguments = arguments
-            } else if (parent instanceof ConfigTestElement) {
-                parent.getProperty(HTTPSamplerBase.ARGUMENTS).objectValue = arguments
-            }
-        }
     }
 
     private Map<String, String> readParamsFromFile(String filename) {

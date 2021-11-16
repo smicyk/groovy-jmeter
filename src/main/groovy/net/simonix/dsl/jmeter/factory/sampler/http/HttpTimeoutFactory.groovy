@@ -16,13 +16,9 @@
 package net.simonix.dsl.jmeter.factory.sampler.http
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.TestElementFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.model.TimeoutTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
-import org.apache.jmeter.testelement.TestElement
 
 /**
  * The factory class responsible for building <code>timeout</code> element inside http element.
@@ -47,7 +43,7 @@ final class HttpTimeoutFactory extends AbstractTimeoutFactory {
         super(DslDefinition.HTTP_TIMEOUT)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof TimeoutTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

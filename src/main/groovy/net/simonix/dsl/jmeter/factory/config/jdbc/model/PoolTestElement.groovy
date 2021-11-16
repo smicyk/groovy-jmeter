@@ -20,7 +20,7 @@ import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
 @CompileDynamic
-class PoolTestElement extends AbstractTestElement implements TestElement {
+final class PoolTestElement extends AbstractTestElement implements TestElement {
     Long connections
     Long wait
     Long eviction

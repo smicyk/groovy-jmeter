@@ -23,7 +23,7 @@ import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSampler
 
 /**
- * The factory class responsible for building <code>source</code> element inside defaults element.
+ * The factory class responsible for building <code>source</code> element inside <strong>defaults</strong> element.
  *
  * <pre>
  * // element structure
@@ -46,7 +46,7 @@ final class DefaultsSourceFactory extends AbstractSourceFactory {
         super(DslDefinition.DEFAULTS_SOURCE)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof ConfigTestElement && child instanceof SourceTestElement) {
             ConfigTestElement testElement = parent as ConfigTestElement
 

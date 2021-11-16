@@ -43,7 +43,7 @@ final class GraphQLTimeoutFactory extends AbstractTimeoutFactory {
         super(DslDefinition.GRAPHQL_TIMEOUT)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof TimeoutTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

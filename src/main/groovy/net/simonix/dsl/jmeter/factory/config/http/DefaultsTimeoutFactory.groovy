@@ -23,7 +23,7 @@ import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSampler
 
 /**
- * The factory class responsible for building <code>timeout</code> element inside http element.
+ * The factory class responsible for building <code>timeout</code> element inside <strong>defaults</strong> element.
  *
  * <pre>
  * // element structure
@@ -46,7 +46,7 @@ final class DefaultsTimeoutFactory extends AbstractTimeoutFactory {
         super(DslDefinition.DEFAULTS_TIMEOUT)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof ConfigTestElement && child instanceof TimeoutTestElement) {
             ConfigTestElement testElement = parent as ConfigTestElement
 

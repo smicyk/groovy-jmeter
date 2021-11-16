@@ -16,16 +16,9 @@
 package net.simonix.dsl.jmeter.factory.sampler.http
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.TestElementFactory
 import net.simonix.dsl.jmeter.factory.sampler.http.model.ProxyTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
-import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
-import org.apache.jmeter.testelement.TestElement
-
-import java.util.regex.Matcher
 
 /**
  * The factory class responsible for building <code>proxy</code> element inside http element.
@@ -51,7 +44,7 @@ final class HttpProxyFactory extends AbstractProxyFactory {
         super(DslDefinition.HTTP_PROXY)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof ProxyTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

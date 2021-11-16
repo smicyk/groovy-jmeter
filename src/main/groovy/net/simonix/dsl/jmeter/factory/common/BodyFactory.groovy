@@ -17,12 +17,13 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.protocol.http.sampler.AjpSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.loadFromFile
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
@@ -75,10 +76,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see net.simonix.dsl.jmeter.factory.sampler.AjpFactory AjpFactory
  */
 @CompileDynamic
-final class BodyFactory extends TestElementFactory {
+abstract class BodyFactory extends TestElementFactory {
 
-    BodyFactory() {
-        super(HTTPArgument, DslDefinition.BODY)
+    BodyFactory(KeywordDefinition definition) {
+        super(HTTPArgument, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -106,23 +107,5 @@ final class BodyFactory extends TestElementFactory {
                 parent.arguments.addArgument(child)
             }
         }
-    }
-
-    private String loadFromFile(String file, String encoding) {
-        File body = null
-
-        URL url = this.class.getResource(file)
-
-        if(url != null) {
-            body = new File(url.toURI())
-        } else {
-            body = new File(file)
-        }
-
-        if(body.exists()) {
-            return body.getText(encoding)
-        }
-
-        throw new FileNotFoundException('''The file doesn't exist''')
     }
 }

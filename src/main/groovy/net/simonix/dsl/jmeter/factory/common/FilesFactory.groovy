@@ -17,8 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.protocol.http.util.HTTPFileArgs
 
 /**
@@ -41,20 +40,12 @@ import org.apache.jmeter.protocol.http.util.HTTPFileArgs
  * }
  * </pre>
  *
- * @see ParamFactory ParamFactory
+ * @see FileFactory FileFactory
  */
 @CompileDynamic
-final class FilesFactory extends TestElementFactory {
+abstract class FilesFactory extends TestElementFactory {
 
-    FilesFactory() {
-        super(HTTPFileArgs, DslDefinition.FILES)
-    }
-
-    void onNodeCompleted( FactoryBuilderSupport builder, Object parent, Object files) {
-        if (files instanceof HTTPFileArgs) {
-            if(parent.testElement instanceof HTTPSamplerBase) {
-                parent.testElement.setHTTPFiles(files.asArray())
-            }
-        }
+    FilesFactory(KeywordDefinition definition) {
+        super(HTTPFileArgs, definition)
     }
 }

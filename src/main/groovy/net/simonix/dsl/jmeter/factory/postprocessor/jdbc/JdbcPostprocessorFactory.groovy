@@ -22,7 +22,7 @@ import org.apache.jmeter.protocol.jdbc.processor.JDBCPostProcessor
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
 @CompileDynamic
-class JdbcPostprocessorFactory extends JdbcSamplerFactory {
+final class JdbcPostprocessorFactory extends JdbcSamplerFactory {
 
     JdbcPostprocessorFactory() {
         super(JDBCPostProcessor, TestBeanGUI, DslDefinition.JDBC_POSTPROCESSOR)

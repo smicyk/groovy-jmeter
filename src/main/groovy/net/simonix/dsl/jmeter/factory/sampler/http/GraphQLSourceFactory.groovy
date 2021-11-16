@@ -44,7 +44,7 @@ final class GraphQLSourceFactory extends AbstractSourceFactory {
         super(DslDefinition.GRAPHQL_SOURCE)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof SourceTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

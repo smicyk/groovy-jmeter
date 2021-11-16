@@ -16,14 +16,9 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.common.BodyFactory
-import net.simonix.dsl.jmeter.factory.common.ParamFactory
-import net.simonix.dsl.jmeter.factory.common.ParamsFactory
+import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.config.DefaultsFactory
-import net.simonix.dsl.jmeter.factory.config.http.DefaultsProxyFactory
-import net.simonix.dsl.jmeter.factory.config.http.DefaultsResourcesFactory
-import net.simonix.dsl.jmeter.factory.config.http.DefaultsSourceFactory
-import net.simonix.dsl.jmeter.factory.config.http.DefaultsTimeoutFactory
+import net.simonix.dsl.jmeter.factory.config.http.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.ConfigTestElement
@@ -34,6 +29,20 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
     static List<String> ACCEPTED_KEYWORDS = [
             DslDefinition.DEFAULTS.name
     ]
+
+    static FactoryBuilderProvider createProvider() {
+        return new FactoryBuilderProvider() {
+            @Override
+            boolean accepts(String name) {
+                return ACCEPTED_KEYWORDS.contains(name)
+            }
+
+            @Override
+            TestFactoryBuilder create(Map<String, Object> context, Closure closure) {
+                return new DefaultsHttpFactoryBuilder(context, closure)
+            }
+        }
+    }
 
     DefaultsHttpFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()
@@ -55,9 +64,9 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new DefaultsFactory())
 
         // common
-        addFactory(new ParamFactory())
-        addFactory(new ParamsFactory())
-        addFactory(new BodyFactory())
+        addFactory(new DefaultsParamFactory())
+        addFactory(new DefaultsParamsFactory())
+        addFactory(new DefaultsBodyFactory())
 
         // sampler
         addFactory(new DefaultsProxyFactory())

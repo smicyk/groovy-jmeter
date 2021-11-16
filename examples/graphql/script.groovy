@@ -61,7 +61,7 @@ start {
             backend(name: 'InfluxDb Backend', enabled: true) {
                 arguments {
                     argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
-                    argument(name: 'influxdbUrl', value: 'http://graphql-influx:8086/write?db=jmeter')
+                    argument(name: 'influxdbUrl', value: 'http://influxdb-books:8086/write?db=jmeter')
                     argument(name: 'application', value: 'employees')
                     argument(name: 'measurement', value: 'performance')
                     argument(name: 'summaryOnly', value: 'false')

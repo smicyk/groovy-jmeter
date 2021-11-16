@@ -15,9 +15,11 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler.http.model
 
+import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
-class ExecuteTestElement extends AbstractTestElement implements TestElement {
+@CompileDynamic
+final class ExecuteTestElement extends AbstractTestElement implements TestElement {
     String content
 }

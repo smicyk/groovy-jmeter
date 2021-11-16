@@ -26,7 +26,7 @@ import org.apache.jmeter.testelement.TestElement
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 @CompileDynamic
-class GraphQLOperationFactory extends TestElementFactory {
+final class GraphQLOperationFactory extends TestElementFactory {
 
     GraphQLOperationFactory() {
         super(OperationTestElement, DslDefinition.GRAPHQL_OPERATION)
@@ -36,7 +36,7 @@ class GraphQLOperationFactory extends TestElementFactory {
         testElement.name = readValue(value, config.name)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof OperationTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

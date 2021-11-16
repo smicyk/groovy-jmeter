@@ -64,7 +64,7 @@ final class ConfigUtils {
     static String loadFromFile(String file, String encoding) {
         File content = null
 
-        URL url = this.class.getResource(file)
+        URL url = ConfigUtils.classLoader.getResource(file)
 
         if(url != null) {
             content = new File(url.toURI())

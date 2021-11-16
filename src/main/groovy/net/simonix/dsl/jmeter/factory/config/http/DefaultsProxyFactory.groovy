@@ -23,7 +23,7 @@ import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 
 /**
- * The factory class responsible for building <code>proxy</code> element inside http element.
+ * The factory class responsible for building <code>proxy</code> element inside <strong>defaults</strong> element.
  *
  * <pre>
  * // element structure
@@ -47,7 +47,7 @@ final class DefaultsProxyFactory extends AbstractProxyFactory {
         super(DslDefinition.DEFAULTS_PROXY)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof ConfigTestElement && child instanceof ProxyTestElement) {
             ConfigTestElement testElement = parent as ConfigTestElement
 

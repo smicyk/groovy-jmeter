@@ -16,6 +16,7 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
@@ -31,7 +32,7 @@ import net.simonix.dsl.jmeter.factory.sampler.http.*
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 
 @CompileDynamic
 class GraphQLFactoryBuilder extends TestFactoryBuilder {
@@ -39,6 +40,20 @@ class GraphQLFactoryBuilder extends TestFactoryBuilder {
     static List<String> ACCEPTED_KEYWORDS = [
             DslDefinition.GRAPHQL.name
     ]
+
+    static FactoryBuilderProvider createProvider() {
+        return new FactoryBuilderProvider() {
+            @Override
+            boolean accepts(String name) {
+                return ACCEPTED_KEYWORDS.contains(name)
+            }
+
+            @Override
+            TestFactoryBuilder create(Map<String, Object> context, Closure closure) {
+                return new GraphQLFactoryBuilder(context, closure)
+            }
+        }
+    }
 
     GraphQLFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()
@@ -118,7 +133,7 @@ class GraphQLFactoryBuilder extends TestFactoryBuilder {
     protected Object postNodeCompletion(Object parent, Object node) {
         super.postNodeCompletion(parent, node)
 
-        if(parent instanceof TestElementNode && parent.testElement instanceof HTTPSamplerBase) {
+        if(parent instanceof TestElementNode && parent.testElement instanceof HTTPSamplerProxy) {
             Factory factory = getCurrentFactory()
             factory.updateOnComplete(parent.testElement, node)
         }

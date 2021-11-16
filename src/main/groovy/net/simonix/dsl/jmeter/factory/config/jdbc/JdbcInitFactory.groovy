@@ -22,6 +22,7 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement
 import org.apache.jmeter.testelement.TestElement
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.loadFromFile
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 
 @CompileDynamic
@@ -50,23 +51,5 @@ final class JdbcInitFactory extends TestElementFactory {
 
             dataSourceElement.setProperty('initQuery', child.query as String)
         }
-    }
-
-    private String loadFromFile(String file, String encoding) {
-        File query = null
-
-        URL url = this.class.getResource(file)
-
-        if(url != null) {
-            query = new File(url.toURI())
-        } else {
-            query = new File(file)
-        }
-
-        if(query.exists()) {
-            return query.getText(encoding)
-        }
-
-        throw new FileNotFoundException('''The file doesn't exist''')
     }
 }

@@ -3,7 +3,11 @@ version: '3'
 volumes:
   grapes-cache:
     external: true
-  influxdb-db-data:
+
+networks:
+  default:
+    external:
+      name: network-books
 
 services:
   database:
@@ -37,46 +41,4 @@ services:
       - grapes-cache:/home/groovy/.groovy/grapes
     links:
       - graphql:graphql-api
-#      - influxdb:influxdb-db
     command: ["groovy", "script.groovy"]
-
-#  grafana:
-#    image: grafana/grafana:latest
-#    container_name: grafana-db
-#    ports:
-#      - 3000:3000
-#    volumes:
-#      - ./jmeter-dashboard.json:/var/lib/grafana/dashboards/jmeter-dashboard.json:ro
-#      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro
-#      - ./grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml:ro
-#    links:
-#      - influxdb:influxdb-db
-#    environment:
-#      GF_SECURITY_ADMIN_USER: admin
-#      GF_SECURITY_ADMIN_PASSWORD: admin
-
-  influxdb:
-    image: influxdb:1.5.4
-    container_name: graphql-influx
-    ports:
-      - 8083:8083
-      - 8086:8086
-    volumes:
-      - influxdb-db-data:/var/lib/influxdb
-      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
-    environment:
-      INFLUXDB_DB: "jmeter"
-      INFLUXDB_ADMIN_USER: "jmeter"
-      INFLUXDB_ADMIN_PASSWORD: "jmeter"
-
-#  telegraf:
-#    image: telegraf:1.8.3
-#    container_name: telegraf-db
-#    links:
-#      - influxdb:influxdb-db
-#    ports:
-#      - "8125:8125/udp"
-#    volumes:
-#      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-#      - /var/run/docker.sock:/var/run/docker.sock
-
