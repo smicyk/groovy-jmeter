@@ -20,6 +20,6 @@ import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
 @CompileDynamic
-class InitTestElement extends AbstractTestElement implements TestElement {
+final class InitTestElement extends AbstractTestElement implements TestElement {
     String query
 }

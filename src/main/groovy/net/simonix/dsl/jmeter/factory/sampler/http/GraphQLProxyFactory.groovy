@@ -44,7 +44,7 @@ final class GraphQLProxyFactory extends AbstractProxyFactory {
         super(DslDefinition.GRAPHQL_PROXY)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof ProxyTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

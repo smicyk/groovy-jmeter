@@ -43,7 +43,7 @@ final class AjpResourcesFactory extends AbstractResourcesFactory {
         super(DslDefinition.AJP_RESOURCES)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof ResourceTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

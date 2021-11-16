@@ -16,8 +16,8 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
-import net.simonix.dsl.jmeter.factory.common.*
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
@@ -28,11 +28,11 @@ import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactor
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.AjpFactory
-import net.simonix.dsl.jmeter.factory.sampler.http.AjpResourcesFactory
+import net.simonix.dsl.jmeter.factory.sampler.http.*
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+import org.apache.jmeter.protocol.http.sampler.AjpSampler
 
 @CompileDynamic
 class AjpFactoryBuilder extends TestFactoryBuilder {
@@ -40,6 +40,20 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
     static List<String> ACCEPTED_KEYWORDS = [
             DslDefinition.AJP.name,
     ]
+
+    static FactoryBuilderProvider createProvider() {
+        return new FactoryBuilderProvider() {
+            @Override
+            boolean accepts(String name) {
+                return ACCEPTED_KEYWORDS.contains(name)
+            }
+
+            @Override
+            TestFactoryBuilder create(Map<String, Object> context, Closure closure) {
+                return new AjpFactoryBuilder(context, closure)
+            }
+        }
+    }
 
     AjpFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()
@@ -70,11 +84,11 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new AuthorizationFactory())
 
         // common
-        addFactory(new ParamFactory())
-        addFactory(new ParamsFactory())
-        addFactory(new FileFactory())
-        addFactory(new FilesFactory())
-        addFactory(new BodyFactory())
+        addFactory(new AjpParamFactory())
+        addFactory(new AjpParamsFactory())
+        addFactory(new AjpFileFactory())
+        addFactory(new AjpFilesFactory())
+        addFactory(new AjpBodyFactory())
 
         // sampler
         addFactory(new AjpFactory())
@@ -122,7 +136,7 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
     protected Object postNodeCompletion(Object parent, Object node) {
         super.postNodeCompletion(parent, node)
 
-        if(parent instanceof TestElementNode && parent.testElement instanceof HTTPSamplerBase) {
+        if(parent instanceof TestElementNode && parent.testElement instanceof AjpSampler) {
             Factory factory = getCurrentFactory()
             factory.updateOnComplete(parent.testElement, node)
         }

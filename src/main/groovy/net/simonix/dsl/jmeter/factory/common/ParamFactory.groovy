@@ -17,13 +17,11 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * Builds the single parameter for test element. It is used with conjunction with <code>http</code> or <code>defaults</code> elements.
@@ -53,10 +51,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see net.simonix.dsl.jmeter.factory.config.DefaultsFactory DefaultsFactory
  */
 @CompileDynamic
-final class ParamFactory extends TestElementFactory {
+abstract class ParamFactory extends TestElementFactory {
 
-    ParamFactory() {
-        super(HTTPArgument, DslDefinition.PARAM)
+    ParamFactory(KeywordDefinition definition) {
+        super(HTTPArgument, definition)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

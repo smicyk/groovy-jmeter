@@ -20,7 +20,7 @@ import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
 @CompileDynamic
-class ValidationTestElement  extends AbstractTestElement implements TestElement {
+final class ValidationTestElement  extends AbstractTestElement implements TestElement {
     boolean idle
     Long timeout
     String query

@@ -33,7 +33,7 @@ class JdbcCommitFactory extends TestElementFactory {
         testElement.type = 'Commit'
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof AbstractJDBCTestElement && child instanceof QueryTestElement) {
             AbstractJDBCTestElement sampler = parent as AbstractJDBCTestElement
 

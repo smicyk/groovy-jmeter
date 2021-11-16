@@ -15,10 +15,12 @@
  */
 package net.simonix.dsl.jmeter.factory.sampler.http.model
 
+import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
-class SourceTestElement extends AbstractTestElement implements TestElement {
+@CompileDynamic
+final class SourceTestElement extends AbstractTestElement implements TestElement {
     String type
     String address
     int typeValue

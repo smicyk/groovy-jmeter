@@ -18,8 +18,6 @@ package net.simonix.dsl.jmeter.factory.sampler.http
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.sampler.http.model.ResourceTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.config.ConfigTestElement
-import org.apache.jmeter.protocol.http.sampler.HTTPSampler
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 
 /**
@@ -45,7 +43,7 @@ final class HttpResourcesFactory extends AbstractResourcesFactory {
         super(DslDefinition.HTTP_RESOURCES)
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof HTTPSamplerBase && child instanceof ResourceTestElement) {
             HTTPSamplerBase sampler = parent as HTTPSamplerBase
 

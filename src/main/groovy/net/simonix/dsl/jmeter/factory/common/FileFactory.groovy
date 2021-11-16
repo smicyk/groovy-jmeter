@@ -17,7 +17,7 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.protocol.http.util.HTTPFileArg
 import org.apache.jmeter.protocol.http.util.HTTPFileArgs
 import org.apache.jmeter.testelement.TestElement
@@ -53,10 +53,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see net.simonix.dsl.jmeter.factory.common.FilesFactory FilesFactory
  */
 @CompileDynamic
-final class FileFactory extends TestElementFactory {
+abstract class FileFactory extends TestElementFactory {
 
-    FileFactory() {
-        super(HTTPFileArg, DslDefinition.FILE)
+    FileFactory(KeywordDefinition definition) {
+        super(HTTPFileArg, definition)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {

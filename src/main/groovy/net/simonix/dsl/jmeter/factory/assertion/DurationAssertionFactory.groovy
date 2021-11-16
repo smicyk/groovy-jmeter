@@ -47,7 +47,7 @@ final class DurationAssertionFactory extends TestElementNodeFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         String applyTo = config.applyTo
-        Long duration = readValue(value, config.duration)
+        Long duration = readValue(value, config.duration) as Long
 
         if (applyTo == 'all') {
             testElement.setScopeAll()

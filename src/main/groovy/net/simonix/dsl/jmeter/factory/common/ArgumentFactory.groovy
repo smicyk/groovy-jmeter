@@ -17,12 +17,10 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.testelement.TestElement
-
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
  * Builds the single <code>argument</code> for test element. It is used with conjunction with <code>arguments</code>.
@@ -49,10 +47,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see net.simonix.dsl.jmeter.factory.listener.BackendListenerFactory BackendListenerFactory
  */
 @CompileDynamic
-final class ArgumentFactory extends TestElementFactory {
+abstract class ArgumentFactory extends TestElementFactory {
 
-    ArgumentFactory() {
-        super(Argument, DslDefinition.ARGUMENT)
+    ArgumentFactory(KeywordDefinition definition) {
+        super(Argument, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
