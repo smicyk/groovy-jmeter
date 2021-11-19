@@ -54,7 +54,7 @@ import org.apache.jmeter.testelement.property.TestElementProperty
  *     saveAsMD5: boolean [<strong>false</strong>]
  * )
  * {
- *    body | params | headers | timeout | source | resources | proxy
+ *    {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpBodyFactory body} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpParamsFactory params} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpResourcesFactory resources} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory proxy} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory timeout} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceFactory source} | {@link net.simonix.dsl.jmeter.factory.config.HeadersFactory headers}
  * }
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>

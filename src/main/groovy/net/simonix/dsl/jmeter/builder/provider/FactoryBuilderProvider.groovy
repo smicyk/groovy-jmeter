@@ -17,6 +17,11 @@ package net.simonix.dsl.jmeter.builder.provider
 
 import net.simonix.dsl.jmeter.builder.TestFactoryBuilder
 
+/**
+ * Provides proper {@link TestFactoryBuilder} for accepted keyword name.
+ *
+ * This provider is only used by child builders in the {@link net.simonix.dsl.jmeter.builder.DefaultFactoryBuilder}
+ */
 interface FactoryBuilderProvider {
 
     boolean accepts(String name)

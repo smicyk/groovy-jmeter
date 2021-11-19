@@ -19,6 +19,33 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.common.ParamFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 
+
+/**
+ * Builds the single parameter for test element. It is used with conjunction with <code>defaults</code> elements.
+ *
+ * <pre>
+ * // structure of the param
+ * param (
+ *     name: string
+ *     value: string
+ *     encoded: boolean [<strong>false</strong>]
+ *     encoding: string [<strong>UTF-8</strong>]
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         defaults {
+ *             params {
+ *                 param(name: 'param1', value: 'value1', encoding: 'UTF-8')
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see net.simonix.dsl.jmeter.factory.config.DefaultsFactory DefaultsFactory
+ */
 @CompileDynamic
 final class DefaultsParamFactory extends ParamFactory {
 

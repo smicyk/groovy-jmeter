@@ -44,7 +44,7 @@ import org.apache.jmeter.testelement.TestElement
  *     // Use md5 configuration
  *     saveAsMD5: boolean [<strong>false</strong>]
  * ) {
- *     body | params | headers | resources
+ *     {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpBodyFactory body} | {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpParamsFactory params} | {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpResourcesFactory resources} | {@link net.simonix.dsl.jmeter.factory.config.HeadersFactory headers}
  * }
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>

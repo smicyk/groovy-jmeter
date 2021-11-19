@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for JDBC Connection configuration
+ */
 @CompileDynamic
 final class ConnectionTestElement extends AbstractTestElement implements TestElement {
     String url

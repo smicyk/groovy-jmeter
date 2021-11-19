@@ -22,6 +22,35 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * The factory class responsible for building <code>pool</code> element for jdbc configuration.
+ *
+ * <pre>
+ * // structure of the element
+ * pool (
+ *     connections: long   [<strong>0</strong>]
+ *     wait: long          [<strong>10000</strong>]
+ *     eviction: long      [<strong>60000</strong>]
+ *     autocommit: boolean [<strong>true</strong>]
+ *     isolation: string   [<strong>DEFAULT</strong>, TRANSACTION_NONE, TRANSACTION_READ_UNCOMMITTED, TRANSACTION_READ_UNCOMMITTED, TRANSACTION_SERIALIZABLE,TRANSACTION_REPEATABLE_READ]
+ *     preinit: boolean    [<strong>false</strong>]
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc datasource: 'postgres', {
+ *                 pool connections: 10, wait: 1000, eviction: 60000, autocommit: true, isolation: 'DEFAULT', preinit: true
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see net.simonix.dsl.jmeter.factory.config.jdbc.model.PoolTestElement PoolTestElement
+ * @see JdbcConfigFactory JdbcConfigFactory
+ */
 @CompileDynamic
 final class JdbcPoolFactory extends TestElementFactory {
 

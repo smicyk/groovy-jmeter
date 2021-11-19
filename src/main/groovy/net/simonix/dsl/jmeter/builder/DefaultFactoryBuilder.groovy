@@ -49,6 +49,15 @@ import net.simonix.dsl.jmeter.model.TestElementNode
 
 /**
  * Handles all DSL keywords and builds final {@link net.simonix.dsl.jmeter.model.TestElementNode} tree.
+ *
+ * For some keywords the child builders are used to distinguish between same keywords names.
+ *
+ * @see AjpFactoryBuilder
+ * @see DefaultsHttpFactoryBuilder
+ * @see GraphQLFactoryBuilder
+ * @see HttpFactoryBuilder
+ * @see JdbcFactoryBuilder
+ * @see BackendFactoryBuilder
  */
 @CompileDynamic
 class DefaultFactoryBuilder extends TestFactoryBuilder {

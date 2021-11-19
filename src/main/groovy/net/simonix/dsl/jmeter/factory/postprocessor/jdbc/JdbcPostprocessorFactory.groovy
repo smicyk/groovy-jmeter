@@ -21,6 +21,38 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.processor.JDBCPostProcessor
 import org.apache.jmeter.testbeans.gui.TestBeanGUI
 
+/**
+ * The factory class responsible for building <code>jdbc_postprocessor</code> element in the test.
+ *
+ * <pre>
+ * // structure of the element
+ * jdbc_postprocessor (
+ *     use: string
+ * ) {
+ *     {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcAutocommitFactory autocommit} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCommitFactory commit} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRollbackFactory rollback} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCallableFactory callable} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcExecuteFactory execute} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcQueryFactory query} | {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcParametersFactory params}
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc use: 'postgres', {
+ *                 jdbc_postprocessor use: 'postgres', {
+ *                     execute('''
+ *                         DROP TABLE employee
+ *                     ''')
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JDBC_PostProcessor">JDBC PostProcessor</a>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
+ * @see net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory JdbcRequestFactory
+ */
 @CompileDynamic
 final class JdbcPostprocessorFactory extends JdbcSamplerFactory {
 

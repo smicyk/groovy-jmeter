@@ -24,6 +24,29 @@ import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>login</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * login (
+ *   username: string
+ *   password: string
+ * ) {
+ * }
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             login username: 'user', password: 'password'
+ *         }
+ *     }
+ * }
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Login_Config_Element">Login Config Element/a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class LoginFactory extends TestElementNodeFactory {
 

@@ -25,6 +25,47 @@ import org.apache.jmeter.testelement.TestElement
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.loadFromFile
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>execute</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * execute (
+ *    prepared: boolean [<strong>true</strong>]
+ *    limit: long
+ *    timeout: long
+ *    result: string
+ *    variables: list
+ *    file: string
+ *    inline: string
+ * ) {
+ *
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc use: 'postgres', {
+ *                 execute('''
+ *                     UPDATE employee SET salary = ? WHERE id = ?
+ *                 ''') {
+ *                    params {
+ *                        param value: '1000', type: 'IN INTEGER'
+ *                        param value: '1', type: 'IN INTEGER'
+ *                    }
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JDBC_Request">JDBC Request</a>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see JdbcRequestFactory JdbcRequestFactory
+ */
 @CompileDynamic
 class JdbcExecuteFactory extends TestElementFactory {
 

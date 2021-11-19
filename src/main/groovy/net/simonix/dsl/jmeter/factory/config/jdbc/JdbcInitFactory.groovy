@@ -25,6 +25,31 @@ import org.apache.jmeter.testelement.TestElement
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.loadFromFile
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValues
 
+/**
+ * The factory class responsible for building <code>init</code> element for jdbc configuration.
+ *
+ * <pre>
+ * // structure of the element
+ * init (
+ *     inline: list
+ *     file: string
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc datasource: 'postgres', {
+ *                 init(["SET @USER = 'Joe'"])
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see net.simonix.dsl.jmeter.factory.config.jdbc.model.ConnectionTestElement ConnectionTestElement
+ * @see JdbcConfigFactory JdbcConfigFactory
+ */
 @CompileDynamic
 final class JdbcInitFactory extends TestElementFactory {
 

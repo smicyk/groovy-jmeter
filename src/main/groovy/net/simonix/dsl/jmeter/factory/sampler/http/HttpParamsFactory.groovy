@@ -21,6 +21,35 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 
+/**
+ * Builds parameters for test element. It is used with conjunction with <code>http</code> elements.
+ * <p>
+ * It is shortcut for {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpParamFactory param}.
+ *
+ * <pre>
+ * // structure with nested argument
+ * params {
+ *   {@link HttpParamFactory param}
+ * }
+ * // structure of arguments
+ * params (
+ *    values: map
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         http {
+ *             params values: [
+ *                 'param1': 'value1',
+ *                 'param2': 'value2'
+ *             ]
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.sampler.http.HttpParamFactory HttpParamFactory
+ */
 @CompileDynamic
 final class HttpParamsFactory extends ParamsFactory {
 

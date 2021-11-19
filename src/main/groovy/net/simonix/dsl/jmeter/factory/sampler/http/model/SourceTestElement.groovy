@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for HTTP source configuration
+ */
 @CompileDynamic
 final class SourceTestElement extends AbstractTestElement implements TestElement {
     String type

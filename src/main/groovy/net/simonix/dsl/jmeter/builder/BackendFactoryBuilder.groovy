@@ -24,6 +24,9 @@ import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.visualizers.backend.BackendListener
 
+/**
+ * Builder responsible for building {@link BackendListenerFactory} child elements.
+ */
 @CompileDynamic
 class BackendFactoryBuilder extends TestFactoryBuilder {
 
