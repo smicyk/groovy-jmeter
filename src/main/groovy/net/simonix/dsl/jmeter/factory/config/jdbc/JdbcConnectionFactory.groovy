@@ -22,6 +22,34 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * The factory class responsible for building <code>connection</code> element for jdbc configuration.
+ *
+ * <pre>
+ * // structure of the element
+ * connection (
+ *     url: string
+ *     driver: string
+ *     username: string
+ *     password: string
+ *     properties: map
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc datasource: 'postgres', {
+ *                 connection url: 'jdbc:postgresql://database-db:5432/', driver: 'org.postgresql.Driver', username: 'postgres', password: 'postgres', properties: ['ssl': 'true']
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see ConnectionTestElement ConnectionTestElement
+ * @see JdbcConfigFactory JdbcConfigFactory
+ */
 @CompileDynamic
 final class JdbcConnectionFactory extends TestElementFactory {
 

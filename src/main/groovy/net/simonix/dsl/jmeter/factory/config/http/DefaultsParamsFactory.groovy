@@ -22,6 +22,35 @@ import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.config.ConfigTestElement
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 
+/**
+ * Builds parameters for test element. It is used with conjunction with <code>defaults</code> elements.
+ * <p>
+ * It is shortcut for {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsParamFactory param}.
+ *
+ * <pre>
+ * // structure with nested argument
+ * params {
+ *   {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsParamFactory param}
+ * }
+ * // structure of arguments
+ * params (
+ *    values: map
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         http {
+ *             params values: [
+ *                 'param1': 'value1',
+ *                 'param2': 'value2'
+ *             ]
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.config.http.DefaultsParamFactory DefaultsParamFactory
+ */
 @CompileDynamic
 final class DefaultsParamsFactory extends ParamsFactory {
 

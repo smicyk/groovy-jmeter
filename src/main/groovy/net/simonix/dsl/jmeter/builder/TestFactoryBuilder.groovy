@@ -23,7 +23,7 @@ import net.simonix.dsl.jmeter.validation.Validator
 import net.simonix.dsl.jmeter.validation.ValidatorProvider
 
 /**
- * Base factory builder.
+ * Base factory builder with default validation of keywords.
  */
 @CompileDynamic
 abstract class TestFactoryBuilder extends FactoryBuilderSupport {

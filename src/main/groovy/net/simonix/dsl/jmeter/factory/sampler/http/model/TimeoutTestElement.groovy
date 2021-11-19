@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for HTTP timeout configuration
+ */
 @CompileDynamic
 final class TimeoutTestElement extends AbstractTestElement implements TestElement {
     String connect

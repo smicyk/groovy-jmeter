@@ -22,6 +22,33 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.AbstractJDBCTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * The factory class responsible for building <code>commit</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * commit (
+ *
+ * ) {
+
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc use: 'postgres', {
+ *                 commit()
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JDBC_Request">JDBC Request</a>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see JdbcRequestFactory JdbcRequestFactory
+ */
 @CompileDynamic
 class JdbcCommitFactory extends TestElementFactory {
 

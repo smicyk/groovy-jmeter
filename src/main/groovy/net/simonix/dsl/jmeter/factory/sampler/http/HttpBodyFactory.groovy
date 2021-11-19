@@ -59,7 +59,7 @@ import org.apache.jmeter.protocol.http.util.HTTPArgument
  *         http {
  *             body """
  *                  {
- *                      "parameter: "value"
+ *                      "parameter": "value"
  *                  }
  *             """
  *         }

@@ -28,7 +28,8 @@ import java.util.regex.Pattern
 /**
  * Base class for HTTP related factories.
  *
- * @see AjpFactory* @see HttpFactory
+ * @see AjpFactory
+ * @see HttpFactory
  */
 @CompileDynamic
 abstract class BaseHttpFactory extends TestElementNodeFactory {

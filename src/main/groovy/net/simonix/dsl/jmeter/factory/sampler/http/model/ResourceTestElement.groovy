@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for HTTP ressource configuration
+ */
 @CompileDynamic
 final class ResourceTestElement extends AbstractTestElement implements TestElement {
     Boolean downloadParallel

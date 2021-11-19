@@ -26,6 +26,42 @@ import org.apache.jmeter.visualizers.backend.BackendListenerGui
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>backend</code> element in the test.
+ *
+ * <pre>
+ * // structure of the element
+ * backend (
+ *   classname: string  [<strong>org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</strong>]
+ *   queueSize: integer [<strong>5000</strong>]
+ * ) {
+ *     {@link BackendArgumentsFactory arguments}
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         backend {
+ *             arguments {
+ *                 argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
+ *                 argument(name: 'influxdbUrl', value: 'http://influxdb-db:8080/write?db=jmeter')
+ *                 argument(name: 'application', value: 'application')
+ *                 argument(name: 'measurement', value: 'performance')
+ *                 argument(name: 'summaryOnly', value: 'false')
+ *                 argument(name: 'samplersRegex', value: '.*')
+ *                 argument(name: 'percentiles', value: '90;95;99')
+ *                 argument(name: 'testTitle', value: 'application - users: 100, rampup: 60')
+ *                 argument(name: "eventTags", value: '')
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Backend_Listener">Backend Listener</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class BackendListenerFactory extends TestElementNodeFactory {
 

@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for GraphQL operation configuration
+ */
 @CompileDynamic
 final class OperationTestElement extends AbstractTestElement implements TestElement {
     String name

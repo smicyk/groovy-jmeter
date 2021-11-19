@@ -781,6 +781,7 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'file', type: String, required: true, defaultValue: '')
         leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition BACKEND = keyword('backend', KeywordCategory.LISTENER)  {
@@ -833,6 +834,7 @@ final class DslDefinition {
         property(name: 'url', type: Boolean, required: false)
         property(name: 'xml', type: Boolean, required: false)
         leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition JSR223_LISTENER = keyword('jsrlistener', KeywordCategory.LISTENER) {

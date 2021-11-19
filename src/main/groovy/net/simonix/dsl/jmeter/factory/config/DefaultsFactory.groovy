@@ -53,7 +53,7 @@ import org.apache.jmeter.testelement.property.TestElementProperty
  *     // Use md5 configuration
  *     saveAsMD5: boolean [<strong>false</strong>]
  * ) {
- *     body | params | headers | resources | proxy | timeout | source
+ *     {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsBodyFactory body} | {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsParamsFactory params} | {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsResourcesFactory resources} | {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsProxyFactory proxy} | {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsTimeoutFactory timeout} | {@link net.simonix.dsl.jmeter.factory.config.http.DefaultsSourceFactory source}
  * }
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">HTTP Request Defaults</a>

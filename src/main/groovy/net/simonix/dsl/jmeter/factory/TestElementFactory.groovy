@@ -23,7 +23,9 @@ import org.apache.jmeter.testelement.TestElement
 
 /**
  * Factory for {@link TestElement}.
- * It is used for test elements which are leaves and usually belong to some grouping element.
+ *
+ * Used for test elements which are leaves and usually belong to some grouping element.
+ *
  * They don't have GUI class.
  */
 @CompileDynamic

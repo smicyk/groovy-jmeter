@@ -22,6 +22,35 @@ import net.simonix.dsl.jmeter.factory.sampler.jdbc.model.ParametersTestElement
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Builds the single parameter for test element. It is used with conjunction with <code>query</code> elements.
+ *
+ * <pre>
+ * // structure of the param
+ * param (
+ *     type: string
+ *     value: string
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         jdbc use: 'postgres', {
+*              execute('''
+*                 UPDATE employee SET salary = ? WHERE id = ?
+*              ''') {
+*                 params {
+*                     param value: '1000', type: 'IN INTEGER'
+*                     param value: '1', type: 'IN INTEGER'
+*                 }
+*              }
+*          }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see net.simonix.dsl.jmeter.factory.sampler.HttpFactory HttpFactory
+ */
 @CompileDynamic
 class JdbcParameterFactory extends TestElementFactory {
 

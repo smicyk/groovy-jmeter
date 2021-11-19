@@ -34,6 +34,9 @@ import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 
+/**
+ * Builder responsible for building {@link GraphQLFactory} child elements.
+ */
 @CompileDynamic
 class GraphQLFactoryBuilder extends TestFactoryBuilder {
 

@@ -36,6 +36,9 @@ import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.AbstractJDBCTestElement
 
+/**
+ * Builder responsible for building {@link net.simonix.dsl.jmeter.factory.common.jdbc.JdbcFactory} child elements.
+ */
 @CompileDynamic
 class JdbcFactoryBuilder extends TestFactoryBuilder {
 

@@ -23,6 +23,9 @@ import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.config.ConfigTestElement
 
+/**
+ * Builder responsible for building {@link DefaultsFactory} child elements.
+ */
 @CompileDynamic
 class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
 
