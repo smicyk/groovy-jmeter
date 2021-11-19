@@ -6,7 +6,7 @@ It has following features:
  - keep JMeter test files (*.jmx) as a code (Groovy scripts)
  - run scripts as standalone scripts, JUnit tests or Gradle tasks
  - support of basic JMeter elements like controllers, groups, extractors and assertions
- - support of HTTP, JSR223 and JDBC JMeter samplers
+ - support of HTTP, AJP, GraphQL, JSR223 and JDBC JMeter samplers
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
  
