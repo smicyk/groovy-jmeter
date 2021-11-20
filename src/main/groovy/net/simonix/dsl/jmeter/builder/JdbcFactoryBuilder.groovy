@@ -16,16 +16,8 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.assertion.CheckRequestFactory
-import net.simonix.dsl.jmeter.factory.assertion.CheckResponseFactory
-import net.simonix.dsl.jmeter.factory.assertion.CheckSizeFactory
-import net.simonix.dsl.jmeter.factory.assertion.DurationAssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.JSR223AssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.JsonAssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.MD5HexAssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.ResponseAssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.SizeAssertionFactory
-import net.simonix.dsl.jmeter.factory.assertion.XPathAssertionFactory
+import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
+import net.simonix.dsl.jmeter.factory.assertion.*
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConnectionFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcInitFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcPoolFactory
@@ -35,31 +27,18 @@ import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
-import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcAutocommitFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCallableFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcCommitFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcExecuteFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcParameterFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcParametersFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
+import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcQueryFactory
-import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRollbackFactory
-import net.simonix.dsl.jmeter.factory.timer.ConstantThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.GaussianTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
-import net.simonix.dsl.jmeter.factory.timer.PoissonTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.PreciseThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.ThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.TimerFactory
-import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
+import net.simonix.dsl.jmeter.factory.sampler.jdbc.*
+import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.AbstractJDBCTestElement
 
+/**
+ * Builder responsible for building {@link net.simonix.dsl.jmeter.factory.common.jdbc.JdbcFactory} child elements.
+ */
 @CompileDynamic
 class JdbcFactoryBuilder extends TestFactoryBuilder {
 
@@ -70,6 +49,20 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
             DslDefinition.JDBC_PREPROCESSOR.name,
             DslDefinition.JDBC_POSTPROCESSOR.name
     ]
+
+    static FactoryBuilderProvider createProvider() {
+        return new FactoryBuilderProvider() {
+            @Override
+            boolean accepts(String name) {
+                return ACCEPTED_KEYWORDS.contains(name)
+            }
+
+            @Override
+            TestFactoryBuilder create(Map<String, Object> context, Closure closure) {
+                return new JdbcFactoryBuilder(context, closure)
+            }
+        }
+    }
 
     JdbcFactoryBuilder(Map<String, Object> context, Closure closure) {
         super()

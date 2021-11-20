@@ -18,10 +18,15 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerFactory
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
+import org.apache.jmeter.protocol.http.util.HTTPArgument
 import org.apache.jmeter.testelement.TestElement
+import org.apache.jmeter.testelement.property.BooleanProperty
+import org.apache.jmeter.testelement.property.TestElementProperty
 
 /**
  * The factory class responsible for building <code>http</code> element in the test.
@@ -45,32 +50,14 @@ import org.apache.jmeter.testelement.TestElement
  *     // Impl configuration
  *     impl: string
  *
- *     // Timeouts
- *     connectTimeout: string
- *     responseTimeout: string
- *
- *     // Embedded resource
- *     downloadEmbeddedResources: boolean [<strong>false</strong>]
- *     embeddedConcurrent: boolean [<strong>false</strong>]
- *     embeddedConcurrentDownloads: integer [<strong>6</strong>]
- *     embeddedResourceUrl: string
- *
- *     // Source address
- *     ipSource: string
- *     ipSourceType: string [hostname, device, deviceIp4, deviceIp6]
- *
- *     // Proxy configuration
- *     proxySchema: string
- *     proxyHost: string
- *     proxyPort: string
- *     proxyUser: string
- *     proxyPassword: string
- *
  *     // Use md5 configuration
  *     saveAsMD5: boolean [<strong>false</strong>]
- * ) {*     body | params | headers
- *}* </pre>
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Critical_Section_Controller">Critical Section Controller</a>
+ * )
+ * {
+ *    {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpBodyFactory body} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpParamsFactory params} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpResourcesFactory resources} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpProxyFactory proxy} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpTimeoutFactory timeout} | {@link net.simonix.dsl.jmeter.factory.sampler.http.HttpSourceFactory source} | {@link net.simonix.dsl.jmeter.factory.config.HeadersFactory headers}
+ * }
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
@@ -84,44 +71,21 @@ final class HttpFactory extends BaseHttpFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         super.updateTestElementProperties(testElement, name, value, config)
 
-        // Advanced configuration
+        // Request configuration
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
 
         // Impl configuration
-        testElement.implementation = config.impl
+        String impl = config.impl
 
-        // Timeouts
-        testElement.connectTimeout = config.connectTimeout
-        testElement.responseTimeout = config.responseTimeout
-
-        // Embedded resource
-        testElement.imageParser = config.downloadEmbeddedResources
-        testElement.concurrentDwn = config.embeddedConcurrent
-        testElement.concurrentPool = config.embeddedConcurrentDownloads
-        testElement.embeddedUrlRE = config.embeddedResourceUrl
-        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
-
-        // Source address
-        testElement.ipSource = config.ipSource
-        String ipSourceType = config.ipSourceType
-
-        if (ipSourceType != null) {
-            if (ipSourceType == 'hostname') {
-                testElement.ipSourceType = HTTPSamplerBase.SourceType.HOSTNAME.ordinal()
-            } else if (ipSourceType == 'device') {
-                testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE.ordinal()
-            } else if (ipSourceType == 'deviceIp4') {
-                testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE_IPV4.ordinal()
-            } else if (ipSourceType == 'deviceIp6') {
-                testElement.ipSourceType = HTTPSamplerBase.SourceType.DEVICE_IPV6.ordinal()
+        if(impl != null) {
+            if(impl == 'java') {
+                testElement.implementation = HTTPSamplerFactory.IMPL_JAVA
+            } else if(impl == 'http') {
+                testElement.implementation = HTTPSamplerFactory.IMPL_HTTP_CLIENT4
             }
         }
 
-        // Proxy configuration
-        testElement.setProperty(HTTPSamplerBase.PROXYSCHEME, config.proxySchema)
-        testElement.setProperty(HTTPSamplerBase.PROXYHOST, config.proxyHost)
-        testElement.setProperty(HTTPSamplerBase.PROXYPORT, config.proxyPort)
-        testElement.setProperty(HTTPSamplerBase.PROXYUSER, config.proxyUser)
-        testElement.setProperty(HTTPSamplerBase.PROXYPASS, config.proxyPassword)
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5

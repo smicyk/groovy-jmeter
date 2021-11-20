@@ -26,7 +26,7 @@ class BodyFactorySpec extends TempFileSpec {
         def config = configure {
             plan {
                 http {
-                    body(file: 'payload.json')
+                    body(file: 'net/simonix/dsl/jmeter/factory/common/payload.json')
                     body inline: """
                         {
                             "parameter": "value"

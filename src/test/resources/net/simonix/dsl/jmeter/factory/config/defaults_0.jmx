@@ -22,6 +22,7 @@
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
@@ -36,19 +37,19 @@
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/context</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-        <stringProp name="HTTPSampler.implementation"></stringProp>
-        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-        <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        <boolProp name="HTTPSampler.image_parser">false</boolProp>
-        <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
-        <intProp name="HTTPSampler.concurrentPool">6</intProp>
-        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        <stringProp name="HTTPSampler.ipSource"></stringProp>
-        <stringProp name="HTTPSampler.proxyScheme"></stringProp>
-        <stringProp name="HTTPSampler.proxyHost"></stringProp>
-        <stringProp name="HTTPSampler.proxyPort"></stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
+        <boolProp name="HTTPSampler.md5">true</boolProp>
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.domain"></stringProp>
+        <intProp name="HTTPSampler.port">80</intProp>
+        <stringProp name="HTTPSampler.method">GET</stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.md5">false</boolProp>
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments"/>
@@ -62,45 +63,6 @@
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <stringProp name="HTTPSampler.implementation"></stringProp>
-        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-        <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        <boolProp name="HTTPSampler.image_parser">false</boolProp>
-        <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
-        <intProp name="HTTPSampler.concurrentPool">6</intProp>
-        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        <stringProp name="HTTPSampler.ipSource"></stringProp>
-        <stringProp name="HTTPSampler.proxyScheme"></stringProp>
-        <stringProp name="HTTPSampler.proxyHost"></stringProp>
-        <stringProp name="HTTPSampler.proxyPort"></stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
-        <boolProp name="HTTPSampler.md5">false</boolProp>
-        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-          <collectionProp name="Arguments.arguments"/>
-        </elementProp>
-      </ConfigTestElement>
-      <hashTree/>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
-        <stringProp name="HTTPSampler.protocol">http</stringProp>
-        <stringProp name="HTTPSampler.domain"></stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
-        <stringProp name="HTTPSampler.method">GET</stringProp>
-        <stringProp name="HTTPSampler.path"></stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-        <stringProp name="HTTPSampler.implementation"></stringProp>
-        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-        <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        <boolProp name="HTTPSampler.image_parser">false</boolProp>
-        <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
-        <intProp name="HTTPSampler.concurrentPool">6</intProp>
-        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-        <stringProp name="HTTPSampler.ipSource"></stringProp>
-        <stringProp name="HTTPSampler.proxyScheme"></stringProp>
-        <stringProp name="HTTPSampler.proxyHost"></stringProp>
-        <stringProp name="HTTPSampler.proxyPort"></stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
         <boolProp name="HTTPSampler.md5">false</boolProp>
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments">

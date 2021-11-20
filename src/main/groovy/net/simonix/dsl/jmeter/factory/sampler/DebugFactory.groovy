@@ -25,6 +25,24 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>debug</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * debug (
+ *     displayJMeterProperties: boolean [<strong>false</strong>]
+ *     displayJMeterVariables: boolean  [<strong>false</strong>]
+ *     displaySystemProperties: boolean [<strong>false</strong>]
+ * ) {
+ * }
+ *
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Debug_Sampler">Debug Sampler</a>
+ *
+ * @see BaseHttpFactory BaseHttpFactory
+ * @see net.simonix.dsl.jmeter.factory.TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class DebugFactory extends TestElementNodeFactory {
 

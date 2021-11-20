@@ -16,7 +16,9 @@
 package net.simonix.dsl.jmeter
 
 import net.simonix.dsl.jmeter.test.spec.MockServerSpec
+import org.mockserver.model.Delay
 import org.mockserver.model.MediaType
+import org.mockserver.verify.VerificationTimes
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -417,7 +419,11 @@ class HttpSamplerSpec extends MockServerSpec {
             plan {
                 group {
                     simple {
-                        http('GET http://localhost:8899/complex-path/with.special/cha_racters')
+                        http('GET http://localhost:8899/complex-path/with.special/cha_racters') {
+                            check_response {
+                                status() eq 200
+                            }
+                        }
                     }
 
                     simple {
@@ -427,6 +433,10 @@ class HttpSamplerSpec extends MockServerSpec {
                             params values: [
                                     'param1': 'value1'
                             ]
+
+                            check_response {
+                                status() eq 200
+                            }
                         }
                     }
 
@@ -437,7 +447,11 @@ class HttpSamplerSpec extends MockServerSpec {
                                 'var_id': '123456'
                         ]
 
-                        http('GET /variable/${var_id}')
+                        http('GET /variable/${var_id}') {
+                            check_response {
+                                status() eq 200
+                            }
+                        }
                     }
                 }
             }
@@ -455,5 +469,136 @@ class HttpSamplerSpec extends MockServerSpec {
                         .withQueryStringParameter('param1', 'value1'),
                 request('/variable/123456')
                         .withMethod('GET'))
+    }
+
+    def "HTTP request embedded resources"() {
+        given: "simple page with embedded resources"
+
+        mockServerClient.when(
+                request().withPath('/index.html')
+        ).respond(
+                response()
+                        .withStatusCode(200)
+                        .withBody('''\
+                        <html>
+                            <head>
+                                <script src="/assets/js/index.js" type="text/javascript"></script>
+                                <script src="/assets/js/table.js" type="text/javascript"></script>
+                                <link href="/assets/css/main.css" rel="stylesheet" type="text/css">
+                            </head>
+                            <body>
+                                <p>Hello</p>
+                                <img src="/assets/images/hello.png"></img>
+                            </body>
+                        </html>
+                        ''', MediaType.TEXT_HTML)
+        )
+
+        when: "make request with different resource configurations"
+
+        def testPlan = configure {
+            plan {
+                group {
+                    simple {
+                        http('GET http://localhost:8899/index.html') {
+                            resources urlInclude: 'http://localhost:8899/assets/js/.*'
+                        }
+                    }
+
+                    simple {
+                        defaults(protocol: 'http', domain: 'localhost', port: 8899) {
+                            resources urlInclude: 'http://localhost:8899/assets/.*', urlExclude: '.*\\.(js)'
+                        }
+
+                        // download everything excluding *.js files
+                        http('GET /index.html')
+
+                        // override defaults (go only for images, but still urlExclude is to exclude *.js files)
+                        http('GET /index.html') {
+                            resources parallel: 1, urlInclude: 'http://localhost:8899/assets/images/.*'
+                        }
+                    }
+                }
+            }
+        }
+
+        run(testPlan)
+
+        then: "get resources for each index.html call"
+
+        mockServerClient.verify(
+                request('/index.html')
+                        .withMethod('GET'),
+                request('/assets/js/index.js')
+                        .withMethod('GET'),
+                request('/assets/js/table.js')
+                        .withMethod('GET'),
+                request('/index.html')
+                        .withMethod('GET'),
+                request('/assets/css/main.css')
+                        .withMethod('GET'),
+                request('/assets/images/hello.png')
+                        .withMethod('GET'),
+                request('/index.html')
+                        .withMethod('GET'),
+                request('/assets/images/hello.png')
+                        .withMethod('GET'),
+        )
+    }
+
+    def "HTTP request with timeouts"() {
+        given: "slow server with simple page"
+
+        mockServerClient.when(
+                request().withPath('/index.html')
+        ).respond(
+                response()
+                        .withStatusCode(200)
+                        .withDelay(Delay.milliseconds(1000))
+        )
+
+        when: "make requests with timeout configuration"
+
+        def testPlan = configure {
+            plan {
+                group {
+                    simple {
+                        http('GET http://localhost:8899/index.html') {
+                            timeout response: 500
+                        }
+                    }
+
+                    simple {
+                        defaults {
+                            timeout response: 250
+                        }
+
+                        http('GET http://localhost:8899/index.html')
+                    }
+
+                    // those should pass
+                    simple {
+                        defaults {
+                            timeout response: 1250
+                        }
+
+                        http('GET http://localhost:8899/index.html')
+                        http('GET http://localhost:8899/index.html')
+                    }
+                }
+            }
+        }
+
+        var statistics = run(testPlan, true)
+
+        then: "call is executed but with error"
+
+        statistics.count == 4
+        statistics.error == 0.5d
+        mockServerClient.verify(
+                request('/index.html')
+                        .withMethod('GET'),
+                VerificationTimes.exactly(4)
+        )
     }
 }

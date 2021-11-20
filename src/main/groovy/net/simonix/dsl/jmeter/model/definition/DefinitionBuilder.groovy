@@ -37,7 +37,7 @@ class DefinitionBuilder {
         String title = messages."${prefix}${name}.title"
         String description = messages."${prefix}${name}.description"
 
-        KeywordBuilder builder = new KeywordBuilder(name, category)
+        KeywordBuilder builder = new KeywordBuilder(name, category, prefix)
         builder.title = title
         builder.description = description
 
@@ -125,7 +125,7 @@ class DefinitionBuilder {
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, category, title, description, leaf, valueIsProperty, properties)
+            return new KeywordDefinition(name, prefix, category, title, description, leaf, valueIsProperty, properties)
         }
     }
 

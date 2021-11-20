@@ -26,6 +26,59 @@ import org.apache.jmeter.visualizers.SummaryReport
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>summary</code> element in the test.
+ *
+ * <pre>
+ * // structure of the element
+ * summary (
+ *   file: string
+ *   errorsOnly: boolean     [<strong>false</strong>]
+ *   successesOnly: boolean  [<strong>false</strong>]
+ *   assertions: boolean
+ *   bytes: boolean
+ *   code: boolean
+ *   connectTime: boolean
+ *   dataType: boolean
+ *   encoding: boolean
+ *   fieldNames: boolean
+ *   fileName: boolean
+ *   hostname: boolean
+ *   idleTime: boolean
+ *   label: boolean
+ *   latency: boolean
+ *   message: boolean
+ *   requestHeaders: boolean
+ *   responseData: boolean
+ *   responseHeaders: boolean
+ *   sampleCount: boolean
+ *   samplerData: boolean
+ *   sentBytes: boolean
+ *   subresults: boolean
+ *   success: boolean
+ *   threadCounts: boolean
+ *   threadName: boolean
+ *   time: boolean
+ *   timestamp: boolean
+ *   url: boolean
+ *   xml: boolean
+ * ) {
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         backend {
+ *             summary file: 'summary.jtl', requestHeaders: true, xml: true
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Summary_Report">Summary Report</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class SummaryFactory extends TestElementNodeFactory {
 

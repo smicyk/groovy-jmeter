@@ -17,12 +17,10 @@ package net.simonix.dsl.jmeter.factory.common
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.config.Argument
 import org.apache.jmeter.config.Arguments
 import org.apache.jmeter.testelement.TestElement
-import org.apache.jmeter.testelement.TestPlan
-import org.apache.jmeter.visualizers.backend.BackendListener
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
@@ -56,10 +54,10 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
  * @see ArgumentFactory ArgumentFactory
  */
 @CompileDynamic
-final class ArgumentsFactory extends TestElementFactory {
+abstract class ArgumentsFactory extends TestElementFactory {
 
-    ArgumentsFactory() {
-        super(Arguments, DslDefinition.ARGUMENTS)
+    ArgumentsFactory(KeywordDefinition definition) {
+        super(Arguments, definition)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -69,16 +67,6 @@ final class ArgumentsFactory extends TestElementFactory {
             Argument argument = new Argument(readValue(String, k, null), readValue(String, v, null))
 
             testElement.addArgument(argument)
-        }
-    }
-
-    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object arguments) {
-        if (arguments instanceof Arguments) {
-            if (parent instanceof BackendListener) {
-                parent.arguments = arguments
-            } else if (parent instanceof TestPlan) {
-                parent.userDefinedVariables = arguments
-            }
         }
     }
 }

@@ -26,12 +26,13 @@ import org.apache.jmeter.testelement.TestElement
  *
  * <pre>
  * // element structure
- * http (
+ * ajp (
  *     method: string
  *     protocol: string
  *     domain: string
  *     path: string
  *     port: integer
+ *
  *     // Request configuration
  *     encoding: string
  *     autoRedirects: boolean [<strong>false</strong>]
@@ -39,15 +40,11 @@ import org.apache.jmeter.testelement.TestElement
  *     keepAlive: boolean [<strong>true</strong>]
  *     multipart: boolean [<strong>false</strong>]
  *     browserCompatibleMultipart: boolean [<strong>false</strong>]
- *     // Embedded resource
- *     downloadEmbeddedResources: boolean [<strong>false</strong>]
- *     embeddedConcurrent: boolean [<strong>false</strong>]
- *     embeddedConcurrentDownloads: integer [<strong>6</strong>]
- *     embeddedResourceUrl: string
+ *
  *     // Use md5 configuration
  *     saveAsMD5: boolean [<strong>false</strong>]
  * ) {
- *     body | params | headers
+ *     {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpBodyFactory body} | {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpParamsFactory params} | {@link net.simonix.dsl.jmeter.factory.sampler.http.AjpResourcesFactory resources} | {@link net.simonix.dsl.jmeter.factory.config.HeadersFactory headers}
  * }
  * </pre>
  * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Sampler</a>
@@ -65,12 +62,9 @@ final class AjpFactory extends BaseHttpFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         super.updateTestElementProperties(testElement, name, value, config)
 
-        // Embedded resource
-        testElement.imageParser = config.downloadEmbeddedResources
-        testElement.concurrentDwn = config.embeddedConcurrent
-        testElement.concurrentPool = config.embeddedConcurrentDownloads
-        testElement.embeddedUrlRE = config.embeddedResourceUrl
-        testElement.embeddedUrlExcludeRE = config.embeddedResoureUrlExclude
+        // Request configuration
+        testElement.doMultipartPost = config.multipart
+        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5

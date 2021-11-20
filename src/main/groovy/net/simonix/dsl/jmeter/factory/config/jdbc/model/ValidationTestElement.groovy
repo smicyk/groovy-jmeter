@@ -19,8 +19,11 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for JDBC Validation query configuration
+ */
 @CompileDynamic
-class ValidationTestElement  extends AbstractTestElement implements TestElement {
+final class ValidationTestElement  extends AbstractTestElement implements TestElement {
     boolean idle
     Long timeout
     String query

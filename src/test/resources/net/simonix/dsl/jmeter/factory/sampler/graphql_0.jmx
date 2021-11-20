@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Copyright 2021 Szymon Micyk
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="User Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <longProp name="ThreadGroup.delay">0</longProp>
+        <longProp name="ThreadGroup.duration">0</longProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">1</intProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="GraphQLHTTPSamplerGui" testclass="HTTPSamplerProxy" testname="GraphQL Sampler" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument" enabled="true">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;operationName&quot;:null,&quot;query&quot;:&quot;&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
+          <stringProp name="GraphQLHTTPSampler.query"></stringProp>
+          <stringProp name="GraphQLHTTPSampler.variables"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="GraphQLHTTPSamplerGui" testclass="HTTPSamplerProxy" testname="Factory Http" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument" enabled="true">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;operationName&quot;:null,&quot;query&quot;:&quot;&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="TestPlan.comments">Factory Comment</stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
+          <stringProp name="GraphQLHTTPSampler.query"></stringProp>
+          <stringProp name="GraphQLHTTPSampler.variables"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="GraphQLHTTPSamplerGui" testclass="HTTPSamplerProxy" testname="GraphQL Sampler" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="operationName" elementType="HTTPArgument" enabled="true">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">operationName</stringProp>
+                <stringProp name="Argument.value">MyOperation</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="query" elementType="HTTPArgument" enabled="true">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">query</stringProp>
+                <stringProp name="Argument.value">mutation { createEmployee( input: { employee: { id: $id firstName: $firstName lastName: $lastName email: $email salary: $salary } } ) { employee { id } } }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.domain">example.com</stringProp>
+          <intProp name="HTTPSampler.port">80</intProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <stringProp name="HTTPSampler.path">/graphql</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+          <boolProp name="HTTPSampler.md5">true</boolProp>
+          <stringProp name="GraphQLHTTPSampler.operationName">MyOperation</stringProp>
+          <stringProp name="GraphQLHTTPSampler.query">
+                            mutation {
+                              createEmployee(
+                                input: {
+                                  employee: {
+                                    id: $id
+                                    firstName: $firstName
+                                    lastName: $lastName
+                                    email: $email
+                                    salary: $salary
+                                  }
+                                }
+                              ) {
+                                employee {
+                                  id
+                                }
+                              }
+                            }
+                        </stringProp>
+          <stringProp name="GraphQLHTTPSampler.variables">
+                            {
+                              id: &quot;${var_id}&quot;
+                              firstName: &quot;${var_first_name}&quot;
+                              lastName: &quot;${var_last_name}&quot;
+                              email: &quot;${var_email}&quot;
+                              salary: ${var_salary}
+                            }
+                        </stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

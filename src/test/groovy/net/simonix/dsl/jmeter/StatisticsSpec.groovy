@@ -61,7 +61,7 @@ class StatisticsSpec extends MockServerSpec {
         statistics.error == 0.5d
         statistics.throughput < 1000
         statistics.receivedBytes < 65000
-        statistics.sentBytes < 120000
+        statistics.sentBytes < 150000
         statistics.averagePageBytes < 500
         statistics.totalBytes < 15000
         // elapsed time (in milliseconds) only for all samples

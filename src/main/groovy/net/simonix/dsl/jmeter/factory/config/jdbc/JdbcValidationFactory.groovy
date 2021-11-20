@@ -22,6 +22,32 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.config.DataSourceElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * The factory class responsible for building <code>validation</code> element for jdbc configuration.
+ *
+ * <pre>
+ * // structure of the element
+ * pool (
+ *     idle: boolean [<strong>true</strong>]
+ *     timeout: long [<strong>5000</strong>]
+ *     query: string
+ * )
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc datasource: 'postgres', {
+ *                 validation idle: true, timeout: 5000, query: '''SELECT 1'''
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see net.simonix.dsl.jmeter.factory.config.jdbc.model.PoolTestElement PoolTestElement
+ * @see JdbcConfigFactory JdbcConfigFactory
+ */
 @CompileDynamic
 final class JdbcValidationFactory extends TestElementFactory {
 

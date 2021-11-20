@@ -16,11 +16,12 @@
 package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
+import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
-import net.simonix.dsl.jmeter.factory.common.*
+import net.simonix.dsl.jmeter.factory.common.InsertFactory
+import net.simonix.dsl.jmeter.factory.common.jdbc.JdbcFactory
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConfigFactory
-import net.simonix.dsl.jmeter.factory.common.jdbc.JdbcFactory
 import net.simonix.dsl.jmeter.factory.controller.*
 import net.simonix.dsl.jmeter.factory.controller.execution.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
@@ -28,36 +29,47 @@ import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.group.GroupFactory
-import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PostGroupFactory
+import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
 import net.simonix.dsl.jmeter.factory.listener.AggregateFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendListenerFactory
 import net.simonix.dsl.jmeter.factory.listener.JSR223ListenerFactory
 import net.simonix.dsl.jmeter.factory.listener.SummaryFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanFactory
+import net.simonix.dsl.jmeter.factory.plan.PlanVariableFactory
+import net.simonix.dsl.jmeter.factory.plan.PlanVariablesFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
-import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
-import net.simonix.dsl.jmeter.factory.sampler.*
 import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
+import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
+import net.simonix.dsl.jmeter.factory.sampler.*
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory
-import net.simonix.dsl.jmeter.factory.timer.ConstantThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.ConstantTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.GaussianTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.JSR223TimerFactory
-import net.simonix.dsl.jmeter.factory.timer.PoissonTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.PreciseThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.SynchronizingTimerFactory
-import net.simonix.dsl.jmeter.factory.timer.ThroughputFactory
-import net.simonix.dsl.jmeter.factory.timer.TimerFactory
-import net.simonix.dsl.jmeter.factory.timer.UniformTimerFactory
+import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
 
 /**
  * Handles all DSL keywords and builds final {@link net.simonix.dsl.jmeter.model.TestElementNode} tree.
+ *
+ * For some keywords the child builders are used to distinguish between same keywords names.
+ *
+ * @see AjpFactoryBuilder
+ * @see DefaultsHttpFactoryBuilder
+ * @see GraphQLFactoryBuilder
+ * @see HttpFactoryBuilder
+ * @see JdbcFactoryBuilder
+ * @see BackendFactoryBuilder
  */
 @CompileDynamic
 class DefaultFactoryBuilder extends TestFactoryBuilder {
+
+    List<FactoryBuilderProvider> builders = [
+            AjpFactoryBuilder.createProvider(),
+            DefaultsHttpFactoryBuilder.createProvider(),
+            GraphQLFactoryBuilder.createProvider(),
+            HttpFactoryBuilder.createProvider(),
+            JdbcFactoryBuilder.createProvider(),
+            BackendFactoryBuilder.createProvider()
+    ]
 
     DefaultFactoryBuilder() {
         super()
@@ -66,6 +78,8 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
     void registerObjectFactories() {
         // plan and group
         addFactory(new PlanFactory())
+        addFactory(new PlanVariableFactory())
+        addFactory(new PlanVariablesFactory())
         addFactory(new GroupFactory())
         addFactory(new PreGroupFactory())
         addFactory(new PostGroupFactory())
@@ -94,19 +108,13 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         // samplers
         addFactory(new HttpFactory())
         addFactory(new AjpFactory())
+        addFactory(new GraphQLFactory())
         addFactory(new DebugFactory())
         addFactory(new JSR223SamplerFactory())
         addFactory(new FlowControlActionFactory())
         addFactory(new JdbcRequestFactory())
 
         // others
-        addFactory(new ParamFactory())
-        addFactory(new ParamsFactory())
-        addFactory(new FileFactory())
-        addFactory(new FilesFactory())
-        addFactory(new BodyFactory())
-        addFactory(new ArgumentFactory())
-        addFactory(new ArgumentsFactory())
         addFactory(new InsertFactory())
 
         // timers
@@ -175,21 +183,26 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
     }
 
     protected void setClosureDelegate(Closure closure, Object node) {
-        if(node instanceof TestElementNode && JdbcFactoryBuilder.ACCEPTED_KEYWORDS.contains(node.name)) {
-            Map<String, Object> parentContext = getProxyBuilder().getContext()
+        closure.delegate = this
+        closure.resolveStrategy = Closure.DELEGATE_ONLY
 
-            JdbcFactoryBuilder builder = new JdbcFactoryBuilder(parentContext, closure)
+        if(node instanceof TestElementNode) {
+            for(FactoryBuilderProvider builder: builders) {
+                if(builder.accepts(node.name)) {
+                    Map<String, Object> parentContext = getProxyBuilder().getContext()
 
-            // copy any variables from command line to the child builder
-            this.variables.each { entry ->
-                builder.setVariable(entry.key as String, entry.value)
+                    TestFactoryBuilder factoryBuilder = builder.create(parentContext, closure)
+
+                    // copy any variables from command line to the child builder
+                    this.variables.each { entry ->
+                        factoryBuilder.setVariable(entry.key as String, entry.value)
+                    }
+
+                    closure.delegate = factoryBuilder
+
+                    break
+                }
             }
-
-            closure.delegate = builder
-            closure.resolveStrategy = Closure.DELEGATE_ONLY
-        } else {
-            closure.delegate = this
-            closure.resolveStrategy = Closure.DELEGATE_ONLY
         }
     }
 }

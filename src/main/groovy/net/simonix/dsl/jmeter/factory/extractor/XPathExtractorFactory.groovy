@@ -22,6 +22,25 @@ import org.apache.jmeter.extractor.XPath2Extractor
 import org.apache.jmeter.extractor.gui.XPath2ExtractorGui
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * The factory class responsible for building <code>extract_xpath</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * extract_xpath (
+ *     applyTo: string       [<strong>>parent</strong>, all, children, variable]
+ *     defaultValue: string
+ *     match: integer        [<strong>0</strong>]
+ *     variable: string
+ *     expression: string
+ *     namespaces: string
+ *     fragment: boolean     [<strong>false</strong>]
+ * )
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#XPath2_Extractor">XPath2 Extractor</a>
+ *
+ * @see TestElementNodeFactory TestElementNodeFactory
+ */
 @CompileDynamic
 final class XPathExtractorFactory  extends TestElementNodeFactory {
 

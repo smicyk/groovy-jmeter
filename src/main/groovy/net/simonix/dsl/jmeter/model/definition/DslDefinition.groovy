@@ -35,8 +35,18 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'serialized', type: Boolean, required: false, defaultValue: false)
         property(name: 'functionalMode', type: Boolean, required: false, defaultValue: false)
-        property(name: 'tearDownOnShutdown', type: Boolean, required: false, defaultValue: false)
+        property(name: 'tearDownOnShutdown', type: Boolean, required: false, defaultValue: true)
         property(name: 'classpath', type: String, required: false, separator: ',', defaultValue: [])
+    }
+
+    static final KeywordDefinition PLAN_ARGUMENT = keyword('argument', KeywordCategory.PLAN, 'plan_') {
+        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition PLAN_ARGUMENTS = keyword('arguments', KeywordCategory.PLAN, 'plan_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
     // group
@@ -208,33 +218,172 @@ final class DslDefinition {
     static final KeywordDefinition HTTP = keyword('http', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         include(HTTP_COMMON_PROPERTIES)
-        property(name: 'impl', type: String, required: false, defaultValue: '')
-        property(name: 'connectTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'responseTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
-        property(name: 'ipSource', type: String, required: false, defaultValue: '')
-        property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
-        property(name: 'proxySchema', type: String, required: false, defaultValue: '')
-        property(name: 'proxyHost', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPort', type: String, required: false, defaultValue: '')
-        property(name: 'proxyUser', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPassword', type: String, required: false, defaultValue: '')
+        property(name: 'impl', type: String, required: false, defaultValue: '', constraints: inList(['java', 'http']))
+
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition HTTP_PARAM = keyword('param', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'name', type: String, required: false, defaultValue: null)
+        property(name: 'value', type: Object, required: false, defaultValue: null)
+        property(name: 'encoded', type: Boolean, required: false, defaultValue: false)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_PARAMS = keyword('params', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
+    static final KeywordDefinition HTTP_BODY = keyword('body', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'file', type: String, required: false, defaultValue: null)
+        property(name: 'inline', type: String, required: false, defaultValue: null)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition HTTP_FILE = keyword('file', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'file', type: String, required: true, defaultValue: null)
+        property(name: 'name', type: Object, required: true, defaultValue: null)
+        property(name: 'type', type: Boolean, required: true, defaultValue: false)
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition HTTP_FILES = keyword('files', KeywordCategory.SAMPLER, 'http_')
+
+    static final KeywordDefinition HTTP_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition HTTP_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'http_') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        leaf()
     }
 
     static final KeywordDefinition AJP = keyword('ajp', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         include(HTTP_COMMON_PROPERTIES)
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition AJP_PARAM = keyword('param', KeywordCategory.SAMPLER, 'ajp_') {
+        property(name: 'name', type: String, required: false, defaultValue: null)
+        property(name: 'value', type: Object, required: false, defaultValue: null)
+        property(name: 'encoded', type: Boolean, required: false, defaultValue: false)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+    }
+
+    static final KeywordDefinition AJP_PARAMS = keyword('params', KeywordCategory.SAMPLER, 'ajp_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
+    static final KeywordDefinition AJP_BODY = keyword('body', KeywordCategory.SAMPLER, 'ajp_') {
+        property(name: 'file', type: String, required: false, defaultValue: null)
+        property(name: 'inline', type: String, required: false, defaultValue: null)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition AJP_FILE = keyword('file', KeywordCategory.CONFIG, 'ajp_') {
+        property(name: 'file', type: String, required: true, defaultValue: null)
+        property(name: 'name', type: Object, required: true, defaultValue: null)
+        property(name: 'type', type: Boolean, required: true, defaultValue: false)
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition AJP_FILES = keyword('files', KeywordCategory.CONFIG, 'ajp_')
+
+    static final KeywordDefinition AJP_RESOURCES = keyword('resources', KeywordCategory.SAMPLER, 'ajp_') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL = keyword('graphql', KeywordCategory.SAMPLER) {
+        include(COMMON_PROPERTIES)
+        property(name: 'method', type: String, required: false, defaultValue: 'POST', constraints: inList(['POST', 'GET']))
+        property(name: 'protocol', type: String, required: false, defaultValue: '')
+        property(name: 'domain', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: Integer, required: false, constraints: range(1, 65535))
+        property(name: 'path', type: String, required: false, defaultValue: '')
+        property(name: 'encoding', type: String, required: false, defaultValue: '')
+        property(name: 'autoRedirects', type: Boolean, required: false, defaultValue: false)
+        property(name: 'followRedirects', type: Boolean, required: false, defaultValue: false)
+        property(name: 'keepAlive', type: Boolean, required: false, defaultValue: true)
+        property(name: 'impl', type: String, required: false, defaultValue: '', constraints: inList(['java', 'http']))
+
+        property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition GRAPHQL_OPERATION = keyword('operation', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'name', type: String, required: true, defaultValue: '')
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_EXECUTE = keyword('execute', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_VARIABLES = keyword('variables', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_PROXY = keyword('proxy', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_SOURCE = keyword('source', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition GRAPHQL_TIMEOUT = keyword('timeout', KeywordCategory.SAMPLER, 'graphql_') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        leaf()
     }
 
     static final KeywordDefinition DEBUG = keyword('debug', KeywordCategory.SAMPLER) {
@@ -262,7 +411,7 @@ final class DslDefinition {
         valueIsProperty()
     }
 
-    static final KeywordDefinition JDBC_QUERY = keyword('query', KeywordCategory.OTHER, 'jdbc_') {
+    static final KeywordDefinition JDBC_QUERY = keyword('query', KeywordCategory.SAMPLER, 'jdbc_') {
         property(name: 'prepared', type: Boolean, required: false, defaultValue: true)
         property(name: 'limit', type: Long, required: false, defaultValue: null, constraints: range(0))
         property(name: 'timeout', type: Long, required: false, defaultValue: null, constraints: range(0))
@@ -271,6 +420,14 @@ final class DslDefinition {
         property(name: 'file', type: String, required: false, defaultValue: '')
         property(name: 'inline', type: String, required: false, defaultValue: '')
         valueIsProperty()
+    }
+
+    static final KeywordDefinition JDBC_PARAMETERS = keyword('params', KeywordCategory.SAMPLER, 'jdbc_')
+
+    static final KeywordDefinition JDBC_PARAMETER = keyword('param', KeywordCategory.SAMPLER, 'jdbc_') {
+        property(name: 'value', type: Object, required: true, defaultValue: null)
+        property(name: 'type', type: String, required: true, defaultValue: null)
+        leaf()
     }
 
     static final KeywordDefinition JDBC_EXECUTE = keyword('execute', KeywordCategory.OTHER, 'jdbc_') {
@@ -309,59 +466,11 @@ final class DslDefinition {
     }
 
     // common
-    static final KeywordDefinition JDBC_PARAMETERS = keyword('params', KeywordCategory.OTHER, 'jdbc_')
-
-    static final KeywordDefinition JDBC_PARAMETER = keyword('param', KeywordCategory.OTHER, 'jdbc_') {
-        property(name: 'value', type: Object, required: true, defaultValue: null)
-        property(name: 'type', type: String, required: true, defaultValue: null)
-        leaf()
-    }
-
-    static final KeywordDefinition PARAM = keyword('param', KeywordCategory.OTHER) {
-        property(name: 'name', type: String, required: false, defaultValue: null)
-        property(name: 'value', type: Object, required: false, defaultValue: null)
-        property(name: 'encoded', type: Boolean, required: false, defaultValue: false)
-        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
-        leaf()
-    }
-
-    static final KeywordDefinition PARAMS = keyword('params', KeywordCategory.OTHER) {
-        property(name: 'values', type: Map, required: false, defaultValue: [:])
-    }
-
-    static final KeywordDefinition BODY = keyword('body', KeywordCategory.OTHER) {
-        property(name: 'file', type: String, required: false, defaultValue: null)
-        property(name: 'inline', type: String, required: false, defaultValue: null)
-        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
-        leaf()
-        valueIsProperty()
-    }
-
-    static final KeywordDefinition ARGUMENT = keyword('argument', KeywordCategory.OTHER) {
-        property(name: 'name', type: String, required: false, defaultValue: '')
-        property(name: 'value', type: String, required: false, defaultValue: '')
-        leaf()
-    }
-
-    static final KeywordDefinition ARGUMENTS = keyword('arguments', KeywordCategory.OTHER) {
-        property(name: 'values', type: Map, required: false, defaultValue: [:])
-    }
-
     static final KeywordDefinition INSERT = keyword('insert', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: false, defaultValue: null)
         leaf()
         valueIsProperty()
     }
-
-    static final KeywordDefinition FILE = keyword('file', KeywordCategory.OTHER) {
-        property(name: 'file', type: String, required: true, defaultValue: null)
-        property(name: 'name', type: Object, required: true, defaultValue: null)
-        property(name: 'type', type: Boolean, required: true, defaultValue: false)
-        leaf()
-        valueIsProperty()
-    }
-
-    static final KeywordDefinition FILES = keyword('files', KeywordCategory.OTHER)
 
     // configs
     static final KeywordDefinition AUTHORIZATION = keyword('authorization', KeywordCategory.CONFIG) {
@@ -457,21 +566,56 @@ final class DslDefinition {
         property(name: 'path', type: String, required: false, defaultValue: '')
         property(name: 'encoding', type: String, required: false, defaultValue: '')
         property(name: 'impl', type: String, required: false, defaultValue: '')
-        property(name: 'connectTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'responseTimeout', type: String, required: false, defaultValue: '')
-        property(name: 'downloadEmbeddedResources', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrent', type: Boolean, required: false, defaultValue: false)
-        property(name: 'embeddedConcurrentDownloads', type: Integer, required: false, defaultValue: 6)
-        property(name: 'embeddedResourceUrl', type: String, required: false, defaultValue: '')
-        property(name: 'embeddedResourceUrlExclude', type: String, required: false, defaultValue: '')
-        property(name: 'ipSource', type: String, required: false, defaultValue: '')
-        property(name: 'ipSourceType', type: String, required: false, defaultValue: null, constraints: inList(['hostname', 'device', 'deviceIp4', 'deviceIp6']))
-        property(name: 'proxySchema', type: String, required: false, defaultValue: '')
-        property(name: 'proxyHost', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPort', type: String, required: false, defaultValue: '')
-        property(name: 'proxyUser', type: String, required: false, defaultValue: '')
-        property(name: 'proxyPassword', type: String, required: false, defaultValue: '')
         property(name: 'saveAsMD5', type: Boolean, required: false, defaultValue: false)
+    }
+
+    static final KeywordDefinition DEFAULTS_PARAM = keyword('param', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'name', type: String, required: false, defaultValue: null)
+        property(name: 'value', type: Object, required: false, defaultValue: null)
+        property(name: 'encoded', type: Boolean, required: false, defaultValue: false)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_PARAMS = keyword('params', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
+    static final KeywordDefinition DEFAULTS_BODY = keyword('body', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'file', type: String, required: false, defaultValue: null)
+        property(name: 'inline', type: String, required: false, defaultValue: null)
+        property(name: 'encoding', type: String, required: false, defaultValue: 'UTF-8')
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition DEFAULTS_PROXY = keyword('proxy', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'scheme', type: String, required: false, defaultValue: '')
+        property(name: 'host', type: String, required: false, defaultValue: '')
+        property(name: 'port', type: String, required: false, defaultValue: '')
+        property(name: 'username', type: String, required: false, defaultValue: '')
+        property(name: 'password', type: String, required: false, defaultValue: '')
+        valueIsProperty()
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_RESOURCES = keyword('resources', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'parallel', type: Integer, required: false, defaultValue: 6)
+        property(name: 'urlInclude', type: String, required: false, defaultValue: '')
+        property(name: 'urlExclude', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_SOURCE = keyword('source', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'type', type: String, required: false, defaultValue: '')
+        property(name: 'address', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition DEFAULTS_TIMEOUT = keyword('timeout', KeywordCategory.CONFIG, 'defaults_') {
+        property(name: 'connect', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        property(name: 'response', type: Integer, required: false, defaultValue: null, constraints: range(1))
+        leaf()
     }
 
     static final KeywordDefinition HEADER = keyword('header', KeywordCategory.CONFIG) {
@@ -637,6 +781,7 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'file', type: String, required: true, defaultValue: '')
         leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition BACKEND = keyword('backend', KeywordCategory.LISTENER)  {
@@ -644,6 +789,17 @@ final class DslDefinition {
         property(name: 'classname', type: String, required: false, defaultValue: 'org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient')
         property(name: 'queueSize', type: Integer, required: false, defaultValue: 5000, constraints: range(1))
     }
+
+    static final KeywordDefinition BACKEND_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'backend_') {
+        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition BACKEND_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'backend_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
 
     static final KeywordDefinition SUMMARY = keyword('summary', KeywordCategory.LISTENER) {
         include(COMMON_PROPERTIES)
@@ -678,6 +834,7 @@ final class DslDefinition {
         property(name: 'url', type: Boolean, required: false)
         property(name: 'xml', type: Boolean, required: false)
         leaf()
+        valueIsProperty()
     }
 
     static final KeywordDefinition JSR223_LISTENER = keyword('jsrlistener', KeywordCategory.LISTENER) {

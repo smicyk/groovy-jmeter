@@ -22,8 +22,49 @@ import net.simonix.dsl.jmeter.model.definition.DslDefinition
 import org.apache.jmeter.protocol.jdbc.AbstractJDBCTestElement
 import org.apache.jmeter.testelement.TestElement
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.loadFromFile
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>query</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * query (
+ *    prepared: boolean [<strong>true</strong>]
+ *    limit: long
+ *    timeout: long
+ *    result: string
+ *    variables: list
+ *    file: string
+ *    inline: string
+ * ) {
+ *
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc use: 'postgres', {
+ *                 query('''
+ *                     SELECT id, salary FROM employee WHERE id = ?
+ *                 ''') {
+ *                    params {
+ *                        param value: '1', type: 'IN INTEGER'
+ *                    }
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ *
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JDBC_Request">JDBC Request</a>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see JdbcRequestFactory JdbcRequestFactory
+ */
 @CompileDynamic
 class JdbcQueryFactory extends TestElementFactory {
 
@@ -90,24 +131,6 @@ class JdbcQueryFactory extends TestElementFactory {
             sampler.setProperty('queryArguments', sampler.queryArguments)
             sampler.setProperty('queryArgumentsTypes', sampler.queryArgumentsTypes)
         }
-    }
-
-    private String loadFromFile(String file, String encoding) {
-        File query = null
-
-        URL url = this.class.getResource(file)
-
-        if(url != null) {
-            query = new File(url.toURI())
-        } else {
-            query = new File(file)
-        }
-
-        if(query.exists()) {
-            return query.getText(encoding)
-        }
-
-        throw new FileNotFoundException('''The file doesn't exist''')
     }
 
     private String mapResultHandler(String handler) {

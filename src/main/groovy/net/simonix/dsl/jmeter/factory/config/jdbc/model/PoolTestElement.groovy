@@ -19,8 +19,11 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for JDBC Pool configuration
+ */
 @CompileDynamic
-class PoolTestElement extends AbstractTestElement implements TestElement {
+final class PoolTestElement extends AbstractTestElement implements TestElement {
     Long connections
     Long wait
     Long eviction

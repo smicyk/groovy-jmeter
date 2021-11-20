@@ -50,10 +50,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## First steps
@@ -89,10 +89,10 @@ If you want to start the same script inside a docker run the following command o
 
 ```shell script
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 ```
 
 Typical output from the command line should look like below:
@@ -427,11 +427,11 @@ There are many places where we can use shortcuts to define the same thing:
 ```groovy
 start {
     // long version
-    plan name: 'Test plan', { }
+    plan name: 'Test plan111'
     // short version
-    plan 'Test plan', { }
+    plan 'Test plan222'
     // short version with properties
-    plan 'Tet plan', enabled: true, { }
+    plan 'Test plan', enabled: true
 }
 ```
 * some keywords treat first value as shortcut
@@ -440,14 +440,14 @@ start {
     plan {
         group {
             // long version
-            loop count: 10, {}
+            loop count: 10
             // short version
-            loop 10, {}
+            loop 10
 
             // long version
-            execute_if condition: '''__jexl3(vars.get('var_random') mod 2 == 0)''', {}
+            execute_if condition: '''__jexl3(vars.get('var_random') mod 2 == 0)'''
             // short version
-            execute_if '''__jexl3(vars.get('var_random') mod 2 == 0)''', {}
+            execute_if '''__jexl3(vars.get('var_random') mod 2 == 0)'''
         }
     }
 }
@@ -458,20 +458,17 @@ start {
     plan {
         group {
             // long version for HTTP request
-            http(protocol: 'http', domain: 'localhost', port: 8080, path: '/app/login', method: 'GET') {
-
-            }
+            http(protocol: 'http', domain: 'localhost', port: 8080, path: '/app/login', method: 'GET')
+            
             // short version for HTTP request
-            http 'GET http://localhost:8080/app/login', {
-
-            }
+            http 'GET http://localhost:8080/app/login'
         }
 
         // if used with defaults keyword, some elements can be ommitted
         group {
             defaults(protocol: 'http', domain: 'localhost', port: 8080)
 
-            http 'GET /app/login', {}
+            http 'GET /app/login'
         }
     }
 }
@@ -482,8 +479,8 @@ start {
     // long version to define user variables inside test plan
     plan {
         arguments {
-            argument (name: 'var_variable', 'value')
-            argument (name: 'var_other_variable', 'other_value')
+            argument (name: 'var_variable', value: 'value')
+            argument (name: 'var_other_variable', value: 'other_value')
         }
     }
     // short version to define user variables inside test plan
@@ -499,8 +496,8 @@ start {
             // long version for params
             http 'GET http://www.example.com', {
                 params {
-                    param(name: 'param', 'value')
-                    param(name: 'other', 'other') 
+                    param(name: 'param', value: 'value')
+                    param(name: 'other', value: 'other')
                 }
             }
             // short version for params
@@ -523,9 +520,9 @@ start {
         group {
             // the name of the sample will generated as 'GET /app/books/:var_bookId'
             // currently this is default behaviour only if short version is used
-            http 'GET http://localhost/app/books/${var_bookId}', {}
+            http 'GET http://localhost/app/books/${var_bookId}'
             // to define own sample name you must use long version
-            http name: 'Custom Name', protocol: 'http', domain: 'localhost', path: '/app/books/${var_bookId}', method: 'GET', {}
+            http name: 'Custom Name', protocol: 'http', domain: 'localhost', path: '/app/books/${var_bookId}', method: 'GET'
         }
     }
 }

@@ -24,6 +24,33 @@ import org.apache.jmeter.testelement.TestElement
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
+/**
+ * The factory class responsible for building <code>autocommit</code> element in the test.
+ *
+ * <pre>
+ * // element structure
+ * autocommit (
+ *     value: boolean  [<strong>true</strong>]
+ * ) {
+
+ * }
+ *
+ * // example usage
+ * start {
+ *     plan {
+ *         group {
+ *             jdbc use: 'postgres', {
+ *                 autocommit true
+ *             }
+ *         }
+ *     }
+ * }
+ * </pre>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JDBC_Request">JDBC Request</a>
+ *
+ * @see net.simonix.dsl.jmeter.factory.TestElementFactory TestElementFactory
+ * @see JdbcRequestFactory JdbcRequestFactory
+ */
 @CompileDynamic
 class JdbcAutocommitFactory extends TestElementFactory {
 
@@ -41,7 +68,7 @@ class JdbcAutocommitFactory extends TestElementFactory {
         }
     }
 
-    void updateOnComplete(Object parent, Object child) {
+    void updateParentProperties(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof AbstractJDBCTestElement && child instanceof QueryTestElement) {
             AbstractJDBCTestElement sampler = parent as AbstractJDBCTestElement
 

@@ -20,6 +20,13 @@ import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Base class for JDBC Sampler and Post/Pre processors.
+ *
+ * @see net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory
+ * @see net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
+ * @see net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
+ */
 @CompileDynamic
 abstract class JdbcSamplerFactory extends TestElementNodeFactory {
 

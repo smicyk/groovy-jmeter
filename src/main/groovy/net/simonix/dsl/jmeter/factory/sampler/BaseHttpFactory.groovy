@@ -18,15 +18,18 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
 import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * Base class for HTTP related factories.
  *
- * @see AjpFactory* @see HttpFactory
+ * @see AjpFactory
+ * @see HttpFactory
  */
 @CompileDynamic
 abstract class BaseHttpFactory extends TestElementNodeFactory {
@@ -52,15 +55,6 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
             HTTPConstants.SEARCH,
     ]
 
-    static final URL_HOSTNAME_WITHOUT_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-    static final URL_PROTOCOL_WITHOUT_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-    static final URL_PROTOCOL = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-    static final URL_HOSTNAME = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-    static final URL_PORT = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
-    static final URL_PATH = /(?<method>${URL_METHODS.join('|')}) +(?<protocol>)(?<domain>)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
-
-    static final NAME_PATTERNS = [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
-
     protected BaseHttpFactory(Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
         super(testElementClass, testElementGuiClass, definition)
     }
@@ -78,7 +72,8 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
 
         // override config elements
         if (value != null) {
-            Matcher matches = NAME_PATTERNS.collect { value =~ it }.find { it.find() }
+            List<String> namePatterns = buildUrlPatterns()
+            Matcher matches = namePatterns.collect { value =~ it }.find { it.find() }
 
             if (matches != null) {
                 method = matches.group('method') ?: method
@@ -111,8 +106,23 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.autoRedirects = config.autoRedirects
         testElement.followRedirects = config.followRedirects
         testElement.useKeepAlive = config.keepAlive
-        testElement.doMultipartPost = config.multipart
-        testElement.doBrowserCompatibleMultipart = config.browserCompatibleMultipart
+    }
+
+    protected List<String> validMethods() {
+        return URL_METHODS
+    }
+
+    protected List<String> buildUrlPatterns() {
+        List<String> urlMethods = validMethods();
+
+        def URL_HOSTNAME_WITHOUT_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        def URL_PROTOCOL_WITHOUT_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        def URL_PROTOCOL = /(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        def URL_HOSTNAME = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        def URL_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
+        def URL_PATH = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
+
+        return [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
     }
 
     private static String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {

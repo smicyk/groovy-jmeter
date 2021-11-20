@@ -19,6 +19,9 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for JDBC query parameter configuration
+ */
 @CompileDynamic
 class ParameterTestElement extends AbstractTestElement implements TestElement {
     Object value

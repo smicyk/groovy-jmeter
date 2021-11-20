@@ -1,0 +1,44 @@
+version: '3'
+
+volumes:
+  grapes-cache:
+    external: true
+
+networks:
+  default:
+    external:
+      name: network-books
+
+services:
+  database:
+    image: "postgres:13"
+    container_name: graphql-db
+    restart: always
+    volumes:
+      - ./db/init/:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  graphql:
+    image: graphile/postgraphile
+    container_name: graphql-api
+    restart: always
+    depends_on:
+      - database
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    command: [ "--connection", "postgres://postgres:postgres@graphql-db:5432/hr", "--host", "0.0.0.0", "--port", "5000", "--schema", "hr" ]
+    links:
+      - database:graphql-db
+
+  testserver:
+    image: "groovy:3.0.7-jdk11"
+    container_name: graphql-test
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    links:
+      - graphql:graphql-api
+    command: ["groovy", "script.groovy"]

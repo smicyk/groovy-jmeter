@@ -20,6 +20,9 @@ import net.simonix.dsl.jmeter.factory.AbstractCompositeTestElementNodeFactory
 import net.simonix.dsl.jmeter.factory.AbstractTestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
 
+/**
+ * Composite JDBC Factory. Depending on <strong>datasource</strong> parameter it create {@link net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConfigFactory} or {@link net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory}.
+ */
 @CompileDynamic
 final class JdbcFactory extends AbstractCompositeTestElementNodeFactory {
 

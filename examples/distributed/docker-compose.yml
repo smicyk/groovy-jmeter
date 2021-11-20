@@ -1,0 +1,48 @@
+version: '3'
+
+volumes:
+  grapes-cache:
+    external: true
+
+networks:
+  default:
+    external:
+      name: network-books
+
+services:
+  worker1:
+    image: "groovy:3.0.7-jdk11"
+    container_name: worker1-server
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    command: ["groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker1-server"]
+
+  worker2:
+    image: "groovy:3.0.7-jdk11"
+    container_name: worker2-server
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    command: [ "groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker2-server" ]
+
+  worker3:
+    image: "groovy:3.0.7-jdk11"
+    container_name: worker3-server
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    command: [ "groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker3-server" ]
+
+  controller:
+    image: "groovy:3.0.7-jdk11"
+    container_name: controller-server
+    volumes:
+      - .:/home/groovy
+      - grapes-cache:/home/groovy/.groovy/grapes
+    command: ["groovy", "script.groovy", "-c", "-r", "worker1-server:1099", "-r", "worker2-server:1099", "-r", "worker3-server:1099"]
+    depends_on:
+      - worker1
+      - worker2
+      - worker3
+

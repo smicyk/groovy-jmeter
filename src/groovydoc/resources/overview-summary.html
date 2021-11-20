@@ -5,103 +5,196 @@
     <title>Overview Summary</title>
 </head>
 <body>
+
 <h3>Plan elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/plan/PlanFactory.html">plan</a> - defines test plan</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ArgumentsFactory.html">arguments</a> - defines user variables element inside a test plan</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ArgumentFactory.html">argument</a> - defines single user variable</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/plan/PlanFactory.html">plan</a> - defines 'Test Plan' element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/plan/PlanVariableFactory.html">argument</a> - defines single user variable in arguments</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/plan/PlanVariablesFactory.html">arguments</a> - defines user variables element inside a test plan</li>
+        </ul>
+    </li>
 </ul>
 <h3>Group elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/group/GroupFactory.html">group</a> - defines users group ('Thread Group')</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/group/PreGroupFactory.html">before</a> - defines before group ('setUp Thread Group')</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/group/PostGroupFactory.html">after</a> - defines after group ('tearDown Thread Group')</li>
-</ul>
-<h3>Config elements</h3>
-<ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationsFactory.html">authorizations</a> - defines 'Authorization' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationFactory.html">authorization</a> - defines single authorization entry</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/CacheFactory.html">cache</a> - defines 'HTTP Cache Manager' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/CookiesFactory.html">cookies</a> - defines 'HTTP Cookie Manager' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/CookieFactory.html">cookie</a> - defines single cookie</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/CounterFactory.html">counter</a> - defines 'Counter' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/CsvDataFactory.html">csv</a> - defines 'CSV Data Set Config' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/DefaultsFactory.html">defaults</a> - defines 'HTTP Request Defaults' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/HeadersFactory.html">headers</a> - defines 'HTTP Header Manager' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/HeaderFactory.html">header</a> - defines single header</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/LoginFactory.html">login</a> - defines 'Login Config Element' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/RandomVariableFactory.html">random</a> - defines 'Random Variable' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/VariablesFactory.html">variables</a> - defines 'User Defined Variables' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/VariableFactory.html">variable</a> - defines single user variable</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/BodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/InsertFactory.html">insert</a> - defines insert element for external script</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/PostGroupFactory.html">after</a> - defines tear down group ('TearDown Group') element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/PreGroupFactory.html">before</a> - defines setup group ('SetUp Group') element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/GroupFactory.html">group</a> - defines users group ('Thread Group') element</li>
 </ul>
 <h3>Controller elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/controller/CriticalSectionFactory.html">loop</a> - defines 'Critical Section' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/ExecuteFactory.html">execute</a> - defines generic execution controller (includes 'If', 'While', 'Once Only' and others)</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/IfControllerFactory.html">execute_if</a> - defines 'If' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/InterleaveControllerFactory.html">execute_interleave</a> - defines 'Interleave' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/OnceControllerFactory.html">execute_once</a> - defines 'Once Only' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/RandomOrderControllerFactory.html">execute_order</a> - defines 'Random Order' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/PercentControllerFactory.html">execute_percent</a> - defines 'Throughput (Percent)' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/RandomControllerFactory.html">execute_random</a> - defines 'Random' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/RuntimeControllerFactory.html">execute_runtime</a> - defines 'Runtime' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/SwitchControllerFactory.html">execute_switch</a> - defines 'Switch' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/TotalControllerFactory.html">execute_total</a> - defines 'Throughput (Total)' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/execution/WhileControllerFactory.html">execute_while</a> - defines 'While' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/ForEachFactory.html">for_each</a> - defines 'ForEach' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/IncludeFactory.html">include</a> - defines 'Include' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/LoopFactory.html">loop</a> - defines 'Loop' controller</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/controller/SimpleFactory.html">simple</a> - defines 'Simple' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/CriticalSectionFactory.html">section</a> - defines 'Critical Section' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/SimpleFactory.html">simple</a> - defines 'Loop' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/TransactionFactory.html">transaction</a> - defines 'Transaction' controller</li>
 </ul>
 <h3>Sampler elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/sampler/AjpFactory.html">ajp</a> - defines 'AJP Request' sampler</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/sampler/AjpFactory.html">ajp</a> - defines 'AJP Request' sampler
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpBodyFactory.html">body</a> - defines body for 'AJP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpFileFactory.html">file</a> - defines single file upload for 'AJP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpFilesFactory.html">files</a> - defines files upload for 'AJP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpParamFactory.html">param</a> - defines single parameter for 'AJP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpParamsFactory.html">params</a> - defines parameters for 'AJP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/AjpResourcesFactory.html">resources</a> - defines 'AJP Request' resources configuration</li>
+        </ul>
+    </li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/DebugFactory.html">debug</a> - defines 'Debug' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/FlowControlActionFactory.html">flow</a> - defines 'Flow Control Action' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/sampler/HttpFactory.html">http</a> - defines 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/ParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/BodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/FileFactory.html">file</a> - defines upload file for 'HTTP Request' sampler</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/FilesFactory.html">files</a> - defines upload files for 'HTTP Request' sampler</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/sampler/GraphQLFactory.html">graphql</a> - defines 'GraphQL HTTP Request' sampler
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLExecuteFactory.html">execute</a> - defines 'GraphQL HTTP Request' execute configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLOperationFactory.html">operation</a> - defines 'GraphQL HTTP Request' operation configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLProxyFactory.html">proxy</a> - defines 'GraphQL HTTP Request' proxy configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLSourceFactory.html">source</a> - defines 'GraphQL HTTP Request' source configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLTimeoutFactory.html">timeout</a> - defines 'GraphQL HTTP Request' timeout configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/GraphQLVariablesFactory.html">variables</a> - defines 'GraphQL HTTP Request' variables configuration</li>
+        </ul>
+    </li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/sampler/HttpFactory.html">http</a> - defines 'HTTP Request' sampler
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpBodyFactory.html">body</a> - defines body for 'HTTP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpFileFactory.html">file</a> - defines single file upload for 'HTTP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpFilesFactory.html">files</a> - defines files upload for 'HTTP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpParamFactory.html">param</a> - defines single parameter for 'HTTP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpParamsFactory.html">params</a> - defines parameters for 'HTTP Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpProxyFactory.html">proxy</a> - defines 'HTTP Request' proxy configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpResourcesFactory.html">resources</a> - defines 'HTTP Request' resources configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpSourceFactory.html">source</a> - defines 'HTTP Request' source configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpTimeoutFactory.html">timeout</a> - defines 'HTTP Request' timeout configuration</li>
+        </ul>
+    </li>
+    <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcRequestFactory.html">jdbc_request</a> - defines 'JDBC Request' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/JSR223SamplerFactory.html">jsrsampler</a> - defines 'JSR223' sampler</li>
+</ul>
+<h3>Timer elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantThroughputFactory.html">constant_throughput</a> - defines 'Constant Throughput Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantTimerFactory.html">constant_timer</a> - defines 'Constant Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/GaussianTimerFactory.html">gaussian_timer</a> - defines 'Gaussian Random Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/JSR223TimerFactory.html">jsrtimer</a> - defines 'JSR223 Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/PoissonTimerFactory.html">poisson_timer</a> - defines 'Poisson Random Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/PreciseThroughputFactory.html">precise_throughput</a> - defines 'Precise Throughput Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/SynchronizingTimerFactory.html">synchronizing_timer</a> - defines 'Synchronizing Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/ThroughputFactory.html">throughput</a> - defines 'Throughput' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/TimerFactory.html">timer</a> - defines 'Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformTimerFactory.html">uniform_timer</a> - defines 'Uniform Timer' element</li>
+</ul>
+<h3>Extractor elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/CssSelectorExtractorFactory.html">extract_css</a> - defines 'CSS Selector Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/JsonPathExtractorFactory.html">extract_json</a> - defines 'JSON Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/RegExExtractorFactory.html">extract_regex</a> - defines 'Regular Expression Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/XPathExtractorFactory.html">extract_xpath</a> - defines 'XPath2 Extractor' element</li>
+</ul>
+<h3>Postprocessor elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/jdbc/JdbcPostprocessorFactory.html">jdbc_postprocessor</a> - defines 'JDBC PostProcessor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/JSR223PostProcessorFactory.html">jsrpostprocessor</a> - defines 'JSR223 PostProcessor' element</li>
+</ul>
+<h3>Preprocessor elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/preprocessor/jdbc/JdbcPreprocessorFactory.html">jdbc_preprocessor</a> - defines 'JDBC PreProcessor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/preprocessor/JSR223PreProcessorFactory.html">jsrpreprocessor</a> - defines 'JSR223 PreProcessor' element</li>
 </ul>
 <h3>Assertion elements</h3>
 <ul>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/DurationAssertionFactory.html">assert_duration</a> - defines 'Duration Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/JsonAssertionFactory.html">assert_json</a> - defines 'JSON Assertion' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/assertion/JSR223AssertionFactory.html">jsrassertion</a> - defines 'JSR223 Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/MD5HexAssertionFactory.html">assert_md5hex</a> - defines 'MD5Hex Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/ResponseAssertionFactory.html">assert_response</a> - defines 'Response Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/SizeAssertionFactory.html">assert_size</a> - defines 'Size Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/XPathAssertionFactory.html">assert_xpath</a> - defines 'XPath Assertion' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_response</a> - defines simplified version of response assertions</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_request</a> - defines simplified version of request assertions</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckFactory.html">check_size</a> - defines simplified version of 'Size Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/JSR223AssertionFactory.html">jsrassertion</a> - defines 'JSR223 Assertion' element</li>
 </ul>
-<h3>Post-Processor elements</h3>
+<h3>Config elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/extractor/CssSelectorExtractorFactory.html">extract_css</a> - defines 'CSS Selector Extractor' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/extractor/JsonPathExtractorFactory.html">extract_json</a> - defines 'JSON Extractor' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/extractor/RegExExtractorFactory.html">extract_regex</a> - defines 'Regular Expression Extractor' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/JSR223PostProcessorFactory.html">jsrpostprocessor</a> - defines 'JSR223 PostProcessor' element</li>
-</ul>
-<h3>Pre-Processor elements</h3>
-<ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/preprocessor/JSR223PreProcessorFactory.html">jsrpreprocessor</a> - defines 'JSR223 PreProcessor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationFactory.html">authorization</a> - defines single authorization entry</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/AuthorizationsFactory.html">authorizations</a> - defines 'Authorization' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CacheFactory.html">cache</a> - defines 'HTTP Cache Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CookieFactory.html">cookie</a> - defines single cookie element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CookiesFactory.html">cookies</a> - defines 'HTTP Cookie Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CounterFactory.html">counter</a> - defines 'Counter' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/CsvDataFactory.html">csv</a> - defines 'CSV Data Set Config' config element</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/config/DefaultsFactory.html">defaults</a> - defines 'HTTP Request Defaults' config element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsBodyFactory.html">body</a> - defines body for 'HTTP Request Defaults' config</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsParamFactory.html">param</a> - defines single parameter for 'HTTP Request Defaults' config</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsParamsFactory.html">params</a> - defines parameters for 'HTTP Request Defaults' config</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsProxyFactory.html">proxy</a> - defines 'HTTP Request Defaults' Proxy configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsResourcesFactory.html">resources</a> - defines 'HTTP Request Defaults' resources configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsSourceFactory.html">source</a> - defines 'HTTP Request Defaults' source configuration</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsTimeoutFactory.html">timeout</a> - defines 'HTTP Request Defaults' timeout configuration</li>
+        </ul>
+    </li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/DnsFactory.html">dns</a> - defines 'DNS Cache Manager' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/HeaderFactory.html">header</a> - defines single header</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/HeadersFactory.html">headers</a> - defines 'HTTP Header Manager' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/DnsHostFactory.html">host</a> - defines static table host</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/common/jdbc/JdbcFactory.html">jdbc</a> - defines 'JDBC Config' or 'JDBC Request' element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcAutocommitFactory.html">autocommit</a> - defines autocommit 'JDBC Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcCallableFactory.html">callable</a> - defines query properties part of 'JDBC Request' sampler (callable type)</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcCommitFactory.html">commit</a> - defines commit 'JDBC Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcConnectionFactory.html">connection</a> - defines 'JDBC Connection' element</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcExecuteFactory.html">execute</a> - defines query properties part of 'JDBC Request' sampler (update and prepared update type)</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcInitFactory.html">init</a> - defines 'JDBC Init' element</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcParameterFactory.html">param</a> - defines JDBC Query paratemter</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcParametersFactory.html">params</a> - defines JDBC Query parameters</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcPoolFactory.html">pool</a> - defines 'JDBC Pool' element</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcQueryFactory.html">query</a> - defines query properties part of 'JDBC Request' sampler (select and prepared update</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcRollbackFactory.html">rollback</a> - defines rollback 'JDBC Request' sampler</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcValidationFactory.html">validation</a> - defines 'JDBC Validation' element</li>
+        </ul>
+    </li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcConfigFactory.html">jdbc_config</a> - defines 'JDBC Config' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/LoginFactory.html">login</a> - defines 'Login Config Element' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/RandomVariableFactory.html">random</a> - defines 'Random Variable' config element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/VariableFactory.html">variable</a> - defines single user variable</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/VariablesFactory.html">variables</a> - defines 'User Defined Variables' config element</li>
 </ul>
 <h3>Listener elements</h3>
 <ul>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/AggregateFactory.html">aggregate</a> - defines 'Aggregate Report' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/listener/BackendListenerFactory.html">backend</a> - defines 'Backend Listener' element</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/listener/BackendListenerFactory.html">backend</a> - defines 'Backend Listener' element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/listener/BackendArgumentFactory.html">argument</a> - defines single user variable in arguments</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/listener/BackendArgumentsFactory.html">arguments</a> - defines user variables element inside a backend listener</li>
+        </ul>
+    </li>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/JSR223ListenerFactory.html">jsrlistener</a> - defines 'JSR223 Listener' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/SummaryFactory.html">summary</a> - defines 'Summary Report' element</li>
 </ul>
-<h3>Timer elements</h3>
+<h3>Check elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantTimerFactory.html">constant_timer</a> - defines 'Constant Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformTimeFactory.html">uniform_timer</a> - defines 'Uniform Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/GaussianTimeFactory.html">gaussian_timer</a> - defines 'Gaussian Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/PoissonTimeFactory.html">poisson_timer</a> - defines 'Poisson Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/SynchronizingTimerFactory.html">synchronizing_timer</a> - defines 'Synchronizing Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/JSR223TimerFactory.html">jsrtimer</a> - defines 'JSR223 Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/ConstantThroughputFactory.html">constant_throughput</a> - defines 'Const Throughput Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/PreciseThroughputFactory.html">precise_throughput</a> - defines 'Precise Throughput Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckRequestFactory.html">check_request</a> - defines simplified version of request assertions</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckResponseFactory.html">check_response</a> - defines simplified version of response assertions</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/CheckSizeFactory.html">check_size</a> - defines simplified version of 'Size Assertion' element</li>
+</ul>
+<h3>Other elements</h3>
+<ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/InsertFactory.html">insert</a> - defines insert element for external script</li>
 </ul>
 </body>
 </html>

@@ -129,6 +129,8 @@ abstract class CheckFactory extends AbstractFactory implements ValidatorProvider
 
     abstract CheckHandler createCheckHandler(CheckTestElementNode node, FactoryBuilderSupport builder)
 
+    abstract void updateOnComplete(Object parent, Object child)
+
     Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
         String applyTo = readValue(value, config.applyTo)
 

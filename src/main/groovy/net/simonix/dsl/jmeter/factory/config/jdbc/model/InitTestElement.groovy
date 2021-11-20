@@ -19,7 +19,10 @@ import groovy.transform.CompileDynamic
 import org.apache.jmeter.testelement.AbstractTestElement
 import org.apache.jmeter.testelement.TestElement
 
+/**
+ * Container class for JDBC Init query configuration
+ */
 @CompileDynamic
-class InitTestElement extends AbstractTestElement implements TestElement {
+final class InitTestElement extends AbstractTestElement implements TestElement {
     String query
 }
