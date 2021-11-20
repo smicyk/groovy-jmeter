@@ -25,7 +25,6 @@ plugins {
     id 'ivy-publish'
 
     id 'signing'
-    id "org.sonarqube" version '3.3'
 }
 
 repositories {
@@ -48,8 +47,8 @@ project.group = 'net.simonix.scripts'
 project.version = scmVersion.version
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
@@ -211,12 +210,4 @@ tasks.withType(GenerateModuleMetadata) {
 signing {
     required { gradle.taskGraph.hasTask('publishMavenPublicationToMavenRepository') }
     sign publishing.publications.maven
-}
-
-sonarqube {
-  properties {
-    property "sonar.projectKey", "smicyk_groovy-jmeter"
-    property "sonar.organization", "smicyk"
-    property "sonar.host.url", "https://sonarcloud.io"
-  }
 }

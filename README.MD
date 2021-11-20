@@ -50,10 +50,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk8 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## First steps
@@ -89,10 +89,10 @@ If you want to start the same script inside a docker run the following command o
 
 ```shell script
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk8 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 ```
 
 Typical output from the command line should look like below:
