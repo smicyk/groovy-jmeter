@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@ import org.apache.jmeter.assertions.XPathAssertion
 import org.apache.jmeter.assertions.gui.XPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
 
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
-
 /**
  * The factory class responsible for building <code>assert_xpath</code> element in the test.
  *
  * <pre>
  * // element structure
- * assert_response (
+ * assert_xpath (
  *    applyTo: string [<strong>all</strong>, parent, children, variable]
+ *    expression: string
+ *    whitespace: boolean (ignoreWhitespace)
  *    variable: string
  *    ignoreWhitespace: boolean [false]
- *    validateXml: boolean [false]
+ *    validate: boolean [false]
  *    useNamespace: boolean [false]
  *    fetchDtd: boolean [false]
  *    failOnNoMatch: boolean [false]
@@ -58,7 +58,7 @@ final class XPathAssertionFactory extends TestElementNodeFactory {
         String applyTo = config.applyTo
         String variableName = config.variable
 
-        String xpath = config.xpath
+        String xpath = config.expression
         boolean ignoreWhitespace = config.ignoreWhitespace
         boolean validateXml = config.validate
         boolean useNamespace = config.useNamespace

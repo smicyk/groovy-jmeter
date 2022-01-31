@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ class ExtractorFactorySpec extends TempFileSpec {
             plan {
                 extract_css(variable: 'var_variable', expression: '#variable', attribute: 'value')
                 extract_regex(variable: 'var_variable', expression: 'variable')
+                extract_jmes(variable: 'var_variable', expression: '$..author')
                 extract_json(variables: 'var_variable', expressions: '$..author')
                 extract_json(variables: ['var_variable1', 'var_variable2'], expressions: ['$..author', '$..book'])
                 extract_xpath(variable: 'var_variable', expression: '$.', namespaces: 'ex=http://example.com')
@@ -50,6 +51,7 @@ class ExtractorFactorySpec extends TempFileSpec {
                 extract_css(name: 'Extractor Factory', comments: 'Extractor Comments', enabled: false, applyTo: 'all', useEmptyValue: true, defaultValue: 'test', match: 1, variable: 'var_variable', expression: '#variable', attribute: 'value', engine: 'JODD')
                 extract_regex(name: 'Extractor Factory', comments: 'Extractor Comments', enabled: false, applyTo: 'all', field: 'response_unescaped', useEmptyValue: true, defaultValue: 'test', match: 1, variable: 'var_variable', expression: 'variable', template: '\$2\$')
                 extract_json(name: 'Extractor Factory', comments: 'Extractor Comments', enabled: false, applyTo: 'all', defaultValues: 'test', matches: 2, variables: 'var_variable', expressions: '$..author', concatenation: true)
+                extract_jmes(name: 'Extractor Factory', comments: 'Extractor Comments', enabled: false, applyTo: 'all', defaultValue: 'test', match: 2, variable: 'var_variable', expression: '$..author')
                 extract_xpath(name: 'Extractor Factory', comments: 'Extractor Comments', enabled: false, applyTo: 'all', defaultValue: 'test', match: 1, variable: 'var_variable', expression: '$.', namespaces: 'test', fragment: true)
             }
         }

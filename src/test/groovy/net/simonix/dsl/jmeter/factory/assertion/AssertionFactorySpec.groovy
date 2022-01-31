@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,10 @@ class AssertionFactorySpec extends TempFileSpec {
                     assert_duration 10
 
                     assert_json()
-                    assert_json(name: 'Assert Json Factory', comments: 'Factory Comments', jpath: '$.element', assertValue: true, assertAsRegex: false, value: 'test', expectNull: true, invert: true)
+                    assert_json(name: 'Assert Json Factory', comments: 'Factory Comments', expression: '$.element', assertValue: true, assertAsRegex: false, value: 'test', expectNull: true, invert: true)
+
+                    assert_jmes()
+                    assert_jmes(name: 'Assert JMes Factory', comments: 'Factory Comments', expression: '$.element', assertValue: true, assertAsRegex: false, value: 'test', expectNull: true, invert: true)
 
                     assert_md5hex(value: '--some--value--')
                     assert_md5hex(name: 'Assert MD5 Factory', comments: 'Factory Comments', value: '--some-value--')
@@ -47,7 +50,7 @@ class AssertionFactorySpec extends TempFileSpec {
                     assert_size 50
 
                     assert_xpath()
-                    assert_xpath(name: 'Assert XPath Factory', comments: 'Factory Comments', applyTo: 'parent', variable: 'var_variable', xpath: '//span', ignoreWhitespace: true, validate: true, useNamespace: true, fetchDtd: true, failOnNoMatch: true, useTolerant: true, reportErrors: true, showWarnings: true, quiet: true)
+                    assert_xpath(name: 'Assert XPath Factory', comments: 'Factory Comments', applyTo: 'parent', variable: 'var_variable', expression: '//span', ignoreWhitespace: true, validate: true, useNamespace: true, fetchDtd: true, failOnNoMatch: true, useTolerant: true, reportErrors: true, showWarnings: true, quiet: true)
                 }
             }
         }

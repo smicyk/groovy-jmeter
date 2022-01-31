@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
+import net.simonix.dsl.jmeter.factory.extractor.JMESPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
@@ -109,6 +110,7 @@ class GraphQLFactoryBuilder extends TestFactoryBuilder {
         addFactory(new DurationAssertionFactory())
         addFactory(new XPathAssertionFactory())
         addFactory(new JsonAssertionFactory())
+        addFactory(new JMESAssertionFactory())
         addFactory(new MD5HexAssertionFactory())
         addFactory(new CheckResponseFactory())
         addFactory(new CheckRequestFactory())
@@ -131,6 +133,7 @@ class GraphQLFactoryBuilder extends TestFactoryBuilder {
         addFactory(new CssSelectorExtractorFactory())
         addFactory(new JsonPathExtractorFactory())
         addFactory(new XPathExtractorFactory())
+        addFactory(new JMESPathExtractorFactory())
     }
 
     protected Object postNodeCompletion(Object parent, Object node) {
