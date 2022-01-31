@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2021 Szymon Micyk
+ Copyright 2022 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -62,6 +62,15 @@
         <stringProp name="JSONPostProcessor.jsonPathExprs">$..author</stringProp>
         <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
       </JSONPostProcessor>
+      <hashTree/>
+      <JMESPathExtractor guiclass="JMESPathExtractorGui" testclass="JMESPathExtractor" testname="Extractor Factory" enabled="false">
+        <stringProp name="TestPlan.comments">Extractor Comments</stringProp>
+        <stringProp name="Sample.scope">all</stringProp>
+        <stringProp name="JMESExtractor.defaultValue">test</stringProp>
+        <stringProp name="JMESExtractor.matchNumber">2</stringProp>
+        <stringProp name="JMESExtractor.referenceName">var_variable</stringProp>
+        <stringProp name="JMESExtractor.jmesPathExpr">$..author</stringProp>
+      </JMESPathExtractor>
       <hashTree/>
       <XPath2Extractor guiclass="XPath2ExtractorGui" testclass="XPath2Extractor" testname="Extractor Factory" enabled="false">
         <stringProp name="TestPlan.comments">Extractor Comments</stringProp>

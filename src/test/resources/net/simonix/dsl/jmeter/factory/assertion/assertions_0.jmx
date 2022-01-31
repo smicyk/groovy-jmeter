@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2021 Szymon Micyk
+ Copyright 2022 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -98,6 +98,25 @@
           <boolProp name="INVERT">true</boolProp>
           <boolProp name="ISREGEX">false</boolProp>
         </JSONPathAssertion>
+        <hashTree/>
+        <JMESPathAssertion guiclass="JMESPathAssertionGui" testclass="JMESPathAssertion" testname="Json JMES Path Assertion" enabled="true">
+          <stringProp name="JMES_PATH">$.</stringProp>
+          <stringProp name="EXPECTED_VALUE"></stringProp>
+          <boolProp name="JSONVALIDATION">false</boolProp>
+          <boolProp name="EXPECT_NULL">false</boolProp>
+          <boolProp name="INVERT">false</boolProp>
+          <boolProp name="ISREGEX">true</boolProp>
+        </JMESPathAssertion>
+        <hashTree/>
+        <JMESPathAssertion guiclass="JMESPathAssertionGui" testclass="JMESPathAssertion" testname="Assert JMes Factory" enabled="true">
+          <stringProp name="TestPlan.comments">Factory Comments</stringProp>
+          <stringProp name="JMES_PATH">$.element</stringProp>
+          <stringProp name="EXPECTED_VALUE">test</stringProp>
+          <boolProp name="JSONVALIDATION">true</boolProp>
+          <boolProp name="EXPECT_NULL">true</boolProp>
+          <boolProp name="INVERT">true</boolProp>
+          <boolProp name="ISREGEX">false</boolProp>
+        </JMESPathAssertion>
         <hashTree/>
         <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="MD5Hex Assertion" enabled="true">
           <stringProp name="MD5HexAssertion.size">--some--value--</stringProp>

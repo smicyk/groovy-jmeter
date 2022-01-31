@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -870,6 +870,16 @@ final class DslDefinition {
         leaf()
     }
 
+    static final KeywordDefinition JMES_EXTRACTOR = keyword('extract_jmes', KeywordCategory.EXTRACTOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
+        property(name: 'defaultValue', type: String, required: false, defaultValue: null)
+        property(name: 'match', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'variable', type: String, required: true, defaultValue: '')
+        property(name: 'expression', type: String, required: true, defaultValue: '')
+        leaf()
+    }
+
     static final KeywordDefinition JSON_EXTRACTOR = keyword('extract_json', KeywordCategory.EXTRACTOR) {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
@@ -962,7 +972,7 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         property(name: 'variable', type: String, required: false, defaultValue: null)
-        property(name: 'xpath', type: String, required: false, defaultValue: '/')
+        property(name: 'expression', type: String, required: false, defaultValue: '/')
         property(name: 'ignoreWhitespace', type: Boolean, required: false, defaultValue: false)
         property(name: 'validate', type: Boolean, required: false, defaultValue: false)
         property(name: 'useNamespace', type: Boolean, required: false, defaultValue: false)
@@ -975,9 +985,20 @@ final class DslDefinition {
         leaf()
     }
 
+    static final KeywordDefinition ASSERT_JMES = keyword('assert_jmes', KeywordCategory.ASSERTION) {
+        include(COMMON_PROPERTIES)
+        property(name: 'expression', type: String, required: false, defaultValue: '$.')
+        property(name: 'assertValue', type: Boolean, required: false, defaultValue: false)
+        property(name: 'assertAsRegex', type: Boolean, required: false, defaultValue: true)
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        property(name: 'expectNull', type: Boolean, required: false, defaultValue: false)
+        property(name: 'invert', type: Boolean, required: false, defaultValue: false)
+        leaf()
+    }
+
     static final KeywordDefinition ASSERT_JSON = keyword('assert_json', KeywordCategory.ASSERTION) {
         include(COMMON_PROPERTIES)
-        property(name: 'jpath', type: String, required: false, defaultValue: '$.')
+        property(name: 'expression', type: String, required: false, defaultValue: '$.')
         property(name: 'assertValue', type: Boolean, required: false, defaultValue: false)
         property(name: 'assertAsRegex', type: Boolean, required: false, defaultValue: true)
         property(name: 'value', type: String, required: false, defaultValue: '')

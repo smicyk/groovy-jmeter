@@ -18,16 +18,16 @@ package net.simonix.dsl.jmeter.factory.assertion
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.DslDefinition
-import org.apache.jmeter.assertions.JSONPathAssertion
-import org.apache.jmeter.assertions.gui.JSONPathAssertionGui
+import org.apache.jmeter.assertions.jmespath.JMESPathAssertion
+import org.apache.jmeter.assertions.jmespath.gui.JMESPathAssertionGui
 import org.apache.jmeter.testelement.TestElement
 
 /**
- * The factory class responsible for building <code>assert_json</code> element in the test.
+ * The factory class responsible for building <code>assert_jmes</code> element in the test.
  *
  * <pre>
  * // element structure
- * assert_json (
+ * assert_jmes (
  *    expression: string [<strong>$.<strong>]
  *    assertValue: boolean [false]
  *    assertAsRegex: boolean [true]
@@ -36,15 +36,15 @@ import org.apache.jmeter.testelement.TestElement
  *    invert: boolean [false]
  * )
  * </pre>
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JSON_Assertion">JSON Assertion</a>
+ * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#JSON_JMESPath_Assertion">JSON Assertion</a>
  *
  * @see TestElementNodeFactory TestElementNodeFactory
  */
 @CompileDynamic
-final class JsonAssertionFactory extends TestElementNodeFactory {
+final class JMESAssertionFactory extends TestElementNodeFactory {
 
-    JsonAssertionFactory() {
-        super(JSONPathAssertion, JSONPathAssertionGui, DslDefinition.ASSERT_JSON)
+    JMESAssertionFactory() {
+        super(JMESPathAssertion, JMESPathAssertionGui, DslDefinition.ASSERT_JMES)
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
@@ -55,7 +55,7 @@ final class JsonAssertionFactory extends TestElementNodeFactory {
         boolean expectNull = config.expectNull
         boolean invert = config.invert
 
-        testElement.jsonPath = jpath
+        testElement.jmesPath = jpath
         testElement.expectedValue = regexValue
         testElement.jsonValidationBool = assertValue
         testElement.expectNull = expectNull
