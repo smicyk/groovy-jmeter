@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,16 @@ abstract class TestScriptBase extends Script {
         }
 
         String saveToPath = saveTo != null ? saveTo : null
+
+        if(saveToPath) {
+            Path scriptPath = FileSystems.getDefault().getPath(saveToPath)
+            String scriptName = scriptPath.fileName
+
+            config.scriptName = scriptName
+        } else {
+            // fake jmeter script name based on groovy script filename
+            config.scriptName = "${this.class.simpleName}.jmx"
+        }
 
         // add custom variables from command line
         config.variables = [:]

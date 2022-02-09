@@ -1,3 +1,3 @@
 @echo off
 
-groovy script.groovy --jmx-out script.jmx -Vvar1=value1 -Vvar2=value2 -Vusers=1 -Vduration=10
+groovy script.groovy -Vjmt_host=localhost -Vjmt_users=1 -Vjmt_ramp=1 -Vjmt_user_nm=john -Vjmt_user_pw=john
