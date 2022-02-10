@@ -30,6 +30,39 @@ final class DslDefinition {
         property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
     }
 
+    static final Set<PropertyDefinition> LISTENER_PROPERTIES = properties {
+        property(name: 'file', type: String, required: true, defaultValue: '')
+        property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
+        property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
+        property(name: 'assertions', type: Boolean, required: false)
+        property(name: 'bytes', type: Boolean, required: false)
+        property(name: 'code', type: Boolean, required: false)
+        property(name: 'connectTime', type: Boolean, required: false)
+        property(name: 'dataType', type: Boolean, required: false)
+        property(name: 'encoding', type: Boolean, required: false)
+        property(name: 'fieldNames', type: Boolean, required: false)
+        property(name: 'fileName', type: Boolean, required: false)
+        property(name: 'hostname', type: Boolean, required: false)
+        property(name: 'idleTime', type: Boolean, required: false)
+        property(name: 'label', type: Boolean, required: false)
+        property(name: 'latency', type: Boolean, required: false)
+        property(name: 'message', type: Boolean, required: false)
+        property(name: 'requestHeaders', type: Boolean, required: false)
+        property(name: 'responseData', type: Boolean, required: false)
+        property(name: 'responseHeaders', type: Boolean, required: false)
+        property(name: 'sampleCount', type: Boolean, required: false)
+        property(name: 'samplerData', type: Boolean, required: false)
+        property(name: 'sentBytes', type: Boolean, required: false)
+        property(name: 'subresults', type: Boolean, required: false)
+        property(name: 'success', type: Boolean, required: false)
+        property(name: 'threadCounts', type: Boolean, required: false)
+        property(name: 'threadName', type: Boolean, required: false)
+        property(name: 'time', type: Boolean, required: false)
+        property(name: 'timestamp', type: Boolean, required: false)
+        property(name: 'url', type: Boolean, required: false)
+        property(name: 'xml', type: Boolean, required: false)
+    }
+
     // plan
     static final KeywordDefinition PLAN = keyword('plan', KeywordCategory.PLAN) {
         include(COMMON_PROPERTIES)
@@ -779,7 +812,30 @@ final class DslDefinition {
     // listeners
     static final KeywordDefinition AGGREGATE = keyword('aggregate', KeywordCategory.LISTENER) {
         include(COMMON_PROPERTIES)
-        property(name: 'file', type: String, required: true, defaultValue: '')
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition VIEW = keyword('view', KeywordCategory.LISTENER) {
+        include(COMMON_PROPERTIES)
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition SUMMARY = keyword('summary', KeywordCategory.LISTENER) {
+        include(COMMON_PROPERTIES)
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
         leaf()
         valueIsProperty()
     }
@@ -798,43 +854,6 @@ final class DslDefinition {
 
     static final KeywordDefinition BACKEND_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'backend_') {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
-    }
-
-
-    static final KeywordDefinition SUMMARY = keyword('summary', KeywordCategory.LISTENER) {
-        include(COMMON_PROPERTIES)
-        property(name: 'file', type: String, required: true, defaultValue: '')
-        property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
-        property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
-        property(name: 'assertions', type: Boolean, required: false)
-        property(name: 'bytes', type: Boolean, required: false)
-        property(name: 'code', type: Boolean, required: false)
-        property(name: 'connectTime', type: Boolean, required: false)
-        property(name: 'dataType', type: Boolean, required: false)
-        property(name: 'encoding', type: Boolean, required: false)
-        property(name: 'fieldNames', type: Boolean, required: false)
-        property(name: 'fileName', type: Boolean, required: false)
-        property(name: 'hostname', type: Boolean, required: false)
-        property(name: 'idleTime', type: Boolean, required: false)
-        property(name: 'label', type: Boolean, required: false)
-        property(name: 'latency', type: Boolean, required: false)
-        property(name: 'message', type: Boolean, required: false)
-        property(name: 'requestHeaders', type: Boolean, required: false)
-        property(name: 'responseData', type: Boolean, required: false)
-        property(name: 'responseHeaders', type: Boolean, required: false)
-        property(name: 'sampleCount', type: Boolean, required: false)
-        property(name: 'samplerData', type: Boolean, required: false)
-        property(name: 'sentBytes', type: Boolean, required: false)
-        property(name: 'subresults', type: Boolean, required: false)
-        property(name: 'success', type: Boolean, required: false)
-        property(name: 'threadCounts', type: Boolean, required: false)
-        property(name: 'threadName', type: Boolean, required: false)
-        property(name: 'time', type: Boolean, required: false)
-        property(name: 'timestamp', type: Boolean, required: false)
-        property(name: 'url', type: Boolean, required: false)
-        property(name: 'xml', type: Boolean, required: false)
-        leaf()
-        valueIsProperty()
     }
 
     static final KeywordDefinition JSR223_LISTENER = keyword('jsrlistener', KeywordCategory.LISTENER) {

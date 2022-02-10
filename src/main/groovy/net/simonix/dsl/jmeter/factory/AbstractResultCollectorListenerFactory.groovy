@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,77 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.factory.listener
+package net.simonix.dsl.jmeter.factory
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
-import net.simonix.dsl.jmeter.model.definition.DslDefinition
+import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.reporters.Summariser
 import org.apache.jmeter.samplers.SampleSaveConfiguration
 import org.apache.jmeter.testelement.TestElement
-import org.apache.jmeter.visualizers.SummaryReport
 
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 
 /**
- * The factory class responsible for building <code>summary</code> element in the test.
- *
- * <pre>
- * // structure of the element
- * summary (
- *   file: string
- *   errorsOnly: boolean     [<strong>false</strong>]
- *   successesOnly: boolean  [<strong>false</strong>]
- *   assertions: boolean
- *   bytes: boolean
- *   code: boolean
- *   connectTime: boolean
- *   dataType: boolean
- *   encoding: boolean
- *   fieldNames: boolean
- *   fileName: boolean
- *   hostname: boolean
- *   idleTime: boolean
- *   label: boolean
- *   latency: boolean
- *   message: boolean
- *   requestHeaders: boolean
- *   responseData: boolean
- *   responseHeaders: boolean
- *   sampleCount: boolean
- *   samplerData: boolean
- *   sentBytes: boolean
- *   subresults: boolean
- *   success: boolean
- *   threadCounts: boolean
- *   threadName: boolean
- *   time: boolean
- *   timestamp: boolean
- *   url: boolean
- *   xml: boolean
- * ) {
- * }
- *
- * // example usage
- * start {
- *     plan {
- *         backend {
- *             summary file: 'summary.jtl', requestHeaders: true, xml: true
- *         }
- *     }
- * }
- * </pre>
- *
- * More details about the parameters are available at <a href="https://jmeter.apache.org/usermanual/component_reference.html#Summary_Report">Summary Report</a>
- *
- * @see TestElementNodeFactory TestElementNodeFactory
+ * Base class for all @{link ResultCollector} based test elements.
  */
 @CompileDynamic
-final class SummaryFactory extends TestElementNodeFactory {
+abstract class AbstractResultCollectorListenerFactory extends TestElementNodeFactory {
 
-    SummaryFactory() {
-        super(ResultCollector, SummaryReport, DslDefinition.SUMMARY)
+    AbstractResultCollectorListenerFactory(Class testElementGuiClass, KeywordDefinition definition) {
+        super(ResultCollector, testElementGuiClass, definition)
     }
 
     TestElement newTestElement(FactoryBuilderSupport builder, Object name, Object value, Map config) throws InstantiationException, IllegalAccessException {
@@ -93,7 +41,7 @@ final class SummaryFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.filename = config.file
+        testElement.filename = readValue(value, config.file)
         testElement.errorLogging = config.errorsOnly
         testElement.successOnlyLogging = config.successesOnly
 
