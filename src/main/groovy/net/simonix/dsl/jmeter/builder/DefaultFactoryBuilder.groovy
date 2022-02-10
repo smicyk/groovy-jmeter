@@ -32,10 +32,11 @@ import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.group.GroupFactory
 import net.simonix.dsl.jmeter.factory.group.PostGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
-import net.simonix.dsl.jmeter.factory.listener.AggregateFactory
+import net.simonix.dsl.jmeter.factory.listener.AggregateListenerFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendListenerFactory
 import net.simonix.dsl.jmeter.factory.listener.JSR223ListenerFactory
-import net.simonix.dsl.jmeter.factory.listener.SummaryFactory
+import net.simonix.dsl.jmeter.factory.listener.SummaryListenerFactory
+import net.simonix.dsl.jmeter.factory.listener.ViewListenerFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariableFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariablesFactory
@@ -179,8 +180,9 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new JdbcConfigFactory())
 
         // listeners
-        addFactory(new SummaryFactory())
-        addFactory(new AggregateFactory())
+        addFactory(new SummaryListenerFactory())
+        addFactory(new AggregateListenerFactory())
+        addFactory(new ViewListenerFactory())
         addFactory(new BackendListenerFactory())
         addFactory(new JSR223ListenerFactory())
     }

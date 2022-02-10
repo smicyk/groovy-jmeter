@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ class ListenerFactorySpec extends TempFileSpec {
             plan {
                 aggregate(name: 'Aggregate', file: 'aggregate.jtl')
                 summary(name: 'My Summary', file: 'example.jtl')
+                view(name: 'My View', file: 'view.jtl')
 
                 backend(name: 'Backend Listener', enabled: false) {
                     arguments {
