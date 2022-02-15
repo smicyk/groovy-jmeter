@@ -1,47 +1,9 @@
-/*
- * Copyright 2021 Szymon Micyk
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package idesupport
-
-def ctx = context(scope: scriptScope())
-
-contributor(ctx) {
-    method(name: 'start', params: [closure: {}], doc: 'Start JMeter script')
-    method(name: 'start', params: [config: Map.name, closure: {}], doc: 'Start JMeter script')
-
-    method(name: 'configure', params: [closure: {}], doc: 'Configure JMeter script')
-    method(name: 'configure', params: [config: Map.name, closure: {}], doc: 'Configure JMeter script')
-}
-
-def closureBodyCtx = context(scope: closureScope())
-
-contributor(closureBodyCtx) {
-    if (enclosingCall('start')) {
-        contributeKeywords(delegate)
-    }
-
-    if (enclosingCall('configure')) {
-        contributeKeywords(delegate)
-    }
-}
-
 private void contributeKeywords(delegate) {
     contributeAfter(delegate)
     contributeAggregate(delegate)
     contributeAjp(delegate)
     contributeAssert_duration(delegate)
+    contributeAssert_jmes(delegate)
     contributeAssert_json(delegate)
     contributeAssert_md5hex(delegate)
     contributeAssert_response(delegate)
@@ -92,6 +54,7 @@ private void contributeKeywords(delegate) {
     contributeJdbc_postprocessor(delegate)
     contributeJdbc_preprocessor(delegate)
     contributeJdbc_request(delegate)
+    contributeExtract_jmes(delegate)
     contributeExtract_json(delegate)
     contributeJsrassertion(delegate)
     contributeJsrlistener(delegate)
@@ -116,6 +79,7 @@ private void contributeKeywords(delegate) {
     contributeUniform_timer(delegate)
     contributeVariable(delegate)
     contributeVariables(delegate)
+    contributeView(delegate)
     contributeExtract_xpath(delegate)
 }
 
@@ -153,8 +117,37 @@ private void contributeAggregate(delegate) {
     aggregate (
         name: string                                      
         comments: string                                  
-        enabled: boolean (true)                           
+        enabled: boolean                                  
         file: string                                      
+        errorsOnly: boolean                               
+        successesOnly: boolean                            
+        assertions: boolean                               
+        bytes: boolean                                    
+        code: boolean                                     
+        connectTime: boolean                              
+        dataType: boolean                                 
+        encoding: boolean                                 
+        fieldNames: boolean                               
+        fileName: boolean                                 
+        hostname: boolean                                 
+        idleTime: boolean                                 
+        label: boolean                                    
+        latency: boolean                                  
+        message: boolean                                  
+        requestHeaders: boolean                           
+        responseData: boolean                             
+        responseHeaders: boolean                          
+        sampleCount: boolean                              
+        samplerData: boolean                              
+        sentBytes: boolean                                
+        subresults: boolean                               
+        success: boolean                                  
+        threadCounts: boolean                             
+        threadName: boolean                               
+        time: boolean                                     
+        timestamp: boolean                                
+        url: boolean                                      
+        xml: boolean                                      
     ) {
     }
     </pre>'''
@@ -170,16 +163,16 @@ private void contributeAjp(delegate) {
         name: string                                      
         comments: string                                  
         enabled: boolean (true)                           
+        method: string                                    
+        protocol: string                                  
+        domain: string                                    
+        port: integer                                     [1..65535]
+        path: string                                      
+        encoding: string                                  
         autoRedirects: boolean                            
         followRedirects: boolean (true)                   
-        method: string                                    
-        encoding: string                                  
-        multipart: boolean                                
         keepAlive: boolean (true)                         
-        protocol: string                                  
-        path: string                                      
-        port: integer                                     [1..65535]
-        domain: string                                    
+        multipart: boolean                                
         browserCompatibleMultipart: boolean               
         saveAsMD5: boolean                                
     ) {
@@ -314,6 +307,27 @@ private void contributeAssert_duration(delegate) {
     delegate.method(name: 'assert_duration', params: [config: Map.name], doc: doc)
     delegate.method(name: 'assert_duration', params: [value: String.name, config: Map.name], doc: doc)
 }
+// Defines 'JSON JMES Assertion' element
+private void contributeAssert_jmes(delegate) {
+    def doc = '''<pre>
+    assert_jmes (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean (true)                           
+        expression: string ('$.')                         
+        assertValue: boolean                              
+        assertAsRegex: boolean (true)                     
+        value: string                                     
+        expectNull: boolean                               
+        invert: boolean                                   
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'assert_jmes', params: [value: String.name], doc: doc)
+    delegate.method(name: 'assert_jmes', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'assert_jmes', params: [value: String.name, config: Map.name], doc: doc)
+}
 // Defines 'JSON Assertion' element
 private void contributeAssert_json(delegate) {
     def doc = '''<pre>
@@ -321,7 +335,7 @@ private void contributeAssert_json(delegate) {
         name: string                                      
         comments: string                                  
         enabled: boolean (true)                           
-        jpath: string ('$.')                              
+        expression: string ('$.')                         
         assertValue: boolean                              
         assertAsRegex: boolean (true)                     
         value: string                                     
@@ -407,7 +421,7 @@ private void contributeAssert_xpath(delegate) {
         enabled: boolean (true)                           
         applyTo: string ('all')                           [all, parent, children, variable]
         variable: string                                  
-        xpath: string ('/')                               
+        expression: string ('/')                          
         ignoreWhitespace: boolean                         
         validate: boolean                                 
         useNamespace: boolean                             
@@ -956,9 +970,6 @@ private void contributeHost(delegate) {
     def doc = '''<pre>
     host (
         name: string                                      
-        comments: string                                  
-        enabled: boolean (true)                           
-        name: string                                      
         address: string                                   
     ) {
     }
@@ -1449,16 +1460,16 @@ private void contributeHttp(delegate) {
         name: string                                      
         comments: string                                  
         enabled: boolean (true)                           
+        method: string                                    
+        protocol: string                                  
+        domain: string                                    
+        port: integer                                     [1..65535]
+        path: string                                      
+        encoding: string                                  
         autoRedirects: boolean                            
         followRedirects: boolean (true)                   
-        method: string                                    
-        encoding: string                                  
-        multipart: boolean                                
         keepAlive: boolean (true)                         
-        protocol: string                                  
-        path: string                                      
-        port: integer                                     [1..65535]
-        domain: string                                    
+        multipart: boolean                                
         browserCompatibleMultipart: boolean               
         impl: string                                      [java, http]
         saveAsMD5: boolean                                
@@ -1969,6 +1980,26 @@ private void contributeJdbc_validation(delegate) {
     delegate.method(name: 'validation', params: [config: Map.name], doc: doc)
     delegate.method(name: 'validation', params: [value: String.name, config: Map.name], doc: doc)
 }
+// Defines 'JSON JMES Extractor' element
+private void contributeExtract_jmes(delegate) {
+    def doc = '''<pre>
+    extract_jmes (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean (true)                           
+        applyTo: string ('parent')                        [parent, all, children, variable]
+        defaultValue: string                              
+        match: integer (1)                                [1..9223372036854775807]
+        variable: string                                  
+        expression: string                                
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'extract_jmes', params: [value: String.name], doc: doc)
+    delegate.method(name: 'extract_jmes', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'extract_jmes', params: [value: String.name, config: Map.name], doc: doc)
+}
 // Defines 'JSON Extractor' element
 private void contributeExtract_json(delegate) {
     def doc = '''<pre>
@@ -1998,10 +2029,10 @@ private void contributeJsrassertion(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2018,10 +2049,10 @@ private void contributeJsrlistener(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2038,10 +2069,10 @@ private void contributeJsrpostprocessor(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2058,10 +2089,10 @@ private void contributeJsrpreprocessor(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2078,10 +2109,10 @@ private void contributeJsrsampler(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2102,10 +2133,10 @@ private void contributeJsrtimer(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         inline: string                                    
-        parameters: string                                
         cacheKey: boolean (true)                          
-        language: string ('groovy')                       [groovy]
         file: string                                      
+        parameters: string                                
+        language: string ('groovy')                       [groovy]
     ) {
     }
     </pre>'''
@@ -2344,7 +2375,7 @@ private void contributeSummary(delegate) {
     summary (
         name: string                                      
         comments: string                                  
-        enabled: boolean (true)                           
+        enabled: boolean                                  
         file: string                                      
         errorsOnly: boolean                               
         successesOnly: boolean                            
@@ -2504,6 +2535,51 @@ private void contributeVariables(delegate) {
     delegate.method(name: 'variables', params: [config: Map.name, closure: {}], doc: doc)
     delegate.method(name: 'variables', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'variables', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+// Defines 'View Result Tree' element
+private void contributeView(delegate) {
+    def doc = '''<pre>
+    view (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean                                  
+        file: string                                      
+        errorsOnly: boolean                               
+        successesOnly: boolean                            
+        assertions: boolean                               
+        bytes: boolean                                    
+        code: boolean                                     
+        connectTime: boolean                              
+        dataType: boolean                                 
+        encoding: boolean                                 
+        fieldNames: boolean                               
+        fileName: boolean                                 
+        hostname: boolean                                 
+        idleTime: boolean                                 
+        label: boolean                                    
+        latency: boolean                                  
+        message: boolean                                  
+        requestHeaders: boolean                           
+        responseData: boolean                             
+        responseHeaders: boolean                          
+        sampleCount: boolean                              
+        samplerData: boolean                              
+        sentBytes: boolean                                
+        subresults: boolean                               
+        success: boolean                                  
+        threadCounts: boolean                             
+        threadName: boolean                               
+        time: boolean                                     
+        timestamp: boolean                                
+        url: boolean                                      
+        xml: boolean                                      
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'view', params: [value: String.name], doc: doc)
+    delegate.method(name: 'view', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'view', params: [value: String.name, config: Map.name], doc: doc)
 }
 // Defines 'XPath2 Extractor' element
 private void contributeExtract_xpath(delegate) {
