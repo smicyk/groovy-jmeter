@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,6 +102,7 @@
 <h3>Extractor elements</h3>
 <ul>
     <li><a href="net/simonix/dsl/jmeter/factory/extractor/CssSelectorExtractorFactory.html">extract_css</a> - defines 'CSS Selector Extractor' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/extractor/JMESPathExtractorFactory.html">extract_jmes</a> - defines 'JSON JMES Extractor' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/extractor/JsonPathExtractorFactory.html">extract_json</a> - defines 'JSON Extractor' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/extractor/RegExExtractorFactory.html">extract_regex</a> - defines 'Regular Expression Extractor' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/extractor/XPathExtractorFactory.html">extract_xpath</a> - defines 'XPath2 Extractor' element</li>
@@ -118,6 +120,7 @@
 <h3>Assertion elements</h3>
 <ul>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/DurationAssertionFactory.html">assert_duration</a> - defines 'Duration Assertion' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/assertion/JMESAssertionFactory.html">assert_jmes</a> - defines 'JSON JMES Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/JsonAssertionFactory.html">assert_json</a> - defines 'JSON Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/MD5HexAssertionFactory.html">assert_md5hex</a> - defines 'MD5Hex Assertion' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/assertion/ResponseAssertionFactory.html">assert_response</a> - defines 'Response Assertion' element</li>
@@ -175,7 +178,7 @@
 </ul>
 <h3>Listener elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/listener/AggregateFactory.html">aggregate</a> - defines 'Aggregate Report' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/AggregateListenerFactory.html">aggregate</a> - defines 'Aggregate Report' element</li>
     <li>
         <a href="net/simonix/dsl/jmeter/factory/listener/BackendListenerFactory.html">backend</a> - defines 'Backend Listener' element
         <ul>
@@ -184,7 +187,8 @@
         </ul>
     </li>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/JSR223ListenerFactory.html">jsrlistener</a> - defines 'JSR223 Listener' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/listener/SummaryFactory.html">summary</a> - defines 'Summary Report' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/SummaryListenerFactory.html">summary</a> - defines 'Summary Report' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/ViewListenerFactory.html">view</a> - defines 'View Result Tree' element</li>
 </ul>
 <h3>Check elements</h3>
 <ul>

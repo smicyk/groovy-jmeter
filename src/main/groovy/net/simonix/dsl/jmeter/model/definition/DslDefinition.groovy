@@ -531,7 +531,6 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG) {
-        include(COMMON_PROPERTIES)
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()
