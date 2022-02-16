@@ -20,7 +20,7 @@ It has following features:
 
 Before start, you should have:
 
-- [Java 8+](https://openjdk.java.net/)
+- [Java 11s+](https://openjdk.java.net/)
 - [Groovy 3.0.7](https://groovy.apache.org/download.html)
 - [Gradle 7.0.2](https://gradle.org/releases/)
 
@@ -28,33 +28,7 @@ Or you can use the [Docker](https://www.docker.com/) approach (check the section
 
 ## How to start
 
-> Starting from version 0.11.0, all artificats are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you don't need the latest changes, skip this section and go to [First Steps](#first-steps).
-
-Clone, build and publish jars to your local repository:
-
-```shell script
-git clone https://github.com/smicyk/groovy-jmeter.git
-
-# in Linux
-./gradlew clean build publishIvyPublicationToIvyRepository
-
-# in Windows
-gradlew clean build publishIvyPublicationToIvyRepository
-```
-
-You can also try alternative approach and build everything on *Docker* without installing anything on your machine:
-
-```shell script
-git clone https://github.com/smicyk/groovy-jmeter.git
-
-docker volume create --name grapes-cache
-
-# in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
-
-# in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
-```
+> Starting from version 0.11.0, all artificats are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you want the latest changes, go to [Building from source](#building-from-source).
 
 ## First steps
 
@@ -80,14 +54,19 @@ start {
 
 This test plan will start one user and make call to *http://www.example.com*
 
-To run it in command line, type:
+> Please remember that first execution of the script can take some time as Ivy must download all dependency to local cache
+
+To run the script, execute the following command:
 
 ```shell script
 groovy yourscriptname.groovy
 ``` 
-If you want to start the same script inside a docker run the following command on command line:
+If you want to start the same script inside a docker, execute commands below:
 
 ```shell script
+# one time setup for script dependencies, it will speed up future executions
+docker volume create --name grapes-cache
+
 # in Linux
 docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 
@@ -95,7 +74,7 @@ docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/gr
 docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
 ```
 
-Typical output from the command line should look like below:
+Typical output on console should look like this:
 ```shell script
 +      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%) Active: 1 Started: 1 Finished: 0
 =      1 in 00:00:01 =    1,7/s Avg:   419 Min:   419 Max:   419 Err:     0 (0,00%)
@@ -317,6 +296,34 @@ start {
         }
     }
 }
+```
+
+## Building from source
+
+Clone, build and publish jars to your local repository:
+
+```shell script
+git clone https://github.com/smicyk/groovy-jmeter.git
+
+# in Linux
+./gradlew clean build publishIvyPublicationToIvyRepository
+
+# in Windows
+gradlew clean build publishIvyPublicationToIvyRepository
+```
+
+You can also try alternative approach and build everything on *Docker* without installing anything on your machine:
+
+```shell script
+git clone https://github.com/smicyk/groovy-jmeter.git
+
+docker volume create --name grapes-cache
+
+# in Linux
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+
+# in Windows
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## Conventions
