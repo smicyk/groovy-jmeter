@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,7 @@ class DefinitionBuilder {
         String title = messages."${prefix}${name}.title"
         String description = messages."${prefix}${name}.description"
 
-        KeywordBuilder builder = new KeywordBuilder(name, category, prefix)
-        builder.title = title
-        builder.description = description
+        KeywordBuilder builder = new KeywordBuilder(name, title, description, category, prefix)
 
         return builder.build()
     }
@@ -52,9 +50,7 @@ class DefinitionBuilder {
         String title = messages."${prefix}${name}.title"
         String description = messages."${prefix}${name}.description"
 
-        KeywordBuilder builder = new KeywordBuilder(name, category, prefix)
-        builder.title = title
-        builder.description = description
+        KeywordBuilder builder = new KeywordBuilder(name, title, description, category, prefix)
 
         c.delegate = builder
 
@@ -79,21 +75,47 @@ class DefinitionBuilder {
         String description
         boolean leaf = false
         boolean valueIsProperty = false
-        Set<PropertyDefinition> properties
+        Map<String, PropertyDefinition> properties
 
-        KeywordBuilder(String name, KeywordCategory category, String prefix = '') {
+        KeywordBuilder(String name, String title, String description, KeywordCategory category, String prefix = '') {
             this.name = name
+            this.title = title
+            this.description = description
             this.prefix = prefix
             this.category = category
-            this.properties = [] as Set<PropertyDefinition>
+            this.properties = [:] as LinkedHashMap<String, PropertyDefinition>
         }
 
         KeywordBuilder property(Map config) {
-            PropertyDefinition propertyDefinition = propertyImpl(config)
-            propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
-            propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
+            assert config.name != null
 
-            this.properties.add(propertyDefinition)
+            String title = messages."${prefix}${name}.property.${config.name}.title" as String
+            String description = messages."${prefix}${name}.property.${config.name}.description" as String
+
+            PropertyDefinition propertyDefinition = propertyImpl(config, title, description)
+
+            this.properties.put(propertyDefinition.name, propertyDefinition)
+
+            return this
+        }
+
+        KeywordBuilder override(Map config) {
+            assert config.name != null
+
+            PropertyDefinition propertyDefinition = this.properties.get(config.name)
+
+            if(propertyDefinition) {
+                this.properties.put(propertyDefinition.name, new PropertyDefinition(
+                        name: propertyDefinition.name,
+                        title:  propertyDefinition.title,
+                        description: propertyDefinition.description,
+                        type: config.type != null ? config.type as Class : propertyDefinition.type,
+                        required: config.required != null ? config.required : propertyDefinition.required,
+                        defaultValue: config.defaultValue != null ? config.defaultValue : propertyDefinition.defaultValue,
+                        separator: config.separator != null ? config.separator : propertyDefinition.separator,
+                        constraints: config.constraints != null ? config.constraints : propertyDefinition.constraints
+                ))
+            }
 
             return this
         }
@@ -102,12 +124,17 @@ class DefinitionBuilder {
             assert properties != null
 
             properties.each {propertyDefinition ->
-                propertyDefinition.title = messages."${prefix}${name}.property.${propertyDefinition.name}.title"
-                propertyDefinition.description = messages."${prefix}${name}.property.${propertyDefinition.name}.description"
-
-                this.properties.add(propertyDefinition)
+                this.properties.put(propertyDefinition.name, new PropertyDefinition(
+                        name: propertyDefinition.name,
+                        title: messages."${prefix}${name}.property.${propertyDefinition.name}.title" as String,
+                        description: messages."${prefix}${name}.property.${propertyDefinition.name}.description" as String,
+                        type: propertyDefinition.type,
+                        required:  propertyDefinition.required,
+                        defaultValue: propertyDefinition.defaultValue,
+                        separator: propertyDefinition.separator,
+                        constraints: propertyDefinition.constraints
+                ))
             }
-            this.properties.addAll(properties)
 
             return this
         }
@@ -125,7 +152,18 @@ class DefinitionBuilder {
         }
 
         KeywordDefinition build() {
-            return new KeywordDefinition(name, prefix, category, title, description, leaf, valueIsProperty, properties)
+            return new KeywordDefinition(
+                    name: name,
+                    prefix: prefix,
+                    category: category,
+                    title: title,
+                    description: description,
+                    leaf: leaf,
+                    valueIsProperty: valueIsProperty,
+                    properties: properties.collect([] as LinkedHashSet<PropertyDefinition>) {
+                        entry -> entry.value
+                    }
+            )
         }
     }
 
@@ -133,7 +171,7 @@ class DefinitionBuilder {
         Set<PropertyDefinition> properties
 
         PropertyBuilder() {
-            this.properties = []
+            this.properties = [] as LinkedHashSet<PropertyDefinition>
         }
 
         PropertyBuilder property(Map config) {
@@ -143,11 +181,11 @@ class DefinitionBuilder {
         }
 
         Set<PropertyDefinition> build() {
-            return properties.toSet()
+            return new LinkedHashSet<PropertyDefinition>(properties)
         }
     }
 
-    private static PropertyDefinition propertyImpl(Map config) {
+    private static PropertyDefinition propertyImpl(Map config, String title = '', String description = '') {
         assert config.name != null
 
         String name = config.name
@@ -157,7 +195,7 @@ class DefinitionBuilder {
         String separator = config.separator
         Class type = config.type as Class
 
-        PropertyDefinition propertyDefinition = new PropertyDefinition(name: name, required: required, constraints: constraints, defaultValue: defaultValue, separator: separator, type: type)
+        PropertyDefinition propertyDefinition = new PropertyDefinition(name: name, title: title, description: description, required: required, constraints: constraints, defaultValue: defaultValue, separator: separator, type: type)
 
         return propertyDefinition
     }

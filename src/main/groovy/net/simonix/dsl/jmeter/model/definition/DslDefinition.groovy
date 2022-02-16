@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,39 @@ final class DslDefinition {
         property(name: 'name', type: String, required: false)
         property(name: 'comments', type: String, required: false, defaultValue: '')
         property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
+    }
+
+    static final Set<PropertyDefinition> LISTENER_PROPERTIES = properties {
+        property(name: 'file', type: String, required: true, defaultValue: '')
+        property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
+        property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
+        property(name: 'assertions', type: Boolean, required: false)
+        property(name: 'bytes', type: Boolean, required: false)
+        property(name: 'code', type: Boolean, required: false)
+        property(name: 'connectTime', type: Boolean, required: false)
+        property(name: 'dataType', type: Boolean, required: false)
+        property(name: 'encoding', type: Boolean, required: false)
+        property(name: 'fieldNames', type: Boolean, required: false)
+        property(name: 'fileName', type: Boolean, required: false)
+        property(name: 'hostname', type: Boolean, required: false)
+        property(name: 'idleTime', type: Boolean, required: false)
+        property(name: 'label', type: Boolean, required: false)
+        property(name: 'latency', type: Boolean, required: false)
+        property(name: 'message', type: Boolean, required: false)
+        property(name: 'requestHeaders', type: Boolean, required: false)
+        property(name: 'responseData', type: Boolean, required: false)
+        property(name: 'responseHeaders', type: Boolean, required: false)
+        property(name: 'sampleCount', type: Boolean, required: false)
+        property(name: 'samplerData', type: Boolean, required: false)
+        property(name: 'sentBytes', type: Boolean, required: false)
+        property(name: 'subresults', type: Boolean, required: false)
+        property(name: 'success', type: Boolean, required: false)
+        property(name: 'threadCounts', type: Boolean, required: false)
+        property(name: 'threadName', type: Boolean, required: false)
+        property(name: 'time', type: Boolean, required: false)
+        property(name: 'timestamp', type: Boolean, required: false)
+        property(name: 'url', type: Boolean, required: false)
+        property(name: 'xml', type: Boolean, required: false)
     }
 
     // plan
@@ -498,7 +531,6 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG) {
-        include(COMMON_PROPERTIES)
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()
@@ -779,7 +811,30 @@ final class DslDefinition {
     // listeners
     static final KeywordDefinition AGGREGATE = keyword('aggregate', KeywordCategory.LISTENER) {
         include(COMMON_PROPERTIES)
-        property(name: 'file', type: String, required: true, defaultValue: '')
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition VIEW = keyword('view', KeywordCategory.LISTENER) {
+        include(COMMON_PROPERTIES)
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
+        leaf()
+        valueIsProperty()
+    }
+
+    static final KeywordDefinition SUMMARY = keyword('summary', KeywordCategory.LISTENER) {
+        include(COMMON_PROPERTIES)
+        include(LISTENER_PROPERTIES)
+
+        override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+
         leaf()
         valueIsProperty()
     }
@@ -798,43 +853,6 @@ final class DslDefinition {
 
     static final KeywordDefinition BACKEND_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'backend_') {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
-    }
-
-
-    static final KeywordDefinition SUMMARY = keyword('summary', KeywordCategory.LISTENER) {
-        include(COMMON_PROPERTIES)
-        property(name: 'file', type: String, required: true, defaultValue: '')
-        property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
-        property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
-        property(name: 'assertions', type: Boolean, required: false)
-        property(name: 'bytes', type: Boolean, required: false)
-        property(name: 'code', type: Boolean, required: false)
-        property(name: 'connectTime', type: Boolean, required: false)
-        property(name: 'dataType', type: Boolean, required: false)
-        property(name: 'encoding', type: Boolean, required: false)
-        property(name: 'fieldNames', type: Boolean, required: false)
-        property(name: 'fileName', type: Boolean, required: false)
-        property(name: 'hostname', type: Boolean, required: false)
-        property(name: 'idleTime', type: Boolean, required: false)
-        property(name: 'label', type: Boolean, required: false)
-        property(name: 'latency', type: Boolean, required: false)
-        property(name: 'message', type: Boolean, required: false)
-        property(name: 'requestHeaders', type: Boolean, required: false)
-        property(name: 'responseData', type: Boolean, required: false)
-        property(name: 'responseHeaders', type: Boolean, required: false)
-        property(name: 'sampleCount', type: Boolean, required: false)
-        property(name: 'samplerData', type: Boolean, required: false)
-        property(name: 'sentBytes', type: Boolean, required: false)
-        property(name: 'subresults', type: Boolean, required: false)
-        property(name: 'success', type: Boolean, required: false)
-        property(name: 'threadCounts', type: Boolean, required: false)
-        property(name: 'threadName', type: Boolean, required: false)
-        property(name: 'time', type: Boolean, required: false)
-        property(name: 'timestamp', type: Boolean, required: false)
-        property(name: 'url', type: Boolean, required: false)
-        property(name: 'xml', type: Boolean, required: false)
-        leaf()
-        valueIsProperty()
     }
 
     static final KeywordDefinition JSR223_LISTENER = keyword('jsrlistener', KeywordCategory.LISTENER) {
@@ -867,6 +885,16 @@ final class DslDefinition {
         property(name: 'variable', type: String, required: true, defaultValue: '')
         property(name: 'expression', type: String, required: true, defaultValue: '')
         property(name: 'template', type: String, required: false, defaultValue: '\$1\$')
+        leaf()
+    }
+
+    static final KeywordDefinition JMES_EXTRACTOR = keyword('extract_jmes', KeywordCategory.EXTRACTOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
+        property(name: 'defaultValue', type: String, required: false, defaultValue: null)
+        property(name: 'match', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'variable', type: String, required: true, defaultValue: '')
+        property(name: 'expression', type: String, required: true, defaultValue: '')
         leaf()
     }
 
@@ -962,7 +990,7 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         property(name: 'variable', type: String, required: false, defaultValue: null)
-        property(name: 'xpath', type: String, required: false, defaultValue: '/')
+        property(name: 'expression', type: String, required: false, defaultValue: '/')
         property(name: 'ignoreWhitespace', type: Boolean, required: false, defaultValue: false)
         property(name: 'validate', type: Boolean, required: false, defaultValue: false)
         property(name: 'useNamespace', type: Boolean, required: false, defaultValue: false)
@@ -975,9 +1003,20 @@ final class DslDefinition {
         leaf()
     }
 
+    static final KeywordDefinition ASSERT_JMES = keyword('assert_jmes', KeywordCategory.ASSERTION) {
+        include(COMMON_PROPERTIES)
+        property(name: 'expression', type: String, required: false, defaultValue: '$.')
+        property(name: 'assertValue', type: Boolean, required: false, defaultValue: false)
+        property(name: 'assertAsRegex', type: Boolean, required: false, defaultValue: true)
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        property(name: 'expectNull', type: Boolean, required: false, defaultValue: false)
+        property(name: 'invert', type: Boolean, required: false, defaultValue: false)
+        leaf()
+    }
+
     static final KeywordDefinition ASSERT_JSON = keyword('assert_json', KeywordCategory.ASSERTION) {
         include(COMMON_PROPERTIES)
-        property(name: 'jpath', type: String, required: false, defaultValue: '$.')
+        property(name: 'expression', type: String, required: false, defaultValue: '$.')
         property(name: 'assertValue', type: Boolean, required: false, defaultValue: false)
         property(name: 'assertAsRegex', type: Boolean, required: false, defaultValue: true)
         property(name: 'value', type: String, required: false, defaultValue: '')

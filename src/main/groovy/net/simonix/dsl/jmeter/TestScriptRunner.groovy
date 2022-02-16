@@ -25,11 +25,14 @@ import net.simonix.dsl.jmeter.statistics.StatisticsProvider
 import org.apache.jmeter.engine.StandardJMeterEngine
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.save.SaveService
+import org.apache.jmeter.services.FileServer
 import org.apache.jmeter.testelement.TestPlan
 import org.apache.jmeter.util.JMeterUtils
 import org.apache.jorphan.collections.HashTree
 import org.apache.jorphan.collections.SearchByClass
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import java.nio.file.FileSystems
 import java.nio.file.Files
@@ -38,6 +41,8 @@ import java.util.regex.Pattern
 
 @CompileDynamic
 final class TestScriptRunner {
+
+    static final Logger logger = LoggerFactory.getLogger(TestScriptRunner.class)
 
     final static Pattern JMETER_JARPATHS_MATCHER = ~/.*(\/|\\)ApacheJMeter_[A-Za-z-.0-9]+\.jar$/
 
@@ -95,6 +100,12 @@ final class TestScriptRunner {
 
         JMeterUtils.setProperty('search_paths', searchPaths)
 
+        if(config.scriptName) {
+            updateFileServerBaseScript(new File(config.scriptName))
+        }  else {
+            logger.warn("Script name not available. Some JMeter functions might not work properly.")
+        }
+
         return TestTreeBuilder.build(invokeBuilder(config, closure))
     }
 
@@ -120,6 +131,8 @@ final class TestScriptRunner {
     }
 
     static void save(HashTree testPlan, File file) {
+        updateFileServerBaseScript(file);
+
         SaveService.saveTree(testPlan, new FileOutputStream(file))
     }
 
@@ -147,6 +160,11 @@ final class TestScriptRunner {
 
     static void start(Closure closure) {
         start([:], closure)
+    }
+
+    protected static void updateFileServerBaseScript(File file) {
+        // set base path for script so we have access to some jmeter functions e.g. __TestPlanName
+        FileServer.getFileServer().setBaseForScript(file)
     }
 
     private static StatisticsListener applyStatistics(HashTree hashTree) {

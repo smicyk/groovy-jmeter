@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
 package net.simonix.dsl.jmeter.model.definition
 
 import groovy.transform.CompileDynamic
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
+import groovy.transform.Immutable
 import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 
-@ToString
-@EqualsAndHashCode
+@Immutable(knownImmutables = ['defaultValue', 'constraints'])
 @CompileDynamic
 class PropertyDefinition {
 

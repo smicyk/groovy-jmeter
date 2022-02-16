@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 package net.simonix.dsl.jmeter.model.constraint
 
+import groovy.transform.CompileDynamic
+import groovy.transform.Immutable
+
+@Immutable
+@CompileDynamic
 class InListPropertyConstraint implements PropertyConstraint {
     List<String> values
-
-    InListPropertyConstraint(List<String> values) {
-        this.values = values.asImmutable()
-    }
 
     @Override
     boolean matches(Object value) {
