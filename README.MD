@@ -20,7 +20,7 @@ It has following features:
 
 Before start, you should have:
 
-- [Java 11s+](https://openjdk.java.net/)
+- [Java 11+](https://openjdk.java.net/)
 - [Groovy 3.0.7](https://groovy.apache.org/download.html)
 - [Gradle 7.0.2](https://gradle.org/releases/)
 
