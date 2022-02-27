@@ -530,7 +530,7 @@ final class DslDefinition {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
-    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG) {
+    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG, 'dns') {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()

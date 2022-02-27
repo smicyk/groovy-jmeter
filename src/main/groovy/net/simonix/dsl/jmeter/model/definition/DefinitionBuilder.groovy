@@ -36,8 +36,9 @@ class DefinitionBuilder {
     static KeywordDefinition keyword(String name, KeywordCategory category, String prefix) {
         String title = messages."${prefix}${name}.title"
         String description = messages."${prefix}${name}.description"
+        String component = messages."${prefix}${name}.component"
 
-        KeywordBuilder builder = new KeywordBuilder(name, title, description, category, prefix)
+        KeywordBuilder builder = new KeywordBuilder(name, title, description, component, category, prefix)
 
         return builder.build()
     }
@@ -49,8 +50,9 @@ class DefinitionBuilder {
     static KeywordDefinition keyword(String name, KeywordCategory category, String prefix, Closure c) {
         String title = messages."${prefix}${name}.title"
         String description = messages."${prefix}${name}.description"
+        String component = messages."${prefix}${name}.component"
 
-        KeywordBuilder builder = new KeywordBuilder(name, title, description, category, prefix)
+        KeywordBuilder builder = new KeywordBuilder(name, title, description, component, category, prefix)
 
         c.delegate = builder
 
@@ -73,14 +75,16 @@ class DefinitionBuilder {
         KeywordCategory category
         String title
         String description
+        String component
         boolean leaf = false
         boolean valueIsProperty = false
         Map<String, PropertyDefinition> properties
 
-        KeywordBuilder(String name, String title, String description, KeywordCategory category, String prefix = '') {
+        KeywordBuilder(String name, String title, String description, String component, KeywordCategory category, String prefix = '') {
             this.name = name
             this.title = title
             this.description = description
+            this.component = component
             this.prefix = prefix
             this.category = category
             this.properties = [:] as LinkedHashMap<String, PropertyDefinition>
@@ -158,6 +162,7 @@ class DefinitionBuilder {
                     category: category,
                     title: title,
                     description: description,
+                    component: component,
                     leaf: leaf,
                     valueIsProperty: valueIsProperty,
                     properties: properties.collect([] as LinkedHashSet<PropertyDefinition>) {
