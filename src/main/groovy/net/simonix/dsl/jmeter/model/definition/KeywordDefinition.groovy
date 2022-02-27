@@ -26,6 +26,7 @@ class KeywordDefinition {
     String prefix
     String title
     String description
+    String component
     String category
     boolean leaf
     boolean valueIsProperty
