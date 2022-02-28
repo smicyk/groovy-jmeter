@@ -9,12 +9,14 @@ It has following features:
  - support of HTTP, JSR223 and JDBC JMeter samplers
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
- 
+
  Current version uses [Apache JMeter 5.4.2](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
- 
+
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  
  > Checkout the project [wiki](https://github.com/smicyk/groovy-jmeter/wiki) for quick reference of all keywords and properties
+
+ > Check [Component Status](https://github.com/smicyk/groovy-jmeter/wiki/Components-Status) page for supported JMeter features
 
 ## Prerequisites
 
