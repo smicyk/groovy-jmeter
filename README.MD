@@ -2,6 +2,8 @@
 
 The *Groovy-JMeter* project is simple DSL to write JMeter test plans.
 
+![Build & Test](https://github.com/smicyk/groovy-jmeter/actions/workflows/build.yml/badge.svg)
+
 It has following features:
  - keep JMeter test files (*.jmx) as a code (Groovy scripts)
  - run scripts as standalone scripts, JUnit tests or Gradle tasks
