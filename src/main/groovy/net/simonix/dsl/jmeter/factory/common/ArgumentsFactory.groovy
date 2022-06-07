@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 abstract class ArgumentsFactory extends TestElementFactory {
 
-    ArgumentsFactory(KeywordDefinition definition) {
+    protected ArgumentsFactory(KeywordDefinition definition) {
         super(Arguments, definition)
     }
 

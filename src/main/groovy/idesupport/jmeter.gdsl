@@ -187,7 +187,7 @@ private void contributeAjp(delegate) {
     delegate.method(name: 'ajp', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'ajp', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('ajp')) {
+    if (delegate.enclosingCall('ajp')) {
         contributeAjp_body(delegate)
         contributeAjp_file(delegate)
         contributeAjp_files(delegate)
@@ -499,7 +499,7 @@ private void contributeBackend(delegate) {
     delegate.method(name: 'backend', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'backend', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('backend')) {
+    if (delegate.enclosingCall('backend')) {
         contributeBackend_argument(delegate)
         contributeBackend_arguments(delegate)
     }
@@ -824,7 +824,7 @@ private void contributeDefaults(delegate) {
     delegate.method(name: 'defaults', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'defaults', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('defaults')) {
+    if (delegate.enclosingCall('defaults')) {
         contributeDefaults_body(delegate)
         contributeDefaults_param(delegate)
         contributeDefaults_params(delegate)
@@ -1295,7 +1295,7 @@ private void contributeGraphql(delegate) {
     delegate.method(name: 'graphql', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'graphql', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('graphql')) {
+    if (delegate.enclosingCall('graphql')) {
         contributeGraphql_execute(delegate)
         contributeGraphql_operation(delegate)
         contributeGraphql_proxy(delegate)
@@ -1485,7 +1485,7 @@ private void contributeHttp(delegate) {
     delegate.method(name: 'http', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'http', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('http')) {
+    if (delegate.enclosingCall('http')) {
         contributeHttp_body(delegate)
         contributeHttp_file(delegate)
         contributeHttp_files(delegate)
@@ -1686,7 +1686,7 @@ private void contributeJdbc(delegate) {
     delegate.method(name: 'jdbc', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'jdbc', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('jdbc')) {
+    if (delegate.enclosingCall('jdbc')) {
         contributeJdbc_autocommit(delegate)
         contributeJdbc_callable(delegate)
         contributeJdbc_commit(delegate)
@@ -2210,7 +2210,7 @@ private void contributePlan(delegate) {
     delegate.method(name: 'plan', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'plan', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if(delegate.enclosingCall('plan')) {
+    if (delegate.enclosingCall('plan')) {
         contributePlan_argument(delegate)
         contributePlan_arguments(delegate)
     }

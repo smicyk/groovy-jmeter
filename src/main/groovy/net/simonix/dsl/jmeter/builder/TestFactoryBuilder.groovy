@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ abstract class TestFactoryBuilder extends FactoryBuilderSupport {
 
     Set<String> validKeywords = new HashSet<>()
 
-    TestFactoryBuilder() {
+    protected TestFactoryBuilder() {
         super(false)
 
         this.methodMissingDelegate = { name, config ->

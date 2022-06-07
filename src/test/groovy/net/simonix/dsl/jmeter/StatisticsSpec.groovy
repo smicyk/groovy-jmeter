@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
 import static org.mockserver.model.HttpRequest.request
 import static org.mockserver.model.HttpResponse.response
-
 
 class StatisticsSpec extends MockServerSpec {
 
@@ -96,6 +95,6 @@ class StatisticsSpec extends MockServerSpec {
 
         statistics.names.sum { name -> statistics."$name".count } == statistics.count
         // or
-        statistics.values.sum {it.count } == statistics.count
+        statistics.values.sum { it.count } == statistics.count
     }
 }

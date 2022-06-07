@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,13 @@ final class ConfigUtils {
 
         URL url = ConfigUtils.classLoader.getResource(file)
 
-        if(url != null) {
+        if (url != null) {
             content = new File(url.toURI())
         } else {
             content = new File(file)
         }
 
-        if(content.exists()) {
+        if (content.exists()) {
             return content.getText(encoding)
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,7 +100,7 @@ final class TestScriptRunner {
 
         JMeterUtils.setProperty('search_paths', searchPaths)
 
-        if(config.scriptName) {
+        if (config.scriptName) {
             updateFileServerBaseScript(new File(config.scriptName))
         }  else {
             logger.warn("Script name not available. Some JMeter functions might not work properly.")
@@ -112,7 +112,7 @@ final class TestScriptRunner {
     static TestElementNode invokeBuilder(Map config, Closure closure) {
         DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
-        if(config.variables) {
+        if (config.variables) {
             config.variables.each { entry ->
                 builder.setVariable(entry.key as String, entry.value)
             }
@@ -172,7 +172,7 @@ final class TestScriptRunner {
         hashTree.traverse(searchTestPlan)
         TestPlan testPlan = searchTestPlan.getSearchResults().find()
 
-        if(!testPlan) {
+        if (!testPlan) {
             throw new IllegalStateException('Could not find the TestPlan in the script')
         }
 

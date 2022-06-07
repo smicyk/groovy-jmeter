@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,18 +65,18 @@ final class ConstantThroughputFactory extends TestElementNodeFactory {
     }
 
     private int mapBasedOn(String value) {
-        if(value == "user") {
-            return ConstantThroughputTimer.Mode.ThisThreadOnly.ordinal();
-        } else if(value == "all_users") {
-            return ConstantThroughputTimer.Mode.AllActiveThreads.ordinal();
-        } else if(value == "all_users_shared") {
-            return ConstantThroughputTimer.Mode.AllActiveThreads_Shared.ordinal();
-        } else if(value == "all_users_in_group") {
-            return ConstantThroughputTimer.Mode.AllActiveThreadsInCurrentThreadGroup.ordinal();
-        } else if(value == "all_users_in_group_shared") {
-            return ConstantThroughputTimer.Mode.AllActiveThreadsInCurrentThreadGroup_Shared.ordinal();
+        if (value == 'user') {
+            return ConstantThroughputTimer.Mode.ThisThreadOnly.ordinal()
+        } else if (value == 'all_users') {
+            return ConstantThroughputTimer.Mode.AllActiveThreads.ordinal()
+        } else if (value == 'all_users_shared') {
+            return ConstantThroughputTimer.Mode.AllActiveThreads_Shared.ordinal()
+        } else if (value == 'all_users_in_group') {
+            return ConstantThroughputTimer.Mode.AllActiveThreadsInCurrentThreadGroup.ordinal()
+        } else if (value == 'all_users_in_group_shared') {
+            return ConstantThroughputTimer.Mode.AllActiveThreadsInCurrentThreadGroup_Shared.ordinal()
         } else {
-            return ConstantThroughputTimer.Mode.ThisThreadOnly.ordinal();
+            return ConstantThroughputTimer.Mode.ThisThreadOnly.ordinal()
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import spock.lang.Specification
  * Test specification with temporary folder rule. Use when testing jmx files.
  */
 class TempFileSpec extends Specification {
+
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder()
 

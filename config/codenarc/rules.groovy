@@ -1,5 +1,4 @@
 ruleset {
-
     // rulesets/basic.xml
     AssertWithinFinallyBlock
     AssignmentInConditional
@@ -429,6 +428,4 @@ ruleset {
     UnusedPrivateMethod
     UnusedPrivateMethodParameter
     UnusedVariable
-
-
 }

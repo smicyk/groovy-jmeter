@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ final class JdbcConnectionFactory extends TestElementFactory {
         testElement.username = config.username
         testElement.password = config.password
 
-        String properties = config.properties.collect {"$it.key=$it.value" }.join(';')
+        String properties = config.properties.collect { "$it.key=$it.value" }.join(';')
         testElement.properties = properties
     }
 

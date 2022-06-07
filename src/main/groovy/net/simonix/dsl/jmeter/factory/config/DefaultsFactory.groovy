@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,10 +82,10 @@ final class DefaultsFactory extends TestElementNodeFactory {
         // Impl configuration
         String impl = config.impl
 
-        if(impl != null) {
-            if(impl == 'java') {
+        if (impl != null) {
+            if (impl == 'java') {
                 testElement.setProperty(HTTPSampler.IMPLEMENTATION, HTTPSamplerFactory.IMPL_JAVA)
-            } else if(impl == 'http') {
+            } else if (impl == 'http') {
                 testElement.setProperty(HTTPSampler.IMPLEMENTATION, HTTPSamplerFactory.IMPL_HTTP_CLIENT4)
             }
         }

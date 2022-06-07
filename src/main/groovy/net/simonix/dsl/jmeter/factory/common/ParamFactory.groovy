@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ import org.apache.jmeter.testelement.TestElement
 @CompileDynamic
 abstract class ParamFactory extends TestElementFactory {
 
-    ParamFactory(KeywordDefinition definition) {
+    protected ParamFactory(KeywordDefinition definition) {
         super(HTTPArgument, definition)
     }
 

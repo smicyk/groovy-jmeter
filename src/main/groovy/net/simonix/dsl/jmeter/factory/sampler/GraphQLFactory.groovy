@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,20 +66,16 @@ final class GraphQLFactory extends BaseHttpFactory {
         // Impl configuration
         String impl = config.impl
 
-        if(impl != null) {
-            if(impl == 'java') {
+        if (impl != null) {
+            if (impl == 'java') {
                 testElement.implementation = HTTPSamplerFactory.IMPL_JAVA
-            } else if(impl == 'http') {
+            } else if (impl == 'http') {
                 testElement.implementation = HTTPSamplerFactory.IMPL_HTTP_CLIENT4
             }
         }
 
         // Use md5 configuration
         testElement.MD5 = config.saveAsMD5
-    }
-
-    protected List<String> validMethods() {
-        return [ HTTPConstants.GET, HTTPConstants.POST ]
     }
 
     void onNodeCompleted( FactoryBuilderSupport builder, Object parent, Object node) {
@@ -118,6 +114,10 @@ final class GraphQLFactory extends BaseHttpFactory {
 
             element.setProperty(new TestElementProperty(HTTPSamplerBase.ARGUMENTS, arguments))
         }
+    }
+
+    protected List<String> validMethods() {
+        return [ HTTPConstants.GET, HTTPConstants.POST ]
     }
 
     private HTTPArgument createHTTPArgument(String name, String value, boolean alwaysEncoded) {

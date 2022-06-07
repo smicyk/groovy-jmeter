@@ -57,7 +57,7 @@ abstract class TestScriptBase extends Script {
 
         String saveToPath = saveTo != null ? saveTo : null
 
-        if(saveToPath) {
+        if (saveToPath) {
             Path scriptPath = FileSystems.getDefault().getPath(saveToPath)
             String scriptName = scriptPath.fileName
 
@@ -69,7 +69,7 @@ abstract class TestScriptBase extends Script {
 
         // add custom variables from command line
         config.variables = [:]
-        if(script.variables) {
+        if (script.variables) {
             script.variables.each {
                 config.variables[it.key as String] = it.value
             }
@@ -82,10 +82,10 @@ abstract class TestScriptBase extends Script {
         }
 
         if (!noRun) {
-            if(script.worker) {
+            if (script.worker) {
                 // worker node server
                 TestScriptServerRunner.run(script.worker_hostname as String, script.worker_port as String)
-            } else if(script.controller) {
+            } else if (script.controller) {
                 // controller server
                 TestScriptServerRunner.run(configuration, script.remote_workers as List<String>)
             } else {

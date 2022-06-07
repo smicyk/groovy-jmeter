@@ -21,6 +21,7 @@ import groovy.transform.Immutable
 @Immutable
 @CompileDynamic
 class InListPropertyConstraint implements PropertyConstraint {
+
     List<String> values
 
     @Override

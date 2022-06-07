@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 package net.simonix.dsl.jmeter.model.definition
 
 import groovy.transform.CompileDynamic
-import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
-import net.simonix.dsl.jmeter.model.definition.PropertyDefinition
 
 @CompileDynamic
 class DefinitionAwareMap extends HashMap<String, Object> implements Map<String, Object> {
@@ -29,27 +27,27 @@ class DefinitionAwareMap extends HashMap<String, Object> implements Map<String, 
         super(m)
 
         this.definition = definition
-        this.properties = this.definition.properties.collectEntries {property -> [property.name, property] }
+        this.properties = this.definition.properties.collectEntries { property -> [property.name, property] }
     }
 
     @Override
     Object get(Object key) {
         Object value = super.get(key)
 
-        if(value == null) {
+        if (value == null) {
             PropertyDefinition property = properties.get(key)
 
-            if(property != null) {
+            if (property != null) {
                 value = property.defaultValue
             }
         }
 
-        if(value != null) {
+        if (value != null) {
             if (List.isAssignableFrom(value.getClass())) {
                 PropertyDefinition property = properties.get(key)
 
                 // if separator is not defined means we don't need to join the list
-                if(property.separator) {
+                if (property.separator) {
                     return value.join(property.separator)
                 }
             }

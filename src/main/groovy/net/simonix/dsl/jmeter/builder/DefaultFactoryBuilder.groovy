@@ -191,9 +191,9 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         closure.delegate = this
         closure.resolveStrategy = Closure.DELEGATE_ONLY
 
-        if(node instanceof TestElementNode) {
-            for(FactoryBuilderProvider builder: builders) {
-                if(builder.accepts(node.name)) {
+        if (node instanceof TestElementNode) {
+            for (FactoryBuilderProvider builder: builders) {
+                if (builder.accepts(node.name)) {
                     Map<String, Object> parentContext = getProxyBuilder().getContext()
 
                     TestFactoryBuilder factoryBuilder = builder.create(parentContext, closure)

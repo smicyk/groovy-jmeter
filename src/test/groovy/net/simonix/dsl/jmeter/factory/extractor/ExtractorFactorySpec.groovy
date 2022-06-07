@@ -21,6 +21,7 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class ExtractorFactorySpec extends TempFileSpec {
+
     def "Check extractors generation"() {
         given: 'Test plan with extractor elements'
         def config = configure {
