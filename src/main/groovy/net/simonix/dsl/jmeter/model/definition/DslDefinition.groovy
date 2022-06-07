@@ -825,6 +825,7 @@ final class DslDefinition {
         include(LISTENER_PROPERTIES)
 
         override(name: 'enabled', type: Boolean, required: false, defaultValue: false)
+        override(name: 'file', type: String, required: false, defaultValue: '')
 
         leaf()
         valueIsProperty()
