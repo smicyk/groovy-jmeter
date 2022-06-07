@@ -26,11 +26,11 @@ class ListenerFactorySpec extends TempFileSpec {
         given: 'Test plan with listeners element'
         def config = configure {
             plan {
-                aggregate(name: 'Aggregate', file: 'aggregate.jtl')
-                summary(name: 'My Summary', file: 'example.jtl')
-                view(name: 'My View', file: 'view.jtl')
+                aggregate(name: 'My Aggregate', comments: 'My Aggregate', enabled: true, file: 'aggregate.jtl')
+                summary(name: 'My Summary', comments: 'My Summary', enabled: true, file: 'example.jtl')
+                view(name: 'My View', comments: 'My View', enabled: true, file: 'view.jtl')
 
-                backend(name: 'Backend Listener', enabled: false) {
+                backend(name: 'My Backend Listener', comments: 'My Backend Listener', enabled: false) {
                     arguments {
                         argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
                         argument(name: 'influxdbUrl', value: 'http://localhost:8086/write?db=jmeter')
@@ -53,5 +53,38 @@ class ListenerFactorySpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('listeners_0.jmx', resultFile)
+    }
+
+    def "Check listeners generation (default values)"() {
+        given: 'Test plan with listeners element'
+        def config = configure {
+            plan {
+                aggregate(file: 'aggregate.jtl')
+                summary(file: 'example.jtl')
+                view()
+
+                backend {
+                    arguments {
+                        argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
+                        argument(name: 'influxdbUrl', value: 'http://localhost:8086/write?db=jmeter')
+                        argument(name: 'application', value: 'groovy')
+                        argument(name: 'measurement', value: 'jmeter')
+                        argument(name: 'summaryOnly', value: 'false')
+                        argument(name: 'samplersRegex', value: '.*')
+                        argument(name: 'percentiles', value: '90;95;99')
+                        argument(name: 'testTitle', value: 'Groovy')
+                        argument(name: 'eventTags', value: '')
+                    }
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('listeners_1.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('listeners_1.jmx', resultFile)
     }
 }
