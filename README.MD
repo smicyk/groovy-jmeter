@@ -54,6 +54,7 @@ start {
         summary(file: 'log.jtl')
     }
 }
+
 ```
 
 This test plan will start one user and make call to *http://www.example.com*
@@ -111,6 +112,7 @@ start {
         summary(file: 'log.jtl')
     }
 }
+
 ```
 
 You can execute your script with *help* parameter to see all available options:
@@ -144,6 +146,7 @@ start {
         summary(file: 'log.jtl')
     }
 }
+
 ```
 To generate .jmx file from this script you can execute the following in the command line:
 ```shell script
@@ -236,6 +239,7 @@ start {
         summary(file: 'script.jtl', enabled: true)
     }
 }
+
 ```
 The next example shows testing database with JMeter.
 ```groovy
@@ -300,6 +304,7 @@ start {
         }
     }
 }
+
 ```
 
 ## Building from source
@@ -352,6 +357,7 @@ start {
         }
     }
 }
+
 ```
 
 ### Default values
@@ -372,6 +378,7 @@ start {
         }
     }
 }
+
 ```
 
 ### Required properties
@@ -391,6 +398,7 @@ start {
         }
     }
 }
+
 ```
 
 ### Groovy as DSL
@@ -409,6 +417,7 @@ start {
     // using double quotes (for GString, interpolation available during test build but not execution by JMeter engine)
     plan (name: "${var_param}")
 }
+
 ```
 * there are several ways to use keywords, check the example below:
 
@@ -429,6 +438,7 @@ start {
     // keyword without properties and child test elements, note that the parenthesis must be used
     plan()
 }
+
 ```
 ### Shortcuts
 
@@ -444,6 +454,7 @@ start {
     // short version with properties
     plan 'Test plan', enabled: true
 }
+
 ```
 * some keywords treat first value as shortcut
 ```groovy
@@ -462,6 +473,7 @@ start {
         }
     }
 }
+
 ```
 * there is special syntax for HTTP sampler regarding first argument
 ```groovy
@@ -483,6 +495,7 @@ start {
         }
     }
 }
+
 ```
 * simplified array like structures for samplers and config elements
 ```groovy
@@ -521,6 +534,7 @@ start {
         }
     }
 }
+
 ```
 * by default samples have names after its name property, but in case of HTTP request there are some differences: 
 ```groovy
@@ -537,4 +551,5 @@ start {
         }
     }
 }
+
 ```

@@ -47,6 +47,7 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
 
     static FactoryBuilderProvider createProvider() {
         return new FactoryBuilderProvider() {
+
             @Override
             boolean accepts(String name) {
                 return ACCEPTED_KEYWORDS.contains(name)
@@ -75,7 +76,6 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
     }
 
     void registerObjectFactories() {
-
         // configs
         addFactory(new HeadersFactory())
         addFactory(new HeaderFactory())
@@ -142,7 +142,7 @@ class AjpFactoryBuilder extends TestFactoryBuilder {
     protected Object postNodeCompletion(Object parent, Object node) {
         super.postNodeCompletion(parent, node)
 
-        if(parent instanceof TestElementNode && parent.testElement instanceof AjpSampler) {
+        if (parent instanceof TestElementNode && parent.testElement instanceof AjpSampler) {
             Factory factory = getCurrentFactory()
             factory.updateOnComplete(parent.testElement, node)
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.run
 
 class DatabaseSpec extends Specification {
+
     @Shared sql = Sql.newInstance(url: 'jdbc:h2:mem:testDB', driver: 'org.h2.Driver', user: 'sa', password: 'sa')
 
     def "Run JDBC sampler"() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ abstract class AbstractTestElementFactory extends AbstractFactory implements Val
     void setParent(FactoryBuilderSupport builder, Object parent, Object child) {
         if (parent instanceof TestElementNode) {
             updateParentProperties(builder, parent.testElement, child)
-        } else if(parent instanceof TestElement) {
+        } else if (parent instanceof TestElement) {
             updateParentProperties(builder, parent, child)
         }
     }

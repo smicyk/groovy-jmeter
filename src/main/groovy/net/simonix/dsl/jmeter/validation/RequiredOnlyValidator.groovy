@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class RequiredOnlyValidator implements Validator {
 
     RequiredOnlyValidator(Set<PropertyDefinition> properties, boolean valueIsProperty) {
         this.valueIsProperty = valueIsProperty
-        properties.each {property ->
+        properties.each { property ->
             this.properties[property.name] = property
         }
 
@@ -42,13 +42,14 @@ class RequiredOnlyValidator implements Validator {
     }
 
     void addProperties(Set<PropertyDefinition> properties) {
-        properties.each {property ->
+        properties.each { property ->
             this.properties[property.name] = property
         }
 
         updateCacheValues()
     }
 
+    @Override
     ValidationResult validate(Object name, Object value, Map config) {
         Set<String> configKeys = config.collect { it.key } as Set<String>
 
@@ -58,13 +59,13 @@ class RequiredOnlyValidator implements Validator {
             }
         }
 
-        def propertyNames = config.find {attribute ->
+        List<String> propertyNames = config.find { attribute ->
             PropertyDefinition propertyDefinition = properties[attribute.key]
 
             if (propertyDefinition?.constraints) {
                 PropertyConstraint matcher = propertyDefinition.constraints
 
-                if(!matcher.matches(attribute.value)) {
+                if (!matcher.matches(attribute.value)) {
                     return true
                 }
             }
@@ -72,7 +73,7 @@ class RequiredOnlyValidator implements Validator {
             return false
         }.collect { it.key }
 
-        if(propertyNames) {
+        if (propertyNames) {
             PropertyDefinition property = properties[propertyNames[0]]
             return ValidationResult.notValidValue(name, property.name, property.constraints.description())
         }

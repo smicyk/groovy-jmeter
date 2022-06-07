@@ -21,6 +21,7 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class AssertionFactorySpec extends TempFileSpec {
+
     def "Check assertions generation"() {
         expect: "configure test and save result to the file"
         def config = configure {

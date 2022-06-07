@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
 
     static FactoryBuilderProvider createProvider() {
         return new FactoryBuilderProvider() {
+
             @Override
             boolean accepts(String name) {
                 return ACCEPTED_KEYWORDS.contains(name)
@@ -81,7 +82,7 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
     protected Object postNodeCompletion(Object parent, Object node) {
         super.postNodeCompletion(parent, node)
 
-        if(parent instanceof TestElementNode && parent.testElement instanceof ConfigTestElement) {
+        if (parent instanceof TestElementNode && parent.testElement instanceof ConfigTestElement) {
             Factory factory = getCurrentFactory()
             factory.updateOnComplete(parent.testElement, node)
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import net.simonix.dsl.jmeter.test.sampler.TestElementLogger
 import spock.lang.Specification
 
 class LogSamplerSpec extends Specification {
+
     def listener
     def plugins = [ new LogSamplerFactory('Log Sampler')]
 

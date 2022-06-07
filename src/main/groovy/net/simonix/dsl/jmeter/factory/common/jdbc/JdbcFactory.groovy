@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ final class JdbcFactory extends AbstractCompositeTestElementNodeFactory {
     }
 
     AbstractTestElementNodeFactory getChildFactory(FactoryBuilderSupport builder, Object name, Object value, Map config) {
-        if(config.datasource) {
+        if (config.datasource) {
             return (AbstractTestElementNodeFactory) builder.factories.get('jdbc_config')
         } else {
             return (AbstractTestElementNodeFactory) builder.factories.get('jdbc_request')

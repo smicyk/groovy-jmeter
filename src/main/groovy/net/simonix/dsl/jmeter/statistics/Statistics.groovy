@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,13 +59,13 @@ class Statistics implements StatisticsProvider {
     Object getProperty(String name) {
         MetaProperty metaProperty = metaClass.getMetaProperty(name)
 
-        if(metaProperty) {
+        if (metaProperty) {
             return metaClass.getProperty(this, name)
         }
 
         Calculator calculator = rows[name]
 
-        if(calculator) {
+        if (calculator) {
             return new CalculatorStatisticsProvider(calculator)
         }
 
@@ -78,7 +78,7 @@ class Statistics implements StatisticsProvider {
     List<String> getNames() {
         return rows.keySet().findAll {
             it != LABEL_TOTAL_ROW
-        }.collect {it }
+        }.collect { it }
     }
 
     List<StatisticsProvider> getValues() {

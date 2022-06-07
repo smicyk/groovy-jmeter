@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ class TestElementLogger {
     private static TestElementListener listener
 
     static void log(String message) {
-        if(listener != null) {
+        if (listener != null) {
             listener.listen(message)
         } else {
             println message

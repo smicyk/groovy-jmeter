@@ -24,6 +24,7 @@ import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properti
 
 @CompileDynamic
 final class DslDefinition {
+
     static final Set<PropertyDefinition> COMMON_PROPERTIES = properties {
         property(name: 'name', type: String, required: false)
         property(name: 'comments', type: String, required: false, defaultValue: '')
@@ -548,7 +549,7 @@ final class DslDefinition {
 
     static final KeywordDefinition COOKIE = keyword('cookie', KeywordCategory.CONFIG) {
         property(name: 'secure', type: Boolean, required: false, defaultValue: false)
-        property(name: 'path', type: String,required: false, defaultValue: null)
+        property(name: 'path', type: String, required: false, defaultValue: null)
         property(name: 'domain', type: String, required: false, defaultValue: '')
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
@@ -946,7 +947,6 @@ final class DslDefinition {
         property(name: 'use', type: String, required: true, defaultValue: '')
         valueIsProperty()
     }
-
 
     // assertions
     static final KeywordDefinition JSR223_ASSERTION = keyword('jsrassertion', KeywordCategory.ASSERTION) {

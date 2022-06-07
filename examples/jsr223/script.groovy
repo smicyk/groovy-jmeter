@@ -47,7 +47,6 @@ start {
                 '''.stripIndent()
             }
 
-
             // assertion for sampler (this sampler should be marked as failed)
             jsrsampler inline: '''return "SAMPLE FAILS"''', {
                 jsrassertion inline: '''\

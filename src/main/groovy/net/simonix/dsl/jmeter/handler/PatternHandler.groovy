@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ final class PatternHandler {
     }
 
     void pattern(String value) {
-        if(testElement instanceof ResponseAssertion) {
+        if (testElement instanceof ResponseAssertion) {
             testElement.addTestString(value)
         }
     }

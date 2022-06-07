@@ -28,8 +28,8 @@ class RangePropertyConstraint implements PropertyConstraint {
     @Override
     boolean matches(Object value) {
         if (value instanceof Collection) {
-            for(Object v: (Collection) value) {
-                if(!contains(v)) {
+            for (Object v: (Collection) value) {
+                if (!contains(v)) {
                     return false
                 }
             }

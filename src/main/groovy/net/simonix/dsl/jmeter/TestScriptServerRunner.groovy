@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * This code is modified version of code from {@link JMeter} and related classes.
  */
 class TestScriptServerRunner {
+
     static final Logger logger = LoggerFactory.getLogger(TestScriptBase.class)
 
     static void run(String workerHostname, String workerPort) {
@@ -51,7 +52,6 @@ class TestScriptServerRunner {
         try {
             System.setProperty('java.rmi.server.hostname', workerHostname)
             System.setProperty('server_port', workerPort)
-
 
             RemoteJMeterEngineImpl.startServer(RmiUtils.getRmiRegistryPort())
 
@@ -136,14 +136,14 @@ class TestScriptServerRunner {
                     String command = new String(request.getData(), request.getOffset(), request.getLength(), StandardCharsets.US_ASCII)
                     logger.info('Command received [command={}, address={}]', command, address)
 
-                    switch(command) {
+                    switch (command) {
                         case 'StopTestNow':
-                            for(JMeterEngine engine : engines) {
+                            for (JMeterEngine engine : engines) {
                                 engine.stopTest(true)
                             }
                             break
                         case 'Shutdown':
-                            for(JMeterEngine engine : engines) {
+                            for (JMeterEngine engine : engines) {
                                 engine.stopTest(false)
                             }
                             break

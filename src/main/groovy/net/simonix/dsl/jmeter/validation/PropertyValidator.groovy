@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ class PropertyValidator implements Validator {
 
     PropertyValidator(Set<PropertyDefinition> properties, boolean valueIsProperty) {
         this.valueIsProperty = valueIsProperty
-        properties.each {property ->
+        properties.each { property ->
             this.properties[property.name] = property
         }
 
@@ -43,7 +43,7 @@ class PropertyValidator implements Validator {
     }
 
     void addProperties(Set<PropertyDefinition> properties) {
-        properties.each {property ->
+        properties.each { property ->
             this.properties[property.name] = property
         }
 
@@ -66,13 +66,13 @@ class PropertyValidator implements Validator {
             }
         }
 
-        def propertyNames = config.find {attribute ->
+        List<String> propertyNames = config.find { attribute ->
             PropertyDefinition propertyDefinition = properties[attribute.key]
 
             if (propertyDefinition?.constraints) {
                 PropertyConstraint constraints = propertyDefinition.constraints
 
-                if(!constraints.matches(attribute.value)) {
+                if (!constraints.matches(attribute.value)) {
                     return true
                 }
             }
@@ -80,7 +80,7 @@ class PropertyValidator implements Validator {
             return false
         }.collect { it.key }
 
-        if(propertyNames) {
+        if (propertyNames) {
             PropertyDefinition property = properties[propertyNames[0]]
             return ValidationResult.notValidValue(name, property.name, property.constraints.description())
         }

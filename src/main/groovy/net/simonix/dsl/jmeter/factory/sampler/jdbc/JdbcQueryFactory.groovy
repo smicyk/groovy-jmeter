@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +89,7 @@ class JdbcQueryFactory extends TestElementFactory {
 
         String query = readValue(value, config.inline)
 
-        if(!query) {
+        if (!query) {
             query = loadFromFile(config.file as String, 'UTF-8')
         }
 
@@ -111,7 +111,7 @@ class JdbcQueryFactory extends TestElementFactory {
             sampler.query = child.query
             sampler.variableNames = child.variables
 
-            if(child.parameters) {
+            if (child.parameters) {
                 sampler.queryArguments = child.parameters.elements.collect { "$it.value" }.join(',')
                 sampler.queryArgumentsTypes = child.parameters.elements.collect { "$it.type" }.join(',')
 
