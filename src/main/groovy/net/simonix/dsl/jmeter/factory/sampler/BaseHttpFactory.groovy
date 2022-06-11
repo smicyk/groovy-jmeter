@@ -18,7 +18,7 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
@@ -65,9 +65,9 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         String domain = config.domain
         String path = config.path
 
-        Integer port = null
+        String port = null
         if (config.containsKey('port')) {
-            port = config.port as Integer
+            port = config.port
         }
 
         // override config elements
@@ -80,7 +80,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
                 protocol = matches.group('protocol') ?: protocol
                 domain = matches.group('domain') ?: domain
                 if (matches.group('port')) {
-                    port = matches.group('port').toInteger()
+                    port = matches.group('port')
                 }
                 path = matches.group('path') ?: path
 
@@ -96,7 +96,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.domain = domain
 
         if (port != null) {
-            testElement.port = port
+            testElement.setProperty(HTTPSamplerBase.PORT, port);
         }
 
         // Request configuration
@@ -125,7 +125,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         return [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
     }
 
-    private static String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
+    private static String evaluateElementName(String method, String protocol, String domain, String port, String path) {
         String elementName = "${method} ${path?:'/'}"
 
         return elementName.replaceAll(/(\$\{(.*?)\})/) { input, expression, variable -> ":$variable" }

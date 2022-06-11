@@ -61,7 +61,7 @@ class TestScriptServerRunner {
         }
     }
 
-    static void run(HashTree testPlan, List<String> remoteWorkers) {
+    static void run(HashTree testPlan, Map globalProperties, List<String> remoteWorkers) {
         System.setProperty('server.rmi.ssl.disable', 'true')  // TODO: enable SSL supports
 
         // add a system property so samplers can check to see if JMeter is running in NonGui mode
@@ -77,7 +77,12 @@ class TestScriptServerRunner {
             RemoteExecutionListener testListener = new RemoteExecutionListener(true)
             testPlan.add(testPlan.getArray()[0], testListener)
 
-            DistributedRunner distributedRunner = new DistributedRunner()
+            Properties properties = new Properties()
+            globalProperties.each { String name, Object value ->
+                properties.setProperty(name, value)
+            }
+
+            DistributedRunner distributedRunner = new DistributedRunner(properties)
 
             distributedRunner.init(remoteWorkers, testPlan)
             engines.addAll(distributedRunner.getEngines())

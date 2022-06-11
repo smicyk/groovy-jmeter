@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,11 +49,9 @@ final class PercentControllerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        Integer percent = readValue(value, config.percent) as Integer
-
         testElement.style = ThroughputController.BYPERCENT
         testElement.perThread = config.perUser
         testElement.maxThroughput = 1
-        testElement.percentThroughput = percent
+        testElement.percentThroughput = readValue(value, config.percent)
     }
 }

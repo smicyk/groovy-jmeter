@@ -72,7 +72,7 @@ final class DefaultsFactory extends TestElementNodeFactory {
         // Web Server configuration
         testElement.setProperty(HTTPSampler.PROTOCOL, config.protocol as String)
         testElement.setProperty(HTTPSampler.DOMAIN, config.domain as String)
-        testElement.setProperty(HTTPSampler.PORT, config.port as Integer)
+        testElement.setProperty(HTTPSampler.PORT, config.port as String)
 
         // Request configuration
         testElement.setProperty(HTTPSampler.METHOD, config.method as String)

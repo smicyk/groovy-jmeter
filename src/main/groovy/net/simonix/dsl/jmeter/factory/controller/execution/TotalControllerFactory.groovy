@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,11 +50,10 @@ final class TotalControllerFactory extends TestElementNodeFactory {
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         boolean perUser = config.perUser
-        Integer total = readValue(value, config.total) as Integer
 
         testElement.style = ThroughputController.BYNUMBER
         testElement.perThread = perUser
-        testElement.maxThroughput = total
+        testElement.maxThroughput = readValue(value, config.total)
         testElement.percentThroughput = 100
     }
 }

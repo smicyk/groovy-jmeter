@@ -26,6 +26,13 @@ class InListPropertyConstraint implements PropertyConstraint {
 
     @Override
     boolean matches(Object value) {
+        if(value instanceof String) {
+            // check if is expression, if yes just pass it as string with out validation
+            if(value.startsWith('${') && value.endsWith('}')) {
+                return true
+            }
+        }
+
         return values.contains(value)
     }
 

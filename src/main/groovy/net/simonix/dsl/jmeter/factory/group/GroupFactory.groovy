@@ -26,8 +26,6 @@ import org.apache.jmeter.threads.gui.ThreadGroupGui
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
-
 /**
  * The factory class responsible for building <code>group</code> element in the test.
  *
@@ -73,15 +71,17 @@ final class GroupFactory extends TestElementNodeFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, mapOnError(config.onError))
 
-        testElement.numThreads = config.users as Integer
-        testElement.rampUp = config.rampUp as Integer
+        testElement.setProperty(AbstractThreadGroup.NUM_THREADS, config.users)
+        testElement.setProperty(ThreadGroup.RAMP_TIME, config.rampUp)
+
         testElement.setProperty(ThreadGroup.DELAYED_START, config.delayedStart as Boolean)
         testElement.isSameUserOnNextIteration = config.keepUser
 
+
         // scheduler configuration
         testElement.scheduler = config.scheduler
-        testElement.delay = config.delay
-        testElement.duration = config.duration
+        testElement.setProperty(ThreadGroup.DURATION, config.delay)
+        testElement.setProperty(ThreadGroup.DELAY, config.duration)
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
