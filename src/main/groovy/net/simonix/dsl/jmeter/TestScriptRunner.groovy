@@ -88,6 +88,22 @@ final class TestScriptRunner {
             }
         }
 
+        if (config.local_properties) {
+            Properties properties = JMeterUtils.getJMeterProperties();
+
+            config.local_properties.each { String name, Object value ->
+                if(value) {
+                    if(value instanceof String && value.size() > 0) {
+                        properties.setProperty(name, value)
+                    } else {
+                        properties.remove(name)
+                    }
+                } else {
+                    properties.remove(name)
+                }
+            }
+        }
+
         JMeterUtils.initLocale()
 
         // we need to set jmeter libraries to search paths so functions can be picked up
@@ -113,8 +129,8 @@ final class TestScriptRunner {
         DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
         if (config.variables) {
-            config.variables.each { entry ->
-                builder.setVariable(entry.key as String, entry.value)
+            config.variables.each { String name, Object value ->
+                builder.setVariable(name, value)
             }
         }
 
@@ -142,6 +158,7 @@ final class TestScriptRunner {
 
     static StatisticsProvider run(HashTree testPlan, boolean statistics = false) {
         StandardJMeterEngine engine = new StandardJMeterEngine()
+
 
         StatisticsListener listener = statistics ? applyStatistics(testPlan) : null
 

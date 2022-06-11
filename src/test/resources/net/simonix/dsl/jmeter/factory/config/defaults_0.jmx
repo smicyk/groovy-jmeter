@@ -33,7 +33,7 @@
         <stringProp name="TestPlan.comments">Factory Comment</stringProp>
         <stringProp name="HTTPSampler.protocol">https</stringProp>
         <stringProp name="HTTPSampler.domain">localhost</stringProp>
-        <intProp name="HTTPSampler.port">8080</intProp>
+        <stringProp name="HTTPSampler.port">8080</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/context</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
@@ -46,7 +46,7 @@
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <stringProp name="HTTPSampler.protocol">http</stringProp>
         <stringProp name="HTTPSampler.domain"></stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -59,7 +59,7 @@
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <stringProp name="HTTPSampler.protocol">http</stringProp>
         <stringProp name="HTTPSampler.domain"></stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>

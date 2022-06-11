@@ -57,11 +57,8 @@ final class ConstantThroughputFactory extends TestElementNodeFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         int basedOn = mapBasedOn(config.basedOn as String)
 
-        testElement.calcMode = basedOn
-        testElement.throughput = config.target
-
         testElement.setProperty('calcMode', basedOn)
-        testElement.setProperty(new DoubleProperty('throughput', config.target as Double))
+        testElement.setProperty('throughput', config.target as String)
     }
 
     private int mapBasedOn(String value) {

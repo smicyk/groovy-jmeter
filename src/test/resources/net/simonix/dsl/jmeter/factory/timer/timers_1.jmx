@@ -62,35 +62,23 @@
       <hashTree/>
       <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
         <intProp name="calcMode">1</intProp>
-        <doubleProp>
-          <name>throughput</name>
-          <value>200.0</value>
-          <savedValue>0.0</savedValue>
-        </doubleProp>
+        <stringProp name="throughput">200</stringProp>
       </ConstantThroughputTimer>
       <hashTree/>
       <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="true">
-        <doubleProp>
-          <name>throughput</name>
-          <value>200.0</value>
-          <savedValue>0.0</savedValue>
-        </doubleProp>
+        <stringProp name="throughput">200</stringProp>
         <intProp name="throughputPeriod">1000</intProp>
-        <longProp name="duration">1000</longProp>
+        <intProp name="duration">1000</intProp>
         <intProp name="batchSize">10</intProp>
         <intProp name="batchThreadDelay">10</intProp>
         <intProp name="exactLimit">1000</intProp>
-        <doubleProp>
-          <name>allowedThroughputSurplus</name>
-          <value>50.0</value>
-          <savedValue>0.0</savedValue>
-        </doubleProp>
-        <longProp name="randomSeed">100000</longProp>
+        <stringProp name="allowedThroughputSurplus">10</stringProp>
+        <intProp name="randomSeed">100000</intProp>
       </PreciseThroughputTimer>
       <hashTree/>
       <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
         <intProp name="groupSize">100</intProp>
-        <longProp name="timeoutInMs">1000</longProp>
+        <intProp name="timeoutInMs">1000</intProp>
       </SyncTimer>
       <hashTree/>
     </hashTree>

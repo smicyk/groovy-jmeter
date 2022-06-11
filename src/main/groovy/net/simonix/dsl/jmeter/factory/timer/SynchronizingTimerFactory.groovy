@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,10 +54,7 @@ final class SynchronizingTimerFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.groupSize = config.users
-        testElement.timeoutInMs = config.timeout
-
-        testElement.setProperty('groupSize', config.users as Integer)
-        testElement.setProperty('timeoutInMs', config.timeout as Long)
+        testElement.setProperty('groupSize', config.users)
+        testElement.setProperty('timeoutInMs', config.timeout)
     }
 }

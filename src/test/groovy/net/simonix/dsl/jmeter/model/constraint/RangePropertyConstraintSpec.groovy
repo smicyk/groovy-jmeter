@@ -72,4 +72,17 @@ class RangePropertyConstraintSpec extends Specification  {
         '20'    || false
         '-20'   || false
     }
+
+    def "matches range with String with expression"() {
+        given:
+        RangePropertyConstraint constraint = Constraints.range(-10, 10)
+
+        expect:
+        constraint.matches(value) == result
+
+        where:
+        value               || result
+        '0'                 || true
+        '${var_value}'      || true
+    }
 }

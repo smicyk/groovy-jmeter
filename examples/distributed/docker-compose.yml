@@ -40,7 +40,7 @@ services:
     volumes:
       - .:/home/groovy
       - grapes-cache:/home/groovy/.groovy/grapes
-    command: ["groovy", "script.groovy", "-c", "-r", "worker1-server:1099", "-r", "worker2-server:1099", "-r", "worker3-server:1099"]
+    command: ["groovy", "script.groovy", "-c", "-r", "worker1-server:1099", "-r", "worker2-server:1099", "-r", "worker3-server:1099", "-Gvar_users=1000", "-Gvar_rampUp=300"]
     depends_on:
       - worker1
       - worker2

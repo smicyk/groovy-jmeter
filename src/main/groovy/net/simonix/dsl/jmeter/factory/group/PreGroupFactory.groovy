@@ -70,14 +70,14 @@ final class PreGroupFactory extends TestElementNodeFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, mapOnError(config.onError))
 
-        testElement.numThreads = config.users as Integer
-        testElement.rampUp = config.rampUp as Integer
+        testElement.setProperty(AbstractThreadGroup.NUM_THREADS, config.users)
+        testElement.setProperty(ThreadGroup.RAMP_TIME, config.rampUp)
         testElement.isSameUserOnNextIteration = config.keepUser
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
-        testElement.delay = config.delay
-        testElement.duration = config.duration
+        testElement.setProperty(ThreadGroup.DURATION, config.delay)
+        testElement.setProperty(ThreadGroup.DELAY, config.duration)
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
