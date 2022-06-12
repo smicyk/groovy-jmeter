@@ -6,20 +6,20 @@
 start {
     plan {
         arguments {
-            argument(name: 'var_host', value: "${jmt_host}")
-            argument(name: 'var_user_nm', value: "${jmt_user_nm}")
-            argument(name: 'var_user_pw', value: "${jmt_user_pw}")
+            argument(name: 'var_host', value: "${var_host}")
+            argument(name: 'var_user', value: "${var_user}")
+            argument(name: 'var_pass', value: "${var_pass}")
         }
 
         defaults(protocol: 'http', domain: '${var_host}', port: 1080)
 
-        group(users: jmt_users, rampUp: jmt_ramp) {
+        group(users: var_users, rampUp: var_ramp) {
             cookies(name: 'cookies manager')
 
             http('POST /login') {
                 params {
-                    param(name: 'username', value: '${var_user_nm}')
-                    param(name: 'password', value: '${var_user_pw}')
+                    param(name: 'username', value: '${var_user}')
+                    param(name: 'password', value: '${var_pass}')
                 }
 
                 extract_regex expression: '"trackId", content="([0-9]+)"', variable: 'var_trackId'

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,18 +69,18 @@ final class DnsFactory extends TestElementNodeFactory {
         List<String> servers = config.servers as List
         Map<String, String> values = config.values as Map
 
-        if(config.isPresent('useSystem')) {
-            if(useSystem) {
+        if (config.isPresent('useSystem')) {
+            if (useSystem) {
                 testElement.customResolver = false
             } else {
-                if(servers) {
+                if (servers) {
                     testElement.customResolver = true
                 } else {
                     testElement.customResolver = false
                 }
             }
         } else {
-            if(servers) {
+            if (servers) {
                 testElement.customResolver = true
             } else {
                 testElement.customResolver = false
@@ -89,11 +89,11 @@ final class DnsFactory extends TestElementNodeFactory {
 
         testElement.clearEachIteration = clearEachIteration
 
-        servers.each {server ->
+        servers.each { server ->
             testElement.addServer(server)
         }
 
-        values.each {entry ->
+        values.each { entry ->
             testElement.addHost(entry.key, entry.value)
         }
     }

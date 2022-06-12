@@ -9,13 +9,16 @@ start {
         // add user define variables
         arguments {
             argument(name: 'var_host', value: 'mockserver-books')
+
+            argument(name: 'var_users', value: '${__P(var_users,1)}')
+            argument(name: 'var_rampUp', value: '${__P(var_rampUp,1)}')
         }
 
         // define HTTP default values
         defaults(protocol: 'http', domain: '${var_host}', port: 1080)
 
         // define group of 1000 users with ramp up period 300 seconds
-        group(users: 1000, rampUp: 300) {
+        group(users: '${var_users}', rampUp: '${var_rampUp}') {
             // add cookie manager for HTTP requests
             cookies(name: 'cookies manager')
 

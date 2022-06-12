@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +89,7 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
     }
 
     String getTestElementName(Object name, Object value, Map config) {
-        if(config.isPresent('name')) {
+        if (config.isPresent('name')) {
             return config.name?.toString() ?: testElementName
         }
 

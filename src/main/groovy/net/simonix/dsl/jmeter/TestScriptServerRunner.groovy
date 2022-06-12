@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * This code is modified version of code from {@link JMeter} and related classes.
  */
 class TestScriptServerRunner {
+
     static final Logger logger = LoggerFactory.getLogger(TestScriptBase.class)
 
     static void run(String workerHostname, String workerPort) {
@@ -52,7 +53,6 @@ class TestScriptServerRunner {
             System.setProperty('java.rmi.server.hostname', workerHostname)
             System.setProperty('server_port', workerPort)
 
-
             RemoteJMeterEngineImpl.startServer(RmiUtils.getRmiRegistryPort())
 
             logger.info('Worker node server started [hostname={}, port={}]', workerHostname, workerPort)
@@ -61,7 +61,7 @@ class TestScriptServerRunner {
         }
     }
 
-    static void run(HashTree testPlan, List<String> remoteWorkers) {
+    static void run(HashTree testPlan, Map globalProperties, List<String> remoteWorkers) {
         System.setProperty('server.rmi.ssl.disable', 'true')  // TODO: enable SSL supports
 
         // add a system property so samplers can check to see if JMeter is running in NonGui mode
@@ -77,7 +77,12 @@ class TestScriptServerRunner {
             RemoteExecutionListener testListener = new RemoteExecutionListener(true)
             testPlan.add(testPlan.getArray()[0], testListener)
 
-            DistributedRunner distributedRunner = new DistributedRunner()
+            Properties properties = new Properties()
+            globalProperties.each { String name, Object value ->
+                properties.setProperty(name, value)
+            }
+
+            DistributedRunner distributedRunner = new DistributedRunner(properties)
 
             distributedRunner.init(remoteWorkers, testPlan)
             engines.addAll(distributedRunner.getEngines())
@@ -136,14 +141,14 @@ class TestScriptServerRunner {
                     String command = new String(request.getData(), request.getOffset(), request.getLength(), StandardCharsets.US_ASCII)
                     logger.info('Command received [command={}, address={}]', command, address)
 
-                    switch(command) {
+                    switch (command) {
                         case 'StopTestNow':
-                            for(JMeterEngine engine : engines) {
+                            for (JMeterEngine engine : engines) {
                                 engine.stopTest(true)
                             }
                             break
                         case 'Shutdown':
-                            for(JMeterEngine engine : engines) {
+                            for (JMeterEngine engine : engines) {
                                 engine.stopTest(false)
                             }
                             break

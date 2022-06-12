@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,12 +44,15 @@ abstract class TestScript extends TestScriptBase {
 
     abstract Object executeScript()
 
+    @Override
     Object run() {
         CliBuilder cliBuilder = new CliBuilder()
 
         cliBuilder.with {
             h(longOpt: 'help', args: 0, 'Show help message')
             V(longOpt: 'vars', type: Map, valueSeparator: '=', argName: 'variable=value', 'Define values for placeholders in the script')
+            J(longOpt: 'jvars', type: Map, valueSeparator: '=', argName: 'variable=value', 'Define local JMeter property')
+            G(longOpt: 'gvars', type: Map, valueSeparator: '=', argName: 'variable=value', 'Define global JMeter property sent to all remote servers')
             w(longOpt: 'worker', args: 0, argName: 'worker', 'Starts script in worker mode (will wait for controller to execute test)')
             c(longOpt: 'controller', args: 0, argName: 'controller', 'Starts script in controller mode (execute test on remote workers)')
             r(longOpt: 'remote-worker', args: 1, argName: 'hostname:port', 'Remote work address (hostname:port)')
@@ -82,29 +85,43 @@ abstract class TestScript extends TestScriptBase {
 
         script.no_run = options.'no-run'
         script.variables = [:]
+        script.local_properties = [:]
+        script.global_properties = [:]
 
         if (options.Vs) {
-            options.Vs.each { String name, String value ->
+            options.Vs.each { String name, Object value ->
                 script.variables[name] = value
             }
         }
 
-        if(options.w && options.c) {
+        if (options.Js) {
+            options.Js.each { String name, Object value ->
+                script.local_properties[name] = value
+            }
+        }
+
+        if (options.Gs) {
+            options.Gs.each { String name, Object value ->
+                script.global_properties[name] = value
+            }
+        }
+
+        if (options.w && options.c) {
             System.err << 'Script can\'t work as worker and controller in the same time'
 
             System.exit(1)
         }
 
-        if(options.w) {
+        if (options.w) {
             script.worker = true
 
-            if(options.'worker-port') {
+            if (options.'worker-port') {
                 script.worker_port = options.'worker-port'
             } else {
                 script.worker_port = '1099'
             }
 
-            if(options.'worker-hostname') {
+            if (options.'worker-hostname') {
                 script.worker_hostname = options.'worker-hostname'
             } else {
                 System.err << 'Worker hostname can\'t be empty'
@@ -113,10 +130,10 @@ abstract class TestScript extends TestScriptBase {
             }
         }
 
-        if(options.c) {
+        if (options.c) {
             script.controller = true
 
-            if(options.rs) {
+            if (options.rs) {
                 script.remote_workers = options.rs as List<String>
             } else {
                 System.err << 'Remote workers can\'t be empty'

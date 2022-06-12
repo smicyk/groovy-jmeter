@@ -79,7 +79,7 @@
         </elementProp>
         <stringProp name="HTTPSampler.protocol">http</stringProp>
         <stringProp name="HTTPSampler.domain">example.com</stringProp>
-        <intProp name="HTTPSampler.port">80</intProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path">/</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>

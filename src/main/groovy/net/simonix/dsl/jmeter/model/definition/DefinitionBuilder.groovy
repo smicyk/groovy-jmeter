@@ -15,7 +15,6 @@
  */
 package net.simonix.dsl.jmeter.model.definition
 
-
 import net.simonix.dsl.jmeter.model.constraint.PropertyConstraint
 import org.codehaus.groovy.runtime.InvokerHelper
 
@@ -70,6 +69,7 @@ class DefinitionBuilder {
     }
 
     static class KeywordBuilder {
+
         String name
         String prefix
         KeywordCategory category
@@ -108,7 +108,7 @@ class DefinitionBuilder {
 
             PropertyDefinition propertyDefinition = this.properties.get(config.name)
 
-            if(propertyDefinition) {
+            if (propertyDefinition) {
                 this.properties.put(propertyDefinition.name, new PropertyDefinition(
                         name: propertyDefinition.name,
                         title:  propertyDefinition.title,
@@ -127,7 +127,7 @@ class DefinitionBuilder {
         KeywordBuilder include(Set<PropertyDefinition> properties) {
             assert properties != null
 
-            properties.each {propertyDefinition ->
+            properties.each { propertyDefinition ->
                 this.properties.put(propertyDefinition.name, new PropertyDefinition(
                         name: propertyDefinition.name,
                         title: messages."${prefix}${name}.property.${propertyDefinition.name}.title" as String,
@@ -173,6 +173,7 @@ class DefinitionBuilder {
     }
 
     static class PropertyBuilder {
+
         Set<PropertyDefinition> properties
 
         PropertyBuilder() {

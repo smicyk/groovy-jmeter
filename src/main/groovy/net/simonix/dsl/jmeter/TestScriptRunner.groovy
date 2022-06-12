@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,6 +88,22 @@ final class TestScriptRunner {
             }
         }
 
+        if (config.local_properties) {
+            Properties properties = JMeterUtils.getJMeterProperties();
+
+            config.local_properties.each { String name, Object value ->
+                if(value) {
+                    if(value instanceof String && value.size() > 0) {
+                        properties.setProperty(name, value)
+                    } else {
+                        properties.remove(name)
+                    }
+                } else {
+                    properties.remove(name)
+                }
+            }
+        }
+
         JMeterUtils.initLocale()
 
         // we need to set jmeter libraries to search paths so functions can be picked up
@@ -100,7 +116,7 @@ final class TestScriptRunner {
 
         JMeterUtils.setProperty('search_paths', searchPaths)
 
-        if(config.scriptName) {
+        if (config.scriptName) {
             updateFileServerBaseScript(new File(config.scriptName))
         }  else {
             logger.warn("Script name not available. Some JMeter functions might not work properly.")
@@ -112,9 +128,9 @@ final class TestScriptRunner {
     static TestElementNode invokeBuilder(Map config, Closure closure) {
         DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
-        if(config.variables) {
-            config.variables.each { entry ->
-                builder.setVariable(entry.key as String, entry.value)
+        if (config.variables) {
+            config.variables.each { String name, Object value ->
+                builder.setVariable(name, value)
             }
         }
 
@@ -142,6 +158,7 @@ final class TestScriptRunner {
 
     static StatisticsProvider run(HashTree testPlan, boolean statistics = false) {
         StandardJMeterEngine engine = new StandardJMeterEngine()
+
 
         StatisticsListener listener = statistics ? applyStatistics(testPlan) : null
 
@@ -172,7 +189,7 @@ final class TestScriptRunner {
         hashTree.traverse(searchTestPlan)
         TestPlan testPlan = searchTestPlan.getSearchResults().find()
 
-        if(!testPlan) {
+        if (!testPlan) {
             throw new IllegalStateException('Could not find the TestPlan in the script')
         }
 

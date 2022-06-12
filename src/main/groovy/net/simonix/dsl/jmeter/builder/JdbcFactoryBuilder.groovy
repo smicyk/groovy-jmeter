@@ -53,6 +53,7 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
 
     static FactoryBuilderProvider createProvider() {
         return new FactoryBuilderProvider() {
+
             @Override
             boolean accepts(String name) {
                 return ACCEPTED_KEYWORDS.contains(name)
@@ -81,7 +82,6 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
     }
 
     void registerObjectFactories() {
-
         // configs
         addFactory(new JdbcConnectionFactory())
         addFactory(new JdbcPoolFactory())
@@ -144,7 +144,7 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
     protected Object postNodeCompletion(Object parent, Object node) {
         super.postNodeCompletion(parent, node)
 
-        if(parent instanceof TestElementNode && parent.testElement instanceof AbstractJDBCTestElement) {
+        if (parent instanceof TestElementNode && parent.testElement instanceof AbstractJDBCTestElement) {
             Factory factory = getCurrentFactory()
             factory.updateOnComplete(parent.testElement, node)
         }

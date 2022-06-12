@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package net.simonix.dsl.jmeter.factory.sampler
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
+import org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase
 import org.apache.jmeter.protocol.http.util.HTTPConstants
 import org.apache.jmeter.testelement.TestElement
 
@@ -34,7 +34,7 @@ import java.util.regex.Pattern
 @CompileDynamic
 abstract class BaseHttpFactory extends TestElementNodeFactory {
 
-    static final URL_METHODS = [
+    static final String[] URL_METHODS = [
             HTTPConstants.GET,
             HTTPConstants.POST,
             HTTPConstants.HEAD,
@@ -65,14 +65,14 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         String domain = config.domain
         String path = config.path
 
-        Integer port = null
+        String port = null
         if (config.containsKey('port')) {
-            port = config.port as Integer
+            port = config.port
         }
 
         // override config elements
         if (value != null) {
-            List<String> namePatterns = buildUrlPatterns()
+            List<Pattern> namePatterns = buildUrlPatterns()
             Matcher matches = namePatterns.collect { value =~ it }.find { it.find() }
 
             if (matches != null) {
@@ -80,12 +80,12 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
                 protocol = matches.group('protocol') ?: protocol
                 domain = matches.group('domain') ?: domain
                 if (matches.group('port')) {
-                    port = matches.group('port').toInteger()
+                    port = matches.group('port')
                 }
                 path = matches.group('path') ?: path
 
                 // only if name is not provided
-                if(!config.isPresent('name')) {
+                if (!config.isPresent('name')) {
                     testElement.name = evaluateElementName(method, protocol, domain, port, path)
                 }
             }
@@ -96,7 +96,7 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         testElement.domain = domain
 
         if (port != null) {
-            testElement.port = port
+            testElement.setProperty(HTTPSamplerBase.PORT, port);
         }
 
         // Request configuration
@@ -112,20 +112,20 @@ abstract class BaseHttpFactory extends TestElementNodeFactory {
         return URL_METHODS
     }
 
-    protected List<String> buildUrlPatterns() {
-        List<String> urlMethods = validMethods();
+    protected List<Pattern> buildUrlPatterns() {
+        List<Pattern> urlMethods = validMethods();
 
-        def URL_HOSTNAME_WITHOUT_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-        def URL_PROTOCOL_WITHOUT_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-        def URL_PROTOCOL = /(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-        def URL_HOSTNAME = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
-        def URL_PORT = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
-        def URL_PATH = /(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
+        Pattern URL_HOSTNAME_WITHOUT_PORT = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        Pattern URL_PROTOCOL_WITHOUT_PORT = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        Pattern URL_PROTOCOL = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>https?):\/\/(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        Pattern URL_HOSTNAME = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)?/
+        Pattern URL_PORT = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>):(?<port>[0-9]+)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
+        Pattern URL_PATH = ~/(?<method>${urlMethods.join('|')}) +(?<protocol>)(?<domain>)(?<port>)(?<path>\/[a-zA-Z0-9\/\-_\.\u0024\{\}]+)/
 
         return [ URL_PATH, URL_PORT, URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
     }
 
-    private static String evaluateElementName(String method, String protocol, String domain, Integer port, String path) {
+    private static String evaluateElementName(String method, String protocol, String domain, String port, String path) {
         String elementName = "${method} ${path?:'/'}"
 
         return elementName.replaceAll(/(\$\{(.*?)\})/) { input, expression, variable -> ":$variable" }

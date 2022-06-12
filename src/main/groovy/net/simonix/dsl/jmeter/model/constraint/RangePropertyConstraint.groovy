@@ -28,8 +28,8 @@ class RangePropertyConstraint implements PropertyConstraint {
     @Override
     boolean matches(Object value) {
         if (value instanceof Collection) {
-            for(Object v: (Collection) value) {
-                if(!contains(v)) {
+            for (Object v: (Collection) value) {
+                if (!contains(v)) {
                     return false
                 }
             }
@@ -58,10 +58,16 @@ class RangePropertyConstraint implements PropertyConstraint {
                     bigint.compareTo(BigInteger.valueOf(to)) <= 0
         }
         if (value instanceof String) {
-            Long convertedValue = value.asType(Long)
+            // check if is expression, if yes just pass it as string with out validation
+            if(value.startsWith('${') && value.endsWith('}')) {
+                return true
+            } else {
+                Long convertedValue = value as Long
 
-            return convertedValue >= from && convertedValue <= to
+                return convertedValue >= from && convertedValue <= to
+            }
         }
+
         return false
     }
 }

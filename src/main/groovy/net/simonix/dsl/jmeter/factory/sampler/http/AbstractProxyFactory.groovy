@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import net.simonix.dsl.jmeter.model.definition.KeywordDefinition
 import org.apache.jmeter.testelement.TestElement
 
 import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * The factory class responsible for building <code>proxy</code> element inside http element.
@@ -43,12 +44,12 @@ import java.util.regex.Matcher
 @CompileDynamic
 abstract class AbstractProxyFactory extends TestElementFactory {
 
-    static final URL_HOSTNAME_WITHOUT_PORT = /^(?<scheme>)(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)$/
-    static final URL_PROTOCOL_WITHOUT_PORT = /^(?<scheme>https?):\/\/(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)$/
-    static final URL_PROTOCOL = /^(?<scheme>https?):\/\/(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)$/
-    static final URL_HOSTNAME = /^(?<scheme>)(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)$/
+    static final Pattern URL_HOSTNAME_WITHOUT_PORT = ~/^(?<scheme>)(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)$/
+    static final Pattern URL_PROTOCOL_WITHOUT_PORT = ~/^(?<scheme>https?):\/\/(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*)(?<port>)$/
+    static final Pattern URL_PROTOCOL = ~/^(?<scheme>https?):\/\/(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)$/
+    static final Pattern URL_HOSTNAME = ~/^(?<scheme>)(?<host>[a-zA-Z0-9]+[-a-zA-Z0-9.]*):(?<port>[0-9]+)$/
 
-    static final NAME_PATTERNS = [ URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
+    static final Pattern[] NAME_PATTERNS = [ URL_HOSTNAME, URL_PROTOCOL, URL_PROTOCOL_WITHOUT_PORT, URL_HOSTNAME_WITHOUT_PORT]
 
     protected AbstractProxyFactory(KeywordDefinition definition) {
         super(ProxyTestElement, definition)

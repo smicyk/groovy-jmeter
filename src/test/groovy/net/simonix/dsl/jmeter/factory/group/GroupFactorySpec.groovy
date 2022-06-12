@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import static net.simonix.dsl.jmeter.TestScriptRunner.configure
 import static net.simonix.dsl.jmeter.TestScriptRunner.save
 
 class GroupFactorySpec extends TempFileSpec {
+
     def "Check group generation"() {
         given: 'Test plan with group element'
         def config = configure {
@@ -57,5 +58,34 @@ class GroupFactorySpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('group_1.jmx', resultFile)
+    }
+
+    def "Check group generation with expression"() {
+        given: 'Test plan with group element'
+        def config = configure {
+            plan {
+                variables values: [
+                        'var_users': 10,
+                        'var_rampUp': 60,
+                        'var_delay': 10,
+                        'var_delayedStart': 10,
+                        'var_duration': 10,
+                        'var_loops': 2,
+                        'var_onError': 'stop_test'
+                ]
+
+                before(users: '${var_users}', rampUp: '${var_rampUp}', scheduler: true, delay: '${var_delay}', duration: '${var_duration}', loops: '${var_loops}', forever: true, onError: '${var_onError}', keepUser: false)
+                group(users: '${var_users}', rampUp: '${var_delay}', delayedStart: '${var_delayedStart}', scheduler: true, delay: '${var_delay}', duration: '${var_duration}', loops: '${var_loops}', forever: true, onError: '${var_onError}', keepUser: false)
+                after(users: '${var_users}', rampUp: '${var_duration}', scheduler: true, delay: '${var_delay}', duration: '${var_duration}', loops: '${var_loops}', forever: true, onError: 'stop_test', keepUser: false)
+            }
+        }
+
+        File resultFile = tempFolder.newFile('group_2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('group_2.jmx', resultFile)
     }
 }

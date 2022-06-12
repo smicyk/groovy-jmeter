@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,6 +102,6 @@ class PropertyValidatorSpec extends Specification {
         ValidationResult result = validator.validate('test', 'value', [name: 'test', comments: 'comments', enabled: true, counter: 8])
 
         then:
-        result == ValidationResult.notValidValue('test', 'counter','range 10..20')
+        result == ValidationResult.notValidValue('test', 'counter', 'range 10..20')
     }
 }

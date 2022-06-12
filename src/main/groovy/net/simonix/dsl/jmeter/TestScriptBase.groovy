@@ -57,7 +57,7 @@ abstract class TestScriptBase extends Script {
 
         String saveToPath = saveTo != null ? saveTo : null
 
-        if(saveToPath) {
+        if (saveToPath) {
             Path scriptPath = FileSystems.getDefault().getPath(saveToPath)
             String scriptName = scriptPath.fileName
 
@@ -69,9 +69,25 @@ abstract class TestScriptBase extends Script {
 
         // add custom variables from command line
         config.variables = [:]
-        if(script.variables) {
-            script.variables.each {
-                config.variables[it.key as String] = it.value
+        if (script.variables) {
+            script.variables.each { String name, Object value ->
+                config.variables[name] = value
+            }
+        }
+
+        // add jmeter properties override from command line
+        config.local_properties = [:]
+        if (script.local_properties) {
+            script.local_properties.each { String name, Object value ->
+                config.local_properties[name] = value
+            }
+        }
+
+        // add global properties override from command line
+        config.global_properties = [:]
+        if (script.global_properties) {
+            script.global_properties.each { String name, Object value ->
+                config.global_properties[name] = value
             }
         }
 
@@ -82,12 +98,12 @@ abstract class TestScriptBase extends Script {
         }
 
         if (!noRun) {
-            if(script.worker) {
+            if (script.worker) {
                 // worker node server
                 TestScriptServerRunner.run(script.worker_hostname as String, script.worker_port as String)
-            } else if(script.controller) {
+            } else if (script.controller) {
                 // controller server
-                TestScriptServerRunner.run(configuration, script.remote_workers as List<String>)
+                TestScriptServerRunner.run(configuration, config.global_properties, script.remote_workers as List<String>)
             } else {
                 // standard script execution
                 TestScriptRunner.run(configuration)

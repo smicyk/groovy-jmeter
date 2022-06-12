@@ -29,7 +29,7 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate" enabled="false">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="My Aggregate" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -63,10 +63,11 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
+        <stringProp name="TestPlan.comments">My Aggregate</stringProp>
         <stringProp name="filename">aggregate.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="My Summary" enabled="false">
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="My Summary" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -100,10 +101,11 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
+        <stringProp name="TestPlan.comments">My Summary</stringProp>
         <stringProp name="filename">example.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="My View" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="My View" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -137,10 +139,11 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
+        <stringProp name="TestPlan.comments">My View</stringProp>
         <stringProp name="filename">view.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
-      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="false">
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="My Backend Listener" enabled="false">
         <elementProp name="arguments" elementType="Arguments">
           <collectionProp name="Arguments.arguments">
             <elementProp name="influxdbMetricsSender" elementType="Argument">
@@ -181,6 +184,7 @@
             </elementProp>
           </collectionProp>
         </elementProp>
+        <stringProp name="TestPlan.comments">My Backend Listener</stringProp>
         <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
       </BackendListener>
       <hashTree/>

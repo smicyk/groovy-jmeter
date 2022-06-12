@@ -36,8 +36,8 @@
         <intProp name="ThreadGroup.ramp_time">60</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <longProp name="ThreadGroup.delay">10</longProp>
-        <longProp name="ThreadGroup.duration">10</longProp>
+        <intProp name="ThreadGroup.duration">10</intProp>
+        <intProp name="ThreadGroup.delay">10</intProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">2</intProp>
@@ -52,8 +52,8 @@
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <longProp name="ThreadGroup.delay">10</longProp>
-        <longProp name="ThreadGroup.duration">10</longProp>
+        <intProp name="ThreadGroup.duration">10</intProp>
+        <intProp name="ThreadGroup.delay">10</intProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">2</intProp>
@@ -67,8 +67,8 @@
         <intProp name="ThreadGroup.ramp_time">60</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <longProp name="ThreadGroup.delay">10</longProp>
-        <longProp name="ThreadGroup.duration">10</longProp>
+        <intProp name="ThreadGroup.duration">10</intProp>
+        <intProp name="ThreadGroup.delay">10</intProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">2</intProp>

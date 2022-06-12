@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,28 +61,16 @@ final class PreciseThroughputFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.throughput = config.target
-        testElement.throughputPeriod = config.period
-        testElement.duration = config.duration
+        testElement.setProperty('throughput', config.target as String)
+        testElement.setProperty('throughputPeriod', config.period)
+        testElement.setProperty('duration', config.duration)
 
-        testElement.batchSize = config.batchUsers
-        testElement.batchThreadDelay = config.batchDelay
+        testElement.setProperty('batchSize', config.batchUsers)
+        testElement.setProperty('batchThreadDelay', config.batchDelay)
 
-        testElement.exactLimit = config.samples
-        testElement.allowedThroughputSurplus = config.percents
+        testElement.setProperty('exactLimit', config.samples)
+        testElement.setProperty('allowedThroughputSurplus', config.batchDelay as String)
 
-        testElement.randomSeed = config.seed
-
-        testElement.setProperty(new DoubleProperty('throughput', config.target as Double))
-        testElement.setProperty('throughputPeriod', config.period as Integer)
-        testElement.setProperty('duration', config.duration as Long)
-
-        testElement.setProperty('batchSize', config.batchUsers as Integer)
-        testElement.setProperty('batchThreadDelay', config.batchDelay as Integer)
-
-        testElement.setProperty('exactLimit', config.samples as Integer)
-        testElement.setProperty(new DoubleProperty('allowedThroughputSurplus', config.percents as Double))
-
-        testElement.setProperty('randomSeed', config.seed as Long)
+        testElement.setProperty('randomSeed', config.seed)
     }
 }

@@ -30,7 +30,7 @@ import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 @CompileDynamic
 abstract class AbstractResultCollectorListenerFactory extends TestElementNodeFactory {
 
-    AbstractResultCollectorListenerFactory(Class testElementGuiClass, KeywordDefinition definition) {
+    protected AbstractResultCollectorListenerFactory(Class testElementGuiClass, KeywordDefinition definition) {
         super(ResultCollector, testElementGuiClass, definition)
     }
 

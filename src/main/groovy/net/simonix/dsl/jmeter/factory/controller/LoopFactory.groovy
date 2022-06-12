@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,9 @@ final class LoopFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        Integer count = config.count as Integer
+        Object count = config.count
 
-        if (value instanceof Integer) {
+        if (value) {
             count = value
         }
 

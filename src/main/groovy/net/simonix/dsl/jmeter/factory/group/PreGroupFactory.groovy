@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,14 +70,14 @@ final class PreGroupFactory extends TestElementNodeFactory {
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
         testElement.setProperty(AbstractThreadGroup.ON_SAMPLE_ERROR, mapOnError(config.onError))
 
-        testElement.numThreads = config.users as Integer
-        testElement.rampUp = config.rampUp as Integer
+        testElement.setProperty(AbstractThreadGroup.NUM_THREADS, config.users)
+        testElement.setProperty(ThreadGroup.RAMP_TIME, config.rampUp)
         testElement.isSameUserOnNextIteration = config.keepUser
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
-        testElement.delay = config.delay
-        testElement.duration = config.duration
+        testElement.setProperty(ThreadGroup.DURATION, config.delay)
+        testElement.setProperty(ThreadGroup.DELAY, config.duration)
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
@@ -90,16 +90,16 @@ final class PreGroupFactory extends TestElementNodeFactory {
         testElement.samplerController  = defaultLoopController
     }
 
-    String mapOnError(value) {
-        if(value == 'continue') {
+    String mapOnError(String value) {
+        if (value == 'continue') {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE
-        } else if(value == 'start_next') {
+        } else if (value == 'start_next') {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_START_NEXT_LOOP
-        } else if(value == 'stop_user') {
+        } else if (value == 'stop_user') {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_STOPTHREAD
-        } else if(value == 'stop_test') {
+        } else if (value == 'stop_test') {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_STOPTEST
-        } else if(value == 'stop_now') {
+        } else if (value == 'stop_now') {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_STOPTEST_NOW
         } else {
             return AbstractThreadGroup.ON_SAMPLE_ERROR_CONTINUE

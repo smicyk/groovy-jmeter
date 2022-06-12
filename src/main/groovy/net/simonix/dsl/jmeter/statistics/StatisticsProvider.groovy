@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,6 +146,7 @@ interface StatisticsProvider {
     }
 
     static class CalculatorStatisticsProvider implements StatisticsProvider {
+
         private final Calculator calculator
 
         CalculatorStatisticsProvider(Calculator calculator) {
