@@ -25,7 +25,7 @@ It has following features:
 Before start, you should have:
 
 - [Java 11+](https://openjdk.java.net/)
-- [Groovy 3.0.7](https://groovy.apache.org/download.html)
+- [Groovy 3.0.11](https://groovy.apache.org/download.html)
 - [Gradle 7.0.2](https://gradle.org/releases/)
 
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
@@ -73,10 +73,10 @@ If you want to start the same script inside a docker, execute commands below:
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.11-jdk11 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.7-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.11-jdk11 groovy yourscriptname.groovy
 ```
 
 Typical output on console should look like this:
