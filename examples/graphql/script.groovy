@@ -8,7 +8,7 @@ start {
     // define basic test plan
     plan {
         group users: 100, rampUp: 60, loops: 10, {
-            csv file: 'employees.csv', delimiter: ',', ignoreFirstLine: true, variables: ['var_id', 'var_first_name', 'var_last_name', 'var_email', 'var_salary']
+            csv file: 'employees.csv', delimiter: ',', ignoreFirstLine: true, variables: ['var_id', 'var_first_name', 'var_last_name', 'var_email', 'var_salary', 'var_active']
 
             defaults domain: 'graphql-api', port: 5000
 
@@ -35,7 +35,8 @@ start {
                                 "firstName": "${var_first_name}",
                                 "lastName": "${var_last_name}",
                                 "email": "${var_email}",
-                                "salary": "${var_salary}"
+                                "salary": ${var_salary},
+                                "active": ${var_active}
                             }
                         }
                     }
