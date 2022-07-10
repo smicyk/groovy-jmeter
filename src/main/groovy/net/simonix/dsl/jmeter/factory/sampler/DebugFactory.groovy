@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2022 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,5 +54,9 @@ final class DebugFactory extends TestElementNodeFactory {
         testElement.displayJMeterProperties = config.displayJMeterProperties
         testElement.displayJMeterVariables = config.displayJMeterVariables
         testElement.displaySystemProperties = config.displaySystemProperties
+
+        testElement.setProperty('displayJMeterProperties', config.displayJMeterProperties)
+        testElement.setProperty('displayJMeterVariables', config.displayJMeterVariables)
+        testElement.setProperty('displaySystemProperties', config.displaySystemProperties)
     }
 }
