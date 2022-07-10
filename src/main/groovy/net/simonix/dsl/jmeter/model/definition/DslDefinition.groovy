@@ -423,7 +423,7 @@ final class DslDefinition {
     static final KeywordDefinition DEBUG = keyword('debug', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         property(name: 'displayJMeterProperties', type: Boolean, required: false, defaultValue: false)
-        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: true)
         property(name: 'displaySystemProperties', type: Boolean, required: false, defaultValue: false)
     }
 
