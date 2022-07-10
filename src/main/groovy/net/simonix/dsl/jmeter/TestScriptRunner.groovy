@@ -22,6 +22,7 @@ import net.simonix.dsl.jmeter.statistics.Statistics
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.statistics.StatisticsListener
 import net.simonix.dsl.jmeter.statistics.StatisticsProvider
+import net.simonix.dsl.jmeter.utils.JMeterCompatibility
 import org.apache.jmeter.engine.StandardJMeterEngine
 import org.apache.jmeter.reporters.ResultCollector
 import org.apache.jmeter.save.SaveService
@@ -49,8 +50,11 @@ final class TestScriptRunner {
     final static String JMETER_PROPERITES_FILE = 'jmeter.properties'
     final static String JMETER_SAVESERVICE_FILE = 'saveservice.properties'
     final static String JMETER_SAVESERVICE_PROPERTY = 'saveservice_properties'
+    final static String JMETER_UPGRADE_FILE = 'upgrade.properties'
+    final static String JMETER_UPGRADE_PROPERTY = 'upgrade_properties'
 
     final static String JMETER_SAVESERVICE_CLASSPATH = 'org/apache/jmeter/saveservice.properties'
+    final static String JMETER_UPGRADE_CLASSPATH = 'org/apache/jmeter/upgrade.properties'
 
     final static String JAVA_CLASSPATH_PROPERTY = 'java.class.path'
 
@@ -63,7 +67,7 @@ final class TestScriptRunner {
 
         JMeterUtils.loadJMeterProperties(jmeterPropertiesPath ?: JMETER_PROPERITES_FILE)
 
-        // if save service is provied we either run from script or user provide it in configuration
+        // if save service is provided we either run from script or user provide it in configuration
         String saveServiceProperties = config.saveServiceProperties
         if (saveServiceProperties) {
             JMeterUtils.setProperty(JMETER_SAVESERVICE_FILE, saveServiceProperties)
@@ -85,6 +89,31 @@ final class TestScriptRunner {
             } else {
                 // we are not running from junit as a normal library build
                 JMeterUtils.setProperty(JMETER_SAVESERVICE_PROPERTY, url.getFile())
+            }
+        }
+
+        // if upgrade is provided we either run from script or user provide it in configuration
+        String upgradeProperties = config.upgradeProperties
+        if (upgradeProperties) {
+            JMeterUtils.setProperty(JMETER_UPGRADE_FILE, upgradeProperties)
+        } else {
+            // otherwise we need to check if we run as unit test or just building it as normal application
+            URL url = ClassLoader.getSystemResource(JMETER_UPGRADE_CLASSPATH)
+
+            if (url.toURI().getScheme().equalsIgnoreCase('jar')) {
+                Path upgradePropertiesPath = FileSystems.getDefault().getPath(JMETER_UPGRADE_FILE)
+
+                if (Files.notExists(upgradePropertiesPath)) {
+                    // we are running as application and needs to create saveservice.properties from default location
+                    ClassLoader.getSystemResourceAsStream(JMETER_UPGRADE_CLASSPATH).with { sourceStream ->
+                        Files.copy(sourceStream, upgradePropertiesPath)
+                    }
+                }
+
+                JMeterUtils.setProperty(JMETER_UPGRADE_PROPERTY, JMETER_UPGRADE_FILE)
+            } else {
+                // we are not running from junit as a normal library build
+                JMeterUtils.setProperty(JMETER_UPGRADE_PROPERTY, url.getFile())
             }
         }
 
@@ -159,11 +188,12 @@ final class TestScriptRunner {
     static StatisticsProvider run(HashTree testPlan, boolean statistics = false) {
         StandardJMeterEngine engine = new StandardJMeterEngine()
 
+        HashTree compatibleTestPlan = JMeterCompatibility.ensureCompatibilty(testPlan)
 
-        StatisticsListener listener = statistics ? applyStatistics(testPlan) : null
+        StatisticsListener listener = statistics ? applyStatistics(compatibleTestPlan) : null
 
         // Run Test Plan
-        engine.configure(testPlan)
+        engine.configure(compatibleTestPlan)
         engine.run()
 
         return listener ? listener.statistics : Statistics.empty()

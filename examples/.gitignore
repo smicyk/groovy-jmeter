@@ -4,6 +4,8 @@ build/
 hsperfdata_*/
 jmeter.properties
 saveservice.properties
+upgrade.properties
 *.log
 *.jtl
 *.jmx
+*.jar
