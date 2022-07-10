@@ -135,7 +135,7 @@
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
           <intProp name="SizeAssertion.operator">1</intProp>
-          <stringProp name="SizeAssertion.size">50</stringProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
         <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Assert Size Factory" enabled="true">
@@ -143,14 +143,14 @@
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
           <intProp name="SizeAssertion.operator">1</intProp>
-          <stringProp name="SizeAssertion.size">50</stringProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
         <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
           <intProp name="SizeAssertion.operator">1</intProp>
-          <stringProp name="SizeAssertion.size">50</stringProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
         <XPathAssertion guiclass="XPathAssertionGui" testclass="XPathAssertion" testname="XPath Assertion" enabled="true">
