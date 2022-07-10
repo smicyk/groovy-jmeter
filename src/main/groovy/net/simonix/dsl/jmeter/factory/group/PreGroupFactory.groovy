@@ -76,8 +76,8 @@ final class PreGroupFactory extends TestElementNodeFactory {
 
         // scheduler configuration
         testElement.scheduler = config.scheduler
-        testElement.setProperty(ThreadGroup.DURATION, config.delay)
-        testElement.setProperty(ThreadGroup.DELAY, config.duration)
+        testElement.setProperty(ThreadGroup.DURATION, config.duration)
+        testElement.setProperty(ThreadGroup.DELAY, config.delay)
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
