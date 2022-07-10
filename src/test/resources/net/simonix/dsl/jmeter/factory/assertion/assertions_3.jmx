@@ -47,8 +47,6 @@
         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="49586">200</stringProp>
-            <stringProp name="49587">201</stringProp>
-            <stringProp name="49588">202</stringProp>
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
@@ -57,114 +55,25 @@
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="false">
           <collectionProp name="Asserion.test_strings">
-            <stringProp name="49617">210</stringProp>
-            <stringProp name="51570">420</stringProp>
-            <stringProp name="52562">530</stringProp>
+            <stringProp name="49586">200</stringProp>
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">8</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
+          <intProp name="Assertion.test_type">12</intProp>
+          <stringProp name="Assertion.custom_message">is not 2xx</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="false">
           <collectionProp name="Asserion.test_strings">
-            <stringProp name="49587">201</stringProp>
-            <stringProp name="51510">402</stringProp>
-            <stringProp name="52472">503</stringProp>
+            <stringProp name="49586">200</stringProp>
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">44</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="49617">210</stringProp>
-            <stringProp name="51570">420</stringProp>
-            <stringProp name="52562">530</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">40</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="52469">500</stringProp>
-            <stringProp name="51508">400</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">16</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="52470">501</stringProp>
-            <stringProp name="51509">401</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">48</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="-1670867693">pattern \d+</stringProp>
-            <stringProp name="-1148389980">test 123</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">2</intProp>
-          <stringProp name="Assertion.custom_message">doesn&apos;t have email</stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="-1670867693">pattern \d+</stringProp>
-            <stringProp name="-1148389980">test 123</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">34</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="-1670867693">pattern \d+</stringProp>
-            <stringProp name="-1148389980">test 123</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">1</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
-          <boolProp name="Assertion.assume_success">false</boolProp>
-        </ResponseAssertion>
-        <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Status" enabled="true">
-          <collectionProp name="Asserion.test_strings">
-            <stringProp name="-1670867693">pattern \d+</stringProp>
-            <stringProp name="-1148389980">test 123</stringProp>
-          </collectionProp>
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-          <intProp name="Assertion.test_type">33</intProp>
-          <stringProp name="Assertion.custom_message"></stringProp>
+          <intProp name="Assertion.test_type">12</intProp>
+          <stringProp name="Assertion.custom_message">is not 2xx</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
@@ -174,12 +83,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
-          <stringProp name="Assertion.custom_message">no cookies</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">has cookies</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="1670172271">COOKIES</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">has cookies</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="1670172271">COOKIES</stringProp>
           </collectionProp>
@@ -196,12 +116,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
+          <intProp name="Assertion.test_type">2</intProp>
           <stringProp name="Assertion.custom_message"></stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="-1238303749">test text</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="-1238303749">test text</stringProp>
           </collectionProp>
@@ -218,12 +149,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_data_as_document</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
+          <intProp name="Assertion.test_type">2</intProp>
           <stringProp name="Assertion.custom_message"></stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Document" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Document" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="-642107175">some text</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_data_as_document</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Document" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="-642107175">some text</stringProp>
           </collectionProp>
@@ -240,12 +182,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
-          <intProp name="Assertion.test_type">12</intProp>
-          <stringProp name="Assertion.custom_message">Not OK</stringProp>
+          <intProp name="Assertion.test_type">8</intProp>
+          <stringProp name="Assertion.custom_message">OK</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Message" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Message" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="2524">OK</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
+          <intProp name="Assertion.test_type">8</intProp>
+          <stringProp name="Assertion.custom_message">OK</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Message" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="2524">OK</stringProp>
           </collectionProp>
@@ -262,12 +215,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
-          <stringProp name="Assertion.custom_message">external</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">local</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Url" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Url" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="-1204607085">localhost</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">local</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Url" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="-1204607085">localhost</stringProp>
           </collectionProp>
@@ -283,7 +247,25 @@
           <longProp name="DurationAssertion.duration">2000</longProp>
         </DurationAssertion>
         <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Check Duration" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <longProp name="DurationAssertion.duration">2000</longProp>
+        </DurationAssertion>
+        <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Check Duration" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <longProp name="DurationAssertion.duration">2000</longProp>
+        </DurationAssertion>
+        <hashTree/>
         <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="Check MD5Hex" enabled="true">
+          <stringProp name="MD5HexAssertion.size">2bf7b8126bb7c645638e444f6e2c58a5</stringProp>
+        </MD5HexAssertion>
+        <hashTree/>
+        <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="Check MD5Hex" enabled="false">
+          <stringProp name="MD5HexAssertion.size">2bf7b8126bb7c645638e444f6e2c58a5</stringProp>
+        </MD5HexAssertion>
+        <hashTree/>
+        <MD5HexAssertion guiclass="MD5HexAssertionGUI" testclass="MD5HexAssertion" testname="Check MD5Hex" enabled="false">
           <stringProp name="MD5HexAssertion.size">2bf7b8126bb7c645638e444f6e2c58a5</stringProp>
         </MD5HexAssertion>
         <hashTree/>
@@ -293,12 +275,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.request_headers</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
-          <stringProp name="Assertion.custom_message">no cookies</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">has cookies</stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="1670172271">COOKIES</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.request_headers</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message">has cookies</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Headers" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="1670172271">COOKIES</stringProp>
           </collectionProp>
@@ -315,12 +308,23 @@
           </collectionProp>
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">Assertion.request_data</stringProp>
-          <intProp name="Assertion.test_type">6</intProp>
+          <intProp name="Assertion.test_type">2</intProp>
           <stringProp name="Assertion.custom_message"></stringProp>
           <boolProp name="Assertion.assume_success">false</boolProp>
         </ResponseAssertion>
         <hashTree/>
-        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="true">
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="false">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="-1238303749">test text</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.request_data</stringProp>
+          <intProp name="Assertion.test_type">2</intProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check Text" enabled="false">
           <collectionProp name="Asserion.test_strings">
             <stringProp name="-1238303749">test text</stringProp>
           </collectionProp>
@@ -338,42 +342,35 @@
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
-        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
-          <intProp name="SizeAssertion.operator">2</intProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
         <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
           <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
-          <intProp name="SizeAssertion.operator">3</intProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_headers</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
-        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
           <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
-          <intProp name="SizeAssertion.operator">4</intProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_headers</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
-        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
-          <intProp name="SizeAssertion.operator">5</intProp>
-          <stringProp name="SizeAssertion.size">4096</stringProp>
-        </SizeAssertion>
-        <hashTree/>
-        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
-          <stringProp name="Assertion.scope">all</stringProp>
-          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
-          <intProp name="SizeAssertion.operator">6</intProp>
-          <stringProp name="SizeAssertion.size">4096</stringProp>
-        </SizeAssertion>
-        <hashTree/>
-        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_headers</stringProp>
           <intProp name="SizeAssertion.operator">1</intProp>
@@ -387,6 +384,20 @@
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
         <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_data</stringProp>
@@ -394,7 +405,35 @@
           <stringProp name="SizeAssertion.size">4096</stringProp>
         </SizeAssertion>
         <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_data</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_data</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
         <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="true">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_message</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
+          <stringProp name="Assertion.scope">all</stringProp>
+          <stringProp name="Assertion.test_field">SizeAssertion.response_message</stringProp>
+          <intProp name="SizeAssertion.operator">1</intProp>
+          <stringProp name="SizeAssertion.size">4096</stringProp>
+        </SizeAssertion>
+        <hashTree/>
+        <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Check Size" enabled="false">
           <stringProp name="Assertion.scope">all</stringProp>
           <stringProp name="Assertion.test_field">SizeAssertion.response_message</stringProp>
           <intProp name="SizeAssertion.operator">1</intProp>

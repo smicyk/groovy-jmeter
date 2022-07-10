@@ -27,9 +27,30 @@ final class ResponseHandler {
         this.testElementCurrent = testElementCurrent
     }
 
+    ResponseHandler ne(int value, String message = '') {
+        testElementCurrent.testElement.addTestString(value.toString())
+        testElementCurrent.testElement.setToEqualsType()
+        testElementCurrent.testElement.setToNotType()
+
+        testElementCurrent.testElement.setCustomFailureMessage(message)
+
+        return this
+    }
+
+    ResponseHandler ne(String value, String message = '') {
+        testElementCurrent.testElement.addTestString(value)
+        testElementCurrent.testElement.setToEqualsType()
+        testElementCurrent.testElement.setToNotType()
+
+        testElementCurrent.testElement.setCustomFailureMessage(message)
+
+        return this
+    }
+
     ResponseHandler eq(int value, String message = '') {
         testElementCurrent.testElement.addTestString(value.toString())
         testElementCurrent.testElement.setToEqualsType()
+        testElementCurrent.testElement.unsetNotType()
 
         testElementCurrent.testElement.setCustomFailureMessage(message)
 
@@ -39,6 +60,7 @@ final class ResponseHandler {
     ResponseHandler eq(String value, String message = '') {
         testElementCurrent.testElement.addTestString(value)
         testElementCurrent.testElement.setToEqualsType()
+        testElementCurrent.testElement.unsetNotType()
 
         testElementCurrent.testElement.setCustomFailureMessage(message)
 
@@ -54,9 +76,20 @@ final class ResponseHandler {
         return this
     }
 
-    ResponseHandler contains(String value, String message = '') {
+    ResponseHandler includes(String value, String message = '') {
         testElementCurrent.testElement.addTestString(value)
         testElementCurrent.testElement.setToContainsType()
+        testElementCurrent.testElement.unsetNotType()
+
+        testElementCurrent.testElement.setCustomFailureMessage(message)
+
+        return this
+    }
+
+    ResponseHandler excludes(String value, String message = '') {
+        testElementCurrent.testElement.addTestString(value)
+        testElementCurrent.testElement.setToContainsType()
+        testElementCurrent.testElement.setToNotType()
 
         testElementCurrent.testElement.setCustomFailureMessage(message)
 

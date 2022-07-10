@@ -18,18 +18,20 @@ package net.simonix.dsl.jmeter.model
 import groovy.transform.CompileStatic
 
 /**
- * Represents node in test tree structure.
+ * Represents check node in test tree structure.
  * <p>
  * It is container for checks.
  */
 @CompileStatic
 class CheckTestElementNode {
 
+    boolean enabled
     String applyTo
 
     List<TestElementNode> testElementNodes = [] as LinkedList<TestElementNode>
 
-    CheckTestElementNode(String applyTo) {
+    CheckTestElementNode(boolean enabled, String applyTo) {
+        this.enabled = enabled
         this.applyTo = applyTo
     }
 
