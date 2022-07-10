@@ -53,7 +53,7 @@
           </elementProp>
           <elementProp name="var_duration" elementType="Argument">
             <stringProp name="Argument.name">var_duration</stringProp>
-            <stringProp name="Argument.value">10</stringProp>
+            <stringProp name="Argument.value">101</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="var_loops" elementType="Argument">
@@ -75,8 +75,8 @@
         <stringProp name="ThreadGroup.ramp_time">${var_rampUp}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${var_delay}</stringProp>
-        <stringProp name="ThreadGroup.delay">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.duration">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.delay">${var_delay}</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">${var_loops}</stringProp>
@@ -90,8 +90,8 @@
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${var_delay}</stringProp>
-        <stringProp name="ThreadGroup.delay">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.duration">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.delay">${var_delay}</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">${var_loops}</stringProp>
@@ -104,8 +104,8 @@
         <stringProp name="ThreadGroup.ramp_time">${var_duration}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${var_delay}</stringProp>
-        <stringProp name="ThreadGroup.delay">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.duration">${var_duration}</stringProp>
+        <stringProp name="ThreadGroup.delay">${var_delay}</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">${var_loops}</stringProp>

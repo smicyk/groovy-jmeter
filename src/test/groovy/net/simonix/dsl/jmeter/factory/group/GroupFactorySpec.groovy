@@ -26,9 +26,9 @@ class GroupFactorySpec extends TempFileSpec {
         given: 'Test plan with group element'
         def config = configure {
             plan {
-                before(name: 'Factory Setup', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, scheduler: true, delay: 10, duration: 10, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
-                group(name: 'Factory Group', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, delayedStart: 10, scheduler: true, delay: 10, duration: 10, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
-                after(name: 'Factory TearDown', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, scheduler: true, delay: 10, duration: 10, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
+                before(name: 'Factory Setup', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, scheduler: true, delay: 10, duration: 101, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
+                group(name: 'Factory Group', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, delayedStart: 10, scheduler: true, delay: 10, duration: 101, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
+                after(name: 'Factory TearDown', comments: "Factory Comment", enabled: false, users: 10, rampUp: 60, scheduler: true, delay: 10, duration: 101, loops: 2, forever: true, onError: 'stop_test', keepUser: false)
             }
         }
 
@@ -69,7 +69,7 @@ class GroupFactorySpec extends TempFileSpec {
                         'var_rampUp': 60,
                         'var_delay': 10,
                         'var_delayedStart': 10,
-                        'var_duration': 10,
+                        'var_duration': 101,
                         'var_loops': 2,
                         'var_onError': 'stop_test'
                 ]
