@@ -174,7 +174,7 @@ abstract class TestScriptBase extends Script {
         if (Files.notExists(upgradePropertiesPath)) {
             // if not exists, create the default one from the class path
             this.class.classLoader.getResourceAsStream(JMETER_UPGRADE_CLASSPATH).with { sourceStream ->
-                Files.copy(sourceStream, savePropertiesPath)
+                Files.copy(sourceStream, upgradePropertiesPath)
             }
         }
 
