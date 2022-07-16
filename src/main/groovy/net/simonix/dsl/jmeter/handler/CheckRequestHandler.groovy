@@ -19,10 +19,10 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
+
 @CompileDynamic
 final class CheckRequestHandler implements CheckHandler {
-
-    final static boolean not = true
 
     CheckTestElementNode testElementContainer
     TestElementNode testElementCurrent
@@ -34,26 +34,41 @@ final class CheckRequestHandler implements CheckHandler {
         this.builderSupport = builderSupport
     }
 
-    ResponseHandler headers(boolean negate = false) {
-        String applyTo = testElementContainer.applyTo
-
-        return responseBuildImpl('assert_response', 'Check Headers', applyTo, 'request_headers', negate)
+    ResponseHandler headers(String value) {
+        return headers([:], value)
     }
 
-    ResponseHandler text(boolean negate = false) {
+    ResponseHandler headers(Map config = [:], String value = '') {
         String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Headers'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
 
-        return responseBuildImpl('assert_response', 'Check Text', applyTo, 'request_data', negate)
+        return responseBuildImpl('assert_response', name, comment, enabled, applyTo, 'request_headers')
     }
 
-    private ResponseHandler responseBuildImpl(String type, String name, String applyTo, String field, boolean negate) {
+    ResponseHandler text(String value) {
+        return text([:], value)
+    }
+
+    ResponseHandler text(Map config = [:], String value = '') {
+        String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Text'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
+
+        return responseBuildImpl('assert_response', name, comment, enabled, applyTo, 'request_data')
+    }
+
+    private ResponseHandler responseBuildImpl(String type, String name, String comment, boolean enabled, String applyTo, String field) {
         Factory factory = builderSupport.factories.get(type)
 
         Map config = [:]
         config.name = name
+        config.comment = comment
+        config.enabled = enabled
         config.applyTo = applyTo
         config.field = field
-        config.negate = negate
 
         testElementCurrent = factory.newInstance(builderSupport, type, null, config) as TestElementNode
         testElementContainer.add(testElementCurrent)

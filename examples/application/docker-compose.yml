@@ -16,7 +16,7 @@ services:
     command: ["-serverPort", "1080", "-logLevel", "WARN", "-jvmOptions", "-Dmockserver.initializationJsonPath=/tmp/books.json"]
 
   testserver:
-    image: "groovy:3.0.7-jdk11"
+    image: "groovy:3.0.11-jdk11"
     container_name: testserver-app
     volumes:
       - .:/home/groovy

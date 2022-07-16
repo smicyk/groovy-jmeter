@@ -423,7 +423,7 @@ final class DslDefinition {
     static final KeywordDefinition DEBUG = keyword('debug', KeywordCategory.SAMPLER) {
         include(COMMON_PROPERTIES)
         property(name: 'displayJMeterProperties', type: Boolean, required: false, defaultValue: false)
-        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: true)
         property(name: 'displaySystemProperties', type: Boolean, required: false, defaultValue: false)
     }
 
@@ -1034,16 +1034,19 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition CHECK_RESPONSE = keyword('check_response', KeywordCategory.CHECK) {
+        property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         valueIsProperty()
     }
 
     static final KeywordDefinition CHECK_REQUEST = keyword('check_request', KeywordCategory.CHECK) {
+        property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         valueIsProperty()
     }
 
     static final KeywordDefinition CHECK_SIZE = keyword('check_size', KeywordCategory.CHECK) {
+        property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'all', constraints: inList(['all', 'parent', 'children', 'variable']))
         valueIsProperty()
     }

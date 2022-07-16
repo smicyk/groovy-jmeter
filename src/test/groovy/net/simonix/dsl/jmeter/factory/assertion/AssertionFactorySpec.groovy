@@ -46,9 +46,9 @@ class AssertionFactorySpec extends TempFileSpec {
                     assert_md5hex(name: 'Assert MD5 Factory', comments: 'Factory Comments', value: '--some-value--')
                     assert_md5hex '--some--value--'
 
-                    assert_size(size: 50)
-                    assert_size(name: 'Assert Size Factory', comments: 'Factory Comments', size: 50)
-                    assert_size 50
+                    assert_size(size: 4096)
+                    assert_size(name: 'Assert Size Factory', comments: 'Factory Comments', size: 4096)
+                    assert_size 4096
 
                     assert_xpath()
                     assert_xpath(name: 'Assert XPath Factory', comments: 'Factory Comments', applyTo: 'parent', variable: 'var_variable', expression: '//span', ignoreWhitespace: true, validate: true, useNamespace: true, fetchDtd: true, failOnNoMatch: true, useTolerant: true, reportErrors: true, showWarnings: true, quiet: true)
@@ -65,62 +65,62 @@ class AssertionFactorySpec extends TempFileSpec {
         filesAreTheSame('assertions_0.jmx', resultFile)
     }
 
-    def "Check check generation"() {
+    def "Check assertion DSL generation"() {
         expect: "configure test and save result to the file"
         def config = configure {
             plan {
                 group {
                     check_response {
-                        status(not) eq 200 and 201 and 202, 'is not 2xx'
+                        status() ne 200 and 201 and 202, 'is not 2xx'
                         status() eq 210 and 420 and 530
-                        status(not) eq 201 or 402 or 503
+                        status() ne 201 or 402 or 503
                         status() eq 210 or 420 or 530
 
                         status() substring '500' and '400'
                         status() substring '501' or '401'
 
-                        status() contains 'pattern \\d+' and 'test 123', 'doesn\'t have email'
-                        status() contains 'pattern \\d+' or 'test 123'
+                        status() includes 'pattern \\d+' and 'test 123', 'doesn\'t have email'
+                        status() includes 'pattern \\d+' or 'test 123'
                         status() matches 'pattern \\d+' and 'test 123'
                         status() matches 'pattern \\d+' or 'test 123'
 
-                        headers(not) contains 'COOKIES', 'no cookies'
-                        headers() contains 'COOKIES', 'has cookies'
+                        headers() excludes 'COOKIES', 'no cookies'
+                        headers() includes 'COOKIES', 'has cookies'
 
-                        text(not) contains 'test text'
-                        text() contains 'test text'
+                        text() excludes 'test text'
+                        text() includes 'test text'
 
-                        document(not) contains 'some text'
-                        document() contains 'some text'
+                        document() excludes 'some text'
+                        document() includes 'some text'
 
-                        message(not) eq 'OK', 'Not OK'
+                        message() ne 'OK', 'Not OK'
                         message() eq 'OK', 'OK'
 
-                        url(not) contains 'localhost', 'external'
-                        url() contains 'localhost', 'local'
+                        url() excludes 'localhost', 'external'
+                        url() includes 'localhost', 'local'
 
                         duration() eq 2000
                         md5hex() eq '2bf7b8126bb7c645638e444f6e2c58a5'
                     }
                     check_request {
-                        headers(not) contains 'COOKIES', 'no cookies'
-                        headers() contains 'COOKIES', 'has cookies'
+                        headers() excludes 'COOKIES', 'no cookies'
+                        headers() includes 'COOKIES', 'has cookies'
 
-                        text(not) contains 'test text'
-                        text() contains 'test text'
+                        text() excludes 'test text'
+                        text() includes 'test text'
                     }
                     check_size {
-                        status() eq 200
-                        status() ne 200
-                        status() gt 200
-                        status() lt 200
-                        status() ge 200
-                        status() le 200
+                        status() eq 4096
+                        status() ne 4096
+                        status() gt 4096
+                        status() lt 4096
+                        status() ge 4096
+                        status() le 4096
 
-                        headers() eq 200
-                        text() eq 200
-                        body() eq 200
-                        message() eq 200
+                        headers() eq 4096
+                        text() eq 4096
+                        body() eq 4096
+                        message() eq 4096
                     }
                 }
             }
@@ -133,5 +133,172 @@ class AssertionFactorySpec extends TempFileSpec {
 
         then: 'both files matches'
         filesAreTheSame('assertions_1.jmx', resultFile)
+    }
+
+    def "Check assertion DSL with properties generation"() {
+        expect: "configure test and save result to the file"
+        def config = configure {
+            plan {
+                group {
+                    check_response {
+                        status(name: 'Check Name', comments: 'Check Comments', enabled: false) ne 200 and 201 and 202, 'is not 2xx'
+                        status(name: 'Check Name', comments: 'Check Comments', enabled: false) substring '500' and '400'
+                        status(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'pattern \\d+' or 'test 123'
+                        status(name: 'Check Name', comments: 'Check Comments', enabled: false) matches 'pattern \\d+' and 'test 123'
+                        status('Check Name', comments: 'Check Comments', enabled: false) matches 'pattern \\d+' and 'test 123'
+                        status('Check Name') matches 'pattern \\d+' and 'test 123'
+
+                        headers(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'COOKIES', 'has cookies'
+                        headers('Check Name', comments: 'Check Comments', enabled: false) includes 'COOKIES', 'has cookies'
+                        headers('Check Name') includes 'COOKIES', 'has cookies'
+
+                        text(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'test text'
+                        text('Check Name', comments: 'Check Comments', enabled: false) includes 'test text'
+                        text('Check Name') includes 'test text'
+
+                        document(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'some text'
+                        document('Check Name', comments: 'Check Comments', enabled: false) includes 'some text'
+                        document('Check Name') includes 'some text'
+
+                        message(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 'OK', 'OK'
+                        message('Check Name', comments: 'Check Comments', enabled: false) eq 'OK', 'OK'
+                        message('Check Name') eq 'OK', 'OK'
+
+                        url(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'localhost', 'local'
+                        url('Check Name', comments: 'Check Comments', enabled: false) includes 'localhost', 'local'
+                        url('Check Name') includes 'localhost', 'local'
+
+                        duration(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 2000
+                        duration('Check Name', comments: 'Check Comments', enabled: false) eq 2000
+                        duration('Check Name') eq 2000
+
+                        md5hex(name: 'Check Name', comments: 'Check Comments', enabled: false) eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                        md5hex('Check Name', comments: 'Check Comments', enabled: false) eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                        md5hex('Check Name') eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                    }
+                    check_request {
+                        headers(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'COOKIES', 'has cookies'
+                        headers('Check Name', comments: 'Check Comments', enabled: false) includes 'COOKIES', 'has cookies'
+                        headers('Check Name') includes 'COOKIES', 'has cookies'
+
+                        text(name: 'Check Name', comments: 'Check Comments', enabled: false) includes 'test text'
+                        text('Check Name', comments: 'Check Comments', enabled: false) includes 'test text'
+                        text('Check Name') includes 'test text'
+                    }
+                    check_size {
+                        status(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        status('Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        status('Check Name') eq 4096
+
+                        headers(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        headers('Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        headers('Check Name') eq 4096
+
+                        text(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        text('Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        text('Check Name') eq 4096
+
+                        body(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        body('Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        body('Check Name') eq 4096
+
+                        message(name: 'Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        message('Check Name', comments: 'Check Comments', enabled: false) eq 4096
+                        message('Check Name') eq 4096
+                    }
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('assertions_2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('assertions_2.jmx', resultFile)
+    }
+
+    def "Check assertion DSL with properties override generation"() {
+        expect: "configure test and save result to the file"
+        def config = configure {
+            plan {
+                group {
+                    check_response enabled: false, {
+                        status(enabled: true) ne 200, 'is not 2xx'
+                        status(enabled: false) ne 200, 'is not 2xx'
+                        status() ne 200, 'is not 2xx'
+
+                        headers(enabled: true) includes 'COOKIES', 'has cookies'
+                        headers(enabled: false) includes 'COOKIES', 'has cookies'
+                        headers() includes 'COOKIES', 'has cookies'
+
+                        text(enabled: true) includes 'test text'
+                        text(enabled: false) includes 'test text'
+                        text() includes 'test text'
+
+                        document(enabled: true) includes 'some text'
+                        document(enabled: false) includes 'some text'
+                        document() includes 'some text'
+
+
+                        message(enabled: true) eq 'OK', 'OK'
+                        message(enabled: false) eq 'OK', 'OK'
+                        message() eq 'OK', 'OK'
+
+
+                        url(enabled: true) includes 'localhost', 'local'
+                        url(enabled: false) includes 'localhost', 'local'
+                        url() includes 'localhost', 'local'
+
+                        duration(enabled: true) eq 2000
+                        duration(enabled: false) eq 2000
+                        duration() eq 2000
+
+                        md5hex(enabled: true) eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                        md5hex(enabled: false) eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                        md5hex() eq '2bf7b8126bb7c645638e444f6e2c58a5'
+                    }
+                    check_request enabled: false, {
+                        headers(enabled: true) includes 'COOKIES', 'has cookies'
+                        headers(enabled: false) includes 'COOKIES', 'has cookies'
+                        headers() includes 'COOKIES', 'has cookies'
+
+                        text(enabled: true) includes 'test text'
+                        text(enabled: false) includes 'test text'
+                        text() includes 'test text'
+                    }
+                    check_size enabled: false, {
+                        status(enabled: true) eq 4096
+                        status(enabled: false) eq 4096
+                        status() eq 4096
+
+                        headers(enabled: true) eq 4096
+                        headers(enabled: false) eq 4096
+                        headers() eq 4096
+
+                        text(enabled: true) eq 4096
+                        text(enabled: false) eq 4096
+                        text() eq 4096
+
+                        body(enabled: true) eq 4096
+                        body(enabled: false) eq 4096
+                        body() eq 4096
+
+                        message(enabled: true) eq 4096
+                        message(enabled: false) eq 4096
+                        message() eq 4096
+                    }
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('assertions_3.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('assertions_3.jmx', resultFile)
     }
 }

@@ -34,7 +34,7 @@ services:
       - database:graphql-db
 
   testserver:
-    image: "groovy:3.0.7-jdk11"
+    image: "groovy:3.0.11-jdk11"
     container_name: graphql-test
     volumes:
       - .:/home/groovy

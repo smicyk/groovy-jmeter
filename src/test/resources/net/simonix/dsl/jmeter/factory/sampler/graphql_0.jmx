@@ -16,7 +16,7 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -109,6 +109,19 @@
                 <boolProp name="HTTPArgument.always_encode">true</boolProp>
                 <stringProp name="Argument.name">query</stringProp>
                 <stringProp name="Argument.value">mutation { createEmployee( input: { employee: { id: $id firstName: $firstName lastName: $lastName email: $email salary: $salary } } ) { employee { id } } }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+              <elementProp name="variables" elementType="HTTPArgument" enabled="true">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">variables</stringProp>
+                <stringProp name="Argument.value">{
+                              id: &quot;${var_id}&quot;
+                              firstName: &quot;${var_first_name}&quot;
+                              lastName: &quot;${var_last_name}&quot;
+                              email: &quot;${var_email}&quot;
+                              salary: ${var_salary}
+                            }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
               </elementProp>

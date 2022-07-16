@@ -19,10 +19,10 @@ import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.model.CheckTestElementNode
 import net.simonix.dsl.jmeter.model.TestElementNode
 
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
+
 @CompileDynamic
 final class CheckSizeHandler implements CheckHandler {
-
-    final static boolean not = true
 
     CheckTestElementNode testElementContainer
     TestElementNode testElementCurrent
@@ -34,41 +34,78 @@ final class CheckSizeHandler implements CheckHandler {
         this.builderSupport = builderSupport
     }
 
-    SizeHandler status() {
-        String applyTo = testElementContainer.applyTo
-
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_status')
+    SizeHandler status(String value) {
+        return status([:], value)
     }
 
-    SizeHandler headers() {
+    SizeHandler status(Map config = [:], String value = '') {
         String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Size'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_headers')
+        return sizeBuildImpl('assert_size', name, comment, enabled, applyTo, 'response_status')
     }
 
-    SizeHandler text() {
-        String applyTo = testElementContainer.applyTo
-
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_data')
+    SizeHandler headers(String value) {
+        return headers([:], value)
     }
 
-    SizeHandler body() {
+    SizeHandler headers(Map config = [:], String value = '') {
         String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Size'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
 
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_body')
+        return sizeBuildImpl('assert_size', name, comment, enabled, applyTo, 'response_headers')
     }
 
-    SizeHandler message() {
-        String applyTo = testElementContainer.applyTo
-
-        return sizeBuildImpl('assert_size', 'Check Size', applyTo, 'response_message')
+    SizeHandler text(String value) {
+        return text([:], value)
     }
 
-    private SizeHandler sizeBuildImpl(String type, String name, String applyTo, String field) {
+    SizeHandler text(Map config = [:], String value = '') {
+        String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Size'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
+
+        return sizeBuildImpl('assert_size', name, comment, enabled, applyTo, 'response_data')
+    }
+
+    SizeHandler body(String value) {
+        return body([:], value)
+    }
+
+    SizeHandler body(Map config = [:], String value = '') {
+        String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Size'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
+
+        return sizeBuildImpl('assert_size', name, comment, enabled, applyTo, 'response_body')
+    }
+
+    SizeHandler message(String value) {
+        return message([:], value)
+    }
+
+    SizeHandler message(Map config = [:], String value = '') {
+        String applyTo = testElementContainer.applyTo
+        String name = readValue(config.name, readValue(value, 'Check Size'))
+        String comment = readValue(config.comments, '')
+        boolean enabled = readValue(config.enabled, testElementContainer.enabled)
+
+        return sizeBuildImpl('assert_size', name, comment, enabled, applyTo, 'response_message')
+    }
+
+    private SizeHandler sizeBuildImpl(String type, String name, String comment, boolean enabled, String applyTo, String field) {
         Factory factory = builderSupport.getFactories().get(type)
 
         Map config = [:]
         config.name = name
+        config.comment = comment
+        config.enabled = enabled
         config.applyTo = applyTo
         config.field = field
         config.rule = 'ne'

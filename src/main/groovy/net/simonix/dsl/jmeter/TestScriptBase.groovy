@@ -30,9 +30,11 @@ abstract class TestScriptBase extends Script {
 
     final static String JMETER_PROPERITES_FILE = 'jmeter.properties'
     final static String JMETER_SAVESERVICE_FILE = 'saveservice.properties'
+    final static String JMETER_UPGRADE_FILE = 'upgrade.properties'
 
     final static String JMETER_PROPERTIES_CLASSPATH = 'org/apache/jmeter/jmeter.properties'
     final static String JMETER_SAVESERVICE_CLASSPATH = 'org/apache/jmeter/saveservice.properties'
+    final static String JMETER_UPGRADE_CLASSPATH = 'org/apache/jmeter/upgrade.properties'
 
     final static String JAVA_CLASSPATH_PROPERTY = 'java.class.path'
 
@@ -165,5 +167,17 @@ abstract class TestScriptBase extends Script {
         }
 
         config.saveServiceProperties = JMETER_SAVESERVICE_FILE
+
+        // let's load the upgrade.properties file
+        Path upgradePropertiesPath = FileSystems.default.getPath(JMETER_UPGRADE_FILE)
+
+        if (Files.notExists(upgradePropertiesPath)) {
+            // if not exists, create the default one from the class path
+            this.class.classLoader.getResourceAsStream(JMETER_UPGRADE_CLASSPATH).with { sourceStream ->
+                Files.copy(sourceStream, upgradePropertiesPath)
+            }
+        }
+
+        config.upgradeProperties = JMETER_UPGRADE_FILE
     }
 }
