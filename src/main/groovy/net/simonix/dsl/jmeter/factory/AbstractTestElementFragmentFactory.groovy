@@ -55,7 +55,14 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
         String file = readValue(value, definitionAwareConfig.file)
 
         URL url = this.class.classLoader.getResource(file)
-        return groovyShell.evaluate(url.toURI())
+
+        // pass the current builder to script evaluation so we have same validation rule applied and automatically add children to current parent element
+        groovyShell.context.setProperty("builder", builder)
+        Object instance = groovyShell.evaluate(url.toURI())
+
+        // clear groovyShell context
+        groovyShell.context.setProperty("builder", null)
+        return instance
     }
 
     boolean isLeaf() {

@@ -40,4 +40,38 @@ class InsertFactorySpec extends TempFileSpec {
         then: 'both files matches'
         filesAreTheSame('insert_0.jmx', resultFile)
     }
+
+    def "Check insert generation with mixed level of nesting"() {
+        given: 'Test plan with insert elements'
+
+        def config = configure {
+            plan {
+                group {
+                    insert file: 'net/simonix/dsl/jmeter/fragments/multiple.groovy'
+
+                    http('GET /books') {
+                        params {
+                            param(name: 'param3', value: '3')
+
+                            insert file: 'net/simonix/dsl/jmeter/fragments/params.groovy'
+                        }
+                    }
+
+                    backend {
+                        argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
+
+                        insert 'net/simonix/dsl/jmeter/fragments/arguments.groovy'
+                    }
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('insert_1.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('insert_1.jmx', resultFile)
+    }
 }

@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
+import net.simonix.dsl.jmeter.factory.common.InsertFactory
 import net.simonix.dsl.jmeter.factory.config.DefaultsFactory
 import net.simonix.dsl.jmeter.factory.config.http.*
 import net.simonix.dsl.jmeter.model.TestElementNode
@@ -77,6 +78,9 @@ class DefaultsHttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new DefaultsResourcesFactory())
         addFactory(new DefaultsSourceFactory())
         addFactory(new DefaultsTimeoutFactory())
+
+        // others
+        addFactory(new InsertFactory())
     }
 
     protected Object postNodeCompletion(Object parent, Object node) {
