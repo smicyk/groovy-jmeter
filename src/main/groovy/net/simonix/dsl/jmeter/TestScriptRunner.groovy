@@ -175,6 +175,17 @@ final class TestScriptRunner {
         return InvokerHelper.invokeClosure(closure, []) as TestElementNode
     }
 
+    static TestElementNode invokeFragmentBuilder(FactoryBuilderSupport builder, Map config, Closure closure) {
+        closure.delegate = builder
+        closure.resolveStrategy = Closure.DELEGATE_ONLY
+
+        // we don't care about return object as it is only last one from closure execution
+        InvokerHelper.invokeClosure(closure, [])
+
+        // create fragment test element node (it will be omitted when building final test tree)
+        return new TestElementNode('fragment', null)
+    }
+
     static void save(HashTree testPlan, File file) {
         updateFileServerBaseScript(file);
 

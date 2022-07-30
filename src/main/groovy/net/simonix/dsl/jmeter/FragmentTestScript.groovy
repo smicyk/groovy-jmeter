@@ -39,7 +39,9 @@ abstract class FragmentTestScript extends Script {
     }
 
     Object fragment(Map config, Closure c) {
-        return TestScriptRunner.invokeBuilder(config, c)
+        FactoryBuilderSupport builder = this.binding.getProperty("builder")
+
+        return TestScriptRunner.invokeFragmentBuilder(builder, config, c)
     }
 
     @Override

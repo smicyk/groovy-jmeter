@@ -17,6 +17,7 @@ package net.simonix.dsl.jmeter.builder
 
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
+import net.simonix.dsl.jmeter.factory.common.InsertFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendArgumentFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendArgumentsFactory
 import net.simonix.dsl.jmeter.factory.listener.BackendListenerFactory
@@ -69,6 +70,9 @@ class BackendFactoryBuilder extends TestFactoryBuilder {
         addFactory(new BackendListenerFactory())
         addFactory(new BackendArgumentFactory())
         addFactory(new BackendArgumentsFactory())
+
+        // others
+        addFactory(new InsertFactory())
     }
 
     protected Object postNodeCompletion(Object parent, Object node) {

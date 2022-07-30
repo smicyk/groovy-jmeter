@@ -18,6 +18,7 @@ package net.simonix.dsl.jmeter.builder
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
+import net.simonix.dsl.jmeter.factory.common.InsertFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConnectionFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcInitFactory
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcPoolFactory
@@ -99,6 +100,9 @@ class JdbcFactoryBuilder extends TestFactoryBuilder {
         addFactory(new JdbcAutocommitFactory())
         addFactory(new JdbcCommitFactory())
         addFactory(new JdbcRollbackFactory())
+
+        // others
+        addFactory(new InsertFactory())
 
         // preprocessor
         addFactory(new JdbcPreprocessorFactory())
