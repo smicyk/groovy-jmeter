@@ -19,6 +19,8 @@ import groovy.transform.CompileDynamic
 
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.notNull
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.notEmpty
 import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
 import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properties
 
@@ -26,13 +28,13 @@ import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properti
 final class DslDefinition {
 
     static final Set<PropertyDefinition> COMMON_PROPERTIES = properties {
-        property(name: 'name', type: String, required: false)
+        property(name: 'name', type: String, required: false, defaultValue: '', constraints: notNull())
         property(name: 'comments', type: String, required: false, defaultValue: '')
-        property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
+        property(name: 'enabled', type: Boolean, required: false, defaultValue: true, constraints: notNull())
     }
 
     static final Set<PropertyDefinition> LISTENER_PROPERTIES = properties {
-        property(name: 'file', type: String, required: true, defaultValue: '')
+        property(name: 'file', type: String, required: true, constraints: notEmpty())
         property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
         property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
         property(name: 'assertions', type: Boolean, required: false)
@@ -74,7 +76,7 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition PLAN_ARGUMENT = keyword('argument', KeywordCategory.PLAN, 'plan_') {
-        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'name', type: String, required: false, defaultValue: '', constraints: notNull())
         property(name: 'value', type: String, required: false, defaultValue: '')
         leaf()
     }
