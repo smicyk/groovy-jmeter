@@ -30,6 +30,7 @@ class RequiredValidatorSpec extends Specification {
         property(name: 'enabled', required: true)
         property(name: 'mode', required: false, constraints: inList(['value1', 'value2']))
         property(name: 'counter', required: false, constraints: range(10, 20))
+        property(name: 'resultClass', required: true, defaultValue: 'MyClass')
     }
 
     def "All fields are correct"() {
@@ -90,5 +91,29 @@ class RequiredValidatorSpec extends Specification {
 
         then:
         result == ValidationResult.notValidValue('test', 'counter', 'range 10..20')
+    }
+
+    def "Required property missing but has defaultValue (required validator)"() {
+        given: 'property validator with test properties'
+
+        RequiredOnlyValidator validator = new RequiredOnlyValidator(TEST_PROPERTIES, true)
+
+        when:
+        ValidationResult result = validator.validate('test', null, [enabled: true])
+
+        then:
+        result == ValidationResult.success()
+    }
+
+    def "Required property missing but has defaultValue (property validator)"() {
+        given: 'property validator with test properties'
+
+        PropertyValidator validator = new PropertyValidator(TEST_PROPERTIES, true)
+
+        when:
+        ValidationResult result = validator.validate('test', null, [enabled: true])
+
+        then:
+        result == ValidationResult.success()
     }
 }

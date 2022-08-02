@@ -55,7 +55,18 @@ class RequiredOnlyValidator implements Validator {
 
         if (!configKeys.containsAll(requiredKeys)) {
             if (!valueIsProperty || value == null) {
-                return ValidationResult.missingRequiredProperties(name, requiredKeys)
+                Set<String> missingKeys = requiredKeys.clone()
+                missingKeys.removeAll(configKeys)
+
+                Set<String> propertyNames = missingKeys.findAll { key ->
+                    PropertyDefinition propertyDefinition = properties[key]
+
+                    return propertyDefinition.defaultValue == null
+                }
+
+                if (propertyNames) {
+                    return ValidationResult.missingRequiredProperties(name, requiredKeys)
+                }
             }
         }
 
