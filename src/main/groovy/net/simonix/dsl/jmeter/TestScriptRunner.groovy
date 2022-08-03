@@ -18,6 +18,7 @@ package net.simonix.dsl.jmeter
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.DefaultFactoryBuilder
 import net.simonix.dsl.jmeter.builder.TestTreeBuilder
+import net.simonix.dsl.jmeter.plugin.PluginManager
 import net.simonix.dsl.jmeter.statistics.Statistics
 import net.simonix.dsl.jmeter.model.TestElementNode
 import net.simonix.dsl.jmeter.statistics.StatisticsListener
@@ -154,6 +155,13 @@ final class TestScriptRunner {
         return TestTreeBuilder.build(invokeBuilder(config, closure))
     }
 
+    static void plugins(Closure closure) {
+        closure.delegate = PluginManager.instance
+        closure.resolveStrategy = Closure.DELEGATE_ONLY
+
+        InvokerHelper.invokeClosure(closure, [])
+    }
+
     static TestElementNode invokeBuilder(Map config, Closure closure) {
         DefaultFactoryBuilder builder = new DefaultFactoryBuilder()
 
@@ -162,6 +170,8 @@ final class TestScriptRunner {
                 builder.setVariable(name, value)
             }
         }
+
+        PluginManager.updatePluginConfig(config)
 
         if (config.plugins) {
             config.plugins.each { factory ->

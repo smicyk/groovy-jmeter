@@ -12,6 +12,9 @@ The **examples** folder contains several scripts:
  - [application](application) - run test scripts in docker with all components - the application, test server and monitoring. It gives an overview of how the developer can configure all components to work together.
  - [database](database) - run test scripts in docker with all components - the application, test server and monitoring. It gives an overview of how the developer can configure JDBC components to work together.
  - [distributed](distributed) - run test in several dockers with one controller and 3 worker nodes (very simple setup). It requires monitoring and mockserver running
+ - [graphql](graphql) - run test with GraphQL Sampler. It requires monitoring and mockserver running
+ - [parameters](parameters) - run test with JMeter parameters script execution. It requires monitoring and mockserver running
+ - [plugins](plugins) - collection of different examples with plugins enabled
  
 There are two folders [mockserver](mockserver) and [monitoring](monitoring) which contains application mock and monitoring for backed listener.
 

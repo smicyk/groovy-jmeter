@@ -54,6 +54,10 @@ class TestElementNodeFactory extends AbstractTestElementNodeFactory {
         this(definition.title, testElementClass, testElementGuiClass, definition.leaf, definition)
     }
 
+    protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, KeywordDefinition definition) {
+        this(testElementName, testElementClass, testElementGuiClass, definition.leaf, definition)
+    }
+
     protected TestElementNodeFactory(String testElementName, Class testElementClass, Class testElementGuiClass, boolean leaf, KeywordDefinition definition) {
         this.testElementClass = testElementClass
         this.testElementGuiClass = testElementGuiClass
