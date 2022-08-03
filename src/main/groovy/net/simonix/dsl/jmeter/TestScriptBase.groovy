@@ -38,6 +38,10 @@ abstract class TestScriptBase extends Script {
 
     final static String JAVA_CLASSPATH_PROPERTY = 'java.class.path'
 
+    void plugins(Closure c) {
+        TestScriptRunner.plugins(c)
+    }
+
     void start(Closure c) {
         start([:], c)
     }
