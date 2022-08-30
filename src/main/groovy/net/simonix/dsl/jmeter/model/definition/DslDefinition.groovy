@@ -938,6 +938,15 @@ final class DslDefinition {
         valueIsProperty()
     }
 
+    static final KeywordDefinition DEBUG_POSTPROCESSOR = keyword('debug_postprocessor', KeywordCategory.POSTPROCESSOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'displayJMeterProperties', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: true)
+        property(name: 'displaySystemProperties', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displaySamplerProperties', type: Boolean, required: false, defaultValue: true)
+        leaf()
+    }
+
     // preprocessors
     static final KeywordDefinition JSR223_PREPROCESSOR = keyword('jsrpreprocessor', KeywordCategory.PREPROCESSOR) {
         include(COMMON_PROPERTIES)

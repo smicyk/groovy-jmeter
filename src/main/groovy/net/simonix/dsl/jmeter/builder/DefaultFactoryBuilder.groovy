@@ -40,6 +40,7 @@ import net.simonix.dsl.jmeter.factory.listener.ViewListenerFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariableFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariablesFactory
+import net.simonix.dsl.jmeter.factory.postprocessor.DebugPostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
@@ -154,6 +155,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         // postprocessors
         addFactory(new JSR223PostProcessorFactory())
         addFactory(new JdbcPostprocessorFactory())
+        addFactory(new DebugPostProcessorFactory())
 
         // preprocessors
         addFactory(new JSR223PreProcessorFactory())
