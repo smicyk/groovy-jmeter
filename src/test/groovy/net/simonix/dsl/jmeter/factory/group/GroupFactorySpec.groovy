@@ -88,4 +88,26 @@ class GroupFactorySpec extends TempFileSpec {
         then: 'both files matches'
         filesAreTheSame('group_2.jmx', resultFile)
     }
+
+    def "Check open model group generation with expression"() {
+        given: 'Test plan with schedule element'
+        def config = configure {
+            plan {
+                schedule inline: '''
+                    rate(1/min) random_arrivals(10 min) pause(1 min)
+                ''', {
+
+                }
+
+            }
+        }
+
+        File resultFile = tempFolder.newFile('group_3.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('group_3.jmx', resultFile)
+    }
 }

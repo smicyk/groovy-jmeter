@@ -30,6 +30,7 @@ import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.group.GroupFactory
+import net.simonix.dsl.jmeter.factory.group.OpenModelGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PostGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
 import net.simonix.dsl.jmeter.factory.listener.AggregateListenerFactory
@@ -88,6 +89,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new GroupFactory())
         addFactory(new PreGroupFactory())
         addFactory(new PostGroupFactory())
+        addFactory(new OpenModelGroupFactory())
 
         // controllers
         addFactory(new LoopFactory())
