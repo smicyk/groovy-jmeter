@@ -46,6 +46,7 @@ import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactor
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.*
+import net.simonix.dsl.jmeter.factory.sampler.java.JavaRequestFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
@@ -71,7 +72,8 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
             GraphQLFactoryBuilder.createProvider(),
             HttpFactoryBuilder.createProvider(),
             JdbcFactoryBuilder.createProvider(),
-            BackendFactoryBuilder.createProvider()
+            BackendFactoryBuilder.createProvider(),
+            JavaRequestFactoryBuilder.createProvider(),
     ]
 
     DefaultFactoryBuilder() {
@@ -116,6 +118,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new JSR223SamplerFactory())
         addFactory(new FlowControlActionFactory())
         addFactory(new JdbcRequestFactory())
+        addFactory(new JavaRequestFactory())
 
         // others
         addFactory(new InsertFactory())

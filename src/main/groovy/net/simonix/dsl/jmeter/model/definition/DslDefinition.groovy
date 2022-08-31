@@ -501,6 +501,21 @@ final class DslDefinition {
         leaf()
     }
 
+    static final KeywordDefinition JAVA_REQUEST = keyword('java_request', KeywordCategory.SAMPLER) {
+        include(COMMON_PROPERTIES)
+        property(name: 'classname', type: String, required: true, defaultValue: '')
+    }
+
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_') {
+        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
+    }
+
     // common
     static final KeywordDefinition INSERT = keyword('insert', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: false, defaultValue: null)
