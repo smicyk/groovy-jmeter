@@ -126,6 +126,14 @@ final class DslDefinition {
         property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
     }
 
+    static final KeywordDefinition OPEN_MODEL_GROUP = keyword('schedule', KeywordCategory.GROUP) {
+        include(COMMON_PROPERTIES)
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: '')
+        property(name: 'seed', type: Integer, required: false, defaultValue: 0, constraints: range(0))
+        property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
+    }
+
     // controllers
     static final KeywordDefinition LOOP = keyword('loop', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
