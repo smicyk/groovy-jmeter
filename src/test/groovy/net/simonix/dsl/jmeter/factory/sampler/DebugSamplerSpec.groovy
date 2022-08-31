@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.simonix.dsl.jmeter.factory.sampler;
+package net.simonix.dsl.jmeter.factory.sampler
 
 import net.simonix.dsl.jmeter.test.spec.TempFileSpec
 
