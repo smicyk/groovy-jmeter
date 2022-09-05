@@ -20,7 +20,7 @@ import groovy.transform.Immutable
 
 @Immutable
 @CompileDynamic
-class RangePropertyConstraint implements PropertyConstraint {
+final class RangePropertyConstraint implements PropertyConstraint {
 
     Long from
     Long to

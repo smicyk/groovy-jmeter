@@ -19,6 +19,8 @@ import groovy.transform.CompileDynamic
 
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.inList
 import static net.simonix.dsl.jmeter.model.constraint.Constraints.range
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.notNull
+import static net.simonix.dsl.jmeter.model.constraint.Constraints.notEmpty
 import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.keyword
 import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properties
 
@@ -26,13 +28,13 @@ import static net.simonix.dsl.jmeter.model.definition.DefinitionBuilder.properti
 final class DslDefinition {
 
     static final Set<PropertyDefinition> COMMON_PROPERTIES = properties {
-        property(name: 'name', type: String, required: false)
+        property(name: 'name', type: String, required: false, defaultValue: '', constraints: notNull())
         property(name: 'comments', type: String, required: false, defaultValue: '')
-        property(name: 'enabled', type: Boolean, required: false, defaultValue: true)
+        property(name: 'enabled', type: Boolean, required: false, defaultValue: true, constraints: notNull())
     }
 
     static final Set<PropertyDefinition> LISTENER_PROPERTIES = properties {
-        property(name: 'file', type: String, required: true, defaultValue: '')
+        property(name: 'file', type: String, required: true, constraints: notEmpty())
         property(name: 'errorsOnly', type: Boolean, required: false, defaultValue: false)
         property(name: 'successesOnly', type: Boolean, required: false, defaultValue: false)
         property(name: 'assertions', type: Boolean, required: false)
@@ -74,7 +76,7 @@ final class DslDefinition {
     }
 
     static final KeywordDefinition PLAN_ARGUMENT = keyword('argument', KeywordCategory.PLAN, 'plan_') {
-        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'name', type: String, required: false, defaultValue: '', constraints: notNull())
         property(name: 'value', type: String, required: false, defaultValue: '')
         leaf()
     }
@@ -121,6 +123,14 @@ final class DslDefinition {
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
+        property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
+    }
+
+    static final KeywordDefinition OPEN_MODEL_GROUP = keyword('schedule', KeywordCategory.GROUP) {
+        include(COMMON_PROPERTIES)
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: '')
+        property(name: 'seed', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
     }
 
@@ -497,6 +507,21 @@ final class DslDefinition {
 
     static final KeywordDefinition JDBC_ROLLBACK = keyword('rollback', KeywordCategory.OTHER, 'jdbc_') {
         leaf()
+    }
+
+    static final KeywordDefinition JAVA_REQUEST = keyword('java_request', KeywordCategory.SAMPLER) {
+        include(COMMON_PROPERTIES)
+        property(name: 'classname', type: String, required: true, defaultValue: '')
+    }
+
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_') {
+        property(name: 'name', type: String, required: false, defaultValue: '')
+        property(name: 'value', type: String, required: false, defaultValue: '')
+        leaf()
+    }
+
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_') {
+        property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
     // common
@@ -934,6 +959,15 @@ final class DslDefinition {
         include(COMMON_PROPERTIES)
         property(name: 'use', type: String, required: true, defaultValue: '')
         valueIsProperty()
+    }
+
+    static final KeywordDefinition DEBUG_POSTPROCESSOR = keyword('debug_postprocessor', KeywordCategory.POSTPROCESSOR) {
+        include(COMMON_PROPERTIES)
+        property(name: 'displayJMeterProperties', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displayJMeterVariables', type: Boolean, required: false, defaultValue: true)
+        property(name: 'displaySystemProperties', type: Boolean, required: false, defaultValue: false)
+        property(name: 'displaySamplerProperties', type: Boolean, required: false, defaultValue: true)
+        leaf()
     }
 
     // preprocessors

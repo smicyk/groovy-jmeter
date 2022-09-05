@@ -1,0 +1,79 @@
+plugins {
+    id 'groovy'
+    id 'java-library'
+    id 'idea'
+    id 'eclipse'
+
+    id 'ivy-publish'
+}
+
+repositories {
+    mavenCentral()
+    ivy {
+        artifactPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/jars/[artifact]-[revision](.[ext])"
+        ivyPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/ivy-[revision].xml"
+    }
+}
+
+project.group = 'net.simonix.scripts'
+project.version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    implementation('org.codehaus.groovy:groovy-all:3.0.11')
+
+    // we include plugin but exclude all jmeter dependencies, they have old version of the plugin
+    implementation('kg.apc:jmeter-plugins-dummy:0.4') {
+        exclude group: 'org.apache.jmeter'
+    }
+
+    implementation('net.simonix.scripts:groovy-jmeter:+')
+
+    // testing and mocking
+    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation ('org.spockframework:spock-core')
+    testImplementation ('org.spockframework:spock-junit4')
+
+    testImplementation('org.xmlunit:xmlunit-core:2.8.2')
+}
+
+configurations {
+    all*.exclude group: 'xml-apis'
+    all*.exclude group: 'xerces'
+    // it must be added since JMeter has broken build, see https://bz.apache.org/bugzilla/show_bug.cgi?id=64465
+    all*.exclude group: 'org.apache.jmeter', module: 'bom'
+}
+
+//* Test configuration *//
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        ivy {
+            artifactPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/jars/[artifact]-[revision](.[ext])"
+            ivyPattern "${System.properties['user.home']}/.groovy/grapes/[organization]/[module]/ivy-[revision].xml"
+        }
+    }
+    publications {
+        ivy(IvyPublication) {
+            organisation = project.group
+            module = 'plugins-dummy'
+            revision = project.version
+
+            descriptor.status = 'release'
+
+            from components.java
+        }
+    }
+}
+
+// disable gradle module metadata to make Ivy custom publication working
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}

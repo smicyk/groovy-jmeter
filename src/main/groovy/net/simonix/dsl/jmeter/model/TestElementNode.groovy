@@ -36,6 +36,9 @@ class TestElementNode {
     }
 
     void add(TestElementNode testElementNode) {
-        this.testElementNodes << testElementNode
+        // add only real test elements node (must contain testElement)
+        if(testElementNode.testElement != null) {
+            this.testElementNodes << testElementNode
+        }
     }
 }

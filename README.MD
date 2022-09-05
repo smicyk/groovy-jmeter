@@ -12,7 +12,7 @@ It has following features:
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
 
- Current version uses [Apache JMeter 5.4.3](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
+ Current version uses [Apache JMeter 5.5](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
 
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  

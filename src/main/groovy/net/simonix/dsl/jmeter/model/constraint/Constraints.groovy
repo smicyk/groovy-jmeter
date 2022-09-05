@@ -28,4 +28,12 @@ final class Constraints {
     static RangePropertyConstraint range(long from) {
         return new RangePropertyConstraint(from, Long.MAX_VALUE)
     }
+
+    static NotEmptyContraint notEmpty() {
+        return new NotEmptyContraint()
+    }
+
+    static NotNullConstraint notNull() {
+        return new NotNullConstraint()
+    }
 }

@@ -30,6 +30,7 @@ import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.group.GroupFactory
+import net.simonix.dsl.jmeter.factory.group.OpenModelGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PostGroupFactory
 import net.simonix.dsl.jmeter.factory.group.PreGroupFactory
 import net.simonix.dsl.jmeter.factory.listener.AggregateListenerFactory
@@ -40,11 +41,13 @@ import net.simonix.dsl.jmeter.factory.listener.ViewListenerFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariableFactory
 import net.simonix.dsl.jmeter.factory.plan.PlanVariablesFactory
+import net.simonix.dsl.jmeter.factory.postprocessor.DebugPostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.jdbc.JdbcPreprocessorFactory
 import net.simonix.dsl.jmeter.factory.sampler.*
+import net.simonix.dsl.jmeter.factory.sampler.java.JavaRequestFactory
 import net.simonix.dsl.jmeter.factory.sampler.jdbc.JdbcRequestFactory
 import net.simonix.dsl.jmeter.factory.timer.*
 import net.simonix.dsl.jmeter.model.TestElementNode
@@ -70,7 +73,8 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
             GraphQLFactoryBuilder.createProvider(),
             HttpFactoryBuilder.createProvider(),
             JdbcFactoryBuilder.createProvider(),
-            BackendFactoryBuilder.createProvider()
+            BackendFactoryBuilder.createProvider(),
+            JavaRequestFactoryBuilder.createProvider(),
     ]
 
     DefaultFactoryBuilder() {
@@ -85,6 +89,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new GroupFactory())
         addFactory(new PreGroupFactory())
         addFactory(new PostGroupFactory())
+        addFactory(new OpenModelGroupFactory())
 
         // controllers
         addFactory(new LoopFactory())
@@ -115,6 +120,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new JSR223SamplerFactory())
         addFactory(new FlowControlActionFactory())
         addFactory(new JdbcRequestFactory())
+        addFactory(new JavaRequestFactory())
 
         // others
         addFactory(new InsertFactory())
@@ -154,6 +160,7 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         // postprocessors
         addFactory(new JSR223PostProcessorFactory())
         addFactory(new JdbcPostprocessorFactory())
+        addFactory(new DebugPostProcessorFactory())
 
         // preprocessors
         addFactory(new JSR223PreProcessorFactory())

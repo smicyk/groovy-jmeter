@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="User Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <intProp name="ThreadGroup.duration">0</intProp>
+        <intProp name="ThreadGroup.delay">0</intProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">1</intProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Dummy Sampler" enabled="true">
+          <boolProp name="WAITING">false</boolProp>
+          <boolProp name="SUCCESFULL">false</boolProp>
+          <stringProp name="RESPONSE_CODE"></stringProp>
+          <stringProp name="RESPONSE_MESSAGE"></stringProp>
+          <stringProp name="REQUEST_DATA"></stringProp>
+          <stringProp name="RESPONSE_DATA"></stringProp>
+          <stringProp name="RESPONSE_TIME"></stringProp>
+          <stringProp name="LATENCY"></stringProp>
+          <stringProp name="CONNECT"></stringProp>
+          <stringProp name="URL"></stringProp>
+          <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SamplerResult</stringProp>
+        </kg.apc.jmeter.samplers.DummySampler>
+        <hashTree/>
+        <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Factory dummy" enabled="false">
+          <stringProp name="TestPlan.comments">Factory Comment</stringProp>
+          <boolProp name="WAITING">false</boolProp>
+          <boolProp name="SUCCESFULL">false</boolProp>
+          <stringProp name="RESPONSE_CODE"></stringProp>
+          <stringProp name="RESPONSE_MESSAGE"></stringProp>
+          <stringProp name="REQUEST_DATA"></stringProp>
+          <stringProp name="RESPONSE_DATA"></stringProp>
+          <stringProp name="RESPONSE_TIME"></stringProp>
+          <stringProp name="LATENCY"></stringProp>
+          <stringProp name="CONNECT"></stringProp>
+          <stringProp name="URL"></stringProp>
+          <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SamplerResult</stringProp>
+        </kg.apc.jmeter.samplers.DummySampler>
+        <hashTree/>
+        <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Factory dummy" enabled="false">
+          <stringProp name="TestPlan.comments">Factory Comment</stringProp>
+          <boolProp name="WAITING">true</boolProp>
+          <boolProp name="SUCCESFULL">true</boolProp>
+          <stringProp name="RESPONSE_CODE">200</stringProp>
+          <stringProp name="RESPONSE_MESSAGE"> OK</stringProp>
+          <stringProp name="REQUEST_DATA">data</stringProp>
+          <stringProp name="RESPONSE_DATA">data</stringProp>
+          <stringProp name="RESPONSE_TIME">1000000</stringProp>
+          <stringProp name="LATENCY">1000</stringProp>
+          <stringProp name="CONNECT">1000</stringProp>
+          <stringProp name="URL">http://www.example.com</stringProp>
+          <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SamplerResult</stringProp>
+        </kg.apc.jmeter.samplers.DummySampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

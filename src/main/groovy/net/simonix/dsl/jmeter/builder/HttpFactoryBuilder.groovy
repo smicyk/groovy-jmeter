@@ -18,12 +18,14 @@ package net.simonix.dsl.jmeter.builder
 import groovy.transform.CompileDynamic
 import net.simonix.dsl.jmeter.builder.provider.FactoryBuilderProvider
 import net.simonix.dsl.jmeter.factory.assertion.*
+import net.simonix.dsl.jmeter.factory.common.InsertFactory
 import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JMESPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.RegExExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.XPathExtractorFactory
+import net.simonix.dsl.jmeter.factory.postprocessor.DebugPostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.JSR223PostProcessorFactory
 import net.simonix.dsl.jmeter.factory.postprocessor.jdbc.JdbcPostprocessorFactory
 import net.simonix.dsl.jmeter.factory.preprocessor.JSR223PreProcessorFactory
@@ -101,6 +103,9 @@ class HttpFactoryBuilder extends TestFactoryBuilder {
         addFactory(new HttpSourceFactory())
         addFactory(new HttpTimeoutFactory())
 
+        // others
+        addFactory(new InsertFactory())
+
         // preprocessor
         addFactory(new JdbcPreprocessorFactory())
         addFactory(new JSR223PreProcessorFactory())
@@ -108,6 +113,7 @@ class HttpFactoryBuilder extends TestFactoryBuilder {
         // postprocessor
         addFactory(new JdbcPostprocessorFactory())
         addFactory(new JSR223PostProcessorFactory())
+        addFactory(new DebugPostProcessorFactory())
 
         // assertions
         addFactory(new JSR223AssertionFactory())
