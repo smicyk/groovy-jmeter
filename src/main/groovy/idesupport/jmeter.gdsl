@@ -1,3 +1,73 @@
+/*
+ * Copyright 2022 Szymon Micyk
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package idesupport
+
+def ctx = context(scope: scriptScope())
+
+contributor(ctx) {
+    method(name: 'start', params: [closure: {}], doc: 'Start script')
+    method(name: 'start', params: [config: Map.name, closure: {}], doc: 'Start script')
+
+    method(name: 'configure', params: [closure: {}], doc: 'Configure script')
+    method(name: 'configure', params: [config: Map.name, closure: {}], doc: 'Configure script')
+
+    method(name: 'plugins', params: [closure: {}], doc: 'Plugins used in script')
+    method(name: 'plugins', params: [config: Map.name, closure: {}], doc: 'Plugins used in script')
+}
+
+def closureBodyCtx = context(scope: closureScope())
+
+contributor(closureBodyCtx) {
+    if (enclosingCall('start')) {
+        contributeKeywords(delegate)
+    }
+
+    if (enclosingCall('configure')) {
+        contributeKeywords(delegate)
+    }
+
+    if (enclosingCall('plugins')) {
+        contributePlugins(delegate)
+    }
+}
+
+private void contributePlugins(delegate) {
+    def doc = '''<pre>
+    plugins (
+        id: string                                      
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'plugins', params: [closure: {}], doc: doc)
+
+    if(delegate.enclosingCall('plugins')) {
+        contributePlugins_id(delegate)
+    }
+}
+
+// Defines single user variable in arguments
+private void contributePlugins_id(delegate) {
+    def doc = '''<pre>
+    id string
+    </pre>'''
+
+    delegate.method(name: 'argument', params: [], doc: doc)
+}
+
 private void contributeKeywords(delegate) {
     contributeAfter(delegate)
     contributeAggregate(delegate)
@@ -25,9 +95,9 @@ private void contributeKeywords(delegate) {
     contributeExtract_css(delegate)
     contributeCsv(delegate)
     contributeDebug(delegate)
+    contributeDebug_postprocessor(delegate)
     contributeDefaults(delegate)
     contributeDns(delegate)
-    contributeHost(delegate)
     contributeExecute(delegate)
     contributeExecute_if(delegate)
     contributeExecute_interleave(delegate)
@@ -49,6 +119,7 @@ private void contributeKeywords(delegate) {
     contributeHttp(delegate)
     contributeInclude(delegate)
     contributeInsert(delegate)
+    contributeJava_request(delegate)
     contributeJdbc(delegate)
     contributeJdbc_config(delegate)
     contributeJdbc_postprocessor(delegate)
@@ -64,6 +135,7 @@ private void contributeKeywords(delegate) {
     contributeJsrtimer(delegate)
     contributeLogin(delegate)
     contributeLoop(delegate)
+    contributeSchedule(delegate)
     contributePlan(delegate)
     contributePoisson_timer(delegate)
     contributePrecise_throughput(delegate)
@@ -187,7 +259,7 @@ private void contributeAjp(delegate) {
     delegate.method(name: 'ajp', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'ajp', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('ajp')) {
+    if(delegate.enclosingCall('ajp')) {
         contributeAjp_body(delegate)
         contributeAjp_file(delegate)
         contributeAjp_files(delegate)
@@ -499,7 +571,7 @@ private void contributeBackend(delegate) {
     delegate.method(name: 'backend', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'backend', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('backend')) {
+    if(delegate.enclosingCall('backend')) {
         contributeBackend_argument(delegate)
         contributeBackend_arguments(delegate)
     }
@@ -586,6 +658,7 @@ private void contributeCache(delegate) {
 private void contributeCheck_request(delegate) {
     def doc = '''<pre>
     check_request (
+        enabled: boolean (true)                           
         applyTo: string ('all')                           [all, parent, children, variable]
     ) {
     }
@@ -603,6 +676,7 @@ private void contributeCheck_request(delegate) {
 private void contributeCheck_response(delegate) {
     def doc = '''<pre>
     check_response (
+        enabled: boolean (true)                           
         applyTo: string ('all')                           [all, parent, children, variable]
     ) {
     }
@@ -620,6 +694,7 @@ private void contributeCheck_response(delegate) {
 private void contributeCheck_size(delegate) {
     def doc = '''<pre>
     check_size (
+        enabled: boolean (true)                           
         applyTo: string ('all')                           [all, parent, children, variable]
     ) {
     }
@@ -783,7 +858,7 @@ private void contributeDebug(delegate) {
         comments: string                                  
         enabled: boolean (true)                           
         displayJMeterProperties: boolean                  
-        displayJMeterVariables: boolean                   
+        displayJMeterVariables: boolean (true)            
         displaySystemProperties: boolean                  
     ) {
     }
@@ -796,6 +871,25 @@ private void contributeDebug(delegate) {
     delegate.method(name: 'debug', params: [config: Map.name, closure: {}], doc: doc)
     delegate.method(name: 'debug', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'debug', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
+// Defines 'Debug PostProcessor' element
+private void contributeDebug_postprocessor(delegate) {
+    def doc = '''<pre>
+    debug_postprocessor (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean (true)                           
+        displayJMeterProperties: boolean                  
+        displayJMeterVariables: boolean (true)            
+        displaySystemProperties: boolean                  
+        displaySamplerProperties: boolean (true)          
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'debug_postprocessor', params: [value: String.name], doc: doc)
+    delegate.method(name: 'debug_postprocessor', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'debug_postprocessor', params: [value: String.name, config: Map.name], doc: doc)
 }
 // Defines 'HTTP Request Defaults' config element
 private void contributeDefaults(delegate) {
@@ -824,7 +918,7 @@ private void contributeDefaults(delegate) {
     delegate.method(name: 'defaults', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'defaults', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('defaults')) {
+    if(delegate.enclosingCall('defaults')) {
         contributeDefaults_body(delegate)
         contributeDefaults_param(delegate)
         contributeDefaults_params(delegate)
@@ -964,9 +1058,13 @@ private void contributeDns(delegate) {
     delegate.method(name: 'dns', params: [config: Map.name, closure: {}], doc: doc)
     delegate.method(name: 'dns', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'dns', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+
+    if(delegate.enclosingCall('dns')) {
+        contributeDns_host(delegate)
+    }
 }
 // Defines static table host
-private void contributeHost(delegate) {
+private void contributeDns_host(delegate) {
     def doc = '''<pre>
     host (
         name: string                                      
@@ -1295,7 +1393,7 @@ private void contributeGraphql(delegate) {
     delegate.method(name: 'graphql', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'graphql', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('graphql')) {
+    if(delegate.enclosingCall('graphql')) {
         contributeGraphql_execute(delegate)
         contributeGraphql_operation(delegate)
         contributeGraphql_proxy(delegate)
@@ -1485,7 +1583,7 @@ private void contributeHttp(delegate) {
     delegate.method(name: 'http', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'http', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('http')) {
+    if(delegate.enclosingCall('http')) {
         contributeHttp_body(delegate)
         contributeHttp_file(delegate)
         contributeHttp_files(delegate)
@@ -1652,7 +1750,7 @@ private void contributeInclude(delegate) {
     delegate.method(name: 'include', params: [config: Map.name], doc: doc)
     delegate.method(name: 'include', params: [value: String.name, config: Map.name], doc: doc)
 }
-// Defines insert element for external script
+// Defines insert element for external groovy script
 private void contributeInsert(delegate) {
     def doc = '''<pre>
     insert (
@@ -1664,6 +1762,62 @@ private void contributeInsert(delegate) {
     delegate.method(name: 'insert', params: [value: String.name], doc: doc)
     delegate.method(name: 'insert', params: [config: Map.name], doc: doc)
     delegate.method(name: 'insert', params: [value: String.name, config: Map.name], doc: doc)
+}
+// Defines 'Java Request' element
+private void contributeJava_request(delegate) {
+    def doc = '''<pre>
+    java_request (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean (true)                           
+        classname: string                                 
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'java_request', params: [value: String.name], doc: doc)
+    delegate.method(name: 'java_request', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'java_request', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'java_request', params: [closure: {}], doc: doc)
+    delegate.method(name: 'java_request', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'java_request', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'java_request', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+
+    if(delegate.enclosingCall('java_request')) {
+        contributeJava_request_argument(delegate)
+        contributeJava_request_arguments(delegate)
+    }
+}
+// Defines single user variable in arguments
+private void contributeJava_request_argument(delegate) {
+    def doc = '''<pre>
+    argument (
+        name: string                                      
+        value: string                                     
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'argument', params: [value: String.name], doc: doc)
+    delegate.method(name: 'argument', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'argument', params: [value: String.name, config: Map.name], doc: doc)
+}
+// Defines user variables element inside a java_request listener
+private void contributeJava_request_arguments(delegate) {
+    def doc = '''<pre>
+    arguments (
+        values: map                                       
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'arguments', params: [value: String.name], doc: doc)
+    delegate.method(name: 'arguments', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'arguments', params: [closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'arguments', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
 // Defines 'JDBC Config' or 'JDBC Request' element
 private void contributeJdbc(delegate) {
@@ -1686,7 +1840,7 @@ private void contributeJdbc(delegate) {
     delegate.method(name: 'jdbc', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'jdbc', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('jdbc')) {
+    if(delegate.enclosingCall('jdbc')) {
         contributeJdbc_autocommit(delegate)
         contributeJdbc_callable(delegate)
         contributeJdbc_commit(delegate)
@@ -1748,7 +1902,7 @@ private void contributeJdbc_commit(delegate) {
     delegate.method(name: 'commit', params: [config: Map.name], doc: doc)
     delegate.method(name: 'commit', params: [value: String.name, config: Map.name], doc: doc)
 }
-// Defines 'JDBC Config' element
+// Defines 'JDBC Connection Configuration' element
 private void contributeJdbc_config(delegate) {
     def doc = '''<pre>
     jdbc_config (
@@ -2187,6 +2341,29 @@ private void contributeLoop(delegate) {
     delegate.method(name: 'loop', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'loop', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
+// Defines users group ('Open Model Thread Group') element
+private void contributeSchedule(delegate) {
+    def doc = '''<pre>
+    schedule (
+        name: string                                      
+        comments: string                                  
+        enabled: boolean (true)                           
+        inline: string                                    
+        file: string                                      
+        seed: integer                                     [0..9223372036854775807]
+        onError: string ('continue')                      [continue, start_next, stop_user, stop_test, stop_now]
+    ) {
+    }
+    </pre>'''
+
+    delegate.method(name: 'schedule', params: [value: String.name], doc: doc)
+    delegate.method(name: 'schedule', params: [config: Map.name], doc: doc)
+    delegate.method(name: 'schedule', params: [value: String.name, config: Map.name], doc: doc)
+    delegate.method(name: 'schedule', params: [closure: {}], doc: doc)
+    delegate.method(name: 'schedule', params: [config: Map.name, closure: {}], doc: doc)
+    delegate.method(name: 'schedule', params: [value: String.name, closure: {}], doc: doc)
+    delegate.method(name: 'schedule', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
+}
 // Defines 'Test Plan' element
 private void contributePlan(delegate) {
     def doc = '''<pre>
@@ -2210,7 +2387,7 @@ private void contributePlan(delegate) {
     delegate.method(name: 'plan', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'plan', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 
-    if (delegate.enclosingCall('plan')) {
+    if(delegate.enclosingCall('plan')) {
         contributePlan_argument(delegate)
         contributePlan_arguments(delegate)
     }
@@ -2350,7 +2527,7 @@ private void contributeSection(delegate) {
     delegate.method(name: 'section', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'section', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
-// Defines 'Loop' controller
+// Defines 'Simple' controller
 private void contributeSimple(delegate) {
     def doc = '''<pre>
     simple (
@@ -2484,7 +2661,7 @@ private void contributeTransaction(delegate) {
     delegate.method(name: 'transaction', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'transaction', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
-// Defines 'Uniform Timer' element
+// Defines 'Uniform Random Timer' element
 private void contributeUniform_timer(delegate) {
     def doc = '''<pre>
     uniform_timer (
@@ -2536,7 +2713,7 @@ private void contributeVariables(delegate) {
     delegate.method(name: 'variables', params: [value: String.name, closure: {}], doc: doc)
     delegate.method(name: 'variables', params: [value: String.name, config: Map.name, closure: {}], doc: doc)
 }
-// Defines 'View Result Tree' element
+// Defines 'View Results Tree' element
 private void contributeView(delegate) {
     def doc = '''<pre>
     view (

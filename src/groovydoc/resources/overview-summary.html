@@ -22,6 +22,7 @@
     <li><a href="net/simonix/dsl/jmeter/factory/group/PostGroupFactory.html">after</a> - defines tear down group ('TearDown Group') element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/group/PreGroupFactory.html">before</a> - defines setup group ('SetUp Group') element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/group/GroupFactory.html">group</a> - defines users group ('Thread Group') element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/group/OpenModelGroupFactory.html">schedule</a> - defines users group ('Open Model Thread Group') element</li>
 </ul>
 <h3>Controller elements</h3>
 <ul>
@@ -40,7 +41,7 @@
     <li><a href="net/simonix/dsl/jmeter/factory/controller/IncludeFactory.html">include</a> - defines 'Include' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/LoopFactory.html">loop</a> - defines 'Loop' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/CriticalSectionFactory.html">section</a> - defines 'Critical Section' controller</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/controller/SimpleFactory.html">simple</a> - defines 'Loop' controller</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/controller/SimpleFactory.html">simple</a> - defines 'Simple' controller</li>
     <li><a href="net/simonix/dsl/jmeter/factory/controller/TransactionFactory.html">transaction</a> - defines 'Transaction' controller</li>
 </ul>
 <h3>Sampler elements</h3>
@@ -83,6 +84,13 @@
             <li><a href="net/simonix/dsl/jmeter/factory/sampler/http/HttpTimeoutFactory.html">timeout</a> - defines 'HTTP Request' timeout configuration</li>
         </ul>
     </li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/sampler/java/JavaRequestFactory.html">java_request</a> - defines 'Java Request' element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/java/JavaRequestArgumentFactory.html">argument</a> - defines single user variable in arguments</li>
+            <li><a href="net/simonix/dsl/jmeter/factory/sampler/java/JavaRequestArgumentsFactory.html">arguments</a> - defines user variables element inside a java_request listener</li>
+        </ul>
+    </li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/jdbc/JdbcRequestFactory.html">jdbc_request</a> - defines 'JDBC Request' sampler</li>
     <li><a href="net/simonix/dsl/jmeter/factory/sampler/JSR223SamplerFactory.html">jsrsampler</a> - defines 'JSR223' sampler</li>
 </ul>
@@ -97,7 +105,7 @@
     <li><a href="net/simonix/dsl/jmeter/factory/timer/SynchronizingTimerFactory.html">synchronizing_timer</a> - defines 'Synchronizing Timer' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/timer/ThroughputFactory.html">throughput</a> - defines 'Throughput' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/timer/TimerFactory.html">timer</a> - defines 'Timer' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformTimerFactory.html">uniform_timer</a> - defines 'Uniform Timer' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/timer/UniformTimerFactory.html">uniform_timer</a> - defines 'Uniform Random Timer' element</li>
 </ul>
 <h3>Extractor elements</h3>
 <ul>
@@ -109,6 +117,7 @@
 </ul>
 <h3>Postprocessor elements</h3>
 <ul>
+    <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/DebugPostProcessorFactory.html">debug_postprocessor</a> - defines 'Debug PostProcessor' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/jdbc/JdbcPostprocessorFactory.html">jdbc_postprocessor</a> - defines 'JDBC PostProcessor' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/postprocessor/JSR223PostProcessorFactory.html">jsrpostprocessor</a> - defines 'JSR223 PostProcessor' element</li>
 </ul>
@@ -149,10 +158,14 @@
             <li><a href="net/simonix/dsl/jmeter/factory/config/http/DefaultsTimeoutFactory.html">timeout</a> - defines 'HTTP Request Defaults' timeout configuration</li>
         </ul>
     </li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/DnsFactory.html">dns</a> - defines 'DNS Cache Manager' element</li>
+    <li>
+        <a href="net/simonix/dsl/jmeter/factory/config/DnsFactory.html">dns</a> - defines 'DNS Cache Manager' element
+        <ul>
+            <li><a href="net/simonix/dsl/jmeter/factory/config/DnsHostFactory.html">host</a> - defines static table host</li>
+        </ul>
+    </li>
     <li><a href="net/simonix/dsl/jmeter/factory/config/HeaderFactory.html">header</a> - defines single header</li>
     <li><a href="net/simonix/dsl/jmeter/factory/config/HeadersFactory.html">headers</a> - defines 'HTTP Header Manager' config element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/DnsHostFactory.html">host</a> - defines static table host</li>
     <li>
         <a href="net/simonix/dsl/jmeter/factory/common/jdbc/JdbcFactory.html">jdbc</a> - defines 'JDBC Config' or 'JDBC Request' element
         <ul>
@@ -170,7 +183,7 @@
             <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcValidationFactory.html">validation</a> - defines 'JDBC Validation' element</li>
         </ul>
     </li>
-    <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcConfigFactory.html">jdbc_config</a> - defines 'JDBC Config' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/config/jdbc/JdbcConfigFactory.html">jdbc_config</a> - defines 'JDBC Connection Configuration' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/config/LoginFactory.html">login</a> - defines 'Login Config Element' config element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/config/RandomVariableFactory.html">random</a> - defines 'Random Variable' config element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/config/VariableFactory.html">variable</a> - defines single user variable</li>
@@ -188,7 +201,7 @@
     </li>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/JSR223ListenerFactory.html">jsrlistener</a> - defines 'JSR223 Listener' element</li>
     <li><a href="net/simonix/dsl/jmeter/factory/listener/SummaryListenerFactory.html">summary</a> - defines 'Summary Report' element</li>
-    <li><a href="net/simonix/dsl/jmeter/factory/listener/ViewListenerFactory.html">view</a> - defines 'View Result Tree' element</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/listener/ViewListenerFactory.html">view</a> - defines 'View Results Tree' element</li>
 </ul>
 <h3>Check elements</h3>
 <ul>
@@ -198,7 +211,7 @@
 </ul>
 <h3>Other elements</h3>
 <ul>
-    <li><a href="net/simonix/dsl/jmeter/factory/common/InsertFactory.html">insert</a> - defines insert element for external script</li>
+    <li><a href="net/simonix/dsl/jmeter/factory/common/InsertFactory.html">insert</a> - defines insert element for external groovy script</li>
 </ul>
 </body>
 </html>
