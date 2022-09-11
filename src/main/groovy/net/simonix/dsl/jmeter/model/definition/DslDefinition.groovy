@@ -514,13 +514,13 @@ final class DslDefinition {
         property(name: 'classname', type: String, required: true, defaultValue: '')
     }
 
-    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_') {
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_request_') {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
         leaf()
     }
 
-    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_') {
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_request_') {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
@@ -556,7 +556,7 @@ final class DslDefinition {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
-    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG, 'dns') {
+    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG, 'dns_') {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()
