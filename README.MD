@@ -26,7 +26,7 @@ Before start, you should have:
 
 - [Java 11+](https://openjdk.java.net/)
 - [Groovy 3.0.11](https://groovy.apache.org/download.html)
-- [Gradle 7.0.2](https://gradle.org/releases/)
+- [Gradle 7.0.2](https://gradle.org/releases/) (needed only for building from source)
 
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
 
