@@ -162,7 +162,15 @@ final class DslDefinition {
         leaf()
         valueIsProperty()
     }
-    
+
+    static final KeywordDefinition INCLUDE_RAW = keyword('include_raw', KeywordCategory.CONTROLLER) {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        leaf()
+        valueIsProperty()
+    }
+
     static final KeywordDefinition FOR_EACH = keyword('for_each', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'in', type: String, required: false, defaultValue: '')

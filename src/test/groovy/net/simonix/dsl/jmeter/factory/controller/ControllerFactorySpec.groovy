@@ -93,4 +93,85 @@ class ControllerFactorySpec extends TempFileSpec {
         then: 'both files matches'
         filesAreTheSame('controllers_1.jmx', resultFile)
     }
+
+    def "Check include raw generation"() {
+        given: 'Two tests plan one created standard way and other with include_raw element'
+        def config = configure {
+            plan {
+                backend {
+                    arguments {
+                        argument(name: 'influxdbMetricsSender', value: 'org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender')
+                        argument(name: 'influxdbUrl', value: 'http://localhost:8086/write?db=jmeter')
+                        argument(name: 'application', value: 'groovy')
+                        argument(name: 'measurement', value: 'jmeter')
+                        argument(name: 'summaryOnly', value: 'false')
+                        argument(name: 'samplersRegex', value: '.*')
+                        argument(name: 'percentiles', value: '90;95;99')
+                        argument(name: 'testTitle', value: 'Groovy')
+                        argument(name: 'eventTags', value: '')
+                    }
+                }
+            }
+        }
+
+        def configRaw = configure {
+            plan {
+                include_raw '''
+                <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+                    <elementProp name="arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="influxdbMetricsSender" elementType="Argument">
+                                <stringProp name="Argument.name">influxdbMetricsSender</stringProp>
+                                <stringProp name="Argument.value">org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender</stringProp>
+                            </elementProp>
+                            <elementProp name="influxdbUrl" elementType="Argument">
+                                <stringProp name="Argument.name">influxdbUrl</stringProp>
+                                <stringProp name="Argument.value">http://localhost:8086/write?db=jmeter</stringProp>
+                            </elementProp>
+                            <elementProp name="application" elementType="Argument">
+                                <stringProp name="Argument.name">application</stringProp>
+                                <stringProp name="Argument.value">groovy</stringProp>
+                            </elementProp>
+                            <elementProp name="measurement" elementType="Argument">
+                                <stringProp name="Argument.name">measurement</stringProp>
+                                <stringProp name="Argument.value">jmeter</stringProp>
+                            </elementProp>
+                            <elementProp name="summaryOnly" elementType="Argument">
+                                <stringProp name="Argument.name">summaryOnly</stringProp>
+                                <stringProp name="Argument.value">false</stringProp>
+                            </elementProp>
+                            <elementProp name="samplersRegex" elementType="Argument">
+                                <stringProp name="Argument.name">samplersRegex</stringProp>
+                                <stringProp name="Argument.value">.*</stringProp>
+                            </elementProp>
+                            <elementProp name="percentiles" elementType="Argument">
+                                <stringProp name="Argument.name">percentiles</stringProp>
+                                <stringProp name="Argument.value">90;95;99</stringProp>
+                            </elementProp>
+                            <elementProp name="testTitle" elementType="Argument">
+                                <stringProp name="Argument.name">testTitle</stringProp>
+                                <stringProp name="Argument.value">Groovy</stringProp>
+                            </elementProp>
+                            <elementProp name="eventTags" elementType="Argument">
+                                <stringProp name="Argument.name">eventTags</stringProp>
+                                <stringProp name="Argument.value"></stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
+                </BackendListener>
+                '''
+            }
+        }
+
+        File resultFile = tempFolder.newFile('controllers_2.1.jmx')
+        File resultFileRaw = tempFolder.newFile('controllers_2.2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+        save(configRaw, resultFileRaw)
+
+        then: 'check if both files are the same'
+        filesAreTheSame(resultFile, resultFileRaw)
+    }
 }
