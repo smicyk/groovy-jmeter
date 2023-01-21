@@ -39,4 +39,14 @@ class TempFileSpec extends Specification {
 
         assert !d.hasDifferences()
     }
+
+    void filesAreTheSame(File expected, File result) {
+        Diff d = DiffBuilder.compare(expected)
+                .withTest(Input.fromFile(result))
+                .ignoreComments()
+                .ignoreWhitespace()
+                .build()
+
+        assert !d.hasDifferences()
+    }
 }
