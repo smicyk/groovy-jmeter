@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package net.simonix.dsl.jmeter.statistics
 
+import groovy.transform.CompileDynamic
 import org.apache.jmeter.samplers.SampleResult
 import org.apache.jmeter.util.Calculator
 
@@ -23,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Gathers statistics during test execution. Works similar to {@link org.apache.jmeter.visualizers.SummaryReport} class but with storing data to file.
  */
+@CompileDynamic
 class Statistics implements StatisticsProvider {
 
     private static final String LABEL_TOTAL_ROW = '__total__'
@@ -42,18 +44,18 @@ class Statistics implements StatisticsProvider {
     }
 
     void addSample(SampleResult sample) {
-        Calculator row = rows.computeIfAbsent(sample.getSampleLabel(false), { label ->
-            return new Calculator(label)
-        })
+        String sampleLabel = sample.getSampleLabel(false)
 
-        synchronized (row) {
-            row.addSample(sample)
+        Calculator row = rows.get(sampleLabel)
+        if (row == null) {
+            row = rows.computeIfAbsent(sampleLabel, { label ->
+                return new Calculator(label)
+            })
         }
-
+        // Calculator is thread-safe
+        row.addSample(sample)
         Calculator total = rows.get(LABEL_TOTAL_ROW)
-        synchronized (total) {
-            total.addSample(sample)
-        }
+        total.addSample(sample)
     }
 
     Object getProperty(String name) {

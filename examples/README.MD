@@ -23,3 +23,13 @@ After you start monitoring, you can access it with [local link](http://localhost
 > Note, all examples has __run__ file which should be used to run the examples (or you can copy the content to command line and experiment with it)
 
 > It is necessary to run __build_local__ and __build_docker__ in the main folder before running all examples.
+
+> If you are missing groovy:3.0.17-jdk11 docker image you need to build it from source code:
+> ```bash
+> git clone https://github.com/groovy/docker-groovy.git
+> cd docker-groovy
+> chmod 775 update.sh
+> ./update.sh 3.0.17
+> cd jdk11
+> docker build -t groovy:3.0.17-jdk11 .
+> ```
