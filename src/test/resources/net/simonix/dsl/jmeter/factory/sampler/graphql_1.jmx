@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2022 Szymon Micyk
+ Copyright 2023 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,14 +16,12 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
@@ -44,11 +42,11 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+        <boolProp name="HTTPSampler.md5">false</boolProp>
         <stringProp name="HTTPSampler.proxyScheme">http</stringProp>
         <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
         <stringProp name="HTTPSampler.proxyPort">80</stringProp>
@@ -74,11 +72,11 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+        <boolProp name="HTTPSampler.md5">false</boolProp>
         <stringProp name="HTTPSampler.proxyScheme">http</stringProp>
         <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
         <stringProp name="HTTPSampler.proxyPort">80</stringProp>
@@ -104,16 +102,14 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+        <boolProp name="HTTPSampler.md5">false</boolProp>
         <stringProp name="HTTPSampler.proxyScheme">http</stringProp>
         <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
         <stringProp name="HTTPSampler.proxyPort">80</stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
         <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
         <stringProp name="GraphQLHTTPSampler.query"></stringProp>
         <stringProp name="GraphQLHTTPSampler.variables"></stringProp>
@@ -134,16 +130,13 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-        <stringProp name="HTTPSampler.proxyScheme"></stringProp>
+        <boolProp name="HTTPSampler.md5">false</boolProp>
         <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
         <stringProp name="HTTPSampler.proxyPort">80</stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
         <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
         <stringProp name="GraphQLHTTPSampler.query"></stringProp>
         <stringProp name="GraphQLHTTPSampler.variables"></stringProp>
@@ -164,16 +157,12 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">POST</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
-        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-        <stringProp name="HTTPSampler.proxyScheme"></stringProp>
+        <boolProp name="HTTPSampler.md5">false</boolProp>
         <stringProp name="HTTPSampler.proxyHost">my.proxy.com</stringProp>
-        <stringProp name="HTTPSampler.proxyPort"></stringProp>
-        <stringProp name="HTTPSampler.proxyUser"></stringProp>
-        <stringProp name="HTTPSampler.proxyPass"></stringProp>
         <stringProp name="GraphQLHTTPSampler.operationName"></stringProp>
         <stringProp name="GraphQLHTTPSampler.query"></stringProp>
         <stringProp name="GraphQLHTTPSampler.variables"></stringProp>

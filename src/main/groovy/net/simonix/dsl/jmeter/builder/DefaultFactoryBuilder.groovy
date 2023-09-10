@@ -24,6 +24,7 @@ import net.simonix.dsl.jmeter.factory.config.*
 import net.simonix.dsl.jmeter.factory.config.jdbc.JdbcConfigFactory
 import net.simonix.dsl.jmeter.factory.controller.*
 import net.simonix.dsl.jmeter.factory.controller.execution.*
+import net.simonix.dsl.jmeter.factory.controller.raw.IncludeRawFactory
 import net.simonix.dsl.jmeter.factory.extractor.CssSelectorExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JMESPathExtractorFactory
 import net.simonix.dsl.jmeter.factory.extractor.JsonPathExtractorFactory
@@ -111,6 +112,8 @@ class DefaultFactoryBuilder extends TestFactoryBuilder {
         addFactory(new TotalControllerFactory())
         addFactory(new RuntimeControllerFactory())
         addFactory(new SwitchControllerFactory())
+
+        addFactory(new IncludeRawFactory())
 
         // samplers
         addFactory(new HttpFactory())

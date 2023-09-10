@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2022 Szymon Micyk
+ Copyright 2023 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -17,14 +17,12 @@
 -->
 
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
@@ -89,11 +87,9 @@
               </elementProp>
               <elementProp name="SamplerData" elementType="Argument">
                 <stringProp name="Argument.name">SamplerData</stringProp>
-                <stringProp name="Argument.value"></stringProp>
               </elementProp>
               <elementProp name="ResultData" elementType="Argument">
                 <stringProp name="Argument.name">ResultData</stringProp>
-                <stringProp name="Argument.value"></stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>

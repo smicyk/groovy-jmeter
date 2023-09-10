@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,7 +162,15 @@ final class DslDefinition {
         leaf()
         valueIsProperty()
     }
-    
+
+    static final KeywordDefinition INCLUDE_RAW = keyword('include_raw', KeywordCategory.CONTROLLER) {
+        property(name: 'inline', type: String, required: false, defaultValue: '')
+        property(name: 'file', type: String, required: false, defaultValue: null)
+
+        leaf()
+        valueIsProperty()
+    }
+
     static final KeywordDefinition FOR_EACH = keyword('for_each', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
         property(name: 'in', type: String, required: false, defaultValue: '')
@@ -514,13 +522,13 @@ final class DslDefinition {
         property(name: 'classname', type: String, required: true, defaultValue: '')
     }
 
-    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_') {
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENT = keyword('argument', KeywordCategory.LISTENER, 'java_request_') {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'value', type: String, required: false, defaultValue: '')
         leaf()
     }
 
-    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_') {
+    static final KeywordDefinition JAVA_REQUEST_ARGUMENTS = keyword('arguments', KeywordCategory.LISTENER, 'java_request_') {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
@@ -556,7 +564,7 @@ final class DslDefinition {
         property(name: 'values', type: Map, required: false, defaultValue: [:])
     }
 
-    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG, 'dns') {
+    static final KeywordDefinition DNS_HOST = keyword('host', KeywordCategory.CONFIG, 'dns_') {
         property(name: 'name', type: String, required: false, defaultValue: '')
         property(name: 'address', type: String, required: false, defaultValue: '')
         leaf()
@@ -918,7 +926,7 @@ final class DslDefinition {
     static final KeywordDefinition JMES_EXTRACTOR = keyword('extract_jmes', KeywordCategory.EXTRACTOR) {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
-        property(name: 'defaultValue', type: String, required: false, defaultValue: null)
+        property(name: 'defaultValue', type: String, required: false, defaultValue: '')
         property(name: 'match', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'variable', type: String, required: true, defaultValue: '')
         property(name: 'expression', type: String, required: true, defaultValue: '')

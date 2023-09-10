@@ -12,7 +12,7 @@ It has following features:
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
 
- Current version uses [Apache JMeter 5.5](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
+ Current version uses [Apache JMeter 5.6](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
 
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  
@@ -25,14 +25,14 @@ It has following features:
 Before start, you should have:
 
 - [Java 11+](https://openjdk.java.net/)
-- [Groovy 3.0.11](https://groovy.apache.org/download.html)
-- [Gradle 7.0.2](https://gradle.org/releases/)
+- [Groovy 3.0.17](https://groovy.apache.org/download.html)
+- [Gradle 8.1.1](https://gradle.org/releases/) (needed only for building from source)
 
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
 
 ## How to start
 
-> Starting from version 0.11.0, all artificats are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you want the latest changes, go to [Building from source](#building-from-source).
+> Starting from version 0.11.0, all artifacts are available through [maven repository](https://mvnrepository.com/artifact/net.simonix.scripts/groovy-jmeter). If you want the latest changes, go to [Building from source](#building-from-source).
 
 ## First steps
 
@@ -73,10 +73,10 @@ If you want to start the same script inside a docker, execute commands below:
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.11-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.17-jdk11 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.11-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.17-jdk11 groovy yourscriptname.groovy
 ```
 
 Typical output on console should look like this:
@@ -329,10 +329,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.1.1-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:7.0.2-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.1.1-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## Conventions
