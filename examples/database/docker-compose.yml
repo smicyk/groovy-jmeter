@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
   testserver:
-    image: "groovy:3.0.11-jdk11"
+    image: "groovy:3.0.17-jdk11"
     container_name: testserver-db
     volumes:
       - .:/home/groovy

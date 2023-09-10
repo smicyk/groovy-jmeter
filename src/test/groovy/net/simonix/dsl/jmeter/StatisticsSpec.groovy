@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,9 +58,9 @@ class StatisticsSpec extends MockServerSpec {
         statistics.max < 100
         statistics.count == 200
         statistics.error == 0.5d
-        statistics.throughput < 1000
-        statistics.receivedBytes < 65000
-        statistics.sentBytes < 150000
+        statistics.throughput > 400
+        statistics.receivedBytes < 95000
+        statistics.sentBytes < 170000
         statistics.averagePageBytes < 500
         statistics.totalBytes < 15000
         // elapsed time (in milliseconds) only for all samples
@@ -73,9 +73,9 @@ class StatisticsSpec extends MockServerSpec {
         statistics.'GET /context/get'.max < 100
         statistics.'GET /context/get'.count == 100
         statistics.'GET /context/get'.error == 0.0d
-        statistics.'GET /context/get'.throughput < 1000
-        statistics.'GET /context/get'.receivedBytes < 30000
-        statistics.'GET /context/get'.sentBytes < 60000
+        statistics.'GET /context/get'.throughput > 200
+        statistics.'GET /context/get'.receivedBytes < 40000
+        statistics.'GET /context/get'.sentBytes < 80000
         statistics.'GET /context/get'.averagePageBytes < 500
         statistics.'GET /context/get'.totalBytes < 7500
 
@@ -85,9 +85,9 @@ class StatisticsSpec extends MockServerSpec {
         statistics.'SAMPLE'.max < 100
         statistics.'SAMPLE'.count == 100
         statistics.'SAMPLE'.error == 1.0d
-        statistics.'SAMPLE'.throughput < 1000
-        statistics.'SAMPLE'.receivedBytes < 40000
-        statistics.'SAMPLE'.sentBytes < 75000
+        statistics.'SAMPLE'.throughput > 200
+        statistics.'SAMPLE'.receivedBytes < 60000
+        statistics.'SAMPLE'.sentBytes < 85000
         statistics.'SAMPLE'.averagePageBytes < 500
         statistics.'SAMPLE'.totalBytes < 7500
 

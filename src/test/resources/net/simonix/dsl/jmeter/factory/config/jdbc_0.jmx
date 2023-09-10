@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
- Copyright 2022 Szymon Micyk
+ Copyright 2023 Szymon Micyk
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,14 +16,12 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
@@ -67,10 +65,8 @@ SET CHARACTERSET = UTF8</stringProp>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
           <stringProp name="dataSource">myDataSource</stringProp>
           <stringProp name="queryType">Prepared Update Statement</stringProp>
-          <stringProp name="queryTimeout"></stringProp>
           <stringProp name="resultVariable">var_result</stringProp>
           <stringProp name="resultSetHandler">Store as String</stringProp>
-          <stringProp name="resultSetMaxRows"></stringProp>
           <stringProp name="query">
 UPDATE employee SET salary = ? WHERE id = ?
 </stringProp>
@@ -82,10 +78,8 @@ UPDATE employee SET salary = ? WHERE id = ?
           <JDBCPreProcessor guiclass="TestBeanGUI" testclass="JDBCPreProcessor" testname="JDBC PreProcessor" enabled="true">
             <stringProp name="dataSource">myDataSource</stringProp>
             <stringProp name="queryType">Prepared Update Statement</stringProp>
-            <stringProp name="queryTimeout"></stringProp>
             <stringProp name="resultVariable"></stringProp>
             <stringProp name="resultSetHandler">Store as String</stringProp>
-            <stringProp name="resultSetMaxRows"></stringProp>
             <stringProp name="query">
 INSERT INTO employee (id, name, salary, department) VALUES(?, ?, ?, ?)
 </stringProp>

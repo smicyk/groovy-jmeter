@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -926,7 +926,7 @@ final class DslDefinition {
     static final KeywordDefinition JMES_EXTRACTOR = keyword('extract_jmes', KeywordCategory.EXTRACTOR) {
         include(COMMON_PROPERTIES)
         property(name: 'applyTo', type: String, required: false, defaultValue: 'parent', constraints: inList(['parent', 'all', 'children', 'variable']))
-        property(name: 'defaultValue', type: String, required: false, defaultValue: null)
+        property(name: 'defaultValue', type: String, required: false, defaultValue: '')
         property(name: 'match', type: Integer, required: false, defaultValue: 1, constraints: range(1))
         property(name: 'variable', type: String, required: true, defaultValue: '')
         property(name: 'expression', type: String, required: true, defaultValue: '')

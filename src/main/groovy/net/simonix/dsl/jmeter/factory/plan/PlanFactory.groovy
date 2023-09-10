@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,10 +66,9 @@ final class PlanFactory extends TestElementNodeFactory {
     }
 
     void updateTestElementProperties(TestElement testElement, Object name, Object value, Map config) {
-        testElement.serialized = config.serialized
         testElement.functionalMode = config.functionalMode
         testElement.tearDownOnShutdown = config.tearDownOnShutdown
-        testElement.testPlanClasspath = config.classpath
+        testElement.serialized = config.serialized
 
         Arguments arguments = new Arguments()
         arguments.enabled = true
@@ -77,5 +76,7 @@ final class PlanFactory extends TestElementNodeFactory {
         arguments.setProperty(TestElement.GUI_CLASS, ArgumentsPanel.name)
 
         testElement.userDefinedVariables = arguments
+
+        testElement.testPlanClasspath = config.classpath
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2023 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,8 +85,8 @@ final class GroupFactory extends TestElementNodeFactory {
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
-        defaultLoopController.loops = config.loops
         defaultLoopController.continueForever = config.forever
+        defaultLoopController.loops = config.loops
         defaultLoopController.setEnabled(true)
         defaultLoopController.setProperty(TestElement.TEST_CLASS, LoopController.name)
         defaultLoopController.setProperty(TestElement.GUI_CLASS, LoopControlPanel.name)
