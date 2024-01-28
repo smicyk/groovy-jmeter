@@ -154,6 +154,7 @@ class ControllerFactorySpec extends TempFileSpec {
                             </elementProp>
                             <elementProp name="eventTags" elementType="Argument">
                                 <stringProp name="Argument.name">eventTags</stringProp>
+                                <stringProp name="Argument.value"></stringProp>
                             </elementProp>
                         </collectionProp>
                     </elementProp>

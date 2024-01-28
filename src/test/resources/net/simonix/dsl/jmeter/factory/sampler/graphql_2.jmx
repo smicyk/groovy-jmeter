@@ -16,15 +16,17 @@
  limitations under the License.
 -->
 
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
       <HTTPSamplerProxy guiclass="GraphQLHTTPSamplerGui" testclass="HTTPSamplerProxy" testname="GET /graphql" enabled="true">
@@ -33,6 +35,7 @@
             <elementProp name="query" elementType="HTTPArgument" enabled="true">
               <boolProp name="HTTPArgument.always_encode">true</boolProp>
               <stringProp name="Argument.name">query</stringProp>
+              <stringProp name="Argument.value"></stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <boolProp name="HTTPArgument.use_equals">true</boolProp>
             </elementProp>
@@ -42,6 +45,7 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -60,6 +64,7 @@
             <elementProp name="query" elementType="HTTPArgument" enabled="true">
               <boolProp name="HTTPArgument.always_encode">true</boolProp>
               <stringProp name="Argument.name">query</stringProp>
+              <stringProp name="Argument.value"></stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <boolProp name="HTTPArgument.use_equals">true</boolProp>
             </elementProp>
@@ -69,6 +74,7 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -87,6 +93,7 @@
             <elementProp name="query" elementType="HTTPArgument" enabled="true">
               <boolProp name="HTTPArgument.always_encode">true</boolProp>
               <stringProp name="Argument.name">query</stringProp>
+              <stringProp name="Argument.value"></stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <boolProp name="HTTPArgument.use_equals">true</boolProp>
             </elementProp>
@@ -96,6 +103,7 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -114,6 +122,7 @@
             <elementProp name="query" elementType="HTTPArgument" enabled="true">
               <boolProp name="HTTPArgument.always_encode">true</boolProp>
               <stringProp name="Argument.name">query</stringProp>
+              <stringProp name="Argument.value"></stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <boolProp name="HTTPArgument.use_equals">true</boolProp>
             </elementProp>
@@ -123,6 +132,7 @@
         <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
         <stringProp name="HTTPSampler.method">GET</stringProp>
         <stringProp name="HTTPSampler.path">/graphql</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
         <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
         <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>

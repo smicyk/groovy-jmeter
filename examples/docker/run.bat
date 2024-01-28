@@ -7,4 +7,4 @@ docker network inspect network-books > NUL || docker network create --driver bri
 set DIRNAME=%~dp0
 if "%DIRNAME%" == "" set DIRNAME=.
 
-docker run --rm -u groovy -v %DIRNAME%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" --network network-books groovy:3.0.17-jdk11 groovy script.groovy -Vhost_ip=mockserver-books -Vinflux_ip=influxdb-books
+docker run --rm -u groovy -v %DIRNAME%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" --network network-books groovy:3.0.20-jdk11 groovy script.groovy -Vhost_ip=mockserver-books -Vinflux_ip=influxdb-books

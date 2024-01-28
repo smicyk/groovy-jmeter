@@ -12,7 +12,7 @@ It has following features:
  - support of JMeter listeners (includes a listener with backed systems like influxdb)
  - add modularization of the script with *insert* keyword (can insert part of the other test script)
 
- Current version uses [Apache JMeter 5.6](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
+ Current version uses [Apache JMeter 5.6.3](https://archive.apache.org/dist/jmeter/binaries/) as runtime engine.
 
  > Note, that you don't have to download any components of JMeter to run the scripts, all necessary components are initialized at startup.
  
@@ -25,8 +25,8 @@ It has following features:
 Before start, you should have:
 
 - [Java 11+](https://openjdk.java.net/)
-- [Groovy 3.0.17](https://groovy.apache.org/download.html)
-- [Gradle 8.1.1](https://gradle.org/releases/) (needed only for building from source)
+- [Groovy 3.0.20](https://groovy.apache.org/download.html)
+- [Gradle 8.5](https://gradle.org/releases/) (needed only for building from source)
 
 Or you can use the [Docker](https://www.docker.com/) approach (check the section below):
 
@@ -73,10 +73,10 @@ If you want to start the same script inside a docker, execute commands below:
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.17-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v "$(pwd)":"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.20-jdk11 groovy yourscriptname.groovy
 
 # in Windows
-docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.17-jdk11 groovy yourscriptname.groovy
+docker run --rm -u groovy -v %CD%:"/home/groovy" -v "grapes-cache":"/home/groovy/.groovy/grapes" groovy:3.0.20-jdk11 groovy yourscriptname.groovy
 ```
 
 Typical output on console should look like this:
@@ -329,10 +329,10 @@ git clone https://github.com/smicyk/groovy-jmeter.git
 docker volume create --name grapes-cache
 
 # in Linux
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.1.1-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "$(pwd)":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.5-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 
 # in Windows
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.1.1-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v "%CD%":"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.5-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishIvyPublicationToIvyRepository
 ```
 
 ## Conventions
@@ -408,12 +408,20 @@ There are several things to keep in mind while writing the scripts; most of the 
 * using different quotes around string, please refer to [Groovy docs](https://groovy-lang.org/syntax.html#all-strings}) about string and quotes and check example below:
 
 ```groovy
-
+// test_1.groovy
 start {
     // using single quotes (for Java plain String)
-    plan (name: 'Test name')
+    plan(name: 'Test name')
+}
+
+// test_2.groovy
+start {
     // using single quotes is recommended in most situation (should be used when you want use JMeter variable substitution in the script)
-    plan (name: '${var_variable}')
+    plan(name: '${var_variable}')
+}
+
+// test_3.groovy
+start {
     // using double quotes (for GString, interpolation available during test build but not execution by JMeter engine)
     plan (name: "${var_param}")
 }
@@ -422,19 +430,32 @@ start {
 * there are several ways to use keywords, check the example below:
 
 ```groovy
+// test_1.groovy
 start {
     // keyword without properties, after keyword you can open closure without any properties or parenthesis
     plan {
 
     }
+}
+
+// test_2.groovy
+start {
     // keyword with properties, the properties of the keyword can have properties defined as key/value pair 
-    plan (name: 'test', comments: 'new test plan') {
+    plan(name: 'test', comments: 'new test plan') {
 
     }
+}
+
+// test_3.groovy
+start {
     // keyword with properties but without parenthesis, please note that after all properties you must put comma
     plan name: 'test', comments: 'new test plan', {
 
     }
+}
+
+// test_4.groovy
+start {
     // keyword without properties and child test elements, note that the parenthesis must be used
     plan()
 }
@@ -446,11 +467,20 @@ There are many places where we can use shortcuts to define the same thing:
 
 * the first argument for the keyword can be simple value. In most cases it is treated as a name for test element:
 ```groovy
+// test_1.groovy
 start {
     // long version
     plan name: 'Test plan111'
+}
+
+// test_2.groovy
+start {
     // short version
     plan 'Test plan222'
+}
+
+// test_3.groovy
+start {
     // short version with properties
     plan 'Test plan', enabled: true
 }
@@ -499,21 +529,30 @@ start {
 ```
 * simplified array like structures for samplers and config elements
 ```groovy
+// test_1.groovy
 start {
     // long version to define user variables inside test plan
     plan {
         arguments {
-            argument (name: 'var_variable', value: 'value')
-            argument (name: 'var_other_variable', value: 'other_value')
+            argument(name: 'var_variable', value: 'value')
+            argument(name: 'var_other_variable', value: 'other_value')
         }
     }
+}
+
+// test_2.groovy
+start {
     // short version to define user variables inside test plan
     plan {
         arguments values: [
-                var_variable: 'value',
+                var_variable      : 'value',
                 var_other_veriable: 'other_value'
         ]
     }
+}
+
+// test_3.groovy
+start {
     // there are others test elements which has simplified behaviour e.g. params, variables, headers
     plan {
         group {
