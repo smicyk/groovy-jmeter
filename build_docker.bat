@@ -24,4 +24,4 @@ docker run --rm --name grapes-container -v "grapes-cache":"/home/gradle/.groovy/
 set DIRNAME=%~dp0
 if "%DIRNAME%" == "" set DIRNAME=.
 
-docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v %DIRNAME%:"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.1.1-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishMavenPublicationToMavenLocal
+docker run --rm -u gradle -w "/home/gradle/groovy-jmeter" -v %DIRNAME%:"/home/gradle/groovy-jmeter" -v "grapes-cache":"/home/gradle/.groovy/grapes" gradle:8.5-jdk11 gradle -Dorg.gradle.project.buildDir=/tmp/gradle-build clean build publishMavenPublicationToMavenLocal

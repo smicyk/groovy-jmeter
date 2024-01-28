@@ -11,7 +11,7 @@ networks:
 
 services:
   worker1:
-    image: "groovy:3.0.17-jdk11"
+    image: "groovy:3.0.20-jdk11"
     container_name: worker1-server
     volumes:
       - .:/home/groovy
@@ -19,7 +19,7 @@ services:
     command: ["groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker1-server"]
 
   worker2:
-    image: "groovy:3.0.17-jdk11"
+    image: "groovy:3.0.20-jdk11"
     container_name: worker2-server
     volumes:
       - .:/home/groovy
@@ -27,7 +27,7 @@ services:
     command: [ "groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker2-server" ]
 
   worker3:
-    image: "groovy:3.0.17-jdk11"
+    image: "groovy:3.0.20-jdk11"
     container_name: worker3-server
     volumes:
       - .:/home/groovy
@@ -35,7 +35,7 @@ services:
     command: [ "groovy", "script.groovy", "-w", "--worker-port", "1099", "--worker-hostname", "worker3-server" ]
 
   controller:
-    image: "groovy:3.0.17-jdk11"
+    image: "groovy:3.0.20-jdk11"
     container_name: controller-server
     volumes:
       - .:/home/groovy

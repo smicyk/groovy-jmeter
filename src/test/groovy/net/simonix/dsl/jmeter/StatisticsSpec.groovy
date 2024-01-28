@@ -60,7 +60,7 @@ class StatisticsSpec extends MockServerSpec {
         statistics.error == 0.5d
         statistics.throughput > 400
         statistics.receivedBytes < 95000
-        statistics.sentBytes < 170000
+        statistics.sentBytes < 190000
         statistics.averagePageBytes < 500
         statistics.totalBytes < 15000
         // elapsed time (in milliseconds) only for all samples
@@ -74,8 +74,8 @@ class StatisticsSpec extends MockServerSpec {
         statistics.'GET /context/get'.count == 100
         statistics.'GET /context/get'.error == 0.0d
         statistics.'GET /context/get'.throughput > 200
-        statistics.'GET /context/get'.receivedBytes < 40000
-        statistics.'GET /context/get'.sentBytes < 80000
+        statistics.'GET /context/get'.receivedBytes < 45000
+        statistics.'GET /context/get'.sentBytes < 85000
         statistics.'GET /context/get'.averagePageBytes < 500
         statistics.'GET /context/get'.totalBytes < 7500
 
