@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Szymon Micyk
+ * Copyright 2024 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -173,5 +173,42 @@ class ControllerFactorySpec extends TempFileSpec {
 
         then: 'check if both files are the same'
         filesAreTheSame(resultFile, resultFileRaw)
+    }
+
+    def "Check loop controllers generation with infinite"() {
+        given: 'Test plan with controllers element'
+        def config = configure {
+            plan {
+                group {
+                    loop count: 1, {
+                        // default behaviour
+                    }
+
+                    loop forever: true, {
+                        // count set to -1
+                    }
+
+                    loop count: 2, forever: true, {
+                        // count set to -1, forever overrides
+                    }
+
+                    loop count: 2, forever: false, {
+                        // count set to 2, forever not used
+                    }
+
+                    loop count: 0, {
+                        // count 0, no execution
+                    }
+                }
+            }
+        }
+
+        File resultFile = tempFolder.newFile('controllers_2.jmx')
+
+        when: 'save test to file'
+        save(config, resultFile)
+
+        then: 'both files matches'
+        filesAreTheSame('controllers_2.jmx', resultFile)
     }
 }
