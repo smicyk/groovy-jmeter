@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Szymon Micyk
+ * Copyright 2024 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,9 @@ import org.apache.jmeter.threads.ThreadGroup
 import org.apache.jmeter.threads.gui.ThreadGroupGui
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
+
+import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
+import static net.simonix.dsl.jmeter.utils.LoopControllerUtils.updateLoopConfig
 
 /**
  * The factory class responsible for building <code>group</code> element in the test.
@@ -85,8 +88,8 @@ final class GroupFactory extends TestElementNodeFactory {
 
         // set default controller as loop (that seems to be jmeter defaults)
         LoopController defaultLoopController = new LoopController()
-        defaultLoopController.continueForever = config.forever
-        defaultLoopController.loops = config.loops
+        updateLoopConfig(defaultLoopController, config.loops, hasValue(config.forever), config.forever)
+
         defaultLoopController.setEnabled(true)
         defaultLoopController.setProperty(TestElement.TEST_CLASS, LoopController.name)
         defaultLoopController.setProperty(TestElement.GUI_CLASS, LoopControlPanel.name)

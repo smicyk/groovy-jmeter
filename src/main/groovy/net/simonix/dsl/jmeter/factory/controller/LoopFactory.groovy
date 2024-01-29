@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Szymon Micyk
+ * Copyright 2024 Szymon Micyk
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import org.apache.jmeter.testelement.TestElement
 
 import net.simonix.dsl.jmeter.factory.TestElementNodeFactory
 
-import static net.simonix.dsl.jmeter.utils.ConfigUtils.readValue
 import static net.simonix.dsl.jmeter.utils.ConfigUtils.hasValue
+import static net.simonix.dsl.jmeter.utils.LoopControllerUtils.updateLoopConfig
 
 /**
  * The factory class responsible for building <code>loop</code> element in the test.
@@ -56,19 +56,6 @@ final class LoopFactory extends TestElementNodeFactory {
             count = value
         }
 
-        if (hasValue(config.forever)) {
-            testElement.continueForever = config.forever
-        } else {
-            testElement.continueForever = false
-        }
-
-        // if forever is set to true, we should set count to negative value
-        if (testElement.continueForever) {
-            testElement.loops = -1
-        } else {
-            // if it is missing or false we should set it to true but keep the value of count, otherwise it is not consistent with jmeter behaviour
-            testElement.loops = count
-            testElement.continueForever = true
-        }
+        updateLoopConfig(testElement, count, hasValue(config.forever), config.forever)
     }
 }
