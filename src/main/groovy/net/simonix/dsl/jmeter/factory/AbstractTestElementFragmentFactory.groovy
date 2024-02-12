@@ -57,8 +57,21 @@ abstract class AbstractTestElementFragmentFactory extends AbstractFactory implem
         URL url = this.class.classLoader.getResource(file)
 
         // pass the current builder to script evaluation so we have same validation rule applied and automatically add children to current parent element
+        if (config.variables) {
+            config.variables.each { String variableName, Object variableValue ->
+                builder.setVariable(variableName, variableValue)
+            }
+        }
+
         groovyShell.context.setProperty("builder", builder)
         Object instance = groovyShell.evaluate(url.toURI())
+
+        // remove to keep scope of variables
+        if (config.variables) {
+            config.variables.each { String variableName, Object variableValue ->
+                builder.removeVariable(variableName)
+            }
+        }
 
         // clear groovyShell context
         groovyShell.context.setProperty("builder", null)

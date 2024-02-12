@@ -535,6 +535,7 @@ final class DslDefinition {
     // common
     static final KeywordDefinition INSERT = keyword('insert', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: false, defaultValue: null)
+        property(name: 'variables', type: Map, required: false, defaultValue: [:])
         leaf()
         valueIsProperty()
     }
