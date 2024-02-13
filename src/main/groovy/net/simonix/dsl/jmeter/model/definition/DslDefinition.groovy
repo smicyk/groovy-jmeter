@@ -95,7 +95,7 @@ final class DslDefinition {
         property(name: 'scheduler', type: Boolean, required: false, defaultValue: false)
         property(name: 'delay', type: Integer, required: false, defaultValue: 0, constraints: range(0))
         property(name: 'duration', type: Integer, required: false, defaultValue: 0, constraints: range(0))
-        property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'loops', type: Integer, required: false, defaultValue: 1, constraints: range(-1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
         property(name: 'onError', type: String, required: false, defaultValue: 'continue', constraints: inList(['continue', 'start_next', 'stop_user', 'stop_test', 'stop_now']))
     }
@@ -137,7 +137,7 @@ final class DslDefinition {
     // controllers
     static final KeywordDefinition LOOP = keyword('loop', KeywordCategory.CONTROLLER) {
         include(COMMON_PROPERTIES)
-        property(name: 'count', type: Integer, required: false, defaultValue: 1, constraints: range(1))
+        property(name: 'count', type: Integer, required: false, defaultValue: 1, constraints: range(-1))
         property(name: 'forever', type: Boolean, required: false, defaultValue: false)
     }
     
@@ -535,6 +535,7 @@ final class DslDefinition {
     // common
     static final KeywordDefinition INSERT = keyword('insert', KeywordCategory.OTHER) {
         property(name: 'file', type: String, required: false, defaultValue: null)
+        property(name: 'variables', type: Map, required: false, defaultValue: [:])
         leaf()
         valueIsProperty()
     }

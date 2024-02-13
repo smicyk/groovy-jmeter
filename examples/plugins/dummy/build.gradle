@@ -24,7 +24,7 @@ java {
 }
 
 dependencies {
-    implementation('org.codehaus.groovy:groovy-all:3.0.17')
+    implementation('org.codehaus.groovy:groovy-all:3.0.20')
 
     // we include plugin but exclude all jmeter dependencies, they have old version of the plugin
     implementation('kg.apc:jmeter-plugins-dummy:0.4') {

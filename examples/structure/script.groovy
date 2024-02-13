@@ -37,6 +37,8 @@ start {
             insert 'fragments/loop.groovy'
         }
 
+        insert 'fragments/group.groovy', variables: ["var_inner_users": 10, "var_inner_loops": 10]
+
         summary(file: 'script.jtl', enabled: true)
 
         // insert common configuration for backed listener
