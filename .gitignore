@@ -8,6 +8,7 @@ out/
 .project
 .vscode
 .groovy
+./publish.sh
 *.jtl
 *.iml
 *.ipr
